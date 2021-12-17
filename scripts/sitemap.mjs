@@ -9,6 +9,7 @@ async function generate() {
         'pages/*.tsx',
         'posts/**/*.mdx',
         '!pages/_*.tsx',
+        '!pages/_*.js',
     ]);
 
     const sitemap = `
