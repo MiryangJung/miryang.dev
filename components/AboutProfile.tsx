@@ -30,7 +30,7 @@ const AboutProfile = () => {
         <br />
         <ProfileTextSub>
           Denmark, Turkey, Finland, Sweden, Norway, Italy, United Kingdom, Czechia, Hungary,
-          Austria, Switzerland, France, Japan, Philippines
+          Austria, Switzerland, France, Japan, Philippines, Taiwan
         </ProfileTextSub>
         <br />
         <br />
