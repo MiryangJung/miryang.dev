@@ -1,5 +1,5 @@
 const metadata = {
-  repo: 'https://github.com/MiryangJung/MiryangBlog',
+  repo: 'https://github.com/MiryangJung/miryang.dev',
   author: 'MiryangJung',
   home: {
     name: 'Miryang Jung',
