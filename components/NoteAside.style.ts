@@ -31,7 +31,7 @@ export const NoteAsideContainer = styled.div`
   ${dynamicVisible}
 `
 
-export const NoteAsideText = styled.span`
+export const NoteAsideText = styled.a`
   color: var(--tx-sub-dark);
   transition: 0.3s;
   cursor: pointer;
@@ -43,7 +43,7 @@ export const NoteAsideText = styled.span`
   }
 `
 
-export const NoteAsideChildText = styled.span`
+export const NoteAsideChildText = styled.a`
   color: var(--tx-sub-dark);
   transition: 0.3s;
   cursor: pointer;

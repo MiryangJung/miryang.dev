@@ -22,14 +22,16 @@ const NoteAside = ({ tree }: { tree: TreeRoot }) => {
       <NoteAsideContainer visible={isMenuOpen}>
         {tree.map(t => (
           <React.Fragment key={t.title}>
-            <Link href={t.urlPath}>
-              <NoteAsideText>{t.title}</NoteAsideText>
+            <Link href={t.urlPath} passHref>
+              <NoteAsideText onClick={() => setIsMenuOpen(false)}>{t.title}</NoteAsideText>
             </Link>
             {t.children && t.children.length > 0 && (
               <>
                 {t.children.map(c => (
                   <Link key={c.title} href={c.urlPath}>
-                    <NoteAsideChildText>{c.title}</NoteAsideChildText>
+                    <NoteAsideChildText onClick={() => setIsMenuOpen(false)}>
+                      {c.title}
+                    </NoteAsideChildText>
                   </Link>
                 ))}
               </>
