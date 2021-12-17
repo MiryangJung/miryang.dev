@@ -1,0 +1,14 @@
+---
+title: start Chrome with golang
+date: 2021-05-01
+---
+
+
+## Run chrome with golang
+
+```go
+	err := exec.Command("cmd", "/C", "start", "chrome.exe", "https://google.com").Run()
+	if err != nil {
+		log.Println(err)
+	} 
+```

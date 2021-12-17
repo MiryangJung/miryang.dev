@@ -1,0 +1,741 @@
+---
+title: Note.nomadcoders-go-for-beginners
+date: 2021-05-01
+---
+
+> [노마드코더 - 쉽고 빠른 Go 시작하기](https://nomadcoders.co/go-for-beginners)
+
+## Go 설치하기
+
+1. [Golang.org](https://golang.org/) 접속
+2. Download Go 에서 OS에 맞는 설치파일 실행
+
+__Go PATH__ 디렉토리에서만 GO 프로젝트 생성 및 실행 가능
+
+- 윈도우 : C:\go
+- 맥 : /(local)user/go
+
+
+## Packages and Imports
+
+- 패키지명이 `main` 인 경우 실행 프로그램으로 인식 및 Entry Point
+- 패키지를 불러올 때 `import`
+
+- `export` 할 함수명의 첫글자는 `대문자`
+
+```go
+func sayA(){ // export 불가능
+    fmt.Println("A")
+}
+func SayB(){ //export 가능
+    fmt.Println("B")
+}
+```
+
+
+## Variables and Constants
+
+- 선언할 때 `type` 지정 필요
+
+- __상수(Constant)__ : 값 변경 x
+
+```go
+const name string = "golang"
+```
+
+- __변수(Variables)__ : 값 변경 o
+    - 축약형(타입 추론) 선언 가능 `:=`
+        - func 안에서만 선언 가능
+
+```go
+const name string = "golang"
+name = "go"
+
+age := 25
+```
+
+
+## Functions
+
+- 파라미터와 반환값의 `type` 명시 필요
+
+```go
+func multiply(a, b int) int {
+    return a * b
+}
+```
+
+- 여러 개의 `반환값` 을 가질 수 있음
+
+```go
+totalLen, upperName := lenAndUpper("go")
+fmt.Println(totalLen, upperName)   // OUTPUT : 2 GO
+fmt.Println(lenAndUpper("golang")) // OUTPUT : 6 GOLANG
+
+totalLen, _ := lenAndUpper("go") // 반환값 무시
+```
+
+- 가변인자함수 Variadic Function
+    - 3개의 마침표 사용 `...`
+    - 가변 파라미터 전달 가능
+    
+```go
+func print(name ...string) {
+	fmt.Println(name)
+}
+
+func main() {
+	print("a", "b", "c", "d", "e")
+	// OUTPUT : [a b c d e]
+}
+```    
+
+
+- `Named Return Parameter` 들에 리턴값들을 할당하여 리턴
+
+```go
+func sum(nums ...int) (count int, total int) {
+	for _, n := range nums {
+		total += n
+	}
+	count = len(nums)
+	return
+}
+
+func main() {
+	fmt.Println(sum(1, 2, 3)) //OUTPUT : 3 6
+}
+```
+
+- `defer`
+    - 함수가 끝나고 나서 실행
+    
+```go
+func sum(nums ...int) {
+	defer fmt.Println("I'm done!")
+	total := 0
+	for _, n := range nums {
+		total += n
+	}
+	count := len(nums)
+	fmt.Println(count, total)
+}
+func main() {
+	sum(1, 2, 3)
+}
+
+//OUTPUT
+3 6
+I'm done!
+```
+
+## IF
+
+- if 조건식
+
+```go
+if a>10 {}
+```
+
+- 조건식에 `변수 선언` 가능
+
+```go
+func canIDrink(age int) bool {
+	if kage := age + 2; kage < 18 {
+		return false
+	}
+	return true
+}
+func main() {
+	fmt.Println(canIDrink(18)) //OUTPUT : true
+}
+```
+
+
+## SWITCH
+
+- case에 조건문 가능
+
+```go
+func canIDrink(age int) bool {
+	switch {
+	case age < 18:
+		return false
+	case age >= 19:
+		return true
+	}
+	return false
+}
+
+func main() {
+	fmt.Println(canIDrink(18)) //OUTPUT : false
+}
+```
+
+
+## Pointer
+
+- 주소 `&`
+- 포인터 `*`
+
+```go
+func main() {
+	a := 2
+	b := a
+	a += 1
+	fmt.Println(a, b) //OUTPUT : 3 2
+
+	aa := 3
+	bb := &aa
+	aa += 2
+	fmt.Println(aa, *bb) //OUTPUT : 5 5
+	
+	*bb += 2
+	fmt.Println(aa, *bb) //OUTPUT : 7 7
+}
+```
+
+
+## Array
+
+- 길이를 정해야함
+
+```go
+func main() {
+	names := [5]string{"a", "b", "c"}
+	fmt.Println(names) // OUTPUT : [a b c  ]
+	names[3] = "d" // OUTPUT : [a b c d ]
+	fmt.Println(names)
+}
+```
+
+
+## Slice
+
+- 길이 가변적
+- 요소를 추가할 때는 `append`
+
+```go
+func main() {
+	names := []string{"a", "b", "c"}
+	fmt.Println(names) // OUTPUT : [a b c]
+	names = append(names, "d")
+	fmt.Println(names) // OUTPUT : [a b c d]
+}
+```
+
+
+## Maps
+
+- key:value 형태
+- type이 고정
+
+```go
+func main() {
+	me := map[string]string{"name": "a", "age": "25"}
+	fmt.Println(me) //OUTPUT : map[age:25 name:a]
+
+	for key, val := range me {
+		fmt.Print(key, val) // OUTPUT : nameaage25
+	}
+}
+```
+
+
+## Struct
+
+- 구조체
+
+```go
+type person struct {
+	name    string
+	age     int
+	favFood []string
+}
+
+func main() {
+	meFood := []string{"candy", "jelly"}
+	me := person{"a", 25, meFood}
+	fmt.Println(me) //OUTPUT : {a 25 [candy jelly]}
+
+	you := person{name: "b", age: 20, favFood: meFood}
+	fmt.Println(you) //OUTPUT : {b 20 [candy jelly]}
+}
+```
+
+
+## private & public
+
+- 앞문자가 `소문자` 일 경우 `private`
+
+__banking.go__
+
+```go
+type Account struct{
+	owner string
+	balance int
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	account := banking.Account{owner: "a", balance: 1000} // Error!
+}
+```
+
+- 앞문자가 `대문자` 일 경우 `public`
+
+__banking.go__
+
+```go
+type Account struct{
+	Owner string
+	Balance int
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	account := banking.Account{Owner: "a", Balance: 1000}
+	fmt.Println(account) //OUTPUT : {a 1000}
+}
+```
+
+
+
+## construct
+
+- 생성자는 없으나 생성자처럼 초기화 함수를 만들 수 있음
+
+__accounts.go__
+
+```go
+package accounts
+
+// Account struct
+type Account struct {
+	owner   string
+	balance int
+}
+
+// NewAccount creates Account
+func NewAccount(owner string) *Account {
+	account := Account{owner: owner, balance: 0}
+	return &account
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	account := accounts.NewAccount("a")
+	fmt.Println(account) //OUTPUT : &{a 0}
+}
+```
+
+
+## Methods
+
+- `func (매개변수이름 구조체이름) 메소드이름() 반환형 {`
+- `매개변수이름` 은 `receiver` 라고 한다.
+
+__accounts.go__
+
+```go
+// NewAccount creates Account
+func NewAccount(owner string) *Account {
+	account := Account{owner: owner, balance: 0}
+	return &account
+}
+
+// Deposit x amount on your account
+func (a *Account) Deposit(amount int) {
+	a.balance += amount
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	account := accounts.NewAccount("a")
+	fmt.Println(account) //OUTPUT : &{a 0}
+
+	account.Deposit(10)
+	fmt.Println(account) //OUTPUT : &{a 10}
+}
+```
+
+- `포인터 리시버` 를 사용해야 실제 오브젝트에 반영
+
+__accounts.go__
+
+```go
+// NewAccount creates Account
+func NewAccount(owner string) *Account {
+	account := Account{owner: owner, balance: 0}
+	return &account
+}
+
+// Deposit x amount on your account
+func (a *Account) Deposit(amount int) {
+	a.balance += amount
+}
+
+// Withdraw x amount from your account
+func (a Account) Withdraw(amount int) {
+	a.balance -= amount
+}
+
+```
+
+__main.go__
+
+```go
+func main() {
+	account := accounts.NewAccount("a")
+	fmt.Println(account) //OUTPUT : &{a 0}
+
+	account.Deposit(10)
+	fmt.Println(account) //OUTPUT : &{a 10}
+
+	account.Withdraw(5)
+	fmt.Println(account) //OUTPUT : &{a 10}
+}
+```
+
+## Error
+
+- try catch나 exception 없음
+- `error` 를 직접 체크하고 return해야함
+- exception이 없기때문에 `error` 를 다룰 코드를 작성해줘야함
+
+__accounts.go__
+
+```go
+// Withdraw x amount from your account
+func (a *Account) Withdraw(amount int) error {
+	if a.balance < amount {
+		return errors.New("Can't withdraw")
+	}
+	a.balance -= amount
+	return nil
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	account := accounts.NewAccount("a")
+	fmt.Println(account) //OUTPUT : &{a 0}
+
+	account.Deposit(10)
+	fmt.Println(account) //OUTPUT : &{a 10}
+
+	account.Withdraw(15)
+	fmt.Println(account) //OUTPUT : &{a 10} *Not print error!!
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	account := accounts.NewAccount("a")
+	fmt.Println(account) //OUTPUT : &{a 0}
+
+	account.Deposit(10)
+	fmt.Println(account) //OUTPUT : &{a 10}
+
+	err := account.Withdraw(15)
+	if err != nil {
+		fmt.Println(err) // OUTPUT : Can't withdraw
+	}
+	fmt.Println(account) //OUTPUT : &{a 10}
+}
+```
+
+
+## Map
+
+- 값 존재 여부 확인 : `val, exists := dict[]`
+
+__main.go__
+
+```go
+func main() {
+	dictionary := mydict.Dictionary{}
+	dictionary["one"] = "1"
+	definition, err := dictionary.Search("two")
+	if err != nil {
+		fmt.Println(err) // OUTPUT : Not Found
+	} else {
+		fmt.Println(definition)
+	}
+}
+```
+
+__mydict.go__
+
+```go
+// Dictionary type
+type Dictionary map[string]string
+
+var errNotFound = errors.New("Not Found")
+
+// Search for a word
+func (d Dictionary) Search(word string) (string, error) {
+	value, exists := d[word]
+	if exists {
+		return value, nil
+	}
+	return "", errNotFound
+}
+```
+
+- 값 추가
+
+__mydict.go__
+
+```go
+var errNotFound = errors.New("Not Found")
+var errWordExists = errors.New("That word already exists")
+
+// Search for a word
+func (d Dictionary) Search(word string) (string, error) {
+	value, exists := d[word]
+	if exists {
+		return value, nil
+	}
+	return "", errNotFound
+}
+
+// Add a word to the dictionary
+func (d Dictionary) Add(word, def string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		d[word] = def
+	case nil:
+		return errWordExists
+	}
+	return nil
+}
+```
+
+__main.go__
+
+```go
+func main() {
+	dictionary := mydict.Dictionary{}
+	err := dictionary.Add("one", "1")
+	if err != nil {
+		fmt.Println(err)
+	}
+	definition, _ := dictionary.Search("one")
+	fmt.Println(definition) //OUTPUT : 1
+
+	err2 := dictionary.Add("one", "1")
+	if err2 != nil {
+		fmt.Println(err2) //OUTPUT : That word already exists
+	}
+}
+```
+
+
+- 값 수정
+
+__mydict.go__
+
+```go
+// Dictionary type
+type Dictionary map[string]string
+
+var (
+	errNotFound   = errors.New("Not Found")
+	errWordExists = errors.New("That word already exists")
+	errCantUpdate = errors.New("Can't update non-exists word")
+)
+
+// Search for a word
+func (d Dictionary) Search(word string) (string, error) {
+	value, exists := d[word]
+	if exists {
+		return value, nil
+	}
+	return "", errNotFound
+}
+
+// Add a word to the dictionary
+func (d Dictionary) Add(word, def string) error {
+	_, err := d.Search(word)
+	switch err {
+	case errNotFound:
+		d[word] = def
+	case nil:
+		return errWordExists
+	}
+	return nil
+}
+
+// Update a word
+func (d Dictionary) Update(word, definition string) error {
+	_, err := d.Search(word)
+	switch err {
+	case nil:
+		d[word] = definition
+	case errNotFound:
+		return errCantUpdate
+	}
+	return nil
+}
+```
+
+__main.go__
+
+```
+func main() {
+	dictionary := mydict.Dictionary{}
+	baseWord := "hello"
+	dictionary.Add(baseWord, "hi")
+	err := dictionary.Update(baseWord, "yay")
+	if err != nil {
+		fmt.Println(err)
+	}
+	word, _ := dictionary.Search(baseWord)
+	fmt.Println(word) //OUTPUT : yay
+}
+```
+
+
+- 삭제
+    - `delete(dictionary,word)`
+
+
+
+
+## net/http
+
+- URL 요청보내기
+    - HTTP.Get(url)
+
+__main.go__
+    
+```go
+func main() {
+	urls := []string{
+		"https://www.airbnb.com/",
+		"https://www.google.com/",
+		"https://www.amazon.com/",
+		"https://www.reddit.com/",
+		"https://google.com/",
+		"https://soundcloud.com",
+	}
+
+	var results = make(map[string]string)
+
+	for _, url := range urls {
+		result := "OK"
+		err := hitURL(url)
+		if err != nil {
+			result = "FAILED"
+		}
+		results[url] = result
+	}
+
+	for url, result := range results {
+		fmt.Println(url, result)
+	}
+}
+
+var errRequestFailed = errors.New("Request Failed")
+
+func hitURL(url string) error {
+	res, err := http.Get(url)
+	if err != nil || res.StatusCode >= 400 {
+		fmt.Println(res.StatusCode)
+		return errRequestFailed
+	}
+	return nil
+}
+```    
+
+
+## Goroutines
+
+- 여러 함수를 동시에(Concurrently) 실행할 수 있는 논리적 가상 스레드
+- 앞에 `go` 를 붙여서 실행
+- 메인 함수가 돌아가는 중에만 실행됨
+
+```go
+func main() {
+	go sexyCount("a")
+	sexyCount("b")
+}
+
+func sexyCount(person string) {
+	for i := 0; i < 10; i++ {
+		fmt.Println(person, "is sexy", i)
+		time.Sleep(time.Second)
+	}
+}
+// OUTPUT
+b is sexy 0
+a is sexy 0
+a is sexy 1
+b is sexy 1
+b is sexy 2
+a is sexy 2
+...
+```
+
+
+##  Channels
+
+- goroutine과 메인함수 사이에 정보를 전달하기 위한 방법
+- goroutine 사이에서도 가능
+- 메시지를 받을 때까지 메인 함수가 기다림(blocking operator)
+
+```go
+func main() {
+	c := make(chan bool)
+	people := [2]string{"a", "b"}
+	for _, person := range people {
+		go isSexy(person, c)
+	}
+
+	fmt.Println(<-c) // true
+	fmt.Println(<-c) // true
+	fmt.Println(<-c) // error
+}
+
+func isSexy(person string, c chan bool) {
+	time.Sleep(time.Second * 5)
+	c <- true
+}
+```
+
+```go
+func main() {
+	c := make(chan string)
+	people := [2]string{"a", "b"}
+	for _, person := range people {
+		go isSexy(person, c)
+	}
+
+	for i := 0; i < len(people); i++ {
+		fmt.Println(<-c)
+	}
+}
+
+func isSexy(person string, c chan string) {
+	c <- person + " is sexy"
+}
+```
+

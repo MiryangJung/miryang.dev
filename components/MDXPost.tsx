@@ -5,7 +5,7 @@ const MDXPost = ({ title, date, children }) => {
   return (
     <MDXPostContainer>
       <MDXPostTitle>{title}</MDXPostTitle>
-      <MDXPostDate>{usDateString(date)}</MDXPostDate>
+      {date && <MDXPostDate>{usDateString(date)}</MDXPostDate>}
       {children}
     </MDXPostContainer>
   )

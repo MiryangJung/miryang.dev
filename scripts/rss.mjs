@@ -1,6 +1,6 @@
 import {writeFileSync} from 'fs';
 import RSS from 'rss';
-import {allBlogs} from '.contentlayer/data';
+import {allBlogs, allNotes} from '.contentlayer/data';
 
 async function generate() {
     const feed = new RSS({
@@ -15,6 +15,14 @@ async function generate() {
             url: `https://miryang.dev/blog/${post.slug}`,
             date: post.date,
             description: post.description
+        });
+    });
+
+    allNotes.map((note) => {
+        feed.item({
+            title: note.title,
+            url: `https://miryang.dev/${note.url_path}`,
+            date: note.date,
         });
     });
 

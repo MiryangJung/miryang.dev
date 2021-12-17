@@ -1,0 +1,33 @@
+---
+title: String to Slice
+date: 2021-05-01
+---
+
+
+## Go언어 문자열을 슬라이스로 변환하기
+
+CODE 1
+
+```go
+str := "a,b,c"
+fmt.Println(strings.Split(str, ","))
+```
+
+OUTPUT 1
+
+```shell
+[a b c]
+```
+
+CODE 2
+
+```go
+str := "abc"
+fmt.Println(strings.Split(str, ""))
+```
+
+OUTPUT 2
+
+```shell
+[a b c]
+```

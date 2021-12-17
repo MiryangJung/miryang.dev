@@ -2,10 +2,9 @@ import Title from '../components/Title'
 import PostCards from '../components/PostCards'
 import { useState } from 'react'
 import Search from '../components/Search'
-import { allBlogs, allNotes } from '.contentlayer/data'
+import { allBlogs } from '.contentlayer/data'
 
 function Blog({ posts }) {
-  console.log(allNotes)
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter(post =>
     post.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -13,7 +12,7 @@ function Blog({ posts }) {
   return (
     <>
       <Title title="Blog" des="공유하고 싶거나 다시 보고 싶은 기술들을 정리합니다." />
-      <Search type="text" changeHandler={e => setSearchValue(e.target.value)} />
+      <Search changeHandler={e => setSearchValue(e.target.value)} />
       {filteredBlogPosts.map((post, index) => (
         <PostCards post={post} key={index} slug={post.slug} />
       ))}

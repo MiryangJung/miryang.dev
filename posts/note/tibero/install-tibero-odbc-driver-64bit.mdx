@@ -1,0 +1,43 @@
+---
+title: Install Tibero ODBC Driver64Bit on Windows10
+date: 2021-05-01
+---
+
+## 티베로 ODBC 드라이버 64비트 윈도우에 설치하기
+
+- Tibero6
+- Windows10
+
+## 설치파일 다운로드
+
+다운로드 > 데이터베이스 > Tibero > Tibero6
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Tibero/install-tibero-odbc-driver-64bit/1.png?raw=true)
+
+Windows(x86) 64-bit > windows64~.tar.gz __다운로드__
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Tibero/install-tibero-odbc-driver-64bit/2.png?raw=true)
+
+
+## 설치
+
+`C:\tibero6` 경로에 압축 해제
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Tibero/install-tibero-odbc-driver-64bit/3.png?raw=true)
+
+__환경 변수__ 에 `TB_HOME` 추가
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Tibero/install-tibero-odbc-driver-64bit/4.png?raw=true)
+
+__관리자 권한__ 으로 명령 프롬프트 실행 후 아래의 명령어 입력
+
+```shell
+%TB_HOME%\bin\tbodbc_driver_installer_6_64.exe -i
+```
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Tibero/install-tibero-odbc-driver-64bit/5.png?raw=true)
+
+
+__ODBC 데이터 원본 관리자(64비트)__ 에서 드라이버 확인
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Tibero/install-tibero-odbc-driver-64bit/6.png?raw=true)

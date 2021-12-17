@@ -32,11 +32,8 @@ export const Note = defineDocumentType(() => ({
           .split('/')
           // skip `/docs` prefix
           .slice(1)
-          .map(dirName => {
-            const re = /^((\d+)-)?(.*)$/
-            const [, , orderStr, pathName] = dirName.match(re) ?? []
-            const order = orderStr ? parseInt(orderStr) : 0
-            return { order, pathName }
+          .map(pathName => {
+            return { pathName }
           }),
     },
   },

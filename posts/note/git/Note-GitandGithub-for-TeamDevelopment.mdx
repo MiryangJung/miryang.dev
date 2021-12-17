@@ -1,0 +1,114 @@
+---
+title: 인프런 팀 개발을 위한 Git, GitHub 입문 강의 노트
+date: 2021-04-09
+---
+
+> [팀 개발을 위한 Git, GitHub 입문](https://inf.run/pr3d) 강의 노트
+
+## Github 에 코드를 올리는 과정
+
+1. Git 초기화 `git init`
+    - .git 이라는 폴더가 생성됨
+    - 로컬 저장소라고 부름
+    - 한 폴더에 하나의 로컬 저장소
+2. 원하는 파일만 선택하여 커밋하기
+    - `git add README.md`
+    - `git commit -m "설명"`
+3. 생성한 커밋 보기
+    - `git log`
+4. 로컬 저장소에 github 저장소 연결
+    - `git remote add origin https://github.com/~`
+5. 만든 커밋 푸시하기
+    - `git push origin master`
+
+## Git 전역 사용자 설정
+
+- `git config --global user.name "MiryangJung"`
+- `git config --global user.email miryang.dev@gmail.com`
+
+## 커밋
+
+1. 의미 있는 변동사항을 묶어서 만든다.
+2. 버튼 클릭 버그를 고치는데 5가지 파일을 수정했다면 5가지를 묶어 하나의 커밋으로
+3. 동료 개발자 또는 미래의 내가 버튼 클릭 버그를 고치는데 어떤 파일을 수정했는지 쉽게 파악 가능
+    
+## 클론
+
+원격 저장소의 코드를 내 컴퓨터에 받아온다.
+
+## 풀
+
+원격 저장소의 업데이트된 커밋을 받아온다.  
+`git pull origin master`
+
+## 깃의 4가지 상태
+
+- untracked __추적 안됨__ : git log에도 없고 staged 상태도 아닌 파일 (새로운 파일)
+- unmodified __수정 없음__ : git log에 있는 파일 (git clone 또는 git pull을 했을 때 파일들의 상태)
+- modified __수정함__ : staging 파일에 올라가지 않은 수정된 파일 (git add가 안 된 상태)
+- staged __스테이지됨__ : staging 파일에 올라간 수정된 파일 (git add된 상태)  
+> [참고](https://gist.github.com/wikibootup/1fa25b57ea59ddef76e6)  
+
+- 커밋을 하면 __수정 없음__ 상태가 된다.
+- __수정함__, __추적 안됨__ 파일을 스테이지에 올려 스테이지됨으로 변경한다.
+
+
+## 브랜치
+
+- `HEAD` : 내가 지금 작업하는 로컬 브랜치
+- 브랜치 만들기 `git branch sth`
+- 브랜치로 이동 `git checkout sth`
+
+
+## 머지
+
+1. base가 될 브랜치로 이동
+2. 브랜치 합치기 `git merge sth`
+
+
+## 컨플릭트
+
+같은 파일의 같은 부분을 고쳐서 푸시할 경우 충돌  
+직접 수정해야한다.
+
+```shell
+<<<<< HEAD
+원래 코드
+=====
+수정된 코드
+>>>>> feature/branch
+```
+
+## 풀리퀘스트
+1. 코드를 함께 작성하는 팀원이 있다면, 직접 머지는 피하고 풀 리퀘스트를 통해서 하는 것이 좋다.
+2. PR을 보고 코드를 리뷰할 수 있다.
+
+
+## 어멘드
+
+수정못한 파일이 있을 때, 방금 만든 커밋에 추가
+
+## 스태시
+
+변경사항을 커밋을 하지 않고, 킵해두기
+
+
+## 리셋
+
+옛날 커밋으로 브랜치 되돌리기
+
+- HARD : 이후 커밋이 없어짐
+- MIXED : 이후 커밋이 수정됨 상태로 유지
+
+## 리버트
+
+변경사항 되돌리기, 이력이 남음
+
+## 체리픽
+
+커밋 하나만 지금 브랜치에 붙이기
+
+
+## 이력 변경
+
+이력 변경이 되는 기능들은 혼자만 쓰는 브랜치에서만 해야함

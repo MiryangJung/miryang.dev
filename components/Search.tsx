@@ -3,7 +3,7 @@ import { Input, SearchContainer } from './Search.style'
 const Search = ({ changeHandler }) => {
   return (
     <SearchContainer>
-      <Input onChange={changeHandler} placeholder="Search..." />
+      <Input type={'text'} onChange={changeHandler} placeholder="Search..." />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24px"

@@ -1,0 +1,86 @@
+---
+title: Install Redhat8 Hyper-V
+date: 2021-05-01
+---
+
+## 사전 작업
+
+1. Windows10에 Hyper-V 설치 및 활성화
+2. [REDHAT](https://developers.redhat.com/products/rhel/download) 에서 `RHEL8DVD.iso` 다운로드
+
+
+
+## VM 만들기
+
+1. Hyper-V 관리자에서 새로만들기 > *가상컴퓨터*
+2. VM의 옵션을 설정
+    - 이름 및 위치 지정 : 식별하기 쉬운 이름으로 설정
+    - 세대 지정 : *2세대* (최신 가상화 기능 지원을 위해)
+    - 메모리 할당 : 최소 *2GB*
+    - 네트워킹 구성 : 기본 스위치 또는 외부 스위치
+    - 가상 하드 디스크 연결 : 최소 *20GB* , 다운받은 *iso* 파일로 설치  
+    ![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/1.PNG?raw=true)
+
+3. 방금 생성한 VM 선택 > *설정*
+    - 보안 부팅 템플릿을 *Microsoft UEFI 인증 기관* 으로 변경  
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/2.PNG?raw=true)
+
+
+
+## 설치 및 실행
+
+*Install Redhat* 을 선택하여 설치 시작
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/3.PNG?raw=true)
+
+언어 선택 후, 해당 화면 진입
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/4.PNG?raw=true)
+
+__소프트웨어 선택__   
+*워크스테이션*, *컨테이너 관리*, *개발용 툴*, *그래픽기반 툴* 선택
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/5.PNG?raw=true)
+
+__설치 목적지__   
+파티션 설정 또는 전체 디스크를 사용하는 경우 *완료* 클릭
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/6.PNG?raw=true)
+
+__KDUMP__   
+*kdump 활성화* 해제
+
+__네트워크 및 호스트 이름__   
+*어댑터* 활성화
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/7.PNG?raw=true)
+
+설치 시작 후 *Root 암호* 및 *USER 생성*
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/8.PNG?raw=true)
+
+
+## 시스템 등록
+
+재부팅 후 *라이센스 동의*
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/9.PNG?raw=true)
+
+`terminal` 을 열어서 아래의 명령어 입력
+
+```shell
+$ sudo bash
+# subscription-manager register --auto-attach
+```
+
+```shell
+sudo yum update
+```
+
+![](https://github.com/MiryangJung/TIL/blob/master/assets/images/Hyper-V/Redhat8/10.PNG?raw=true)
+
+
+
+---
+__Refer__  
+- [RHEL 8 Hyper-V Quick Install](https://developers.redhat.com/rhel8/install-rhel8-hyperv)

@@ -14,4 +14,4 @@ export type TreeNode = {
 
 export type TreeRoot = TreeNode[]
 
-export type PathSegment = { order: number; pathName: string }
+export type PathSegment = { pathName: string }

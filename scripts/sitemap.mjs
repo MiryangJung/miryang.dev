@@ -22,11 +22,12 @@ async function generate() {
                 .replace('posts', '')
                 .replace('.tsx', '')
                 .replace('.js', '')
-                .replace('.mdx', '');
-            const route = path === '/index' ? '' : path;
+                .replace('.mdx', '')
+                .replace('/index','');
+            
             return `
               <url>
-                  <loc>${`https://miryang.dev${route}`}</loc>
+                  <loc>${`https://miryang.dev${path}`}</loc>
               </url>
             `;
         })

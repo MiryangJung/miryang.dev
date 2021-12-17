@@ -115,6 +115,11 @@ export const MDXPostContainer = styled.div`
   sup a {
     font-size: 12px;
   }
+
+  img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
 `
 
 export const MDXPostTitle = styled.span`
