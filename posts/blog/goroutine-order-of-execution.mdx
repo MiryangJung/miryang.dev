@@ -1,0 +1,330 @@
+---
+title: 고루틴 순서대로 실행하기, 뮤텍스 이해하기
+date: 2021-03-03
+description: 고언어의 `고루틴` 을 호출되는 순서대로 실행시키기 위해 겪었던 시행착오를 담은 글입니다.   
+thumbnailUrl: '/posts/thumbnail/goroutine-order-of-execution.png'
+---
+
+# Golang Goroutine order of execution
+
+고언어의 `고루틴` 을 호출되는 순서대로 실행시키기 위해 겪었던 시행착오를 담은 글입니다.   
+틀리거나 다른 내용이 있으면 가감없이 댓글로 알려주시면 감사합니다.
+
+## 1. 먼저 호출된다고 먼저 실행되는 것은 아니다.
+
+`Goroutine` 이 동시에 여러 코드를 실행하게하는 것은 알고 있었지만,   
+막연하게 먼저 호출이 되면, 자연스럽게 먼저 실행이 될 것이라고 예상을 했다.   
+누가 먼저 `second()` 의 `fmt.Println` 에 도달할 지는 경우마다 다르므로 무작위로 실행된다고 볼 수 있다.
+
+- 예상
+- `second()` 호출 > `i` 를 채널로 전송 > `fmt.Println("[NUM] : ", <-c)` 실행
+- 위의 과정이 반복
+- 실제 동작
+- `second()` 호출 > `i` 를 채널로 전송
+- `fmt.Println("[NUM] : ", <-c)` 실행 부분에 누가 먼저 도달할지는 모름
+
+
+__main.go__
+
+```go
+var (
+	dataSendChannel = make(chan int)
+)
+
+func main() {
+	go first(dataSendChannel)
+	time.Sleep(time.Second * 10)
+}
+
+func first(c chan<- int) {
+	for i := 1; i <= 10; i++ {
+		go second(dataSendChannel)
+		c <- i
+	}
+}
+
+func second(c <-chan int) {
+	fmt.Println("[NUM] : ", <-c)
+}
+
+```
+
+__Output__
+
+```
+[NUM] :  1
+[NUM] :  6 
+[NUM] :  3 
+[NUM] :  4 
+[NUM] :  5 
+[NUM] :  2 
+[NUM] :  7 
+[NUM] :  8 
+[NUM] :  9 
+[NUM] :  10
+```
+
+> go playground : [play.golang.org/p/z0g8vFOYGge](https://play.golang.org/p/z0g8vFOYGge)
+
+
+## 2. 뮤텍스는 채널을 Lock하지 않는다.
+
+> 이 부분에서 이해가 되지 않아 거의 10시간 넘게 헤맸는데 [스택오버플로우](https://stackoverflow.com/questions/66434898/why-is-the-channel-affected-by-mutex) 와
+[한국 go 커뮤니티](https://bit.ly/2olKYdM), [여성 go 커뮤니티](https://womenwhogo.org/) 의 도움을 받아 해결했다. (이 자리를 빌어 감사의 인사를 다시 올린다.)
+
+아래 코드는 `1~10` 이 순서대로 호출되었으나 `9~0` 순으로 `time.Sleep` 이 실행되어 `10` 부터 내림차순으로 출력되는 결과를 볼 수 있다.
+
+- 예상
+- `second()` 호출 > `i` 를 채널로 전송
+- `10 - i` 만큼 `sleep`
+- 1은 9초 대기
+- 2는 8초 대기
+- 10은 0초 대기
+- `second()` 는 병렬로 돌아가므로 10부터 출력
+- 실제 동작
+- 예상과 동일
+
+__main.go__
+
+```go
+var (
+	dataSendChannel = make(chan int)
+)
+
+func main() {
+	go first(dataSendChannel)
+	time.Sleep(time.Second * 100)
+}
+
+func first(c chan<- int) {
+	for i := 1; i <= 10; i++ {
+		go second(dataSendChannel)
+		c <- i
+	}
+}
+
+func second(c <-chan int) {
+	num := <-c
+	time.Sleep(time.Duration(10-num) * time.Second)
+	fmt.Println("[NUM] : ", num)
+}
+```
+
+__Output__
+
+```
+[NUM] :  10
+[NUM] :  9
+[NUM] :  8
+[NUM] :  7
+[NUM] :  6
+[NUM] :  5
+[NUM] :  4
+[NUM] :  3
+[NUM] :  2
+[NUM] :  1
+```
+
+> go playground : [play.golang.org/p/S2x29-VkRtp](https://play.golang.org/p/S2x29-VkRtp)
+
+아래 코드는 위와 같은 코드에 `second()` 함수에 `sync.RWMutex`  __뮤텍스__ 를 사용했다.
+
+- 예상
+- `second()` 호출
+- `rwMutex.Lock()` 실행
+- `c(채널)` 에 __뮤텍스__ 가 실행되어 읽기, 쓰기 LOCK
+- 즉, `c <- i` 구문이 실행되지 않아 아무런 출력값이 나오지 않음
+- 실제 동작
+- 1부터 차례대로 출력
+
+아무것도 출력되지 않을 것이라는 예상과 다르게 순서대로 작동하는 결과를 보고, 더욱 의문을 가졌다.  
+그래서 `채널` 은 읽기는 가능하고, __쓰기__ 방지만 되는지 알아보았다.
+
+__main.go__
+
+```go
+var (
+	dataSendChannel = make(chan int)
+	rwMutex         = new(sync.RWMutex)
+)
+
+func main() {
+	go first(dataSendChannel)
+	time.Sleep(time.Second * 100)
+}
+
+func first(c chan<- int) {
+	for i := 1; i <= 10; i++ {
+		go second(dataSendChannel)
+		c <- i
+	}
+}
+
+func second(c <-chan int) {
+	rwMutex.Lock()
+	num:=<-c
+	time.Sleep(time.Duration(10-num) * time.Second)
+	fmt.Println("[NUM] : ", num)
+	rwMutex.Unlock()
+}
+
+```
+
+__Output__
+
+```
+[NUM] :  1
+[NUM] :  2
+[NUM] :  3
+[NUM] :  4
+[NUM] :  5
+[NUM] :  6
+[NUM] :  7
+[NUM] :  8
+[NUM] :  9
+[NUM] :  10
+```
+
+> go playground : [play.golang.org/p/xnEcS6Oke4b](https://play.golang.org/p/xnEcS6Oke4b)
+
+
+만약, __쓰기 방지__ 가 된다면 `third()` 는 아무것도 출력할 수 없어야 한다.
+
+- 예상
+- 메인 함수는 __100초__ 뒤에 종료
+- `second()` 호출
+- `rwMutex.Lock()` 실행
+- 1을 출력하고 __1000초__ 뒤에 `rwMutex.Unlock()` 실행
+- `third()` 호출
+- `c(채널)` 이 Lock 상태
+- `fmt.Println("[NUM] : ", <-c)` 실행 불가
+- 실제 동작
+- `third()` 호출
+- `c(채널)` 은 Lock 되지 않음
+- `fmt.Println("[NUM] : ", <-c)` 실행
+
+이 코드로 `channel` 은 `mutex` 의 영향을 받지 않는다는 것을 확신할 수 있다.
+
+__main.go__
+
+```go
+func main() {
+	go first(dataSendChannel)
+	time.Sleep(time.Second * 100)
+}
+
+func first(c chan<- int) {
+	go second(dataSendChannel)
+	go third(dataSendChannel)
+	for i := 1; i <= 10; i++ {
+		c <- i
+	}
+}
+
+func second(c <-chan int) {
+	rwMutex.Lock()
+	fmt.Println("[NUM] : ", <-c)
+	time.Sleep(time.Second * 1000)
+	rwMutex.Unlock()
+}
+
+func third(c <-chan int) {
+	for i := 1; i < 10; i++ {
+		fmt.Println("[NUM] : ", <-c)
+	}
+}
+```
+
+__Output__
+
+```
+[NUM] :  1
+[NUM] :  3
+[NUM] :  2
+[NUM] :  4
+[NUM] :  5
+[NUM] :  6
+[NUM] :  7
+[NUM] :  8
+[NUM] :  9
+[NUM] :  10
+```
+
+> go playground : [play.golang.org/p/n24UGJDwpLt](https://play.golang.org/p/n24UGJDwpLt)
+
+
+여러 곳에서 질문을 해서 얻은 해답은 `뮤텍스` 는 __한 번만 사용__ 할 수 있다는 것이다.   
+아래의 코드가 1~10 까지 차례대로 출력 할 수 있었던 이유는 `rwMutex.Lock()` 의 구문은 `Unlock()` 이 되야만 실행 할 수 있으므로 다른 고루틴들이 `Unlock()` 을 기다리는 것이다.
+
+즉, `lock()` 과 `unlock()` 사이의 변수(데이터)를 잠근다고 생각했던 것이 잘못된 생각이였고,
+데이터가 아닌 `lock()` 과 `unlock()` 사이의 __코드 블록__ 의 비동기 실행을 방지하는 것이 올바른 설명이라고 할 수 있다.
+
+__main.go__
+
+```go
+func second(c <-chan int) {
+	rwMutex.Lock()
+	num:=<-c
+	time.Sleep(time.Duration(10-num) * time.Second)
+	fmt.Println("[NUM] : ", num)
+	rwMutex.Unlock()
+}
+```
+
+추가하자면 `rwMutex.Unlock()` 은 다른 고루틴에서도 사용할 수 있다.
+
+- 예상
+- `second()` 호출 > `i` 를 채널로 전송
+- `rwMutex.Lock()` 실행 > `num:=<-c` 으로 데이터 수신
+- `third()` 호출 > `Unlock()` 실행
+- 다른 `second()` 에서도 `rwMutex.Lock()` 실행 가능
+- 10부터 출력
+- 실제 동작
+- 예상과 동일
+
+__main.go__
+
+```go
+func first(c chan<- int) {
+	for i := 1; i <= 10; i++ {
+		go second(dataSendChannel)
+		c <- i
+		go third(dataSendChannel)
+	}
+}
+
+func second(c <-chan int) {
+	rwMutex.Lock()
+	num:=<-c
+	time.Sleep(time.Duration(10-num) * time.Second)
+	fmt.Println("[NUM] : ", num)
+}
+
+func third(c <-chan int) {
+	rwMutex.Unlock()
+}
+```
+
+__output__
+
+```
+[NUM] :  10
+[NUM] :  9
+[NUM] :  8
+[NUM] :  7
+[NUM] :  6
+[NUM] :  5
+[NUM] :  4
+[NUM] :  3
+[NUM] :  2
+[NUM] :  1
+```
+
+> go playground : [play.golang.org/p/ZvWje0-lx5f](https://play.golang.org/p/ZvWje0-lx5f)
+
+
+# 결론
+
+__뮤텍스__ 는 데이터가 아닌 `lock()` 과 `unlock()` 사이의 __코드 블록__ 의 비동기 실행을 방지하는 것이다.
+
+고루틴을 호출 순서대로 실행하려면 __채널__ 과 __뮤텍스__ 를 적절히 사용하면 가능하다.
