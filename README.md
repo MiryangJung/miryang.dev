@@ -5,5 +5,9 @@ I couldn't find the blog theme I wanted. So I decided to make it myself.
 
 Function development will continue.  All ideas are welcomed!
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fleerob%2Fleerob.io)
+
+https://api.vercel.com/v1/integrations/deploy/prj_VGsRfRWlHqYxXJ2S8GVRAHFi2Suc/mNSX9qkjAJ
+
 ## Author
 MIT @ [MiryangJung](https://github.com/MiryangJung)

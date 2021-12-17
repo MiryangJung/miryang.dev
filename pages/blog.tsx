@@ -2,9 +2,10 @@ import Title from '../components/Title'
 import PostCards from '../components/PostCards'
 import { useState } from 'react'
 import Search from '../components/Search'
-import { allBlogs } from '.contentlayer/data'
+import { allBlogs, allNotes } from '.contentlayer/data'
 
 function Blog({ posts }) {
+  console.log(allNotes)
   const [searchValue, setSearchValue] = useState('')
   const filteredBlogPosts = posts.filter(post =>
     post.title.toLowerCase().includes(searchValue.toLowerCase())

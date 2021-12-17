@@ -1,8 +1,9 @@
 import HomeProfile from '../components/HomeProfile'
 import RecentPost from '../components/RecentPost'
 import { allBlogs } from '.contentlayer/data'
+import { InferGetStaticPropsType } from 'next'
 
-function Homepage({ posts }) {
+function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <HomeProfile />
