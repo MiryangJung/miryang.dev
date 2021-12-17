@@ -1,13 +1,24 @@
 # Miryang-Nextjs-Blog
 
+> [miryang.dev](miryang.dev)
+
 그 어디에서도 원하는 블로그  테마를 찾을 수 없었습니다. 그래서 직접 만들기로 했습니다.  
 I couldn't find the blog theme I wanted. So I decided to make it myself.
 
 Function development will continue.  All ideas are welcomed!
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fleerob%2Fleerob.io)
+## Stack
+- Framework `Next.js`
+- Content `contentlayer`
+- Style `emotion`
+- Deploy `Vercel`
+- VCS `Git`
 
-https://api.vercel.com/v1/integrations/deploy/prj_VGsRfRWlHqYxXJ2S8GVRAHFi2Suc/mNSX9qkjAJ
+## Run
+
+```shell
+yarn dev
+```
 
 ## Author
 MIT @ [MiryangJung](https://github.com/MiryangJung)
