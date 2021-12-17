@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { AboutProfileContainer, ProfileText, ProfileTextSub, Resume } from './AboutProfile.style'
 
-const AboutProfile = ({ text }: { text: string }) => {
+const AboutProfile = () => {
   return (
     <AboutProfileContainer>
       <Image
