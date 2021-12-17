@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import mq from '../styles/util/mq'
 
 export const AboutProfileContainer = styled.section`
   display: flex;
@@ -8,7 +9,6 @@ export const AboutProfileContainer = styled.section`
   justify-content: center;
   & .round-image {
     border-radius: 8px;
-    margin-bottom: 10px;
   }
 `
 
@@ -18,6 +18,9 @@ export const ProfileText = styled.div`
   min-width: 300px;
   max-width: 400px;
   line-height: 25px;
+  ${mq()({
+    marginTop: ['20px', '0'],
+  })}
 `
 
 export const ProfileTextSub = styled.span`
