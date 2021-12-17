@@ -8,6 +8,7 @@ export const AboutProfileContainer = styled.section`
   justify-content: center;
   & .round-image {
     border-radius: 8px;
+    margin-bottom: 10px;
   }
 `
 
