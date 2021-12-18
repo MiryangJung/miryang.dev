@@ -1,39 +1,38 @@
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 
 export const ProjectCardsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  align-items: flex-start;
   margin-top: 20px;
 `
 
-const dynamicBackground = ({ img }: { img: string }) => css`
-  background-image: url(${img});
-`
 export const ProjectCard = styled.div`
   width: 300px;
   height: 200px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 3px;
-  border: 1px solid var(--tx-accent-light);
   cursor: pointer;
+  margin-bottom: 20px;
   &:hover div {
-    opacity: 0.2;
+    opacity: 0.9;
   }
-  ${dynamicBackground}
+  .round-image {
+    border-radius: 5px;
+  }
 `
 
 export const ProjectCardContent = styled.div`
-  width: 100%;
-  height: 100%;
+  position: relative;
+  top: -204px;
+  width: 300px;
+  height: 200px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
   flex-flow: column nowrap;
   transition: 0.5s;
+  opacity: 0;
 `
 
 export const ProjectCardTitle = styled.span`
