@@ -17,6 +17,11 @@ const metadata = {
   analytics: {
     google: 'G-MXZZX39DZ7',
   },
+  giscus: {
+    id: 'MiryangJung',
+    repo: 'miryang.dev',
+    category: 'General',
+  },
 }
 
 module.exports = metadata
