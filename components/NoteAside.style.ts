@@ -24,6 +24,9 @@ export const NoteAsideContainer = styled.div`
   border-right: 1px solid var(--bg-sub);
   padding-bottom: 20px;
   padding-right: 10px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   ${mq()({
     maxWidth: ['100%', '200px'],
     marginRight: ['0', '20px'],
