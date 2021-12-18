@@ -7,6 +7,8 @@ I couldn't find the blog theme I wanted. So I decided to make it myself.
 
 Function development will continue.  All ideas are welcomed!
 
+![](https://i.ibb.co/2KMSJmW/miryang-dev.png)
+
 ## Stack
 - Framework `Next.js`
 - Content `contentlayer`
