@@ -12,6 +12,7 @@ const metadata = {
     stackoverflow: 'https://stackoverflow.com/users/11981439/miryangjung',
     facebook: 'https://stackoverflow.com/users/11981439/miryangjung',
     instagram: 'https://stackoverflow.com/users/11981439/miryangjung',
+    rss: 'https://miryang.dev/feed.xml',
   },
   analytics: {
     google: 'G-MXZZX39DZ7',
