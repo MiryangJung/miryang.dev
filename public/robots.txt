@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://miryang.dev/sitemap.xml
