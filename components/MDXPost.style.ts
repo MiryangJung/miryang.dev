@@ -79,7 +79,8 @@ export const MDXPostContainer = styled.div`
   }
 
   .code-highlight {
-    border: none;
+    padding: 1em;
+    border: 1px solid var(--tx-accent-light);
   }
 
   ul {

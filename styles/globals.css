@@ -105,6 +105,10 @@ a {
   100%{background-position:left}
 }
 
+pre[class*="language-"] > .code-highlight {
+  padding: 0;
+  border: none;
+}
 
 code[class*="language-"],
 pre[class*="language-"] {
