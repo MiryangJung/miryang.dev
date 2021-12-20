@@ -8,7 +8,7 @@ function BlogLayout({ post }) {
   const customMeta = {
     title: post.title,
     description: post.description,
-    image: `${metadata.meta.url}/post.thumbnailUrl`,
+    image: `${metadata.meta.url}${post.thumbnailUrl}`,
   }
   const MDXComponent = useMDXComponent(post.body.code)
   return (
