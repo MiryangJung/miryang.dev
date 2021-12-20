@@ -1,0 +1,14 @@
+---
+title: Delete Git Cache
+date: 2021-12-20
+---
+
+## 깃 캐쉬 지우기
+
+`.gitignore` 가 적용이 안될 때 캐쉬 날리기.
+
+```
+git rm -r --cached .
+git add .
+git commit -m "Clear cache"
+```
