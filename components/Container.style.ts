@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import mq from '../styles/util/mq'
 
-export const LayoutContainer = styled.section`
+export const ContainerContainer = styled.section`
   display: flex;
   flex-flow: column nowrap;
   padding-top: 100px;

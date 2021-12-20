@@ -31,7 +31,7 @@ const Footer = () => {
           </a>
         )}
         {metadata.social.twitter && (
-          <a href={metadata.social.facebook} target="_blank" rel="noreferrer">
+          <a href={metadata.social.twitter} target="_blank" rel="noreferrer">
             <SocialIcon src="/social/twitter.svg" alt="twitter" />
           </a>
         )}

@@ -1,18 +1,8 @@
-import MDXPost from '../../components/MDXPost'
-import { useMDXComponent } from 'next-contentlayer/hooks'
 import { allBlogs } from '.contentlayer/data'
-import GiscusArea from '../../components/GiscusArea'
+import BlogLayout from '../../layouts/blog'
 
 const PostPage = ({ post }) => {
-  const MDXComponent = useMDXComponent(post.body.code)
-  return (
-    <>
-      <MDXPost title={post.title} date={post.date}>
-        <MDXComponent />
-      </MDXPost>
-      <GiscusArea slug={post.slug} />
-    </>
-  )
+  return <BlogLayout post={post} />
 }
 
 export const getStaticPaths = async () => {

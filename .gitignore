@@ -43,4 +43,5 @@ yarn-error.log*
 feed.xml
 sitemap.xml
 
+# env
 .env

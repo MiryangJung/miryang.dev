@@ -1,5 +1,11 @@
 const metadata = {
   repo: 'https://github.com/MiryangJung/miryang.dev',
+  meta: {
+    url: 'https://miryang.dev',
+    title: 'Miryang | Developer',
+    description: 'Frontend developer who likes travel and laziness',
+    twitter: '@MiryangJung',
+  },
   author: 'MiryangJung',
   home: {
     name: 'Miryang Jung',
@@ -10,8 +16,8 @@ const metadata = {
     twitter: 'https://twitter.com/miryangjung',
     linkedin: 'https://www.linkedin.com/in/miryangjung/',
     stackoverflow: 'https://stackoverflow.com/users/11981439/miryangjung',
-    facebook: 'https://stackoverflow.com/users/11981439/miryangjung',
-    instagram: 'https://stackoverflow.com/users/11981439/miryangjung',
+    facebook: '',
+    instagram: '',
     rss: 'https://miryang.dev/feed.xml',
   },
   analytics: {
@@ -24,4 +30,4 @@ const metadata = {
   },
 }
 
-module.exports = metadata
+export default metadata

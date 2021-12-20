@@ -2,13 +2,20 @@ import HomeProfile from '../components/HomeProfile'
 import RecentPost from '../components/RecentPost'
 import { allBlogs } from '.contentlayer/data'
 import { InferGetStaticPropsType } from 'next'
+import Container from '../components/Container'
 
 function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <>
-      <HomeProfile />
-      {posts.length >= 5 ? <RecentPost posts={posts.slice(0, 5)} /> : <RecentPost posts={posts} />}
-    </>
+    <Container>
+      <>
+        <HomeProfile />
+        {posts.length >= 5 ? (
+          <RecentPost posts={posts.slice(0, 5)} />
+        ) : (
+          <RecentPost posts={posts} />
+        )}
+      </>
+    </Container>
   )
 }
 
