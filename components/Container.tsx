@@ -11,7 +11,7 @@ const Container = props => {
   const meta = {
     title: metadata.meta.title,
     description: metadata.meta.description,
-    image: `${metadata.meta.url}/home/main.gif`,
+    image: `${metadata.meta.url}/home/main.jpg`,
     url: `${metadata.meta.url}${router.asPath}`,
     type: 'website',
     twitter: metadata.meta.twitter,
