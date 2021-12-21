@@ -5,7 +5,6 @@ import Footer from './Footer'
 import GA from './GA'
 import metadata from '../data/metadata'
 import { useRouter } from 'next/router'
-import GoogleAdSense from './GoogleAdSense'
 
 const Container = props => {
   const router = useRouter()
@@ -37,7 +36,6 @@ const Container = props => {
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:site" content={meta.twitter} />
         <meta name="twitter:image" content={meta.image} />
-        <GoogleAdSense />
       </Head>
       <GA />
       <ContainerContainer>
