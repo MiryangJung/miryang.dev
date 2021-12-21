@@ -28,6 +28,9 @@ const metadata = {
     repo: 'miryang.dev',
     category: 'General',
   },
+  ads: {
+    google: 'ca-pub-6660943261631856',
+  },
 }
 
 export default metadata
