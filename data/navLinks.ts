@@ -4,6 +4,7 @@ const navLinks: { title: string; link: string }[] = [
   { title: 'Projects', link: '/projects' },
   { title: 'Note', link: '/note/golang/Convertrawtopng' },
   { title: 'About', link: '/about' },
+  { title: 'Resume', link: '/resume' },
 ]
 
 export default navLinks
