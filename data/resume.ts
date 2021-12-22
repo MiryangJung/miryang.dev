@@ -133,7 +133,7 @@ const resume: tResume = {
       period: '20.04 ~ 21.05',
       content: [
         {
-          title: '관세청 AIXAC 종합 관리 뷰(Portal)',
+          title: '관세청 AIXAC Portal',
           description:
             'AIXAC 시스템의 데이터베이스 및 그래프를 보여주고,' +
             '서버의 성능을 모니터링하는 화면을 설계 및 개발했습니다.',

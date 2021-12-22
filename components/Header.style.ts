@@ -14,7 +14,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   z-index: 20;
   ${mq()({
-    padding: ['0 30px', '0 calc((100% - 700px)/2)'],
+    padding: ['0 20px', '0 calc((100% - 700px)/2)'],
   })}
 `
 

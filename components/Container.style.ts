@@ -19,6 +19,6 @@ export const Main = styled.main`
   align-items: center;
   z-index: 10;
   ${mq()({
-    padding: ['0 30px', '0'],
+    padding: ['0 20px', '0'],
   })}
 `

@@ -9,7 +9,7 @@ export const FooterContainer = styled.footer`
   padding: 30px;
   border-top: 1px solid var(--bg-sub);
   ${mq()({
-    width: ['calc(100% - 60px)', 'calc(100% - calc((100% - 700px)))'],
+    width: ['calc(100% - 40px)', 'calc(100% - calc((100% - 700px)))'],
   })}
 `
 
