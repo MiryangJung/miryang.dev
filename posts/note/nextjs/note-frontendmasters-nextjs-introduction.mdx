@@ -1,0 +1,196 @@
+---
+title: Frontendmasters Introduction to Next.js 강의 노트
+date: 2021-12-20 
+---
+
+> [Introduction to Next.js](https://frontendmasters.com/courses/next-js/)
+
+## Next.js란?
+
+- 풀스택 프레임워크
+
+## 시작하기
+
+보일러플레이트 설치하기
+
+```shell
+npx create-next-app
+yarn create next-app
+```
+
+처음부터 설정하기
+
+```shell
+npm i next react react-dom --save
+yarn add next react react-dom
+```
+
+`package.json` 에 스크립트 추가
+
+```json
+"scripts": {
+  "dev": "next",
+  "build": "next build",
+  "start": "next start"
+}
+```
+
+## 라우팅
+
+- 폴더를 기준으로
+- `pages` 폴더에 `index.js` 생성하면 인덱스 경로가 된다.
+- `pages` 폴더에 `notes.js` 생성하면 `/notes` 경로가 된다.
+- 동적 경로는 `[id],jsx`
+
+매개 변수는 `useRouter` 를 이용
+
+```js
+const router = useRouter()
+const { id }= router.query
+```
+
+- catch all 경로는 `[...param].jsx`
+    - /notes/a/b/c
+
+```js:[...params].jsx
+const router = useRouter()
+const { params }= router.query
+
+// params === ['a', 'b', 'c']
+```
+
+- 선택적 catch all 경로는 `[[...param]].jsx`
+
+
+## Navigation
+
+### `next/Link` 사용  
+- 클라이언트 사이드 라우팅을 한다.
+
+```jsx
+<Link href="/settings">
+  <a>settings</a>
+</Link>
+```
+
+- `href` 는 페이지경로이다.
+- 동적 경로는 `as` 가 필요
+
+```jsx
+<Link href="/user/[id]" as={`/user/${user.id}`}>
+  <a>user</a>
+</Link>
+```
+
+### `next/router` 사용
+
+```jsx
+const router = useRouter()
+...
+<button onClick={e => router.push('/')}>
+    Go Home
+</button>
+
+<button onClick={e => router.push('/user/[id]', `/user/${id}`)}>
+    Dashboard
+</button>
+```
+
+> `as` 를 사용해서 Next.js에 매개변수임을 알려야한다.
+
+
+## Styling
+
+- global css는 `_app.js` 에서만 임포트 가능
+
+### Theme UI
+
+[Theme UI](https://theme-ui.com/)
+
+[baseweb](https://baseweb.design/)
+
+
+## Config
+
+`next-config.js` 에서 설정
+
+```js
+const { PHASE_PRODUCTION_SERVER } = require('next/constants')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+module.exports = (phase, { defaultConfig }) => {
+  if (phase === PHASE_PRODUCTION_SERVER) {
+    console.log("Dev mode")
+    return {
+      ...defaultConfig,
+      webpack: {
+        plugins: [new BundleAnalyzerPlugin()]
+      }
+    }
+  }
+
+  return defaultConfig
+} 
+```
+
+## API Routes
+
+`pages/api` 폴더에서 작성
+
+GET, PUT, DELETE, 등 모든 메소드에 대응된다.
+
+```js
+export default (req, res) => {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'application/json')
+  res.end(JSON.stringify({ message: 'hello' }))
+}
+```
+
+`next-connect` 사용
+
+```js
+import nc from 'next-connect';
+import cors from 'cors'
+
+const handler = nc()
+  // use connect based middleware
+  .use(cors())
+  // express like routing for methods
+  .get((req, res) => {
+    res.send('Hello world')
+  })
+  .post((req, res) => {
+    res.json({ hello: 'world' })
+  })
+  .put(async (req, res) => {
+    res.end('hello')
+  })
+  
+export default handler;
+```
+
+## Dynamic import
+
+```jsx
+import dynamic from 'next/dynamic'
+
+const SponsoredAd = dynamic(
+  () => import('../components/sponsoredAd'),
+  { ssr: false }
+)
+
+const Page = () => (
+  <div>
+    <h1>This will be prerendered</h1>
+
+    {/* this won't*/}
+    <SponsoredAd />
+  </div>
+)
+
+export default Page
+```
+
+
+
