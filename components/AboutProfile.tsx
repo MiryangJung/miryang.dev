@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { AboutProfileContainer, ProfileText, ProfileTextSub, Resume } from './AboutProfile.style'
 
 const AboutProfile = () => {
@@ -34,12 +35,9 @@ const AboutProfile = () => {
         </ProfileTextSub>
         <br />
         <br />
-        <Resume
-          href="https://www.notion.so/miryang/Jung-Miryang-45d8573632d74e8587f853b4982bfd9a"
-          target="_blank"
-        >
-          Resume
-        </Resume>
+        <Link href="/resume">
+          <Resume>Resume</Resume>
+        </Link>
       </ProfileText>
     </AboutProfileContainer>
   )

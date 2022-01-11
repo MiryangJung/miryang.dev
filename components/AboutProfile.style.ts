@@ -27,7 +27,7 @@ export const ProfileTextSub = styled.span`
   color: var(--tx-sub-dark);
 `
 
-export const Resume = styled.a`
+export const Resume = styled.button`
   padding: 10px 30px;
   background: var(--bg-sub);
   color: var(--tx-accent-light);
