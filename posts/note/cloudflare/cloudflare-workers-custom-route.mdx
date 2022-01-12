@@ -5,13 +5,13 @@ date: 2022-01-12
 
 ## Cloudflare Workers 커스텀 라우트 설정
 
-```toml
+```toml:wrangler.toml
 route = "workers.miryang.dev/guestbook*"
 ```
 
 ## 실패작
 
-````toml
+```toml:wrangler.toml
 route = "workers.miryang.dev/guestbook/*"
 route = "workers.miryang.dev/guestbook"
 ```
