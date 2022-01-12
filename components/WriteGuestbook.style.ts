@@ -25,7 +25,6 @@ const dynamicBackground = ({ color }) => css`
 
 export const WriteGbContent = styled.input`
   outline: none;
-  min-width: 260px;
   flex: 1;
   border: 1px solid var(--bg-sub);
   border-radius: 30px;
