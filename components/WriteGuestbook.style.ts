@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import mq from '../styles/util/mq'
 
 export const WriteGbContainer = styled.form`
   display: flex;
@@ -11,6 +12,9 @@ export const WriteGbContainer = styled.form`
   background: rgba(0, 0, 0, 0.5);
   border-radius: 25px;
   padding: 5px 10px;
+  ${mq()({
+    width: ['calc(100% - 40px)', '700px'],
+  })}
 `
 
 export const WriteGbLine = styled.div`
