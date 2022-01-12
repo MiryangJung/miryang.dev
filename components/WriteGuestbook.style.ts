@@ -17,6 +17,7 @@ export const WriteGbLine = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-between;
 `
 
 const dynamicBackground = ({ color }) => css`
@@ -25,7 +26,7 @@ const dynamicBackground = ({ color }) => css`
 
 export const WriteGbContent = styled.input`
   outline: none;
-  flex: 1;
+  width: calc(100% - 70px);
   border: 1px solid var(--bg-sub);
   border-radius: 30px;
   padding: 10px 20px;
@@ -40,12 +41,15 @@ export const WriteGbContent = styled.input`
 export const WriteGbSubmit = styled.button`
   outline: none;
   border-radius: 30px;
-  padding: 3px 15px 3px 18px;
+  width: 60px;
+  padding: 5px 10px 8px 13px;
   margin: 5px 0;
   background: var(--bg-main);
   border: 1px solid var(--tx-sub-dark);
   cursor: pointer;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     border-color: var(--tx-accent);
   }
