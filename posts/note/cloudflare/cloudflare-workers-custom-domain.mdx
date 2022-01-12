@@ -1,0 +1,16 @@
+---
+title: Cloudflare Workers 커스텀 도메인 설정
+date: 2022-01-12
+---
+
+## Cloudflare Workers 커스텀 도메인 설정
+
+A 레코드 `192.0.2.1` 로 설정
+
+![](/note/cloudflare/customdomain.png)
+
+대시보드에서 zone ID 복사 후 값 설정
+
+```toml:wrangler.toml
+zone_id = "..."
+```
