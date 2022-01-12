@@ -1,0 +1,47 @@
+---
+title: Cloudflare Workers 시작하기
+date: 2022-01-11
+---
+
+> [Get started guide](https://developers.cloudflare.com/workers/get-started/guide)
+
+## 가입하기
+
+[Cloudflare workers](https://dash.cloudflare.com/sign-up/workers)
+
+## Workers CLI 설치
+
+Workers CLI인 `wrangler` 설치하기  
+
+아래 명령어는 설치가 안되어서  
+
+```shell
+yarn global add @cloudflare/wrangler
+wrangler --version
+```
+
+npm으로 설치하니 성공
+
+```shell
+sudo npm install -g @cloudflare/wrangler
+wrangler --version
+```
+
+## cli에 로그인
+
+```shell
+wrangler login
+```
+
+## 새 프로젝트 생성
+
+```shell
+wrangler generate my-worker
+```
+
+스타터 템플릿 사용  
+예) 타입스크립트
+
+```shell
+wrangler generate my-typescript-worker https://github.com/cloudflare/worker-typescript-template
+```
