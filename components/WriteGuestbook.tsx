@@ -6,11 +6,17 @@ import {
   WriteGbLine,
   WriteGbSubmit,
 } from './WriteGuestbook.style'
-import { FormEvent, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import nowDate from '../lib/nowDate'
+import { tColors, tGuestbooks } from '../lib/types'
 
-type tColors = '#696262' | '#9088D4' | '#7c889f' | '#6C92BE' | '#8DB596' | '#c4a583' | '#BB8395'
-
-const WriteGuestbook = () => {
+const WriteGuestbook = ({
+  data,
+  setData,
+}: {
+  data: tGuestbooks
+  setData: Dispatch<SetStateAction<tGuestbooks>>
+}) => {
   const colors: tColors[] = [
     '#696262',
     '#9088D4',
@@ -27,20 +33,25 @@ const WriteGuestbook = () => {
     e.preventDefault()
     const workers = process.env.NEXT_PUBLIC_WORKERS
     const token = process.env.NEXT_PUBLIC_GUESTBOOK
-    const date = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
-
+    const date = nowDate()
+    const key = date.slice(0, 7)
     const res = await fetch(`${workers}/guestbook`, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'text/plain',
       },
       body: JSON.stringify({
-        key: date.slice(0, 7),
+        key: key,
         token: token,
         data: { content, color, createdAt: date },
       }),
     })
-    console.log(res.status)
+
+    if (res.status === 200) {
+      setContent('')
+      setColor(colors[0])
+      setData({ ...data, [key]: [{ content, color, createdAt: date }, ...data[key]] })
+    }
   }
 
   return (

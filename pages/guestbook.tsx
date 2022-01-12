@@ -1,19 +1,21 @@
-import Container from '../components/Container'
-import metadata from '../data/metadata'
-import WriteGuestbook from '../components/WriteGuestbook'
-import Title from '../components/Title'
+import GuestbookLayout from '../layouts/guestbook'
 
-function Guestbookpage() {
-  const customMeta = {
-    title: `Guestbook - ${metadata.meta.title}`,
+function Guestbookpage({ list, data }) {
+  return <GuestbookLayout list={list} initData={data} />
+}
+
+export async function getServerSideProps(context) {
+  const workers = process.env.NEXT_PUBLIC_WORKERS
+  const resList = await fetch(encodeURI(`${workers}/guestbook?type=list`))
+  const json = await resList.json()
+  const list = json.sort().reverse()
+
+  const res = await fetch(encodeURI(`${workers}/guestbook?type=all`))
+  const data = await res.json()
+
+  return {
+    props: { list, data },
   }
-  return (
-    <Container customMeta={customMeta}>
-      <WriteGuestbook />
-      <Title title="Guestbook" des="한 줄 방명록을 남겨주세요." />
-      테스트중
-    </Container>
-  )
 }
 
 export default Guestbookpage
