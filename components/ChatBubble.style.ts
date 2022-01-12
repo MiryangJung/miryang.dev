@@ -13,6 +13,6 @@ export const ChatBubbleContainer = styled.div`
   font-weight: 300;
   margin-top: 10px;
   word-break: break-all;
-  line-height: 1.8;
+
   ${dynamicBackground}
 `
