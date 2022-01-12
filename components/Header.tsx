@@ -1,15 +1,15 @@
 import { HeaderContainer, LogoImage } from './Header.style'
 import Nav from './Nav'
-import metadata from '../data/metadata'
+import Link from 'next/link'
 
 const Header = () => {
   return (
     <HeaderContainer>
       <Nav />
 
-      <a href={metadata.repo}>
+      <Link href="/">
         <LogoImage src="/static/logo.png" alt="logo" />
-      </a>
+      </Link>
     </HeaderContainer>
   )
 }

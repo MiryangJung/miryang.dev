@@ -9,10 +9,10 @@ export const NavContainer = styled.div`
   a {
     text-decoration: none;
     color: var(--tx-sub-dark);
-    padding: 0 10px;
+    padding-right: 20px;
     transition: 0.3s;
+    font-size: 18px;
     ${mq()({
-      fontSize: ['14px', '18px'],
       display: ['none', 'block'],
     })}
     &:hover {
@@ -48,6 +48,7 @@ export const DropNavContainer = styled.div`
   flex-flow: column nowrap;
   background: var(--bg-main);
   a {
+    font-size: 20px;
     text-decoration: none;
     color: var(--tx-main);
     padding: 15px 30px;
