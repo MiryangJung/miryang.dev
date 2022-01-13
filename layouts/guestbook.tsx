@@ -8,13 +8,7 @@ import GuestbookDate from '../components/GuestbookDate'
 import React, { useState } from 'react'
 import ChatBubble from '../components/ChatBubble'
 
-function GuestbookLayout({
-  list,
-  initData,
-}: {
-  list: Array<{ name: string }>
-  initData: tGuestbooks
-}) {
+function GuestbookLayout({ list, initData }: { list: string[]; initData: tGuestbooks }) {
   const customMeta = {
     title: `Guestbook - ${metadata.meta.title}`,
   }
@@ -26,12 +20,12 @@ function GuestbookLayout({
       <WriteGuestbook data={data} setData={setData} />
       <Title title="Guestbook" des="한 줄 방명록을 남겨주세요." />
       <GuestbookNotice />
-      {list.map(i => (
-        <React.Fragment key={i.name}>
-          <GuestbookDate date={i.name} />
-          {data[i.name] && (
+      {list.map(key => (
+        <React.Fragment key={key}>
+          <GuestbookDate date={key} />
+          {data[key] && (
             <>
-              {data[i.name].map((d, index) => (
+              {data[key].map((d, index) => (
                 <ChatBubble key={d.createdAt} content={d.content} color={d.color} />
               ))}
             </>
