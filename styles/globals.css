@@ -108,6 +108,7 @@ a {
 pre[class*="language-"] > .code-highlight {
   padding: 0;
   border: none;
+  font-size: 14px;
 }
 
 code[class*="language-"],
@@ -151,6 +152,7 @@ pre[class*="language-"] {
   padding: 1em;
   margin: 8px 0;
   overflow: auto;
+  font-size: 14px;
 }
 
 :not(pre) > code[class*="language-"],
@@ -163,6 +165,11 @@ pre[class*="language-"] {
 :not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
+  font-size: 14px;
+}
+
+.token{
+  font-size: 14px;
 }
 
 .token.comment,
@@ -177,7 +184,7 @@ pre[class*="language-"] {
 .token.selector,
 .token.important,
 .token.atrule {
-  color: #fb4934; /* red2 */
+  color: #BB8395; /* red2 */
 }
 
 .token.operator,
@@ -202,7 +209,7 @@ pre[class*="language-"] {
 .token.property,
 .token.constant,
 .token.variable {
-  color: #fb4934; /* red2 */
+  color: #BB8395; /* red2 */
 }
 
 .token.string,
@@ -241,12 +248,13 @@ pre[class*="language-"] {
 }
 
 .token.deleted {
-  background: #fb4934; /* red2 */
+  background: #BB8395; /* red2 */
 }
 
 .code-line{
   padding-top: 2px;
   padding-bottom: 2px;
+  font-size: 14px;
 }
 
 .rehype-code-title{
@@ -257,6 +265,7 @@ pre[class*="language-"] {
   padding: 5px 16px;
   font-weight: 700;
   margin-top: 8px;
+  font-size: 14px;
 }
 
 .rehype-code-title + pre {
@@ -282,6 +291,7 @@ pre {
   margin-left: -16px;
   margin-right: -16px;
   border-left-width: 4px;
+  font-size: 14px;
 }
 
 .code-line.inserted {
@@ -297,6 +307,7 @@ pre {
   margin-right: -16px;
   background-color: rgba(55, 65, 81, 0.5); /* Set highlight bg color */
   border-left-width: 4px;
+  font-size: 14px;
 }
 
 .line-number::before {
