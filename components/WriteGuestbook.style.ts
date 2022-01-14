@@ -28,18 +28,19 @@ const dynamicBackground = ({ color }) => css`
   background: ${color};
 `
 
+const dynamicBorder = ({ color }) => css`
+  border-color: ${color};
+`
+
 export const WriteGbContent = styled.input`
+  border: none;
   outline: none;
   width: calc(100% - 70px);
-  border: 1px solid var(--bg-sub);
   border-radius: 30px;
   padding: 10px 20px;
   margin-right: 10px;
   font-size: 14px;
   ${dynamicBackground}
-  &:focus {
-    border-color: var(--tx-sub-dark);
-  }
 `
 
 export const WriteGbSubmit = styled.button`
@@ -49,13 +50,14 @@ export const WriteGbSubmit = styled.button`
   padding: 5px 10px 8px 13px;
   margin: 5px 0;
   background: var(--bg-main);
-  border: 1px solid var(--tx-sub-dark);
+  border: 1px solid;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  ${dynamicBorder}
   &:hover {
-    border-color: var(--tx-accent);
+    background: var(--bg-sub);
   }
 `
 

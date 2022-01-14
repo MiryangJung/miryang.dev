@@ -26,7 +26,7 @@ function GuestbookLayout({ list, initData }: { list: string[]; initData: tGuestb
           {data[key] && (
             <>
               {data[key].map((d, index) => (
-                <ChatBubble key={d.createdAt} content={d.content} color={d.color} />
+                <ChatBubble key={`${d.createdAt}-${index}`} content={d.content} color={d.color} />
               ))}
             </>
           )}

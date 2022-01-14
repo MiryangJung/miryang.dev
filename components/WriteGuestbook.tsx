@@ -6,7 +6,7 @@ import {
   WriteGbLine,
   WriteGbSubmit,
 } from './WriteGuestbook.style'
-import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 'react'
 import nowDate from '../lib/nowDate'
 import { tColors, tGuestbooks } from '../lib/types'
 
@@ -26,8 +26,14 @@ const WriteGuestbook = ({
     '#c4a583',
     '#BB8395',
   ]
+
   const [content, setContent] = useState<string>('')
   const [color, setColor] = useState<tColors>(colors[0])
+
+  useEffect(() => {
+    const random = Math.floor(Math.random() * colors.length)
+    setColor(colors[random])
+  }, [])
 
   const submitHandle = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -49,7 +55,6 @@ const WriteGuestbook = ({
 
     if (res.status === 200) {
       setContent('')
-      setColor(colors[0])
       setData({ ...data, [key]: [{ content, color, createdAt: date }, ...data[key]] })
     }
   }
@@ -65,7 +70,7 @@ const WriteGuestbook = ({
           value={content}
           onChange={e => setContent(e.target.value)}
         />
-        <WriteGbSubmit type="submit">
+        <WriteGbSubmit type="submit" color={color}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="20px"
