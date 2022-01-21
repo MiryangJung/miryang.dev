@@ -10,7 +10,7 @@ function BlogLayout({ post }) {
     description: post.description,
     image: `${metadata.meta.url}${post.thumbnailUrl}`,
     type: 'article',
-    date: new Date(post.publishedAt).toISOString(),
+    date: new Date(post.date).toISOString(),
   }
   const MDXComponent = useMDXComponent(post.body.code)
   return (

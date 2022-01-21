@@ -19,7 +19,7 @@ export const HeaderContainer = styled.header`
 `
 
 export const LogoImage = styled.img`
-  height: 35px;
+  height: 50px;
   width: auto;
   object-fit: contain;
   cursor: pointer;
