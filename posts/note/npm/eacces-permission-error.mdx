@@ -1,0 +1,41 @@
+---
+title: NPM EACCES Permission Error
+date: 2022-01-21
+---
+
+## NPM 권한 에러
+
+global로 설치할 때 생김
+
+sudo로 설치하는 것은 권장하지 않음
+
+```
+npm ERR! code EACCES
+npm ERR! syscall rename
+npm ERR! path /usr/local/lib/node_modules/esbuild
+npm ERR! dest /usr/local/lib/node_modules/.esbuild-pDpzkGsP
+npm ERR! errno -13
+npm ERR! Error: EACCES: permission denied, rename '/usr/local/lib/node_modules/esbuild' -> '/usr/local/lib/node_modules/.esbuild-pDpzkGsP'
+npm ERR!  [Error: EACCES: permission denied, rename '/usr/local/lib/node_modules/esbuild' -> '/usr/local/lib/node_modules/.esbuild-pDpzkGsP'] {
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'rename',
+npm ERR!   path: '/usr/local/lib/node_modules/esbuild',
+npm ERR!   dest: '/usr/local/lib/node_modules/.esbuild-pDpzkGsP'
+npm ERR! }
+npm ERR!
+```
+
+## 해결 
+
+```
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+vi ~/.zshrc
+    export PATH=~/.npm-global/bin:$PATH
+source ~/.zshrc
+```
+
+
+## Reference  
+- https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally

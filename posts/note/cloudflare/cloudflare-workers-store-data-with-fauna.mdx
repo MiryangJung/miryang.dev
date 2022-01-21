@@ -1,0 +1,119 @@
+---
+title: Cloudflare Workers에 Fauna 사용하기
+date: 2022-01-21
+---
+
+> [Create a serverless, globally distributed REST API with Fauna](https://developers.cloudflare.com/workers/tutorials/store-data-with-fauna) 따라해보기
+
+## Fauna 세팅
+
+1. [Fauna](https://fauna.com/) 가입
+2. **CREATE DATABASE** 버튼을 누르고, 새로운 데이터베이스 생성
+3. **NEW COLLECTION** 버튼을 누르고, 새로운 컬렉션 생성
+4. **Security** 탭에서 **NEW KEY** 버튼을 누르고, 새로운 키 생성
+    - role : server
+5. 키 보관하기
+
+## Cloudflare Workers 세팅
+
+`secret` 을 저장하려면 publish를 먼저 해야함
+
+```shell
+wrangler generate guestbook-fauna-workers
+cd fauna-workers
+wrangler publish
+```
+
+`secret` 환경 변수로 추가
+
+```shell
+wrangler secret put FAUNA_SECRET
+```
+
+## 코드 작성
+
+Fauna Js 드라이버 설치
+
+```shell
+npm install faunadb
+```
+
+[Worktop](https://github.com/lukeed/worktop) 설치  
+*worktop : The next generation web framework for Cloudflare Workers*
+
+```shell
+npm install --save worktop
+```
+
+build 스크립트 추가
+
+```json:package.json
+ "scripts": {
+    "build": "worktop build index.js",
+    // ...
+  }
+```
+
+`wrangler.toml` 파일 수정
+
+```toml:wrangler.toml
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "service-worker"
+```
+
+유틸리티 함수
+
+```javascript:utils.js
+export function getFaunaError(error) {
+  const { code, description } = error.requestResult.responseContent.errors[0];
+  let status;
+
+  switch (code) {
+    case 'unauthorized':
+    case 'authentication failed':
+      status = 401;
+      break;
+    case 'permission denied':
+      status = 403;
+      break;
+    case 'instance not found':
+      status = 404;
+      break;
+    case 'instance not unique':
+    case 'contended transaction':
+      status = 409;
+      break;
+    default:
+      status = 500;
+  }
+
+  return { code, description, status };
+}
+```
+
+`index.js` 수정
+
+```
+import {Router, listen} from 'worktop';
+import faunadb from 'faunadb';
+import {getFaunaError} from './utils.js';
+
+const router = new Router();
+
+const faunaClient = new faunadb.Client({
+  secret: FAUNA_SECRET,
+});
+
+const {Create, Collection, Match, Index, Get, Ref, Paginate, Sum, Delete, Add, Select, Let, Var, Update} = faunadb.query;
+
+router.add('GET', '/', async (request, response) => {
+  response.send(200, 'hello world');
+});
+
+listen(router.run);
+```
+
+실행하면 `Error: The package "esbuild-darwin-64" could not be found, and is needed by esbuild.` 에러나서 [이슈](https://github.com/lukeed/worktop/issues/142) 달아두고 진행 못하는 중
