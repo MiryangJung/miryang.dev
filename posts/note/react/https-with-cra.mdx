@@ -1,0 +1,25 @@
+---
+title: CRA localhost에 https ssl 적용하기
+date: 2022-01-23
+---
+
+```shell
+brew install mkcert
+mkcert -install
+```
+
+```shell
+cd cra
+mkdir -p .cert
+mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem "localhost"
+```
+
+```json:package.json
+"scripts": {
+    "start": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
+    ...
+}
+```
+
+## Reference  
+- [how-to-set-up-https-locally-with-create-react-app](https://www.freecodecamp.org/news/how-to-set-up-https-locally-with-create-react-app/)
