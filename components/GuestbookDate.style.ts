@@ -5,4 +5,5 @@ export const GuestbookDateContainer = styled.div`
   color: var(--tx-sub-dark);
   width: 100%;
   text-align: center;
+  margin-top: 10px;
 `
