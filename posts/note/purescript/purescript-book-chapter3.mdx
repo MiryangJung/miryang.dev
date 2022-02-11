@@ -1,0 +1,175 @@
+---
+title: 퓨어스크립트 북 챕터3 해보는 메모장
+date: 2022-02-11
+---
+
+> [퓨어스크립트 북 챕터3 - 함수와 레코드들](https://book.purescript.org/chapter3.html)
+
+## 단순 타입
+
+### Javascript에 대응하는 기본 유형 3가지
+
+`Number`, `String`, `Boolean`
+
+```purescript
+> :type 1.0
+Number
+
+> :type "miryang"
+String
+
+> :type true
+Boolean
+```
+
+### 내장 유형들
+
+- `Int` : 소수점이 없음 = 정수
+- `Char` : 작은 따옴표 사용
+
+```purescript
+> :type 1
+Int
+
+> :type 'A'
+Char
+```
+
+- `Array` : 배열의 모든 요소는 같은 타입이어야 함
+
+```purescript
+> :type [1,10,20]
+Array Int
+
+> :type [1.0,2.0,3.0]
+Array Number
+
+> :type [1, 'a']
+Error...
+```
+
+- `Records` : Js의 오브젝트
+
+```purescript
+> miryang = {name:"Miryang", favoriteNum: [1,5,10]}
+> :type miryang
+{ favoriteNum :: Array Int
+, name :: String          
+}   
+```
+
+- `function` : 함수
+    - 1급 객체라서 변수와 함수의 구분이 없다고함!
+    - 선언 윗줄에 타입을 작성
+    - [여기 설명 최고다.](https://roamresearch.com/#/app/jsonkim-public/page/8kbZ1wxuk)
+
+```purescript
+add :: Int -> Int -> Int
+add x y = x + y
+```
+
+## Quantified Types
+
+- `forall` : parametric polymorphism(타입을 매개변수로 받아 새로운 타입을 되돌려주는 기능)
+    - 함수의 인자가 type
+
+```purescript
+> :type flip
+forall a b c. (a -> b -> c) -> b -> a -> c
+```
+
+**!TODO** : 개념은 50% 이해했는데 사용해보지 않아서 헷갈린다. 사용해보기!
+
+## 들여쓰기
+
+파이썬처럼 들여쓰기로 블럭 구분  
+소스파일 맨 위의 모듈 초기 선언 키워드인 `where`는 예외
+
+```purescript
+add x y z = x +
+  y + z
+```
+
+## 유형 정의
+
+street, city, state 필드가 String인 레코드 타입을 만들고, Entry라는 별칭을 가진다.  
+레코드에는 다른 레코드가 포함될 수 있다.
+
+```purescript
+type Address =
+  { street :: String
+  , city   :: String
+  , state  :: String
+  }
+type Entry =
+  { firstName :: String
+  , lastName  :: String
+  , address   :: Address
+  }
+```
+
+`List`를 만들 수 있다.  
+List랑 Array는 다르다.
+
+```purescript
+type AddressBook = List Entry
+```
+
+## 타입 생성자
+
+- `List` : type constructor
+    - 타입을 받아 타입을 반환
+    - [여기 설명 최고다.](https://roamresearch.com/#/app/jsonkim-public/page/mlb3ME3v7)
+
+**!TODO** : 공부 필요!
+
+## repl
+
+```shell
+spago repl
+```
+
+## 주소록 만들기
+
+emptyBook은 AddressBook 타입이고, 값은 empty이다.
+
+```purescript
+emptyBook :: AddressBook
+emptyBook = empty
+```
+
+AddressBook을 받아 AddressBook을 반환한다.  
+기존 AddressBook을 수정하지 않고, 새롭게 만들어서 반환한다.  
+불변성을 중요하게 생각한다.
+
+```purescript
+insertEntry :: Entry -> AddressBook -> AddressBook
+insertEntry = Cons
+```
+
+**!TODO** : Cons의 의미를 잘 모르겠다. 왜 갑자기 저걸 쓴거지...?
+
+## Curried 함수
+
+Purescript의 함수는 하나의 인수만 취한다.
+
+## 속성 접근자
+
+entry의 address항목 가져오기
+
+```purescript
+\entry -> entry.address
+```
+
+약식으로 사용 가능!
+
+```
+_.address entry
+```
+
+## Querying the Address Book
+
+**!TODO** : 위를 완벽하게 여기서부터 이해 못하고 읽기만 했다... 위에 다시 공부하고 다시 이해해보자! 특히 `forall`
+
+> Refer  
+> [jsonkim-public/page/e7BnK1K21](https://roamresearch.com/#/app/jsonkim-public/page/e7BnK1K21)
