@@ -3,13 +3,13 @@ const metadata = {
   meta: {
     url: 'https://miryang.dev',
     title: 'Miryang | Developer',
-    description: 'Frontend developer who likes travel and laziness',
+    description: 'Lazy frontend developer who likes to travel',
     twitter: '@MiryangJung',
   },
   author: 'MiryangJung',
   home: {
     name: 'Miryang Jung',
-    description: 'Frontend developer who likes travel and laziness',
+    description: 'Lazy frontend developer who likes to travel',
   },
   social: {
     github: 'https://github.com/MiryangJung',
