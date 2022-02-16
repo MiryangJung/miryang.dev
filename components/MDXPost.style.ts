@@ -6,8 +6,19 @@ export const MDXPostContainer = styled.div`
   flex-direction: column;
   line-height: 1.8;
   font-weight: 400;
-  color: var(--tx-main);
   font-size: 16px;
+
+  * {
+    color: var(--tx-sub);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: var(--tx-main);
+  }
 
   a {
     color: var(--tx-accent);
