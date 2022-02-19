@@ -1,0 +1,102 @@
+---
+title: 퓨어스크립트 북 챕터4 해보는 메모장
+date: 2022-02-19
+---
+
+> [퓨어스크립트 북 챕터4 - Recursion, Maps And Folds](https://book.purescript.org/chapter4.html)
+
+가볍게 읽어보자!
+
+## 재귀  
+- 변경 가능한 상태를 줄이는데 도움이 된다.
+    - 순수 함수형 프로그래밍에서 일반적
+- 특정 입력에 대한 문제 해결을 위해 입력을 더 작은 부분으로 분해, 조합
+    - 분할 정복
+
+### 배열의 재귀
+- 배열이 비어있는지 확인하면서 분기
+
+## 맵
+- 각 요소에 차례로 함수를 적용하여 배열의 요소를 변환
+- 배열의 내용은 변하지만 길이는 유지
+
+## 중위 연산자
+- 백틱으로 감싸서 중위 연산자처럼 사용 가능
+- 별칭 : `<$>`
+- 두 개의 인자가 있는 함수는 모두 이렇게 사용 가능
+- `(<$>)` 괄호로 묶어 일반 함수처럼도 사용 가능
+
+```purescript
+(\n -> n + 1) `map` [1, 2, 3, 4, 5]
+(\n -> n + 1) `<$>` [1, 2, 3, 4, 5]
+```
+
+이렇게 보니 `forall` 가 와닿는다! 
+
+```purescript
+> :type map
+forall a b f. Functor f => (a -> b) -> f a -> f b
+forall a b. (a -> b) -> Array a -> Array b
+```
+
+## filter
+- 조건자 함수와 일치하는 요소만 유지하면서 새 배열을 생
+
+## concat
+- 이중 배열을 단일 배열로 병합
+
+## concatMap
+- `concat` + `map`
+- 모든 요소에 제공된 함수를 적용해서 각각에 대한 배열을 생성
+- 마지막으로 단일 배열로 합침
+
+```purescript
+> concatMap (\n -> [n, n * n]) (1 .. 5)
+[1,1,2,4,3,9,4,16,5,25]
+```
+
+## Do Notation
+- `<-` 왼쪽에 이름, 오른쪽에 배열 타입 표현식
+- 1과 n 사이의 값을 골라서 i에 
+- i와 n 사이의 값을 골라서 j에
+- 그리고 `[i,j]` 리턴
+
+```
+factors :: Int -> Array (Array Int)
+factors n = filter (\xs -> product xs == n) do
+  i <- 1 .. n
+  j <- i .. n
+  pure [ i, j ]
+```
+
+## Guards
+- 배열에 값이 없는 경우를 방지하기 위해 쓰는 듯
+- [여기 설명!](https://roamresearch.com/#/app/jsonkim-public/page/o6uuLqTk5)
+
+## Folds
+
+- `foldl` 왼쪽에서 배열을 접음
+- `foldr` 오른쪽에서 배열을 접음
+
+```
+> foldl (\acc n -> acc <> show n) "" [1,2,3,4,5]
+"12345"
+
+> foldr (\n acc -> acc <> show n) "" [1,2,3,4,5]
+"54321"
+```
+
+## Tail Recursion
+
+- 재귀는 입력이 크면 스택오버플로 발생 가능
+- `while` 루프로 대체
+
+## Accumulators
+
+- 꼬리 재귀가 아닌 함수를 꼬리 재귀로 만드는 방법
+- 누적 매개변수 사용 
+
+
+
+
+
