@@ -1,0 +1,76 @@
+---
+title: Docs. Let Binding
+date: 2022-02-22
+---
+
+## 리스크립트 Let Binding
+
+- [let-binding](https://rescript-lang.org/docs/manual/latest/let-binding)
+- [playground](https://rescript-lang.org/try?code=DYUwLgBAzgxg9gJxBAvBAjABgFCkgOwEMBbZNAIgFkBLBAT0PwHMApAV2fOwHpuIBRBAkQ8+RUqgjkASgAsQhLrnARSUKISZkIAb2wQIeaGATVmk8gEEAQgGEuBo0gBuIBFG3lb1yw+OnzAGpAqVDgiBc3D2wAX2xlSEIAEySAeXxtfDZiVAA+XSyckPQ4o2SkgBUAdzhJQryC7IgQgCY4hIhCgCM3dEkcI263Fsly9JAACiGEdABKDumAZlGU6rgp7J6EFvnsYjgktlAISwAuXX1DFS7zszBYyT1HFUJJRcujLskAFlj43ggFXkEGchGAbGQrxgjAA5JAehAAGZwDhJCBmE6iE4AOkIAFpciwoNjgHAmNhLNivgSIESSWT4gBSRkAB1MoLAkzKkiwsyAA)
+
+변수 선언이다.
+
+```Reason
+let score = 10
+let name = "MiryangJung"
+```
+
+##### Block Scope
+
+`{}` 로 스코프 사용, `{}` 안에서 선언된 변수는 지역 변수이다.
+마지막 라인의 value는 암시적으로 리턴된다.
+
+```Reason
+let message = {
+  let string = "ABC"
+  let reverse = "CBA"
+  string ++ " " ++ reverse
+}
+```
+
+##### Design Decisions
+
+`if` `while` `function` 모두 블록 스코프 방식
+
+##### Bindings Are Immutable
+
+`Let binding` 은 **불변**하다.
+
+```Reason
+let name = "MiryangJung"
+// Error
+// name = "Rhea"
+```
+
+##### Binding Shadowing
+
+값을 변경하기 위해서 사용하는 방법
+
+```Reason
+let number1 = 0
+let number2 = addOne(number1)
+let number3 = addTwo(number2)
+```
+
+##### Private let bindings
+
+기본적으로 모든 것은 public이다. 프라이빗하게 사용하고 싶다면 `module` 선언에서 **public** 필드를 따로 표시한다.
+
+```Reason
+module A: {
+  let b: int
+} = {
+  let a = 3
+  let b = 4
+}
+
+A.b -> Js.log
+// The value a can't be found in A
+// A.a->Js.log
+```
+
+또는 `%%private` 도 가능하며 파일 수준에서도 사용가능하다.
+
+```Reason
+%%private(let a = 10)
+```

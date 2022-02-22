@@ -1,0 +1,35 @@
+---
+title: Docs. Type
+date: 2022-02-22
+---
+
+## Type
+
+- [type](https://rescript-lang.org/docs/manual/latest/type)
+
+##### Inference
+
+타입을 작성하지 않아도 유추된다.
+
+```Reason
+// (int,int) => int
+let add = (a, b) => a + b
+```
+
+##### Type Annotation
+
+타입을 적어줄 수도 있다. 타입 어노테이션이 유추한 타입과 맞지 않는 경우 컴파일 에러가 난다.
+
+```Reason
+let score: int = 10
+// This has type: int Somewhere wanted: string
+// let name:string = 10
+```
+
+어떤 표현도 `()` 에 넣고 어노테이션을 사용할 수 있다.
+
+```
+let myScore = (5: int) + 10
+```
+
+##### Type Alias
