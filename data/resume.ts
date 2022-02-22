@@ -46,6 +46,13 @@ const resume: tResume = {
   ],
   experience: [
     {
+      company: '그린랩스',
+      position: 'Frontend Engineer',
+      period: '22.02 ~ ',
+      content: [],
+    },
+    ,
+    {
       company: '외주',
       position: 'Project Manager & Frontend Engineer',
       period: '21.09 ~ 21.12',
