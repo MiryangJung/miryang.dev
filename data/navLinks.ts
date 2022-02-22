@@ -1,7 +1,7 @@
 const navLinks: { title: string; link: string }[] = [
   { title: 'Blog', link: '/blog' },
   { title: 'Projects', link: '/projects' },
-  { title: 'Note', link: '/http://localhost:3000/note/rescript/docs-lang-feat-let-binding' },
+  { title: 'Note', link: '/note/rescript/docs-lang-feat-let-binding' },
   { title: 'About', link: '/about' },
   { title: 'Resume', link: '/resume' },
   { title: 'GuestBook', link: '/guestbook' },
