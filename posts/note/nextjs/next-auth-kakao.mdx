@@ -38,7 +38,7 @@ export default NextAuth({
 
 세션을 공유하기 위해 상위 레벨에 Provider를 설정한다.
 
-```tsx:pages/_app.tsx
+```ts:pages/_app.tsx
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 로그인 로그아웃 버튼 설정
 
-```tsx:pages/sth.tsx
+```ts:pages/sth.tsx
 const Home: NextPage = () => {
   const { data: session } = useSession()
   if (session) {
@@ -75,11 +75,12 @@ const Home: NextPage = () => {
 - 카카오 디벨로퍼 사이트 접속
 - Web 플랫폼 등록
 - Redirect URI 등
-    - ${url}/api/auth/callback/kakao
+    - https://example/api/auth/callback/kakao
 - 활성화 설정
 - 제품 설정 > 카카오 로그인 > 보안 > client secret 발급
 
-```env:.env.local
+
+```shell:.env.local
 KAKAO_CLIENT_ID=앱키-RESTAPI키
 KAKAO_CLIENT_SECRET=보안-ClientSecret키
 ```
