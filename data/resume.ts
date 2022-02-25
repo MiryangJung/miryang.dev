@@ -51,7 +51,6 @@ const resume: tResume = {
       period: '22.02 ~ ',
       content: [],
     },
-    ,
     {
       company: '외주',
       position: 'Project Manager & Frontend Engineer',
