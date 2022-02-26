@@ -1,0 +1,113 @@
+---
+title: 퓨어스크립트 북 챕터5 해보는 메모장
+date: 2022-02-26
+---
+
+> [퓨어스크립트 북 챕터5 - Pattern Matching](https://book.purescript.org/chapter5.html)
+
+가볍게 읽어보기!
+
+## Chapter Goals
+
+- 행 다형성
+- 패턴 매칭은 함수형 프로그래밍의 일반적인 기술
+- Algebraic data type 대수 데이터 타입
+
+## Project Setup
+
+- `as` 를 사용하면 정규화된 이름을 사용해야함
+    - 중복 방지, 모듈을 명확하게 구분
+
+## Simple Pattern Matching
+
+패턴 매칭을 사용하여 두 정수의 최대 공약수를 계산하는 함수
+
+- 패턴이 입력과 일치하는 첫 번째 케이스가 반환
+
+```purescript
+gcd :: Int -> Int -> Int
+gcd n 0 = n
+gcd 0 m = m
+gcd n m = if n > m
+            then gcd (n - m) m
+            else gcd n (m - n)
+```
+
+*얼마 전에 유클리드로 최대공약수 구하는 알고리즘 복습하면서 기록한 노트가 생각나서 첨부*
+
+![](/note/purescript/purescript-book-chapter5/Euclidean.jpeg)
+
+## Simple Patterns
+
+- literal값이 일치할 때
+- 변수명은 이름에 바인딩
+- `_` 와일드카드 패턴
+
+## Guards
+
+- `if .. then .. else` 대신 Guard 사용
+- `|` 로 구분
+- `otherwise`는 true를 나타낸다.
+    - switch의 `default:` 같은 느낌이려나?
+
+
+```purescript
+gcdV2 :: Int -> Int -> Int
+gcdV2 n 0 = n
+gcdV2 0 n = n
+gcdV2 n m | n > m     = gcdV2 (n - m) m
+          | otherwise = gcdV2 n (m - n)
+```
+
+## Array Patterns
+
+- 고정 길이의 배열을 매칭
+- 지정되지 않은 길이의 배열을 일치시키는 방법은 성능 저하 우려로 제공 X
+    - 대신 `Data.List` 사용
+
+## Record Patterns and Row Polymorphism
+
+- 레코드 매칭
+- 필드에 대한 바인딩(?)
+
+```purescript
+showPerson :: { first :: String, last :: String } -> String
+showPerson { first: x, last: y } = y <> ", " <> x
+```
+
+## Record Puns
+
+```purescript
+unknownPerson :: { first :: String, last :: String }
+unknownPerson = { first, last }
+  where
+    first = "Jane"
+    last  = "Doe"
+```
+
+## Nested Patterns
+
+- 두 개의 레코드 패턴 결합 가능
+
+## Named Patterns
+
+- `@` 로 패턴의 이름 지정 가능
+
+## Case Expressions
+
+- 최상위에서만 패턴 매칭을 사용하는 것 X
+- `case`를 사용해 함수 내부에서서도 가능
+
+## Pattern Match Failures and Partial Functions
+
+- 누락된 패턴이 있으면 `pattern match failure` 런타임 실패
+
+## Algebraic Data Types
+
+> - [대수적 데이터 타입이(algebraic data type)이란? With Kotlin](https://medium.com/@lazysoul/%EB%8C%80%EC%88%98%EC%A0%81-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85%EC%9D%B4-algebraic-data-type-%EC%9D%B4%EB%9E%80-26d9e73d96b6)
+> - [대수적 데이터 타입과 리액트 상태 관리](https://green-labs.github.io/algebraic-data-type)
+>   - 어라 그린랩스 블로그...? ㅎㅎㅎ
+
+밑에 아직 못 봄!
+
+
