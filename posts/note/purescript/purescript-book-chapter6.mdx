@@ -10,14 +10,14 @@ date: 2022-03-04
 ## [Project Setup](https://book.purescript.org/chapter6.html#project-setup)
 
 - Maybe
-- optional values
+    - optional values
 - Tuple
-- pairs of values
+    - pairs of values
 - Either
-- disjoint unions
-- https://en.wikipedia.org/wiki/Disjoint_union
-- 분리합집합
-- 교집합이 존재하지 않는 둘 이상의 집합
+    - disjoint unions
+    - https://en.wikipedia.org/wiki/Disjoint_union
+    - 분리합집합
+    - 교집합이 존재하지 않는 둘 이상의 집합
 - String
 - Function
 
@@ -31,22 +31,22 @@ class Show a where
 ```
 
 - Orphan Instances
-- 고아 인스턴스?
-- 외부에 정의된 타입 클래스 인스턴스를 칭함
-- 퓨어스크립트에선 이를 금지
-- 인스턴스의 전역 고유성이 보장된다.
-- *얼마 전에 rescript에서  두 개의 모듈이 이름 겹쳐서 에러났는데 그런 비슷한건가..?*
+    - 고아 인스턴스?
+    - 외부에 정의된 타입 클래스 인스턴스를 칭함
+    - 퓨어스크립트에선 이를 금지
+    - 인스턴스의 전역 고유성이 보장된다.
+    - *얼마 전에 rescript에서  두 개의 모듈이 이름 겹쳐서 에러났는데 그런 비슷한건가..?*
 
 ## [Common Type Classes](https://book.purescript.org/chapter6.html#common-type-classes)
 
 - `Eq` : `==`
 - `Ord` : 두 값 비교
 - `Field` : 숫자 연산
-- 슈퍼 클래스로 구성
+    - 슈퍼 클래스로 구성
 - `Semigroups` : 두 값 결합
 - `<>` 연결 연산자 `append`
 - `Monoids` :  `mempty` 라고 불리는 빈 값 컨셉으로 `Semigroups` 을 확장?
-- 문자열과 배열은 모노이드의 간단한 예
+    - 문자열과 배열은 모노이드의 간단한 예
 - `foldable` :  `fold` 의 소스로 사용할 수 있는 유형 생성자
 
 ## [Type Class Constraints](https://book.purescript.org/chapter6.html#type-class-constraints)
