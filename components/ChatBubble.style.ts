@@ -6,6 +6,7 @@ const dynamicBackground = ({ color }) => css`
 `
 
 export const ChatBubbleContainer = styled.div`
+  color: var(--tx-white);
   max-width: 90%;
   margin-left: auto;
   padding: 5px 10px;

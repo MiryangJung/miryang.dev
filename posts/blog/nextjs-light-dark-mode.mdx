@@ -1,0 +1,174 @@
+---
+title: Next.js 정적블로그에 Light & Black 모드 추가하기
+date: 2022-03-08
+description: Black 테마만 있던 Next.js블로그에 Light 테마 추가하기
+thumbnailUrl: /posts/thumbnail/nextjs-light-dark-mode.jpg
+---
+
+## ⚫️ 내 블로그에 Light Black 모드를 추가하자
+
+기존 블로그는 블랙 테마를 사용하고 있다.
+다른 분들 블로그에서 `Light Black` 테마를 토글해서 사용하는 것이 멋져보여서 나도 추가하기로 했다.
+
+새로운 테마를 추가할 계획 없이 style을 작성했어서 코드를 많이 손봐야하는 것을 시작할 때는 몰랐다...
+
+## ⚪️️ Light 모드에서 어떤 컬러를 사용할까?
+
+Black 모드에서는 **Home** 의 메인 이미지(동영상)에서 색을 추출해서 컬러 스키마를 만들었다.
+
+![](/posts/nextjs-light-black-mode/1.png)
+
+Light 모드에 메인으로 사용할 전체적인 색감이 밝은 동영상 몇 개를 추렸다.
+
+- **후보1.** 주황색 배경에 내 이름으로 만들어진 목걸이 동영상
+    - 주황색을 메인 색으로
+- **후보2.** 바티칸 노란 우체통에 엽서를 넣는 동영상
+    - 노란색을 메인 색으로
+- **후보3.** 부다페스트 전망대에서 구경하는 동영상
+    - 하늘색을 메인 색으로
+
+도저히 못 고르겠어서 주변의 개발자분들에게 여쭤본 결과 **후보3** 으로 결정되었다.
+
+## ☀️ 라이트 테마를 작성하자
+
+`:root` 에 색상을 정의해두고 있던 부분을 `data-theme` 으로 사용하기 위해 body로 옮기고 light 컬러셋을 추가하였다.
+
+```css:globals.css
+body[data-theme="dark"]{
+  --bg-main: #111111;
+  --bg-sub: #333333;
+    ...
+}
+
+body[data-theme="light"]{
+  --bg-main: #ffffff;
+  --bg-sub: #bdc1c9;
+    ...
+}
+```
+
+컬러셋만 바꿔준 터라 전부 잘 바뀌긴 했으나 게스트북의 경우 글자색이 흰색이여야 아름다우나 모드에 맞게 색이 검정색으로 변경되어서
+
+![](/posts/nextjs-light-black-mode/2.png)
+
+light dark 모드에 상관없이 항상 **고정된 색** 을 가지는 요소들을 위해 컬러 변수를 몇 개 추가했다.
+블로그 구석구석을 다 만져보면서 고정색상을 가져야하는 요소를 다 수정해주었다.
+
+```css:globals.css
+body{
+  --tx-white: #eaeaea;
+    ...
+}
+```
+
+프로젝트 카드의 경우 이미지 자체의 배경이 흰 색이여서 `border-color` 를 부여해서 구분되도록 변경했다.
+
+![](/posts/nextjs-light-black-mode/3.png)
+
+## ☀️ 라이트 모드 토글을 작성하자
+
+토글에 사용될 버튼을 이모지를 사용하려 했으나 브라우저마다 달라지는 점이 별로여서 이미지로 변경하기로 했다.
+
+![](/posts/nextjs-light-black-mode/4.png)
+
+구글링을 했으나 저작권 Free이면서 맘에 드는 이미지가 없어서 일단 엉렁뚱땅이지만 직접 그려서 사용했다.
+
+![](/posts/nextjs-light-black-mode/5.png)
+
+`themeMode` 를 `useState` 를 사용해 저장하고 변경하도록 했다.
+
+```tsx:Header.tsx
+const [themeMode, setThemeMode] = useState<'dark' | 'light'>('dark')
+const themeModeHandle = e => {
+    e.preventDefault()
+    setThemeMode(themeMode === 'dark' ? 'light' : 'dark')
+}
+...
+<div onClick={themeModeHandle}>
+  {themeMode === 'dark' ? (
+    <ThemeModeImage alt="밝은 모드로 변경" src="/static/moon.png" />
+  ) : (
+    <ThemeModeImage alt="어두운 모드로 변경" src="/static/sun.png" />
+  )}
+</div>
+```
+
+`themeMode state` 가 변경될 때마다 theme이 변경될 수 있도록 `useEffect` 를 사용했다.
+
+```tsx:Header.tsx
+useEffect(() => {
+    document.body.dataset.theme = themeMode
+}, [themeMode])
+```
+
+지금 상태에서 모드 변경은 되나 새로고침이나 페이지 이동을 하면 테마가 유지가 되지 않는다.
+그래서 **localstorage**를 사용해 테마를 유지시키도록 했다.
+
+```tsx:Header.tsx
+const [themeMode, setThemeMode] = useState<string>(window.localStorage.getItem('theme') ?? 'dark')
+
+useEffect(() => {
+    document.body.dataset.theme = themeMode
+    window.localStorage.setItem('theme', themeMode)
+}, [themeMode])
+```
+
+**light** 모드에서 새로고침 시 localstorage에서 `theme`을 가져오기 전에 **dark** 모드로 설정되어 있다가 다시 **light**로
+설정되므로 깜박이는 현상이 있어 이 부분을 `_document.tsx` 에서 미리 설정될 수 있도록 했다.
+
+```tsx:_document.tsx
+const setThemeMode = `
+    function getThemeMode() {
+        const theme = window.localStorage.getItem('theme')
+        return theme ? theme : 'dark'
+    }
+    document.body.dataset.theme = getThemeMode()
+`
+```
+
+홈의 메인 이미지와 로고도 쿠키를 사용해 Dark Light 모드에 맞게 변경되도록 수정했다.
+
+`localstorage`를  `useEffect` 의 의존성으로 주면 변경이 일어날 때마다 실행이 될 것이라고 생각했지만 작동하지 않는다!
+
+```tsx
+const [theme, setTheme] = useState(document.body.dataset.theme)
+const localTheme = window.localStorage.getItem('theme')
+useEffect(() => {
+    setTheme(localTheme)
+}, [localTheme])
+
+<HomeProfileContainer theme={theme}> ...
+```
+
+그래서 컴포넌트에 `id` 를 부여하고, **css**에서 변경되도록 임시조치를 했다.
+
+```css:globals.css
+body[data-theme="dark"] #home-profile{
+  background: url('/home/dark.gif') no-repeat center, var(--bg-main);
+}
+
+body[data-theme="light"] #home-profile{
+  background: url('/home/light.gif') no-repeat, var(--bg-main);
+  background-size: cover;
+}
+```
+
+로고는 theme mode를 변경하는 버튼과 같은 컴포넌트에 위치해 있어서 `themeMode`에 따라 변경되도록 했다.
+
+```tsx
+{themeMode === 'dark' ? (
+    <LogoImage src="/static/logo-dark.jpg" alt="어두운 로고" />
+    ) : (
+    <LogoImage src="/static/logo-light.jpg" alt="밝은 로고" />
+)}
+```
+
+## 완성!
+
+장장 5시간을 메달려 밝은/어두운 모드를 블로그에 탑재했다.
+신경써야할 것들이 많아서 힘들긴 했는데 역시 완성하고 나니 뿌듯하다.
+
+![](/posts/nextjs-light-black-mode/6.gif)
+
+> [블로그 코드](https://github.com/MiryangJung/miryang.dev)
+

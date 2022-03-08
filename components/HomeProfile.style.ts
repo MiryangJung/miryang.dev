@@ -6,20 +6,20 @@ export const HomeProfileContainer = styled.section`
   flex-flow: column nowrap;
   width: 100%;
   height: 300px;
-  background-size: cover;
-  background: url('/home/main.gif') no-repeat center, #05060c;
   border-radius: 15px;
   padding: 25px;
 `
 
 export const Name = styled.span`
   font-weight: 700;
+  color: var(--tx-white);
   ${mq()({
     fontSize: ['30px', '35px'],
   })}
 `
 
 export const Description = styled.span`
+  color: var(--tx-white);
   font-weight: 300;
   margin-top: 10px;
   word-break: keep-all;
@@ -32,7 +32,7 @@ export const LearnMore = styled.span`
   margin-top: 20px;
   a {
     font-weight: 500;
-    color: var(--tx-sub-dark);
+    color: var(--bg-a5);
     font-size: 12px;
   }
 `

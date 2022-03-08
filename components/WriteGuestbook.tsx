@@ -76,7 +76,7 @@ const WriteGuestbook = ({
             height="20px"
             viewBox="0 0 24 24"
             width="20px"
-            fill="#FFFFFF"
+            fill={color}
             transform="rotate(-60)"
           >
             <path d="M0 0h24v24H0V0z" fill="none" />

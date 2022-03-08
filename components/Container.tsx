@@ -1,10 +1,14 @@
 import Head from 'next/head'
-import Header from './Header'
 import { ContainerContainer, Main } from './Container.style'
 import Footer from './Footer'
 import GA from './GA'
 import metadata from '../data/metadata'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+
+const Header = dynamic(() => import('../components/Header'), {
+  ssr: false,
+})
 
 const Container = props => {
   const router = useRouter()

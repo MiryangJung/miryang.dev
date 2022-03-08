@@ -14,6 +14,8 @@ export const ProjectCard = styled.div`
   height: 200px;
   cursor: pointer;
   margin-bottom: 20px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
   &:hover div {
     opacity: 0.9;
   }
@@ -28,7 +30,7 @@ export const ProjectCardContent = styled.div`
   width: 300px;
   height: 200px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--bg-a7);
   display: flex;
   flex-flow: column nowrap;
   transition: 0.5s;

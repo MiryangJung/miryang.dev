@@ -67,14 +67,46 @@ https://github.com/orioncactus/pretendard
 
 
 /* styles */
-:root{
+body,
+body[data-theme="dark"]{
   --bg-main: #111111;
   --bg-sub: #333333;
+  --bg-a5: rgba(0,0,0,0.5);
+  --bg-a7: rgba(0,0,0,0.7);
   --tx-main: #eaeaea;
   --tx-sub: #bdc1c9;
   --tx-sub-dark: #A6A5A4;
   --tx-accent: #6667ab;
   --tx-accent-light: #B2B3D5;
+}
+
+body[data-theme="light"]{
+  --bg-main: #ffffff;
+  --bg-sub: #f4f4f4;
+  --bg-a5: rgba(255,255,255,0.5);
+  --bg-a7: rgba(255,255,255,0.7);
+  --tx-main: #111111;
+  --tx-sub: #555555;
+  --tx-sub-dark: #333333;
+  --tx-accent: #159eee;
+  --tx-accent-light:#99cfe5;
+}
+
+body{
+  --tx-white: #eaeaea;
+}
+
+body, header{
+  transition: background 0.9s ease-in-out;
+}
+
+body[data-theme="dark"] #home-profile{
+  background: url('/home/dark.gif') no-repeat center, var(--bg-main);
+}
+
+body[data-theme="light"] #home-profile{
+  background: url('/home/light.gif') no-repeat, var(--bg-main);
+  background-size: cover;
 }
 
 html,
@@ -175,7 +207,7 @@ pre[class*="language-"] {
 .token.comment,
 .token.prolog,
 .token.cdata {
-  color: #a89984; /* fg4 / gray1 */
+  color:#808B97;
 }
 
 .token.delimiter,
@@ -228,11 +260,11 @@ pre[class*="language-"] {
 }
 
 .token.function {
-  color: #accee5; /* yellow2 */
+  color: #95a0da; /* yellow2 */
 }
 
 .token.regex {
-  background: #6C92BE; /* green2 */
+  background: #95a0da; /* green2 */
 }
 
 .token.bold {

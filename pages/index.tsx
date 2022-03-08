@@ -1,8 +1,12 @@
-import HomeProfile from '../components/HomeProfile'
 import RecentPost from '../components/RecentPost'
 import { allBlogs } from '.contentlayer/data'
 import { InferGetStaticPropsType } from 'next'
 import Container from '../components/Container'
+import dynamic from 'next/dynamic'
+
+const HomeProfile = dynamic(() => import('../components/HomeProfile'), {
+  ssr: false,
+})
 
 function Homepage({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (

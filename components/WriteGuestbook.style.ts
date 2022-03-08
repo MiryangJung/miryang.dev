@@ -9,8 +9,8 @@ export const WriteGbContainer = styled.form`
   position: fixed;
   bottom: 30px;
   min-width: 320px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 25px;
+  background: var(--bg-a5);
+  border-radius: 25px 25px 50px 50px;
   padding: 5px 10px;
   ${mq()({
     width: ['calc(100% - 40px)', '700px'],
@@ -40,6 +40,7 @@ export const WriteGbContent = styled.input`
   padding: 10px 20px;
   margin-right: 10px;
   font-size: 14px;
+  color: var(--tx-white);
   ${dynamicBackground}
 `
 

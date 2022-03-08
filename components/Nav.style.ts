@@ -19,7 +19,11 @@ export const NavContainer = styled.div`
       color: var(--tx-accent);
     }
   }
+  a[data-selected='true'] {
+    color: var(--tx-accent);
+  }
   svg {
+    fill: var(--tx-sub);
     cursor: pointer;
     ${mq()({
       display: ['block', 'none'],

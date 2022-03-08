@@ -4,7 +4,7 @@ import metadata from '../data/metadata'
 
 const HomeProfile = () => {
   return (
-    <HomeProfileContainer>
+    <HomeProfileContainer id="home-profile">
       <Name>{metadata.home.name}</Name>
       <Description>{metadata.home.description}</Description>
       <LearnMore>
