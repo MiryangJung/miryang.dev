@@ -198,10 +198,9 @@ export default Container;
 `Container` 적용
 
 ```tsx:pages/index.tsx
-import type { NextPage } from "next";
 import Container from "../components/Container";
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <Container>
       <span className={`font-bold`}>HOME</span>
@@ -302,7 +301,7 @@ export default RecentPosts;
 `public` 폴더에 `home.jpg` 생성, **/home** 스타일링
 
 ```tsx:pages/index.tsx
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <Container>
       <div className={`my-5 w-full`}>
@@ -356,7 +355,6 @@ export default BlogPost;
 **/blog** 스타일링
 
 ```tsx:pages/blog.tsx
-import type { NextPage } from "next";
 import BlogPost from "../components/BlogPost";
 import Container from "../components/Container";
 
