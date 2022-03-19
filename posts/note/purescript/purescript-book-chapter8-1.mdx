@@ -1,0 +1,107 @@
+---
+title: 퓨어스크립트 북 챕터8 앞부분 가볍게 읽어보는 메모장
+date: 2022-03-19
+---
+
+> [퓨어스크립트 북 챕터8 - Type Classes](https://book.purescript.org/chapter8.html)
+
+가볍게 읽어보기!
+
+- [3분 모나드][https://overcurried.com/3%EB%B6%84%20%EB%AA%A8%EB%82%98%EB%93%9C/] 먼저 읽어보기
+
+## The Monad Type Class
+
+Maybe Bind 정의는 누락된 값이 do 표기법 블록을 통해 전파된다는 직관을 확인한다.
+
+```purescript
+instance bindMaybe :: Bind Maybe where
+  bind Nothing  _ = Nothing
+  bind (Just a) f = f a
+```
+
+이런 간단한 `do` 표기법 블록을
+
+```purescript
+do value <- someComputation
+   whatToDoNext
+```
+
+purescript 컴파일러가 이 패턴을 볼 때마다 이렇게 바꾼다.
+
+```purescript
+bind someComputation \value -> whatToDoNext
+```
+
+value에 따라 `whatToDoNext` 가 허용된다.
+
+```purescript
+value :: Maybe a
+value <- 값
+
+value :: a
+이면 whatToDoNext
+
+value :: Nothing
+이면 Nothing
+```
+
+인가? 그럼 여기서 모나드는 뭐지...
+
+아래의 코드를
+
+```purescript
+userCity :: XML -> Maybe XML
+userCity root = do
+  prof <- child root "profile"
+  addr <- child prof "address"
+  city <- child addr "city"
+  pure city
+```
+
+이렇게 바꿔볼 수 있나?
+
+```
+userCity :: XML -> Maybe XML
+userCity root =
+  bind child root "profile" \prof ->
+    bind child prof "address" \addr ->
+      bind child addr "city" \city ->
+        pure city
+```
+
+do가 가독성이 더 좋다.
+
+
+## Monad Laws
+
+3가지 모나드 법칙이 있다.
+
+- `right-identity` 3가지 중에 가장 단순한 법칙
+    - 마지막 표현식인 경우 호출을 제거할 수 있다.
+
+```purescript
+c1 = do
+  y <- do
+    x <- m1
+    m2
+  m3
+```
+
+는 
+
+```purescript
+c2 = do
+  x <- m1
+  y <- m2
+  m3
+```
+
+와 같다.
+
+
+## Folding With Monads
+
+- fold 결과도 선택이다.
+- fold 도 `Maybe` 를 반환하므로 실패할 수 있다.
+
+
