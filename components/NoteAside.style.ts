@@ -28,7 +28,7 @@ export const NoteAsideContainer = styled.div`
     display: none;
   }
   ${mq()({
-    maxWidth: ['100%', '200px'],
+    maxWidth: ['100%', '170px'],
     marginRight: ['0', '20px'],
   })}
   ${dynamicVisible}
@@ -52,7 +52,7 @@ export const NoteAsideChildText = styled.a`
   cursor: pointer;
   padding: 10px 0 10px 15px;
   word-break: keep-all;
-
+  font-size: 14px;
   &:hover {
     color: var(--tx-accent);
   }
