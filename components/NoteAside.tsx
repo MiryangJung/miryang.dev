@@ -1,12 +1,7 @@
-import {
-  NoteAsideChildText,
-  NoteAsideContainer,
-  NoteAsideMobileIcon,
-  NoteAsideText,
-} from './NoteAside.style'
+import { NoteAsideContainer, NoteAsideMobileIcon } from './NoteAside.style'
 import { TreeRoot } from '../lib/types'
-import Link from 'next/link'
 import React, { useState } from 'react'
+import NoteAsideItem from './NoteAsideItem'
 
 const NoteAside = ({ tree }: { tree: TreeRoot }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,22 +16,7 @@ const NoteAside = ({ tree }: { tree: TreeRoot }) => {
     <>
       <NoteAsideContainer visible={isMenuOpen}>
         {tree.map(t => (
-          <React.Fragment key={t.title}>
-            <Link href={t.urlPath} passHref>
-              <NoteAsideText onClick={() => setIsMenuOpen(false)}>{t.title}</NoteAsideText>
-            </Link>
-            {t.children && t.children.length > 0 && (
-              <>
-                {t.children.map(c => (
-                  <Link key={c.title} href={c.urlPath}>
-                    <NoteAsideChildText onClick={() => setIsMenuOpen(false)}>
-                      {c.title}
-                    </NoteAsideChildText>
-                  </Link>
-                ))}
-              </>
-            )}
-          </React.Fragment>
+          <NoteAsideItem key={t.title} item={t} />
         ))}
       </NoteAsideContainer>
       <NoteAsideMobileIcon onClick={mobileMenuHandler}>
