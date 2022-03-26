@@ -37,7 +37,7 @@ export const MDXPostContainer = styled.div`
   }
 
   h2 {
-    font-size: 25px;
+    font-size: 25px !important;
     font-weight: 800;
     margin: 30px 0 0;
   }

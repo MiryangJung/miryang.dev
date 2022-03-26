@@ -1,0 +1,307 @@
+---
+title: 프로그래머스 레벨2, Python, 2020년
+date: 2020-12-22
+---
+
+## [기능개발](https://programmers.co.kr/learn/courses/30/lessons/42586)
+
+> Min : *0.01ms, 10.2MB*   
+> Max : *0.22ms, 10.3MB*
+
+```python
+def solution(progresses, speeds):
+    answer = []
+    
+    for i in range(len(speeds)):
+        cnt=0
+        while progresses[i]<100:
+            progresses[i]+=speeds[i]
+            cnt+=1
+        progresses[i]=cnt
+    
+    p=progresses[0]
+    cnt=0
+    for i in range(1,len(speeds)):
+        cnt+=1
+        if p<progresses[i]:
+            answer.append(cnt)
+            p=progresses[i]
+            cnt=0
+        
+    answer.append(cnt+1)
+    return answer
+```
+
+*2020.12.23*
+
+
+
+## [다리를 지나는 트럭](https://programmers.co.kr/learn/courses/30/lessons/42583)
+
+> Min : *0.01ms, 10.1MB*   
+> Max : *284.26ms, 10.2MB*
+
+```python
+def solution(bridge_length, weight, truck_weights):
+    q=[0]*bridge_length
+    cnt=0
+    sum=0
+    while q:
+        sum-=q.pop(0)
+        cnt+=1
+        if truck_weights:
+            if sum+truck_weights[0]<=weight:
+                sum+=truck_weights[0]
+                q.append(truck_weights.pop(0))
+            else:
+                q.append(0)
+    return cnt
+```
+
+*2020.12.23*
+
+
+
+## [프린터](https://programmers.co.kr/learn/courses/30/lessons/42587)
+
+> Min : *0.01ms, 10.2MB*   
+> Max : *1.07ms, 10.1MB*
+
+```python
+def solution(priorities, location):
+    i=0
+    l = len(priorities)
+    while i != l:
+        if priorities[i] < max(priorities[i:]):
+            priorities.append(priorities[i])
+            priorities.pop(i)
+            if location == i:
+                location = l-1
+            elif location > i:
+                location-=1
+            i-=1
+        i+=1
+    return location+1
+```
+
+*2020.12.23*
+
+
+
+## [멀쩡한 사각형](https://programmers.co.kr/learn/courses/30/lessons/62048)
+
+> Min : *0.01ms, 10.1MB*   
+> Max : *4270.77ms, 10.2MB*
+
+```python
+def solution(w,h):
+    if w==h:return w*h - w
+    
+    for n in range(w,0,-1):
+        if not (w%n or h%n):
+            return w*h - ((w/n+h/n)-1)*n
+```
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.01ms, 10.2MB*
+
+```python
+from math import gcd
+
+def solution(w,h):
+    if w==h:return w*h - w
+    g = gcd(w,h)
+    return w*h - (w/g+h/g-1)*g
+```
+
+*2020.12.23*
+
+
+
+## [가장 큰 수](https://programmers.co.kr/learn/courses/30/lessons/42746)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *55.54ms, 28.1MB*
+
+```python
+def solution(numbers):
+    if sum(numbers) == 0:return "0"
+    return ''.join((sorted(list(map(str,numbers)),key=lambda x:x*3,reverse=True)))
+```
+
+*2020.12.23*
+
+
+
+## [큰 수 만들기](https://programmers.co.kr/learn/courses/30/lessons/42883)
+
+> Min : *0.01ms, 10.2MB*  
+> Max : *238.67ms, 15MB*
+
+```python
+def solution(number, k):
+    answer=[number[0]]
+    i=0
+    while i!=len(number)-1:
+        i+=1
+        answer.append(number[i])
+        if number[i]>answer[-2]:
+            for j in range(len(answer)-1,0,-1):
+                if k==0: break
+                if answer[j]>answer[j-1]:
+                    answer.pop(j-1)
+                    k-=1
+                else: break
+    return ''.join(answer[:len(answer)-k])
+```
+
+*2021.01.13*
+
+
+
+## [위장](https://programmers.co.kr/learn/courses/30/lessons/42578)
+
+> Min : *0.01ms, 9.98MB*  
+> Max : *0.01ms, 10.3MB*
+
+```python
+def solution(clothes):
+    dic = {}
+    res = 1
+    for c in clothes:
+        if c[1] in dic:
+            dic[c[1]]+=1
+        else:
+            dic[c[1]]=1
+
+    for key in dic:
+        res *= (dic[key] + 1)
+        
+    return res-1
+```
+
+*2021.01.13*
+
+
+
+## [카펫](https://programmers.co.kr/learn/courses/30/lessons/42842)
+
+> Min : *0.00ms, 10MB*  
+> Max : *0.20ms, 10.2MB*
+
+```python
+def solution(brown, yellow):
+    x,y = (brown+yellow),2
+    while x > y:
+        y +=1
+        if not (brown+yellow)%y:
+            x = (brown+yellow)/y
+            if (x-2)*(y-2)==yellow:
+                return [x,y]
+    return [x,y]
+```
+
+*2021.01.13*
+
+
+## [타겟 넘버](https://programmers.co.kr/learn/courses/30/lessons/43165)
+
+> Min : *0.48ms, 10.2MB*  
+> Max : *379.25ms, 10.1MB*
+
+```python
+answer = 0
+def solution(numbers, target):
+    def func(i,s):
+        global answer
+        if i == len(numbers)-1:
+            if s == target:
+                answer+=1
+        else:
+            func(i+1,s-numbers[i+1])
+            func(i+1,s+numbers[i+1])
+    func(-1,0)
+    return answer 
+```
+
+*2021.01.14*
+
+
+## [이진 변환 반복하기](https://programmers.co.kr/learn/courses/30/lessons/70129)
+
+> Min : *0.01ms, 10.1MB*  
+> Max : *0.68ms, 10.3MB*
+
+```python
+def solution(s):
+    c,r=0,0
+    while s!='1':
+        o = s.count("0")
+        c += o
+        s = bin(len(s)-o)[2:]
+        r += 1
+    return [r,c]
+```
+
+*2021.01.14*
+
+
+## [최댓값과 최솟값](https://programmers.co.kr/learn/courses/30/lessons/12939)
+
+> Min : *0.02ms, 10.3MB*  
+> Max : *0.05ms, 10.4MB*
+
+```python
+def solution(s):
+    s=list(map(int,s.split()))
+    return str(min(s))+" "+str(max(s))
+```
+
+*2021.01.18*
+
+
+## [피보나치 수](https://programmers.co.kr/learn/courses/30/lessons/12945)
+
+> Min : *0.01ms, 10.2MB*  
+> Max : *494.27ms, 456MB*
+
+```python
+def solution(n):
+    numbers=[0]*(n+1)
+    numbers[1]=1
+    for i in range(2,n+1):
+        numbers[i]=numbers[i-2]+numbers[i-1]
+    return (numbers[-1])%1234567
+```
+
+> Min : *0.00ms, 10.2MB*  
+> Max : *141.43ms, 10.2MB*
+
+```python
+def solution(n):
+    x,y=0,1
+    for i in range(2,n+1):
+        x,y=y,x+y
+    return y%1234567
+```
+
+*2021.01.18*
+
+
+## [주식가격](https://programmers.co.kr/learn/courses/30/lessons/42584)
+ 
+> Min : *0.01ms, 10.2MB* (정확성 테스트), *60.97ms, 17.1MB* (효율성 테스트)   
+> Max : *1.19ms, 10.2MB* (정확성 테스트), *122.11ms, 19.5MB* (효율성 테스트)
+
+```python
+def solution(prices):
+    answer = []
+    for i in range(len(prices)):
+        for j in range(i+1,len(prices)):
+            if prices[j]<prices[i]:
+                break
+        answer.append(j-i)
+    return answer
+```
+
+*2021.02.10*

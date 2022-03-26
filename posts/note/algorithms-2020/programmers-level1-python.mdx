@@ -1,0 +1,597 @@
+---
+title: 프로그래머스 레벨1, Python, 2020년
+date: 2020-12-22
+---
+
+## [모의고사](https://programmers.co.kr/learn/courses/30/lessons/42840)
+
+> Min : *0.01ms, 10.2MB*   
+> Max : *3.05ms, 10.3MB*
+
+```python
+def solution(answers):
+    
+    arr1, arr2, arr3 = [1,2,3,4,5], [2,1,2,3,2,4,2,5], [3,3,1,1,2,2,4,4,5,5]
+    cnt1, cnt2, cnt3 = 0,0,0
+    
+    for i in range(len(answers)):
+        ans = answers[i]
+        cnt1+=ans==arr1[i%5]
+        cnt2+=ans==arr2[i%8]
+        cnt3+=ans==arr3[i%10]
+    
+    m = max(cnt1,cnt2,cnt3)
+    
+    answer = []
+    if m == cnt1:
+        answer.append(1)
+    if m == cnt2:
+        answer.append(2)
+    if m == cnt3:
+        answer.append(3)
+    
+    return answer
+```
+
+*2020.12.16*
+
+
+## [K번째수](https://programmers.co.kr/learn/courses/30/lessons/42748)
+
+> Min : *0.01ms, 10MB*   
+> Max : *0.01ms, 10.3MB*
+
+```python
+def solution(array, commands):
+    answer = []
+    for c in commands:
+        answer.append((sorted(array[c[0]-1:c[1]]))[c[2]-1])
+    return answer
+```
+
+*2020.12.16*
+
+
+## [체육복](https://programmers.co.kr/learn/courses/30/lessons/42862)
+
+> Min : *0.01ms, 10.1MB*   
+> Max : *0.01ms, 10.3MB*
+
+```python
+def solution(n, lost, reserve):  
+    arr = [1]*(n+1)
+    
+    for n in lost:
+        arr[n]=0
+    for n in reserve:
+        arr[n]+=1
+    for i in range(1,len(arr)-1):
+        if arr[i]==0 and arr[i-1]==2:
+            arr[i]=1
+            arr[i-1]=1
+        elif arr[i]==0 and arr[i+1]==2:
+            arr[i]=1
+            arr[i+1]=1
+            
+    answer = arr.count(1) + arr.count(2) -1
+    
+    return answer
+```
+
+*2020.12.16*
+
+
+
+## [2016년](https://programmers.co.kr/learn/courses/30/lessons/12901)
+
+> Min : *0.00ms, 10MB*   
+> Max : *0.01ms, 10.3MB*
+
+```python
+def solution(a, b):
+    
+    day = ["THU","FRI","SAT","SUN","MON","TUE","WED"]
+    month = [31,29,31,30,31,30,31,31,30,31,30,31]
+    
+    s = 0
+    
+    for i in range(0,a-1):
+        s += month[i]
+    
+    return day[(s+b)%7]
+```
+
+*2020.12.16*
+
+
+## [가운데 글자 가져오기](https://programmers.co.kr/learn/courses/30/lessons/12903)
+
+> Min : *0.00ms, 10MB*   
+> Max : *0.00ms, 10.2MB*
+
+```python
+def solution(s):
+    answer = s[len(s)//2-1+len(s)%2:len(s)//2+1]
+    return answer
+```
+
+*2020.12.16*
+
+## [나누어 떨어지는 숫자 배열](https://programmers.co.kr/learn/courses/30/lessons/12910)
+
+> Min : *0.01ms, 10MB*   
+> Max : *2.88ms, 13.4MB*
+
+```python
+def solution(arr, divisor):
+    answer = []
+    
+    for n in arr:
+        if not n%divisor:
+            answer.append(n)
+    
+    return sorted(answer) if answer else [-1]
+```
+
+*2020.12.17*
+
+## [두 정수 사이의 합](https://programmers.co.kr/learn/courses/30/lessons/12912)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *319.92ms, 10.2MB*
+
+```python
+def solution(a, b):
+    return sum(range(min(a,b),max(a,b)+1))
+```
+
+*2020.12.18*
+
+## [문자열 내 마음대로 정렬하기](https://programmers.co.kr/learn/courses/30/lessons/12915)
+
+> Min : *0.00ms, 10.2MB*   
+> Max : *0.02ms, 10.2MB*
+
+```python
+def solution(strings, n):
+    return sorted(sorted(strings), key=lambda s:s[n])
+```
+
+*2020.12.18*
+
+## [문자열 내림차순으로 배치하기](https://programmers.co.kr/learn/courses/30/lessons/12917)
+
+> Min : *0.01ms, 10.2MB*   
+> Max : *0.07ms, 10.1MB*
+
+```python
+def solution(s):
+    return ''.join(sorted(s,reverse=True))
+```
+
+*2020.12.18*
+
+## [문자열 다루기 기본](https://programmers.co.kr/learn/courses/30/lessons/12918)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.01ms, 10.4MB*
+
+```python
+def solution(s):
+    return s.isdecimal() and len(s)==4 or len(s)==6
+```
+
+*2020.12.18*
+
+## [서울에서 김서방 찾기](https://programmers.co.kr/learn/courses/30/lessons/12919)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.01ms, 10.2MB*
+
+```python
+def solution(seoul):
+    return "김서방은 " + str(seoul.index("Kim")) + "에 있다"
+```
+
+*2020.12.18*
+
+## [수박수박수박수박수박수?](https://programmers.co.kr/learn/courses/30/lessons/12922)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.00ms, 10.2MB*
+
+```python
+def solution(n):
+    return "수박"*(n//2)+"수박"[:n%2]
+```
+
+*2020.12.18*
+
+## [문자열을 정수로 바꾸기](https://programmers.co.kr/learn/courses/30/lessons/12925)
+
+> Min : *0.01ms, 10.3MB*   
+> Max : *0.02ms, 10.4MB*
+
+```python
+def solution(s):
+    return int(s)
+```
+
+*2020.12.18*
+
+## [내적](https://programmers.co.kr/learn/courses/30/lessons/70128)
+
+> Min : *0.01ms, 10.2MB*  
+> Max : *0.18ms, 10.2MB*
+
+```python
+def solution(a, b):
+    answer = 0
+    for i in range(len(a)):
+        answer += a[i]*b[i]
+    return answer
+```
+
+*2020.12.18*
+
+## [시저 암호](https://programmers.co.kr/learn/courses/30/lessons/12926)
+
+> Min : *0.01ms, 10.1MB*   
+> Max : *2.09ms, 10.2MB*
+
+```python
+def solution(s, n):
+    answer = ''
+    for x in s:
+        y = ord(x)+n
+        if x == " ":
+            answer += " "
+        elif x.islower() and y > 122:
+            answer += chr(y-122+96)
+        elif x.isupper() and y > 90:
+            answer += chr(y-90+64)
+        else:
+            answer += chr(y)
+    return answer
+```
+
+*2020.12.21*
+
+
+## [약수의 합](https://programmers.co.kr/learn/courses/30/lessons/12928)
+
+> Min : *0.00ms, 10.2MB*   
+> Max : *0.02ms, 10.3MB*
+
+```python
+def solution(n):
+    if n <= 1:
+        return n
+    
+    answer = 1+n
+    for i in range(2, int(n**0.5)+1):
+        if n%i==0:
+            answer += i + n//i
+            if i == n//i:
+                answer -=i
+    return answer
+```
+
+*2020.12.21*
+
+
+## [이상한 문자 만들기](https://programmers.co.kr/learn/courses/30/lessons/12930)
+
+> Min : *0.01ms, 10.1MB*   
+> Max : *0.04ms, 10.3MB*
+
+```python
+def solution(s):
+    answer = ''
+    cnt = 0
+    for e in s:
+        if e == " ":
+            cnt=-1
+            answer += " "
+        elif cnt%2:
+            answer += e.lower()
+        else:
+            answer += e.upper()
+        cnt+=1
+    return answer
+```
+
+*2020.12.21*
+
+
+## [자릿수 더하기](https://programmers.co.kr/learn/courses/30/lessons/12931)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.00ms, 10.2MB*
+
+```python
+def solution(n):
+    answer = 0
+    
+    while n>9:
+        answer += n%10
+        n//=10
+
+    return answer+n
+```
+
+*2020.12.21*
+
+
+## [자연수 뒤집어 배열로 만들기](https://programmers.co.kr/learn/courses/30/lessons/12932)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.00ms, 10.2MB*
+
+```python
+def solution(n):
+    answer = []
+    
+    while n!=0:
+        answer.append(n%10)
+        n//=10
+
+    return answer
+```
+
+*2020.12.21*
+
+
+## [정수 내림차순으로 배치하기](https://programmers.co.kr/learn/courses/30/lessons/12933)
+
+**sorted** 반환값은 리스트이므로 `list()` 를 사용하지 않아도 된다.
+
+> Min : *0.02ms, 10.2MB*   
+> Max : *0.03ms, 10.4MB*
+
+```python
+
+def solution(n):
+#   return int(''.join(sorted(list(str(n)),reverse=True)))
+    return int(''.join(sorted(str(n),reverse=True)))
+```
+
+*2020.12.21*
+
+
+## [정수 제곱근 판별](https://programmers.co.kr/learn/courses/30/lessons/12934)
+
+> Min : *0.01ms, 10.2MB*   
+> Max : *0.02ms, 10.3MB*
+
+```python
+def solution(n):
+    sqrt = n**0.5
+    return (sqrt+1)**2 if not sqrt%1 else -1
+```
+
+*2020.12.21*
+
+
+## [제일 작은 수 제거하기](https://programmers.co.kr/learn/courses/30/lessons/12935)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.96ms, 16.8MB*
+
+```python
+def solution(arr):
+    if arr[0]==10:
+        return [-1]
+    arr.remove(min(arr))
+    return arr
+```
+
+*2020.12.21*
+
+
+## [짝수와 홀수](https://programmers.co.kr/learn/courses/30/lessons/12937)
+
+> Min : *0.00ms, 10MB*   
+> Max : *0.00ms, 10.3MB*
+
+```python
+def solution(num):
+    return "Odd" if num%2 else "Even"
+```
+
+*2020.12.21*
+
+
+## [최대공약수와 최소공배수](https://programmers.co.kr/learn/courses/30/lessons/12940)
+
+> Min : *0.01ms, 10.1MB*   
+> Max : *0.16ms, 10.2MB*
+
+```python
+def solution(n, m):
+    x = 0
+    
+    for i in range(min(n,m),0,-1):
+        if not n%i and not m%i:
+            x=i
+            break
+            
+    return [x,x*(n/x)*(m/x)]
+```
+
+*2020.12.22*
+
+
+## [콜라츠 추측](https://programmers.co.kr/learn/courses/30/lessons/12943)
+
+> Min : *0.00ms, 10.2MB*   
+> Max : *0.17ms, 10.3MB*
+
+```python
+def solution(num):
+    cnt = 0
+    while num != 1:
+        cnt+=1
+        if cnt == 500:
+            return -1
+        if num%2:
+            num = num*3 + 1
+        else:
+            num/=2
+        
+    return cnt
+```
+
+*2020.12.22*
+
+
+## [평균 구하기](https://programmers.co.kr/learn/courses/30/lessons/12944)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.01ms, 10.2MB*
+
+```python
+def solution(arr):
+    return sum(arr)/len(arr)
+```
+
+*2020.12.22*
+
+
+## [하샤드 수](https://programmers.co.kr/learn/courses/30/lessons/12947)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.00ms, 10.3MB*
+
+```python
+def solution(x):
+    xx = x
+    sum = 0
+    while xx:
+        sum+=xx%10
+        xx//=10
+    
+    return True if not x%sum else False
+```
+
+*2020.12.22*
+
+
+## [핸드폰 번호 가리기](https://programmers.co.kr/learn/courses/30/lessons/12948)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.00ms, 10.3MB*
+
+```python
+def solution(phone_number):
+    return '*'*(len(phone_number)-4)+phone_number[-4:]
+```
+
+*2020.12.22*
+
+
+## [행렬의 덧셈](https://programmers.co.kr/learn/courses/30/lessons/12950)
+
+> Min : *0.01ms, 10.2MB*   
+> Max : *32.24ms, 22.9MB*
+
+```python
+def solution(arr1, arr2):
+    answer = []
+    
+    for i in range(len(arr1)):
+        arr=[]
+        for j in range(len(arr1[i])):
+            arr.append(arr1[i][j]+arr2[i][j])
+        answer.append(arr)
+        
+    return answer
+```
+
+*2020.12.22*
+
+
+## [x만큼 간격이 있는 n개의 숫자](https://programmers.co.kr/learn/courses/30/lessons/12954)
+
+> Min : *0.00ms, 10.1MB*   
+> Max : *0.22ms, 10.4MB*
+
+```python
+def solution(x, n):
+    answer = [x]
+    
+    for i in range(1,n):
+        answer.append(x+x*i)
+    
+    return answer
+```
+
+*2020.12.22*
+
+
+## [직사각형 별찍기](https://programmers.co.kr/learn/courses/30/lessons/12969)
+
+> Min : *12.60ms, 7.55MB*   
+> Max : *15.87ms, 7.48MB*
+
+```python
+a, b = map(int, input().strip().split(' '))
+
+print(('*'*a+'\n')*b)
+```
+
+*2020.12.22*
+
+
+## [신규 아이디 추천](https://programmers.co.kr/learn/courses/30/lessons/72410)
+
+> Min : *0.19ms, 10.2MB*
+> Max : *0.39ms, 10.2MB*
+
+```python
+import re
+
+def solution(new_id):
+    new_id = new_id.lower()
+    new_id = re.sub('[^a-z0-9\-\_\.]','',new_id)
+    new_id = re.sub('[\.]+','.',new_id)
+    if new_id and new_id[0] == '.':
+        new_id=new_id[1:]
+    if new_id and new_id[-1] == '.':
+        new_id=new_id[:-1]
+    if not new_id:
+        new_id='a'
+    if len(new_id)>=16:
+        if new_id[14] == '.':
+            new_id=new_id[:14]
+        else:
+            new_id=new_id[:15]
+    elif len(new_id)<=2:
+        while len(new_id)!=3:
+            new_id+=new_id[-1]
+    return new_id
+```
+
+> Min : *0.27ms, 10.2MB*
+> Max : *0.92ms, 10.2MB*
+
+```python
+import re
+
+def solution(new_id):
+    new_id = new_id.lower()
+    new_id = re.sub('[^a-z0-9\-\_\.]','',new_id)
+    new_id = re.sub('[\.]+','.',new_id)
+    new_id = re.sub('^[.]|[.]$', '', new_id)
+    if not new_id:
+        new_id='a'
+    else:
+        new_id=new_id[:15]
+    new_id = re.sub('^[.]|[.]$', '', new_id)
+    if len(new_id)<=2:
+        while len(new_id)!=3:
+            new_id+=new_id[-1]
+    return new_id
+```
+
+*2021.02.19*

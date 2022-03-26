@@ -1,0 +1,460 @@
+---
+title: LeetCode easy, Golang, 2020년
+date: 2020-11-26
+---
+
+## 1. [Two Sum](https://leetcode.com/problems/two-sum/)
+
+`target 빼기 nums 값(n)` 이 `map(m)`의 키값이면 `map(m)의 value`와 현재 `n` 의 인덱스를 return한다.   
+위의 if문을 충족하지 않는다면 `map(m)의 키 = nums 값(n), 밸류 = n의 인덱스`로 할당한다.
+
+* `m[n]=i` 의 식을 if문 위에 위치시키면 `nums = [3,3]` 일 경우 `[0,0]` 이 return된다. 
+
+```
+Runtime: 4 ms, faster than 95.39% of Go online submissions for Two Sum.
+Memory Usage: 3.2 MB, less than 70.45% of Go online submissions for Two Sum.
+```
+
+```go
+func twoSum(nums []int, target int) []int {
+    m := make(map[int]int)
+    for i, n := range nums{
+        if val, ok := m[target-n]; ok {
+            return []int{val,i}
+        }
+        m[n]=i
+    }
+    return nil
+}
+```
+
+*2020.11.26*
+
+## 7. [Reverse Integer](https://leetcode.com/problems/reverse-integer/)
+
+`x` 에 `x 나누기 10의 몫` (1의 자리를 제외한 값) 을 대입한다.   
+`res` 에 `x 나누기 10의 나머지` (1의 자리) 와 `res 곱하기 10` (기존 res 값의 1의 자리를 10의 자리로 올리기 위해) 을 더한 값을 대입한다.  
+32bit integer 라는 조건을 만족하기 위해 값의 범위를 확인한다.
+
+* `int32 max` = 2147483647, `int32 min` = -2147483648
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Reverse Integer.
+Memory Usage: 2.2 MB, less than 100.00% of Go online submissions for Reverse Integer.
+```
+
+```go
+func reverse(x int) int {
+    var res = 0
+    for x!=0{
+        res = res*10 + x%10
+        if(res > 2147483647 || res < -2147483648){
+            return 0
+        }
+        x/=10
+    }
+    return res
+}
+```
+
+*2020.11.27*
+
+
+## 20. [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+
+[풀이](https://til.miryang.dev/docs/Algorithms/leetcode-easy-python/#20-valid-parentheses)
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Valid Parentheses.
+Memory Usage: 2.1 MB, less than 41.58% of Go online submissions for Valid Parentheses.
+```
+
+```go
+func isValid(s string) bool {
+    if len(s)%2!=0{
+        return false
+    }
+    
+    var stack []rune
+    
+    m := map[rune]rune{'(':')','{':'}','[':']'}
+    
+    for _, c := range s{
+        if _, exist := m[c]; exist{
+            stack = append(stack, c)
+        }else{
+            if len(stack)==0{
+                return false
+            }
+            if m[stack[len(stack)-1]] == c{
+                stack=stack[:len(stack)-1]
+            }else{
+                return false
+            }
+            
+        }
+    }
+    
+    if len(stack)!=0{
+        return false
+    }else{
+        return true
+    }
+}
+```
+
+*2020.12.08*
+
+
+## 167. [Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+
+시작점 `s` 은 0부터 끝점 `e` 는 배열의 마지막 인덱스로 대입한 뒤,  
+`target` 보다 `배열[s] + 배열[e]` 이 크면 `s` 에 1을 더하고,  
+작으면 `e` 에 1을 빼며, 같으면 `retrun` 한다.
+
+```
+Runtime: 4 ms, faster than 97.97% of Go online submissions for Two Sum II - Input array is sorted.
+Memory Usage: 3 MB, less than 29.28% of Go online submissions for Two Sum II - Input array is sorted.
+```
+
+```go
+func twoSum(numbers []int, target int) []int {
+    if len(numbers)==2{
+        return []int{1,2}
+    }
+    
+    s:=0
+    e:=len(numbers)-1
+    
+    for {
+        res := numbers[s]+numbers[e]
+        if (target == res){
+            return []int{s+1,e+1}
+        }else if(target < res){
+            e-=1
+        }else{
+            s+=1
+        }
+    }
+}
+```
+
+*2020.12.09*
+
+
+## 204. [Count Primes](https://leetcode.com/problems/count-primes/)
+
+`에라토스테네스의 체` 방법을 사용했다.
+
+```
+Runtime: 4 ms, faster than 99.19% of Go online submissions for Count Primes.
+Memory Usage: 4.9 MB, less than 20.65% of Go online submissions for Count Primes.
+```
+
+```go
+import "math"
+
+func countPrimes(n int) int {
+    if n<=2{
+        return 0
+    }
+    
+    arr := make([]bool,n,n)
+    var sqrt int = int(math.Sqrt(float64(n)))+1
+    var cnt int = 0
+    
+    for i:=2; i<sqrt; i++{
+        if arr[i]==false{
+            cnt++
+            for j:=i+i; j<n; j+=i{
+                arr[j]=true
+            }
+        }
+    }
+    
+    for i:=sqrt; i<n; i++{
+        if arr[i]==false{
+            cnt++
+        }
+    }
+    
+    return cnt
+    
+}
+```
+
+*2020.12.09*
+
+
+## 217. [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/)
+
+맵 `map` 에 `nums` 의 값을 키로 두고, value를 `1` 씩 더한다.  
+이미 value가 `1` 인 경우에는 이미 한 번 더해진 경우가 있다는 의미이므로 `return true` 한다.
+
+```
+Runtime: 20 ms, faster than 81.06% of Go online submissions for Contains Duplicate.
+Memory Usage: 7.5 MB, less than 17.18% of Go online submissions for Contains Duplicate.
+```
+
+```go
+func containsDuplicate(nums []int) bool {
+    m := make(map[int]int)
+    for _, n := range nums{
+        if m[n]==1{
+            return true
+        }
+        m[n]++
+    }
+    return false
+}
+```
+
+*2020.12.10*
+
+
+## 231. [Power of Two](https://leetcode.com/problems/power-of-two/)
+
+`2의 제곱수` 와 `2의 제곱수 - 1` 의 `and` 연산의 결과는 항상 0이다.
+
+```
+Runtime: 4 ms, faster than 35.92% of Go online submissions for Power of Two.
+Memory Usage: 2.2 MB, less than 99.03% of Go online submissions for Power of Two.
+```
+
+```go
+func isPowerOfTwo(n int) bool {
+    return (n>0) && (n&(n-1)==0)
+}
+```
+
+*2020.12.11*
+
+
+## 242. [Valid Anagram](https://leetcode.com/problems/valid-anagram/solution/)
+
+맵에 문자열을 `key` 로 넣고, s의 문자열 key의 value에는 1을 더하고,   
+t의 문자열 key의 value는 1을 뺀다.   
+모든 key의 value 가 `0` 이면 true이고, 아니면 false이다.
+
+```
+Runtime: 8 ms, faster than 54.20% of Go online submissions for Valid Anagram.
+Memory Usage: 3 MB, less than 100.00% of Go online submissions for Valid Anagram.
+```
+
+```go
+import "fmt"
+func isAnagram(s string, t string) bool {
+    if(len(s)!=len(t)){
+        return false
+    }
+    
+    m:=make(map[byte]int)
+    
+    for i, _ := range(s){
+        m[s[i]]++
+        m[t[i]]--
+    }
+    
+    for _, v := range(m){
+        if v!=0{
+            return false
+        }
+    }
+    return true
+}
+```
+
+*2020.12.11*
+
+
+## 258. [Add Digits](https://leetcode.com/problems/add-digits/)
+
+num을 10으로 나눈 나머지와 몫을 더한 값이 9 이하일 때 return 한다.
+
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Add Digits.
+Memory Usage: 2.2 MB, less than 100.00% of Go online submissions for Add Digits.
+```
+
+```go
+func addDigits(num int) int {
+    if num<10{
+        return num
+    }
+    
+    for num>=10{
+        num = num/10+num%10
+    }
+    
+    return num
+}
+```
+
+__솔루션__
+
+- 9는 9의 배수만 나눌 수 있다.
+- 10 = 9 + 1
+- 15 = 9 + 6
+- 30 = 9*3 + 3
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Add Digits.
+Memory Usage: 2.2 MB, less than 100.00% of Go online submissions for Add Digits.
+```
+
+```go
+func addDigits(num int) int {
+    if num<10{
+        return num
+    }
+    
+    if num%9==0{
+        return 9
+    }
+    
+    return num%9
+}
+```
+
+*2020.12.11*
+
+
+
+## 263. [Ugly Number](https://leetcode.com/problems/ugly-number/)
+
+`num` 을 `2,3,5` 로 계속 나눈다.   
+`num` 이 1이 되면 `2,3,5` 로만 나눠진 것이므로 true를 반환하고,   
+`num` 이 1이 아니면서 `2,3,5` 로 나눌 수 없으면 false 를 반환한다.
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Ugly Number.
+Memory Usage: 2.2 MB, less than 66.18% of Go online submissions for Ugly Number.
+```
+
+```go
+func isUgly(num int) bool {
+    if num <=0{
+        return false
+    }
+    
+    for num!=1{
+        if num%2==0{
+            num/=2
+        }else if num%3==0{
+            num/=3
+        }else if num%5==0{
+            num/=5
+        }else{
+            return false
+        }
+    }
+    
+    return true
+}
+```
+
+*2020.12.14*
+
+
+## 268. [Missing Number](https://leetcode.com/problems/missing-number/)
+
+`nums` 는 순차이므로 `xor` 연산을 이용해 남는 숫자를 찾는다.
+
+```
+Runtime: 12 ms, faster than 98.78% of Go online submissions for Missing Number.
+Memory Usage: 6 MB, less than 96.75% of Go online submissions for Missing Number.
+```
+
+```go
+func missingNumber(nums []int) int {
+    res:=len(nums)
+    for i:=0; i<len(nums); i++{
+        res ^= i^nums[i]
+    }
+    return res
+}
+```
+
+*2020.12.14*
+
+
+## 278. [First Bad Version](https://leetcode.com/problems/first-bad-version/)
+
+`Binary Search` (이진탐색)을 이용한다.
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for First Bad Version.
+Memory Usage: 1.9 MB, less than 100.00% of Go online submissions for First Bad Version.
+```
+
+```go
+func firstBadVersion(n int) int {
+    low:=1
+    high:=n
+    
+    for low < high{
+        middle:=low+(high-low)/2
+        if isBadVersion(middle){
+            high=middle
+        }else{
+            low=middle+1
+        }
+    }
+    return low
+}
+```
+
+
+*2020.12.14*
+
+
+
+## 1678. [Goal Parser Interpretation](https://leetcode.com/problems/goal-parser-interpretation/)
+
+__방법 1__
+
+문자열을 한자씩 확인하며 치환한다.
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Goal Parser Interpretation.
+Memory Usage: 2 MB, less than 45.53% of Go online submissions for Goal Parser Interpretation.
+```
+
+```go
+func interpret(command string) string {
+    res := ""
+    for i:=0; i<len(command); i++{
+        switch string(command[i]){
+            case "G":
+                res+="G"
+            case "(":
+                if string(command[i+1])==")"{
+                    res+="o"
+                    i+=1
+                }else{
+                    res+="al"
+                    i+=3
+                }
+        }
+    }
+    return res
+}
+```
+
+__방법 2__
+
+`replace` 함수를 이용한다.
+
+```
+Runtime: 0 ms, faster than 100.00% of Go online submissions for Goal Parser Interpretation.
+Memory Usage: 2 MB, less than 100.00% of Go online submissions for Goal Parser Interpretation.
+```
+
+```go
+func interpret(command string) string {
+    return strings.Replace(strings.Replace(command, "()", "o", -1), "(al)", "al", -1)
+}
+```
+
+*2020.12.11*
