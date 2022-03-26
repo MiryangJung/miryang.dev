@@ -1,6 +1,6 @@
 import {writeFileSync} from 'fs';
 import RSS from 'rss';
-import {allBlogs, allNotes} from 'contentlayer/generated';
+import {allBlogs, allNotes} from '.contentlayer/generated';
 
 async function generate() {
     const feed = new RSS({
