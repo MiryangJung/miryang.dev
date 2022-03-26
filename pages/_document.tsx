@@ -22,6 +22,7 @@ export default class MyDocument extends Document {
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />
+          <meta name="naver-site-verification" content="82f309b7f779408e17321e7ce8bf752b34d02ed2" />
           <link href="/static/favicon.ico" rel="shortcut icon" />
         </Head>
         <body>
