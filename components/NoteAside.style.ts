@@ -6,11 +6,16 @@ const dynamicVisible = ({ visible }) => {
   if (visible) {
     return css`
       display: flex;
+      border-left: 5px solid var(--bg-sub);
+      border-right: none;
+      padding-left: 10px;
+      padding-right: 5px;
     `
   } else {
     return css`
       @media (max-width: 750px) {
         display: none;
+        border-left: none;
       }
     `
   }
