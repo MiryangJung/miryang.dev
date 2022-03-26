@@ -10,6 +10,14 @@ const SEO = {
     locale: 'ko_KR',
     url: metadata.meta.url,
     site_name: metadata.meta.title,
+    images: [
+      {
+        url: `${metadata.meta.url}/home/main.png`,
+        width: 1280,
+        height: 720,
+        alt: `miryang.dev`,
+      },
+    ],
   },
   twitter: {
     cardType: 'summary_large_image',
