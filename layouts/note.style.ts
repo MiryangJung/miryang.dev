@@ -16,6 +16,6 @@ export const NoteContent = styled.div`
   height: 100%;
   overflow-y: auto;
   ${mq()({
-    maxWidth: ['100%', 'calc(100% - 220px)'],
+    maxWidth: ['100%', 'calc(100% - 190px)'],
   })}
 `
