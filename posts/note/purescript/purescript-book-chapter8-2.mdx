@@ -1,0 +1,74 @@
+---
+title: 퓨어스크립트 북 챕터8 뒷부분 가볍게 읽어보는 메모장
+date: 2022-03-19
+---
+
+> [퓨어스크립트 북 챕터8 - The Effect Monad](https://book.purescript.org/chapter8.html)
+
+가볍게 읽어보기!
+
+## Mutable State
+
+- `ST` 이펙트는 변경 가능한 상태를 조작하는데 사용
+- 변경 가능한 상태는 문제가 될 수 있지만 `ST`로 안전한 변경을 허용
+- `Control.Monad.ST` 로 정의
+
+```purescript
+new :: forall a r. a -> ST r (STRef r a)
+
+read :: forall a r. STRef r a -> ST r a
+
+write :: forall a r. a -> STRef r a -> ST r a
+
+modify :: forall r a. (a -> a) -> STRef r a -> ST r a
+```
+
+입자의 움직임을 시뮬레이션...
+
+```
+import Prelude
+
+import Control.Monad.ST.Ref (modify, new, read)
+import Control.Monad.ST (ST, for, run)
+
+simulate :: forall r. Number -> Number -> Int -> ST r Number
+simulate x0 v0 time = do
+  ref <- new { x: x0, v: v0 }
+  for 0 (time * 1000) \_ ->
+    modify
+      ( \o ->
+          { v: o.v - 9.81 * 0.001
+          , x: o.x + o.v * 0.001
+          }
+      )
+      ref
+  final <- read ref
+  pure final.x
+```
+
+
+## DOM Effects
+
+기호를 정말 좋아하는 군...
+
+```
+ctr <- getElementById "container" <<< toNonElementParentNode =<< document =<< window
+-- or, equivalently:
+ctr <- window >>= document >>= toNonElementParentNode >>> getElementById "container"
+```
+
+## An Address Book User Interface
+
+- HTML 요소를 순수 데이터 구조로
+
+```
+ctr <- getElementById "container" <<< toNonElementParentNode =<< document =<< window
+-- or, equivalently:
+ctr <- window >>= document >>= toNonElementParentNode >>> getElementById "container"
+```
+
+purescript로 리액트 개발하는 곳 있으면 진짜 리스펙
+
+- `div_` : Accepts an array of child elements. Uses default attributes.
+- `div` : Accepts a Record of attributes. An array of child elements may be passed to the children field of this record.
+- `div'` : Same as div, but returns the ReactComponent before conversion to JSX.
