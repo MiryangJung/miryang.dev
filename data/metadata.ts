@@ -2,14 +2,14 @@ const metadata = {
   repo: 'https://github.com/MiryangJung/miryang.dev',
   meta: {
     url: 'https://miryang.dev',
-    title: 'Miryang | Developer',
-    description: 'Lazy frontend developer who likes to travel',
+    title: 'Miryang | Frontend Engineer',
+    description: 'Lazy Frontend Engineer who likes to travel',
     twitter: '@MiryangJung',
   },
   author: 'MiryangJung',
   home: {
     name: 'Miryang Jung',
-    description: 'Lazy frontend developer who likes to travel',
+    description: 'Lazy Frontend Engineer who likes to travel',
   },
   social: {
     github: 'https://github.com/MiryangJung',

@@ -3827,6 +3827,11 @@ next-contentlayer@^0.0.33:
     "@contentlayer/utils" "0.0.33"
     rxjs "^7.1.0"
 
+next-seo@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.2.0.tgz#d847fadc637b4b2778d46822357a3682bbdf3221"
+  integrity sha512-IJNKzYH4ARKHxN6YTN7AYj3CEpZLpL/o6FlDZqWJ/HaOnpjpvLHpQlI57be/N92iafmYwYE+jOU0SQ6T9DIo/Q==
+
 next@12.0.7:
   version "12.0.7"
   resolved "https://registry.npmjs.org/next/-/next-12.0.7.tgz"
