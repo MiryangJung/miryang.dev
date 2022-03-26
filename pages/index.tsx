@@ -1,5 +1,5 @@
 import RecentPost from '../components/RecentPost'
-import { allBlogs } from '.contentlayer/data'
+import { allBlogs } from 'contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import Container from '../components/Container'
 import dynamic from 'next/dynamic'

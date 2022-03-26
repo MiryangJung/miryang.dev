@@ -7,6 +7,7 @@ import { NextSeo } from 'next-seo'
 
 function BlogLayout({ post }) {
   const MDXComponent = useMDXComponent(post.body.code)
+  console.log(post.tags)
   return (
     <Container>
       <NextSeo
@@ -18,7 +19,7 @@ function BlogLayout({ post }) {
           url: `${metadata.meta.url}/blog/${post.slug}`,
           article: {
             publishedTime: new Date(post.date).toISOString(),
-            tags: ['Frontend', 'Develop'],
+            tags: [...post.tags, 'Frontend', 'Develop'],
           },
           images: [
             {

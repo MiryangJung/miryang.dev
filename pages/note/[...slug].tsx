@@ -1,5 +1,4 @@
-import { allNotes } from '.contentlayer/data'
-import { Note } from '.contentlayer/types'
+import { allNotes, Note } from 'contentlayer/generated'
 import { PathSegment, TreeNode } from '../../lib/types'
 import NoteLayout from '../../layouts/note'
 

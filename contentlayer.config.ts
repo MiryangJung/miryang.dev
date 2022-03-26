@@ -13,7 +13,7 @@ export const urlFromFilePath = (doc: DocumentGen): string => {
 export const Note = defineDocumentType(() => ({
   name: 'Note',
   filePathPattern: `note/**/*.mdx`,
-  bodyType: 'mdx',
+  contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'string', required: true },
@@ -42,12 +42,20 @@ export const Note = defineDocumentType(() => ({
 export const Blog = defineDocumentType(() => ({
   name: 'Blog',
   filePathPattern: `blog/*.mdx`,
-  bodyType: 'mdx',
+  contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'string', required: true },
     description: { type: 'string', required: true },
     thumbnailUrl: { type: 'string', required: true },
+    tags: {
+      type: 'list',
+      required: true,
+      of: {
+        type: 'string',
+      },
+      default: [],
+    },
   },
   computedFields: {
     slug: {

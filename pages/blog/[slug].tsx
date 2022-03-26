@@ -1,4 +1,4 @@
-import { allBlogs } from '.contentlayer/data'
+import { allBlogs } from 'contentlayer/generated'
 import BlogLayout from '../../layouts/blog'
 
 const PostPage = ({ post }) => {
