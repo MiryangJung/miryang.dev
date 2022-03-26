@@ -61,11 +61,6 @@ ctr <- window >>= document >>= toNonElementParentNode >>> getElementById "contai
 
 - HTML 요소를 순수 데이터 구조로
 
-```
-ctr <- getElementById "container" <<< toNonElementParentNode =<< document =<< window
--- or, equivalently:
-ctr <- window >>= document >>= toNonElementParentNode >>> getElementById "container"
-```
 
 purescript로 리액트 개발하는 곳 있으면 진짜 리스펙
 
