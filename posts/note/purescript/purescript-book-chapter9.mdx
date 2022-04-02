@@ -1,0 +1,71 @@
+---
+title: 퓨어스크립트 북 챕터9 가볍게 읽어보는 메모장
+date: 2022-04-02
+---
+
+> [퓨어스크립트 북 챕터9 - Asynchronous Effects](https://book.purescript.org/chapter9.html)
+
+가볍게 읽어보기!
+
+## Asynchronous PureScript
+
+- `Aff` 사용,  js의 `async / await` 와 비슷
+- Monad여서 `do` 사용
+
+
+## Parallel Computations
+
+- `Aff` 를 순서대로 사용하는 거말고 병렬 처리를 해보자
+
+
+## 참고 자료
+
+[Asynchronous PureScript](https://blog.drewolson.org/asynchronous-purescript)
+
+```purescript
+slowInt :: Int -> (Int -> Effect Unit) -> Effect Unit
+slowInt int cb =
+  unit <$ setTimeout 1000 (cb int)
+
+slowAdd :: Int -> Int -> (Int -> Effect Unit) -> Effect Unit
+slowAdd a b cb =
+  slowInt a \slowA ->
+    slowInt b \slowB ->
+      cb $ slowA + slowB
+
+main :: Effect Unit
+main =
+  slowAdd 1 2 \result ->
+    Console.logShow result
+```
+
+- Effect를 Aff로 바꾼다.
+
+```purescript
+slowInt :: Int -> Aff Int
+slowInt int = do
+  delay $ Milliseconds 1000.0
+
+  pure int
+
+slowAdd :: Int -> Int -> Aff Int
+slowAdd a b = do
+  slowA <- slowInt a
+  slowB <- slowInt b
+
+  pure $ slowA + slowB
+
+main :: Effect Unit
+main = launchAff_ do
+  result <- slowAdd 1 2
+```
+
+- Aff 두 개를 `parSequence` 로 묶는다.
+
+```purescript
+slowAdd :: Int -> Int -> Aff Int
+slowAdd a b = do
+  results <- parSequence [slowInt a, slowInt b]
+
+  pure $ sum results
+```
