@@ -1,0 +1,32 @@
+---
+title: Remix 튜토리얼 Developer Blog 해보기
+date: 2022-04-11
+---
+
+> [Remix.run Tutorial - Developer Blog](https://remix.run/docs/en/v1/tutorials/blog)
+
+remix 프로젝트 init
+
+```shell
+npx create-remix --template remix-run/indie-stack blog-tutorial
+```
+
+dev 서버 실행
+
+```shell
+npm run dev
+```
+
+`/app/routes` 에서 route 생성 가능
+
+`useLoaderData` : loader 에서 json 을 parse 한다.  
+- https://remix.run/docs/en/v1/api/remix#useloaderdata
+
+
+`prisma/schema.prisma` 에서 스키마 수정
+
+```shell
+npx prisma db push
+```
+
+동적 경로 : `$slug.tsx`
