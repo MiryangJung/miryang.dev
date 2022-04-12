@@ -134,7 +134,7 @@ export const MDXPostContainer = styled.div`
   }
 `
 
-export const MDXPostTitle = styled.span`
+export const MDXPostTitle = styled.h1`
   font-size: 30px;
   font-weight: 800;
   word-break: keep-all;
