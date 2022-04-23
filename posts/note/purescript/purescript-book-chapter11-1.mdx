@@ -1,0 +1,52 @@
+---
+title: 퓨어스크립트 북 챕터11 앞부분 가볍게 읽어보는 메모장
+date: 2022-04-23
+---
+
+> [퓨어스크립트 북 챕터11 - Monadic Adventures](https://book.purescript.org/chapter11.html)
+
+가볍게 읽어보기!
+
+- 참고 자료 : [purescript-transformerless](https://github.com/Thimoteus/purescript-transformerless)
+
+## The State Monad
+
+- `Control.Monad.State` 가 제공하는 API, [소스코드](https://github.com/purescript/purescript-transformers/blob/v4.2.0/src/Control/Monad/State/Class.purs#L24)
+  - `get` : 현재 state 가져옴
+    - `get = state \s -> Tuple s s`
+  - `gets` : 현재 state에 따라 달라지는 값 가져옴
+    - `gets f = state \s -> Tuple (f s) s`
+    - 이것의 용도는 뭘까...?
+  - `put` : state 설정
+    - `put s = state \_ -> Tuple unit s`
+  - `modify` : 현재 상태에 함수를 적용하여 상태 수정, 반환 값은 새 상태 값
+    - `modify f = state \s -> let s' = f s in Tuple s' s'`
+  - `modify_`
+    - `modify_ f = state \s -> Tuple unit (f s)`
+
+## The Reader Monad
+
+- global configuration에서 읽을 수 있는 기능 제공
+- State 모나드는 읽고 쓰는 기능, Reader 모나드는 단일 데이터 부분 읽는 기능만
+- `ask` : 현재 구성 읽기
+- `local` : 수정된 구성으로 계산 실행
+
+## The Writer Monad
+
+- 반환 값 외에 보조 값을 누적
+- 어떤 모노이드의 값을 누적하는데 사용
+  - 모노이드가 뭐더라 ㅠ
+
+## Monad Transformers
+
+- `State` - `StateT`
+- `Reader` - `ReaderT`
+- `Writer` - `WriterT`
+
+- What is a monad transformer?
+  - 맞춤형 모나드 생성하고 필요한 부수효과 선택 가능
+  - do notation과 applicative combinators 표현력 유지 가능
+
+## The ExceptT Monad Transformer
+
+## Monad Transformer Stacks
