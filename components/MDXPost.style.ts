@@ -6,7 +6,7 @@ export const MDXPostContainer = styled.div`
   flex-direction: column;
   line-height: 1.8;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 17px;
 
   * {
     color: var(--tx-sub);
@@ -21,12 +21,12 @@ export const MDXPostContainer = styled.div`
   }
 
   a {
-    color: var(--tx-accent);
+    color: var(--tx-accent-light);
     text-decoration: underline;
     transition: all 0.2s;
 
     &:hover {
-      color: var(--tx-accent-light);
+      color: var(--tx-accent);
     }
   }
 
