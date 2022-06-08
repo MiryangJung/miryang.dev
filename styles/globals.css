@@ -78,6 +78,7 @@ body[data-theme="dark"]{
   --tx-sub-dark: #A6A5A4;
   --tx-accent: #6667ab;
   --tx-accent-light: #B2B3D5;
+  --tx-wb: #ffffff;
 }
 
 body[data-theme="light"]{
@@ -90,6 +91,7 @@ body[data-theme="light"]{
   --tx-sub-dark: #333333;
   --tx-accent: #159eee;
   --tx-accent-light:#99cfe5;
+  --tx-wb: #000000;
 }
 
 body{
@@ -241,7 +243,7 @@ pre[class*="language-"] {
 .token.property,
 .token.constant,
 .token.variable {
-  color: #ffffff;
+  color: var(--tx-wb);
 }
 
 .token.string,
@@ -260,11 +262,11 @@ pre[class*="language-"] {
 }
 
 .token.function {
-  color: #ffffff;
+  color: var(--tx-wb);
 }
 
 .token.regex {
-  background: #ffffff;
+  background: var(--tx-wb);
 }
 
 .token.bold {
