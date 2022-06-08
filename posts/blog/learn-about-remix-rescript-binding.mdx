@@ -1,0 +1,269 @@
+---
+title: remix-rescript로 rescript 바인딩 알아보기
+date: 2022-06-09
+description: 도대체 javascript에 rescript 바인딩은 어떻게 하는 걸까?
+thumbnailUrl: /posts/thumbnail/learn-about-remix-rescript-binding.jpg
+tags: ['remix', 'rescript', '리스크립트', '바인딩', '리믹스']
+---
+
+## 😎 왜 알아보는가
+
+현재 업무에서 `rescript` 를 사용하고, 얼마 전에 나온 핫한 `remix.run` 을 써보고 싶었다.  
+그래서 두 개 다 사용하는 스택으로 [rescript-remix-blog-template](https://github.com/MiryangJung/rescript-remix-blog-template) 라는 원대한 꿈을 가진 저장소를 만들었다.  
+이미 바인딩이 되어 있는 [rescript-remix](https://github.com/tom-sherman/rescript-remix)를 발견하고, 기뻐하기도 잠시 `LoaderFunction` 라는 함수가 필요했는데 바인딩이 되어있지 않았다.  
+바인딩이 된 상태로 올라와 있는 [rescript-remix PR#21](https://github.com/tom-sherman/rescript-remix/pull/21) 을 보고, 코멘트를 남겼으나 메인테이너가 n개월 째 저장소에 찾아오지 않고 있다.
+
+그래서 **그럼 내가 해서 써야지 뭐** 라는 생각을 했으나 바인딩이라는 용어 자체도 처음 들어봤기에 [rescript-remix](https://github.com/tom-sherman/rescript-remix) 코드를 읽어보면서 알아보고자 한다.
+
+> **주의!** 바인딩에 완전 처음인 사람이 무식하게 읽어보며 적는 글로 이미 잘 알고 계신 분이 보면 답답함을 느낄 수 있습니다.
+
+## 🤩 이제 알아보자
+
+일단 [자바스크립트 함수에 바인딩하기](https://green-labs.github.io/rescript-in-korean/JavaScript-Interop/05-Bind-to-JS-Function)를 읽고, 기초 지식을 익혔다.
+
+[Remix.res](https://github.com/tom-sherman/rescript-remix/blob/main/src/Remix.res) 에 바인딩 코드가 있었고, 무엇을 한 것인지 알아봤다.  
+remix 저장소에 가서 검색을 해보니 [remix-react/magicExports/remix.ts#L21](https://github.com/remix-run/remix/blob/main/packages/remix-react/magicExports/remix.ts#L21) 에서 export되고 있는 모듈을 바인딩하고 있었다.
+
+### 🔸 RemixBrowser
+
+> 서버에서 받은 HTML을 hydrate를 하며, remix app 진입점이다.
+
+- `@react.component` 가 뭘까?
+  - ReScript React component를 쉽게 만들 수 있도록 제공되는 데코레이터
+  - [JSX Component Interface](https://rescript-lang.org/docs/react/latest/beyond-jsx#jsx-component-interface)
+
+```reason:rescript-remix/Remix.res
+module RemixBrowser = {
+  @module("remix") @react.component
+  external make: unit => React.element = "RemixBrowser"
+}
+```
+
+- `RemixBrowser` 의 타입이 **ReactElement** 이므로 **React.element**로 바인딩
+- `make:` 는 @react.component 데코레이터 사용을 위함
+- `unit =>` 는 props가 없기 때문
+
+```tsx:remix-react/browser.tsx
+export function RemixBrowser(_props: RemixBrowserProps): ReactElement {
+```
+
+### 🔸 RemixServer
+
+> HTML을 생성하며, 서버에서 구동되는 remix app의 진입점
+
+```reason:rescript-remix/Remix.res
+type entryContext
+
+module RemixServer = {
+  @module("remix") @react.component
+  external make: (~context: entryContext, ~url: string) => React.element = "RemixServer"
+}
+```
+
+- `entryContext` 가 뭘까?
+  - [EntryContext](https://github.com/remix-run/remix/blob/main/packages/remix-react/entry.ts#L7)
+  - `type entryContext` 적어준 것만으로 어떻게 import 된 걸까...?
+- props의 url의 타입이 **string | URL** 이지만 **string** 으로만 받도록 되어있음
+
+```tsx:remix-react/server.tsx
+export interface RemixServerProps {
+  context: EntryContext;
+  url: string | URL;
+}
+
+export function RemixServer({ context, url }: RemixServerProps): ReactElement {
+```
+
+### 🔸 Outlet
+
+> 중첩 라우팅에 사용 [outlet](https://reactrouter.com/docs/en/v6/components/outlet)
+
+```reason:rescript-remix/Remix.res
+module Outlet = {
+  @module("remix") @react.component
+  external make: (~context: 'a=?) => React.element = "Outlet"
+}
+```
+
+- react-router에서 export됨
+- **unknown**은 **'a=?** 으로 사용
+
+```tsx:remix-run/react-router
+export interface OutletProps {
+  context?: unknown;
+}
+
+export function Outlet(props: OutletProps): React.ReactElement | null {
+  return useOutlet(props.context);
+}
+```
+
+### 🔸 LiveReload
+
+> dev 모드일 때 코드 변경 시 자동 리로드
+
+```reason:rescript-remix/Remix.res
+module LiveReload = {
+  @module("remix") @react.component
+  external make: (~port: int=?) => React.element = "LiveReload"
+}
+```
+
+- [LiveReload](https://github.com/remix-run/remix/blob/main/packages/remix-react/components.tsx#L1363)가 **null | React.element** 일 거라고 예상했는데
+- **React.element** 인 이유가 뭘까?
+
+```tsx:remix-react/components.tsx
+export const LiveReload =
+  process.env.NODE_ENV !== "development"
+    ? () => null
+    : function LiveReload({
+        port = Number(process.env.REMIX_DEV_SERVER_WS_PORT || 8002),
+      }: {port?: number;})
+```
+
+### 🔸 Link
+
+> 앵커 tag 렌더
+
+```reason:rescript-remix/Remix.res
+module Link = {
+  @module("remix") @react.component
+  external make: (
+    ~prefetch: [#intent | #render | #none]=?,
+    ~to: string,
+    ~reloadDocument: bool=?,
+    ~replace: bool=?,
+    ~state: 'a=?,
+    ~children: React.element,
+  ) => React.element = "Link"
+}
+```
+
+- **"intent" | "render" | "none"** 는 **Polymorphic Variant**로 표현
+- forwardRef이므로 **children** props 필요
+
+```tsx:remix-react/components.tsx
+type PrefetchBehavior = "intent" | "render" | "none";
+
+export interface RemixLinkProps extends LinkProps {
+  prefetch?: PrefetchBehavior;
+}
+
+let Link = React.forwardRef<HTMLAnchorElement, RemixLinkProps>(
+```
+
+- Link가 반환하는 컴포넌트는 `react-router-dom의 Link`
+- **any**는 **'a=?** 로 표현
+
+```tsx:remix-run/react-router
+export interface LinkProps
+  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
+  reloadDocument?: boolean;
+  replace?: boolean;
+  state?: any;
+  to: To;
+}
+
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+```
+
+### 🔸 Form
+
+> 제출 후 모든 페이지의 loader가 리로드되며 데이터가 최신화, form values 자동 직렬화
+
+```reason:rescript-remix/Remix.res
+module Form = {
+  @module("remix") @react.component
+  external make: (
+    ~method: [#get | #post | #put | #patch | #delete]=?,
+    ~action: string=?,
+    ~encType: [#"application/x-www-form-urlencoded" | #"multipart/form-data"]=?,
+    ~reloadDocument: bool=?,
+    ~replace: bool=?,
+    ~onSubmit: @uncurry ReactEvent.Form.t => unit=?,
+  ) => React.element = "Form"
+}
+```
+
+- FormMethod, FormEncType는 **Polymorphic Variant**로 표현
+- **FormEventHandler** 는 왜 **@uncurry** 했을까?
+  - 예상: 안정성
+
+```tsx:remix-react/components.tsx
+export type FormMethod = "get" | "post" | "put" | "patch" | "delete";
+export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
+  method?: FormMethod;
+  action?: string;
+  encType?: FormEncType;
+  reloadDocument?: boolean;
+  replace?: boolean;
+  onSubmit?: React.FormEventHandler<HTMLFormElement>;
+}
+
+let Form = React.forwardRef<HTMLFormElement, FormProps>((props, ref) => {
+```
+
+### 🔸 Cookie
+
+```reason:rescript-remix/Remix.res
+module Cookie = {
+  type t
+
+  @get external name: t => string = "name"
+  @get external isSigned: t => bool = "isSigned"
+  ...생략
+}
+
+module CreateCookieOptions = {
+  type t
+
+  @obj
+  external make: (
+    ~decode: string => string=?,
+    ~encode: string => string=?,
+    ...생략
+  ) => t = ""
+}
+
+@module("remix") external createCookie: string => Cookie.t = "createCookie"
+@module("remix")
+external createCookieWithOptions: (string, CreateCookieOptions.t) => Cookie.t = "createCookie"
+```
+
+- 같은 모듈을 바인딩할 때 props에 따라 다르게 할 수 있다.
+
+```ts:remix-server-runtime/cookies.ts
+export interface Cookie {
+  readonly name: string;
+  readonly isSigned: boolean;
+  readonly expires?: Date;
+  parse(
+    cookieHeader: string | null,
+    options?: CookieParseOptions
+  ): Promise<any>;
+  serialize(value: any, options?: CookieSerializeOptions): Promise<string>;
+}
+
+export type CreateCookieFunction = (
+  name: string,
+  cookieOptions?: CookieOptions
+) => Cookie;
+
+export const createCookieFactory =
+  ({
+    sign,
+    unsign,
+  }: {
+    sign: SignFunction;
+    unsign: UnsignFunction;
+  }): CreateCookieFunction =>
+```
+
+## 😰 여전히 어렵다
+
+ts라이브러리를 바인딩해둔 코드를 보고 읽어봤지만 여전히 잘 모르는 상태이다. ㅠ_ㅠ
+
+[rescript-remix/RouteConventions.res](https://github.com/tom-sherman/rescript-remix/blob/main/routing/RouteConventions.res) 에 remix의 파일 기반 라우팅을 변환하는 코드가 있다.  
+읽어봤지만 지금은 잘 모르겠다. 언젠가 이해할 수 있으면 좋겠다. 😂
+
+언젠가 바인딩을 내 손으로 할 수 있는 날이 오겠지...
