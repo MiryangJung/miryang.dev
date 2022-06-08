@@ -7,7 +7,7 @@ import { NextSeo } from 'next-seo'
 
 function BlogLayout({ post }) {
   const MDXComponent = useMDXComponent(post.body.code)
-  console.log(post.tags)
+
   return (
     <Container>
       <NextSeo
