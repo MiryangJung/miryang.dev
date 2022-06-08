@@ -5,6 +5,10 @@ import metadata from '../data/metadata'
 import Container from '../components/Container'
 import { NextSeo } from 'next-seo'
 
+const BlankLink = (props: any) => {
+  return <a target="_blank" rel="noopener noreferrer" {...props} />
+}
+
 function BlogLayout({ post }) {
   const MDXComponent = useMDXComponent(post.body.code)
 
@@ -32,7 +36,13 @@ function BlogLayout({ post }) {
         }}
       />
       <MDXPost title={post.title} date={post.date}>
-        <MDXComponent />
+        <MDXComponent
+          components={
+            {
+              a: BlankLink,
+            } as any
+          }
+        />
       </MDXPost>
       <GiscusArea slug={post.slug} />
     </Container>
