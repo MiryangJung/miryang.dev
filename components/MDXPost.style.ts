@@ -72,7 +72,7 @@ export const MDXPostContainer = styled.div`
 
   blockquote {
     border-left: var(--tx-accent-light) 5px solid;
-    margin: 0;
+    margin: 10px 0;
     padding: 0 10px;
 
     & p {
