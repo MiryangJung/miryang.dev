@@ -104,6 +104,10 @@ export const MDXPostContainer = styled.div`
     padding-left: 20px;
   }
 
+  li {
+    padding: 3px 0;
+  }
+
   table {
     border-collapse: collapse;
   }
