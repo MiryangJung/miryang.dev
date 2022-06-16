@@ -1,6 +1,5 @@
 import MDXPost from '../components/MDXPost'
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import GiscusArea from '../components/GiscusArea'
 import metadata from '../data/metadata'
 import Container from '../components/Container'
 import { NextSeo } from 'next-seo'
@@ -44,7 +43,6 @@ function BlogLayout({ post }) {
           }
         />
       </MDXPost>
-      <GiscusArea slug={post.slug} />
     </Container>
   )
 }
