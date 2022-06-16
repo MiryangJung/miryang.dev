@@ -5,7 +5,7 @@ import GuestbookNotice from '../components/GuestbookNotice'
 import { tGuestbooks } from '../lib/types'
 import GuestbookDate from '../components/GuestbookDate'
 import React, { useState } from 'react'
-import ChatBubble from '../components/ChatBubble'
+import ChatBubble from '../components/ChatBubble.bs'
 
 function GuestbookLayout({ list, initData }: { list: string[]; initData: tGuestbooks }) {
   const [data, setData] = useState<tGuestbooks>(initData)
