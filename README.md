@@ -1,9 +1,9 @@
 # Miryang-Nextjs-Blog
 
-`rescript` 로 언어가 변경되면서 이 저장소는 보관되었습니다.  
-As the language was changed with `rescript`, this repository was archived.
+`rescript` 로 언어를 변경 중입니다.
+Changing language to `rescript`
 
-- [New repository with rescript](https://github.com/MiryangJung/miryang.dev)
+- [Old repository with typescript](https://github.com/MiryangJung/miryang.dev-ts)
 
 > [miryang.dev](https://miryang.dev)
 
@@ -19,13 +19,14 @@ Function development will continue.  All ideas are welcomed!
 - Language `typescript`
 - Framework `Next.js`
 - Content `contentlayer`
-- Style `emotion`
+- Style `emotion` && `tailwind`
 - Deploy `Vercel`
 - VCS `Git`
 
 ## Run
 
 ```shell
+yarn re:dev
 yarn dev
 ```
 
