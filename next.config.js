@@ -6,5 +6,4 @@ module.exports = withContentlayer({
   eslint: {
     dirs: ['pages', 'components', 'lib', 'layouts', 'data'],
   },
-  ignoreBuildErrors: true,
 })
