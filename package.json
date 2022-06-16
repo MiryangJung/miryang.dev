@@ -1,5 +1,5 @@
 {
-  "name": "miryang-blog",
+  "name": "miryang-dev-blog",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,0 +1,16 @@
+{
+    "name": "miryang-dev-blog",
+    "reason": { "react-jsx": 3 },
+    "bs-dependencies": ["@rescript/react"],
+    "ppx-flags": [],
+    "sources": [
+      { "dir": "pages", "subdirs": true },
+      { "dir": "components", "subdirs": true },
+      { "dir": "lib", "subdirs": true }
+    ],
+    "package-specs": {
+      "module": "es6",
+      "in-source": true
+    },
+    "suffix": ".bs.js"
+  }
