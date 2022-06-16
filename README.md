@@ -20,6 +20,7 @@ Function development will continue.  All ideas are welcomed!
 - Framework `Next.js`
 - Content `contentlayer`
 - Style `emotion` && `tailwind`
+    - (Emotion will be removed)
 - Deploy `Vercel`
 - VCS `Git`
 
