@@ -45,3 +45,12 @@ sitemap.xml
 
 # env
 .env
+
+# next
+.next
+
+# rescript
+# **/lib/
+lib/bs
+.bsb.lock
+.merlin

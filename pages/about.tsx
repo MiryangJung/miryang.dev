@@ -1,5 +1,5 @@
 import Title from '../components/Title'
-import AboutProfile from '../components/AboutProfile'
+import AboutProfile from '../components/AboutProfile.bs'
 import Container from '../components/Container'
 import metadata from '../data/metadata'
 import { NextSeo } from 'next-seo'

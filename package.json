@@ -2,6 +2,7 @@
   "name": "miryang-dev-blog",
   "private": true,
   "scripts": {
+    "re:dev":"rescript build -w",
     "dev": "next dev",
     "build": "next build",
     "rss": "NODE_OPTIONS='--experimental-json-modules' node ./scripts/rss.mjs && node ./scripts/sitemap.mjs",
