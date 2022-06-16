@@ -17,8 +17,7 @@ function Guestbookpage({ list, data }) {
 }
 
 export async function getServerSideProps(context) {
-  const workers = process.env.NEXT_PUBLIC_WORKERS
-  const res = await fetch(encodeURI(`${workers}/guestbook?type=all`))
+  const res = await fetch(encodeURI(`https://workers.miryang.dev/guestbook?type=all`))
   const data = await res.json()
   const list = Object.keys(data).sort().reverse()
 
