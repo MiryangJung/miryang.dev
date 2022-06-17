@@ -5,7 +5,8 @@
     "ppx-flags": [],
     "sources": [
       { "dir": "bindings", "subdirs": true },
-      { "dir": "components", "subdirs": true }
+      { "dir": "components", "subdirs": true },
+      { "dir": "data", "subdirs": true }
     ],
     "package-specs": {
       "module": "es6",
