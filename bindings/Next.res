@@ -28,3 +28,13 @@ module Image = {
     ~height: float=?,
   ) => React.element = "default"
 }
+
+
+module Script = {
+  @module("next/script") @react.component
+  external make: (
+    ~src: string,
+    ~strategy: [#beforeInteractive | #afterInteractive | #lazyOnload | #worker],
+    ~onLoad: unit => unit=?,
+  ) => React.element = "default"
+}

@@ -5,9 +5,12 @@ var Link = {};
 
 var $$Image = {};
 
+var Script = {};
+
 export {
   Link ,
   $$Image ,
+  Script ,
   
 }
 /* No side effect */
