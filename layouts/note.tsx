@@ -3,7 +3,7 @@ import NoteAside from '../components/NoteAside'
 import MDXPost from '../components/MDXPost'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import Container from '../components/Container'
-import metadata from '../data/metadata'
+import { meta } from '../data/Metadata.bs'
 import { NextSeo } from 'next-seo'
 
 function NoteLayout({ tree, note }) {
@@ -14,17 +14,17 @@ function NoteLayout({ tree, note }) {
       <NextSeo
         title={note.title}
         description={`Code Snippets or Code note`}
-        canonical={`${metadata.meta.url}/${note.url_path}`}
+        canonical={`${meta.url}/${note.url_path}`}
         openGraph={{
           type: 'article',
-          url: `${metadata.meta.url}/${note.url_path}`,
+          url: `${meta.url}/${note.url_path}`,
           article: {
             publishedTime: new Date(note.date).toISOString(),
             tags: ['Frontend', 'Develop'],
           },
           images: [
             {
-              url: `${metadata.meta.url}/note/note.png`,
+              url: `${meta.url}/note/note.png`,
               width: 850,
               height: 650,
               alt: note.title,

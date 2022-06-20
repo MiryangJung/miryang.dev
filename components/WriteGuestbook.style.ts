@@ -13,7 +13,7 @@ export const WriteGbContainer = styled.form`
   border-radius: 25px 25px 50px 50px;
   padding: 5px 10px;
   ${mq()({
-    width: ['calc(100% - 40px)', '700px'],
+    width: ['calc(100% - 40px)', '768px'],
   })}
 `
 

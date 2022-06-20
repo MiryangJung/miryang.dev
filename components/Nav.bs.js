@@ -14,8 +14,8 @@ function Nav$Links(Props) {
                     return React.createElement(Link, {
                                 children: React.createElement("a", {
                                       className: (
-                                        router.pathname.includes(link.path) ? "text-[var(--tx-accent)]" : "text-[var(--tx-sub-dark)]"
-                                      ) + " no-underline pr-5 hover:var(--tx-accent)",
+                                        router.pathname.includes(link.path) ? "text-sky-500" : "text-slate-900 dark:text-slate-300"
+                                      ) + " no-underline pr-5 hover:var(--tx-accent) text-lg",
                                       onClick: (function (param) {
                                           return Curry._1(handleDropMenuOpen, false);
                                         })

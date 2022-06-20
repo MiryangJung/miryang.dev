@@ -102,56 +102,51 @@ body{
   --tx-white: #eaeaea;
 }
 
-body, header{
-  transition: background 0.9s ease-in-out;
-}
-
-body[data-theme="dark"] #home-profile{
-  background: url('/home/dark.gif') no-repeat center, var(--bg-main);
-}
-
-body[data-theme="light"] #home-profile{
-  background: url('/home/light.gif') no-repeat, var(--bg-main);
-  background-size: cover;
-}
-
 html,
 body {
   padding: 0;
   margin: 0;
-  background: var(--bg-main);
   min-width: 320px;
+  @apply text-slate-900 dark:text-slate-300 min-h-screen;
 }
 
-a {
+@layer base {
+  html {
+    font-family: 'Pretendard', system-ui, sans-serif;
+  }
+}
+
+.prose{
+  max-width: none;
+}
+
+.prose h2{
+  font-size: 1.8em;
+}
+
+.prose h3{
+  font-size: 1.5em;
+}
+
+.prose a{
   color: inherit;
-  text-decoration: none;
+  @apply underline decoration-sky-500 decoration-2 hover:decoration-sky-800
 }
 
-* {
-  box-sizing: border-box;
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  color: var(--tx-main);
+.prose p code, .prose ul code{
+  @apply text-sky-900 dark:text-sky-100;
 }
 
-@keyframes rainbow {
-  0%{background-position:left}
-  50%{background-position:right}
-  100%{background-position:left}
-}
+.prose :where(pre):not(:where([class~="not-prose"] *)) {
+  @apply bg-white dark:bg-zinc-900;
+  @apply border border-solid border-sky-800 dark:border-sky-100;
 
-pre[class*="language-"] > .code-highlight {
-  padding: 0;
-  border: none;
-  font-size: 14px;
 }
 
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #ebdbb2; /* fg1 / fg */
+  @apply bg-white dark:bg-zinc-900;
+  @apply text-slate-900 dark:text-slate-300;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -173,8 +168,8 @@ pre[class*="language-"]::-moz-selection,
 pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
-  color: #fbf1c7; /* fg0 */
-  background: #7c6f64; /* bg4 */
+  color: #fbf1c7;
+  background: #7c6f64;
 }
 
 pre[class*="language-"]::selection,
@@ -195,7 +190,7 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-  border: 1px solid var(--tx-accent-light);
+  @apply border border-solid border-sky-800 dark:border-sky-100;
   border-radius: 7px;
 }
 
@@ -228,7 +223,7 @@ pre[class*="language-"] {
 .token.operator,
 .token.punctuation,
 .token.attr-name {
-  color: #a89984; /* fg4 / gray1 */
+  @apply text-slate-900 dark:text-slate-300;
 }
 
 .token.tag,
@@ -242,12 +237,6 @@ pre[class*="language-"] {
 .token.number,
 .token.symbol {
   color: #59c0ff;
-}
-
-.token.property,
-.token.constant,
-.token.variable {
-  color: var(--tx-wb);
 }
 
 .token.string,
@@ -265,14 +254,6 @@ pre[class*="language-"] {
   text-decoration: underline;
 }
 
-.token.function {
-  color: var(--tx-wb);
-}
-
-.token.regex {
-  background: var(--tx-wb);
-}
-
 .token.bold {
   font-weight: bold;
 }
@@ -282,11 +263,11 @@ pre[class*="language-"] {
 }
 
 .token.inserted {
-  background: #a89984; /* fg4 / gray1 */
+  background: #a89984;
 }
 
 .token.deleted {
-  background: #BB8395; /* red2 */
+  background: #BB8395;
 }
 
 .code-line{
@@ -296,10 +277,11 @@ pre[class*="language-"] {
 }
 
 .rehype-code-title{
-  background: var(--bg-sub);
+  @apply text-slate-900 dark:text-slate-200;
+  @apply bg-white dark:bg-zinc-900;
+  @apply border border-solid border-sky-800 dark:border-sky-100;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  border: 1px solid var(--tx-accent-light);
   padding: 5px 16px;
   font-weight: 700;
   margin-top: 8px;
@@ -328,7 +310,6 @@ pre {
   padding-right: 16px;
   margin-left: -16px;
   margin-right: -16px;
-  border-left-width: 4px;
   font-size: 14px;
 }
 
@@ -343,7 +324,7 @@ pre {
 .highlight-line {
   margin-left: -16px;
   margin-right: -16px;
-  background-color: rgba(55, 65, 81, 0.5); /* Set highlight bg color */
+  background-color: rgba(55, 65, 81, 0.3); /* Set highlight bg color */
   border-left-width: 4px;
   font-size: 14px;
 }

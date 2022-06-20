@@ -1,14 +1,15 @@
-import { MDXPostContainer, MDXPostDate, MDXPostTitle } from './MDXPost.style'
-import usDateString from '../lib/usDateString'
+import usDateString from '../lib/usDateString';
 
 const MDXPost = ({ title, date, children }) => {
   return (
-    <MDXPostContainer>
-      <MDXPostTitle>{title}</MDXPostTitle>
-      {date && <MDXPostDate>{usDateString(date)}</MDXPostDate>}
+    <div className="w-full flex flex-col prose dark:prose-invert">
+      <h1>{title}</h1>
+      {date && (
+        <span className="text-sm font-light mb-5">{usDateString(date)}</span>
+      )}
       {children}
-    </MDXPostContainer>
-  )
-}
+    </div>
+  );
+};
 
-export default MDXPost
+export default MDXPost;

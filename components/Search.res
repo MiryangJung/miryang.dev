@@ -1,8 +1,8 @@
 @react.component
 let default = (~changeHandler) => {
   <div
-    className={`w-full flex flex-nowrap items-center p-2.5 rounded-[20px] border-2 border-solid border-[var(--bg-main)] bg-[var(--bg-sub)] mb-8 hover:border-[ var(--tx-accent-light)]`}>
-    <input type_="text" onChange={changeHandler} placeholder="Search..." />
+    className={`w-full flex flex-nowrap items-center py-2.5 px-5 rounded-[20px] border-2 border-solid border-[var(--bg-main)] bg-[var(--bg-sub)] mb-8 hover:border-[ var(--tx-accent-light)]`}>
+    <input className={`appearance-none bg-transparent flex-1 outline-none`} type_="text" onChange={changeHandler} placeholder="Search..." />
     <svg
       xmlns="http://www.w3.org/2000/svg"
       height="24px"

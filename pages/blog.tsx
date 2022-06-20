@@ -1,9 +1,9 @@
-import Title from '../components/Title'
+import Title from '../components/Title.bs'
 import PostCards from '../components/PostCards'
 import { useState } from 'react'
-import Search from '../components/Search'
+import Search from '../components/Search.bs'
 import { allBlogs } from 'contentlayer/generated'
-import metadata from '../data/metadata'
+import { meta } from '../data/Metadata.bs'
 import Container from '../components/Container'
 import { NextSeo } from 'next-seo'
 
@@ -17,8 +17,8 @@ function Blog({ posts }) {
       <NextSeo
         title="Blog"
         description="공유하고 싶거나 다시 보고 싶은 기술들을 정리합니다."
-        canonical={`${metadata.meta.url}/blog`}
-        openGraph={{ url: `${metadata.meta.url}/blog` }}
+        canonical={`${meta.url}/blog`}
+        openGraph={{ url: `${meta.url}/blog` }}
       />
 
       <Title title="Blog" des={`공유하고 싶거나 다시 보고 싶은 기술들을 정리합니다.`} />

@@ -5,8 +5,9 @@ import * as React from "react";
 function Search$default(Props) {
   var changeHandler = Props.changeHandler;
   return React.createElement("div", {
-              className: "w-full flex flex-nowrap items-center p-2.5 rounded-[20px] border-2 border-solid border-[var(--bg-main)] bg-[var(--bg-sub)] mb-8 hover:border-[ var(--tx-accent-light)]"
+              className: "w-full flex flex-nowrap items-center py-2.5 px-5 rounded-[20px] border-2 border-solid border-[var(--bg-main)] bg-[var(--bg-sub)] mb-8 hover:border-[ var(--tx-accent-light)]"
             }, React.createElement("input", {
+                  className: "appearance-none bg-transparent flex-1 outline-none",
                   placeholder: "Search...",
                   type: "text",
                   onChange: changeHandler

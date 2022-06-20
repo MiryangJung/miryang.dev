@@ -1,5 +1,6 @@
 module.exports = {
-  content: ['./pages/**/*.{res}', './components/**/*.res'],
+  content: ['./pages/**/*.{res}', './components/**/*.res', './components/**/*.tsx'],
+  darkMode: 'class',
   theme: {
     extend: {},
   },

@@ -9,9 +9,9 @@ module Links = {
           <a
             className={{
               router.pathname->Js.String2.includes(link.path)
-                ? `text-[var(--tx-accent)]`
-                : `text-[var(--tx-sub-dark)]`
-            } ++ ` no-underline pr-5 hover:var(--tx-accent)`}
+                ? `text-sky-500`
+                : `text-slate-900 dark:text-slate-300`
+            } ++ ` no-underline pr-5 hover:var(--tx-accent) text-lg`}
             onClick={_ => handleDropMenuOpen(false)}>
             {link.title->React.string}
           </a>

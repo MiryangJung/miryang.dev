@@ -1,7 +1,7 @@
 import facepaint from 'facepaint'
 
 const deviceWidth = {
-  m: 750,
+  m: 768,
 }
 
 const mq = (breakpoints = deviceWidth) => {

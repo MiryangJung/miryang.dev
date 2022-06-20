@@ -1,12 +1,11 @@
-import Head from 'next/head'
-import { ContainerContainer, Main } from './Container.style'
-import Footer from './Footer.bs'
-import GA from './GA.bs'
-import dynamic from 'next/dynamic'
+import Head from 'next/head';
+import Footer from './Footer.bs';
+import GA from './GA.bs';
+import dynamic from 'next/dynamic';
 
 const Header = dynamic(() => import('../components/Header'), {
-  ssr: false,
-})
+  ssr: false
+});
 
 const Container = ({ children }) => {
   return (
@@ -15,13 +14,15 @@ const Container = ({ children }) => {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       <GA />
-      <ContainerContainer>
+      <section className="flex flex-col flex-nowrap pt-24 w-full min-h-screen items-center justify-between bg-white dark:bg-zinc-900">
         <Header />
-        <Main>{children}</Main>
+        <main className="flex flex-col flex-nowrap w-full max-w-screen-md items-center z-10 px-5">
+          {children}
+        </main>
         <Footer />
-      </ContainerContainer>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default Container
+export default Container;
