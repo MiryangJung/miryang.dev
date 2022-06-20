@@ -7,10 +7,13 @@ var $$Image = {};
 
 var Script = {};
 
+var Router = {};
+
 export {
   Link ,
   $$Image ,
   Script ,
+  Router ,
   
 }
 /* No side effect */
