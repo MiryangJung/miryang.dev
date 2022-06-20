@@ -11,36 +11,18 @@ function Footer$default(Props) {
             }, React.createElement("div", {
                   className: "flex flex-wrap items-center"
                 }, React.createElement("a", {
+                      className: "mx-1.5",
                       href: Metadata.social.github,
                       rel: "noreferrer",
                       target: "_blank"
                     }, React.createElement($$Image, {
                           alt: "github",
-                          className: "mx-1.5",
                           objectFit: "contain",
                           src: "/social/github.svg",
-                          width: 18.0
+                          width: 18.0,
+                          height: 18.0
                         })), React.createElement("a", {
-                      href: Metadata.social.facebook,
-                      rel: "noreferrer",
-                      target: "_blank"
-                    }, React.createElement($$Image, {
-                          alt: "facebook",
-                          className: "mx-1.5",
-                          objectFit: "contain",
-                          src: "/social/facebook.svg",
-                          width: 18.0
-                        })), React.createElement("a", {
-                      href: Metadata.social.instagram,
-                      rel: "noreferrer",
-                      target: "_blank"
-                    }, React.createElement($$Image, {
-                          alt: "instagram",
-                          className: "mx-1.5",
-                          objectFit: "contain",
-                          src: "/social/instagram.svg",
-                          width: 18.0
-                        })), React.createElement("a", {
+                      className: "mx-1.5",
                       href: Metadata.social.linkedin,
                       rel: "noreferrer",
                       target: "_blank"
@@ -49,40 +31,44 @@ function Footer$default(Props) {
                           className: "mx-1.5",
                           objectFit: "contain",
                           src: "/social/linkedin.svg",
-                          width: 18.0
+                          width: 18.0,
+                          height: 18.0
                         })), React.createElement("a", {
+                      className: "mx-1.5",
                       href: Metadata.social.stackoverflow,
                       rel: "noreferrer",
                       target: "_blank"
                     }, React.createElement($$Image, {
                           alt: "stackoverflow",
-                          className: "mx-1.5",
                           objectFit: "contain",
                           src: "/social/stackoverflow.svg",
-                          width: 18.0
+                          width: 18.0,
+                          height: 18.0
                         })), React.createElement("a", {
+                      className: "mx-1.5",
                       href: Metadata.social.twitter,
                       rel: "noreferrer",
                       target: "_blank"
                     }, React.createElement($$Image, {
                           alt: "twitter",
-                          className: "mx-1.5",
                           objectFit: "contain",
                           src: "/social/twitter.svg",
-                          width: 18.0
+                          width: 18.0,
+                          height: 18.0
                         })), React.createElement("a", {
+                      className: "mx-1.5",
                       href: Metadata.social.rss,
                       rel: "noreferrer",
                       target: "_blank"
                     }, React.createElement($$Image, {
                           alt: "facebook",
-                          className: "mx-1.5",
                           objectFit: "contain",
                           src: "/social/rss.svg",
-                          width: 18.0
+                          width: 18.0,
+                          height: 18.0
                         }))), React.createElement("span", {
                   className: "text-sm text-[var(--tx-sub)] mt-3"
-                }, "Copyright © 2021 " + Metadata.author), React.createElement(Link, {
+                }, "Copyright © 2022 " + Metadata.author), React.createElement(Link, {
                   children: React.createElement("a", {
                         className: "text-xs text-[var(--tx-sub-dark)] no-underline mt-2.5 hover:underline"
                       }, "miryang.dev"),

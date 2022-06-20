@@ -1,6 +1,6 @@
 import MDXPost from '../components/MDXPost'
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import metadata from '../data/metadata'
+import {meta} from '../data/Metadata.bs'
 import Container from '../components/Container'
 import { NextSeo } from 'next-seo'
 
@@ -16,17 +16,17 @@ function BlogLayout({ post }) {
       <NextSeo
         title={post.title}
         description={post.description}
-        canonical={`${metadata.meta.url}/blog/${post.slug}`}
+        canonical={`${meta.url}/blog/${post.slug}`}
         openGraph={{
           type: 'article',
-          url: `${metadata.meta.url}/blog/${post.slug}`,
+          url: `${meta.url}/blog/${post.slug}`,
           article: {
             publishedTime: new Date(post.date).toISOString(),
             tags: [...post.tags, 'Frontend', 'Develop'],
           },
           images: [
             {
-              url: `${metadata.meta.url}${post.thumbnailUrl}`,
+              url: `${meta.url}${post.thumbnailUrl}`,
               width: 850,
               height: 650,
               alt: post.title,

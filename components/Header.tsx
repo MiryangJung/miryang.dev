@@ -1,5 +1,5 @@
 import { Group, HeaderContainer, LogoImage, ThemeModeImage } from './Header.style'
-import Nav from './Nav'
+import Nav from './Nav.bs'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 

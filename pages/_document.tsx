@@ -1,5 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
-import metadata from '../data/metadata'
+import { ads } from '../data/Metadata.bs'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <script
-            data-ad-client={metadata.ads.google}
+            data-ad-client={ads.google}
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
           />

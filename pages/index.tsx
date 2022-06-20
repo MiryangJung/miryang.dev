@@ -1,10 +1,10 @@
-import RecentPost from '../components/RecentPost'
+import RecentPost from '../components/RecentPost.bs'
 import { allBlogs } from 'contentlayer/generated'
 import { InferGetStaticPropsType } from 'next'
 import Container from '../components/Container'
 import dynamic from 'next/dynamic'
 
-const HomeProfile = dynamic(() => import('../components/HomeProfile'), {
+const HomeProfile = dynamic(() => import('../components/HomeProfile.bs'), {
   ssr: false,
 })
 

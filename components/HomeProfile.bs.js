@@ -6,16 +6,19 @@ import Link from "next/link";
 
 function HomeProfile$default(Props) {
   return React.createElement("section", {
-              className: "flex flex-col flex-nowrap w-full h-[300px] rounded-2xl p-6"
+              className: "flex flex-col flex-nowrap w-full h-[300px] rounded-2xl p-6",
+              id: "home-profile"
             }, React.createElement("span", {
                   className: "font-bold text-[var(--tx-white)] text-4xl md:text-3xl"
                 }, Metadata.home.name), React.createElement("span", {
                   className: "text-[var(--tx-white)] font-light mt-2.5 break-all text-lg md:text-base"
-                }, Metadata.home.description), React.createElement("span", undefined, React.createElement(Link, {
-                      children: "Learn more",
-                      href: "/about",
-                      passHref: true
-                    })));
+                }, Metadata.home.description), React.createElement(Link, {
+                  children: React.createElement("a", {
+                        className: "font-semibold text-[var(--bg-a5)] text-sm mt-3"
+                      }, "Learn more"),
+                  href: "/about",
+                  passHref: true
+                }));
 }
 
 var $$default = HomeProfile$default;

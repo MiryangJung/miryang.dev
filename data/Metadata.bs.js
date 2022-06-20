@@ -18,8 +18,6 @@ var social = {
   twitter: "https://twitter.com/miryangjung",
   linkedin: "https://www.linkedin.com/in/miryangjung/",
   stackoverflow: "https://stackoverflow.com/users/11981439/miryangjung",
-  facebook: "",
-  instagram: "",
   rss: "https://miryang.dev/feed.xml"
 };
 

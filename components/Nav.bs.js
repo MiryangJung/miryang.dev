@@ -14,8 +14,8 @@ function Nav$Links(Props) {
                     return React.createElement(Link, {
                                 children: React.createElement("a", {
                                       className: (
-                                        router.pathname.includes(link.path) ? "true" : "false"
-                                      ) + "no-underline text-[var(--tx-sub-dark)] pr-5 md:py-4 md:px-7 md:hidden hover:var(--tx-accent)",
+                                        router.pathname.includes(link.path) ? "text-[var(--tx-accent)]" : "text-[var(--tx-sub-dark)]"
+                                      ) + " no-underline pr-5 hover:var(--tx-accent)",
                                       onClick: (function (param) {
                                           return Curry._1(handleDropMenuOpen, false);
                                         })
@@ -38,14 +38,16 @@ function Nav$default(Props) {
   var setIsDropMenuOpen = match[1];
   return React.createElement(React.Fragment, undefined, React.createElement("div", {
                   className: "flex flex-nowrap items-center"
-                }, React.createElement(Nav$Links, {
-                      handleDropMenuOpen: (function (value) {
-                          return Curry._1(setIsDropMenuOpen, (function (param) {
-                                        return value;
-                                      }));
-                        })
-                    }), React.createElement("svg", {
-                      className: "fill-[var(--tx-sub)] cursor-pointer hidden md:block",
+                }, React.createElement("div", {
+                      className: "hidden md:flex flex-nowrap items-center"
+                    }, React.createElement(Nav$Links, {
+                          handleDropMenuOpen: (function (value) {
+                              return Curry._1(setIsDropMenuOpen, (function (param) {
+                                            return value;
+                                          }));
+                            })
+                        })), React.createElement("svg", {
+                      className: "fill-[var(--tx-sub)] cursor-pointer md:hidden",
                       height: "38px",
                       width: "38px",
                       onClick: (function (param) {
@@ -61,7 +63,7 @@ function Nav$default(Props) {
                         }), React.createElement("path", {
                           d: "M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
                         }))), React.createElement("div", {
-                  className: "w-full h-screen absolute top-20 left-0 bg-[var(--bg-main)] flex-col flex-nowrap" + (
+                  className: "w-full h-screen absolute top-20 left-0 bg-[var(--bg-main)] flex-col flex-nowrap " + (
                     match[0] ? "flex" : "hidden"
                   )
                 }, React.createElement(Nav$Links, {

@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { ContainerContainer, Main } from './Container.style'
-import Footer from './Footer'
-import GA from './GA'
+import Footer from './Footer.bs'
+import GA from './GA.bs'
 import dynamic from 'next/dynamic'
 
 const Header = dynamic(() => import('../components/Header'), {
