@@ -274,6 +274,7 @@ pre[class*="language-"] {
   padding-top: 2px;
   padding-bottom: 2px;
   font-size: 14px;
+  @apply text-slate-900 dark:text-slate-200;
 }
 
 .rehype-code-title{
