@@ -1,0 +1,31 @@
+---
+title: 퓨어스크립트 북 챕터3 두 번째 읽어보는 메모장
+date: 2022-06-21
+---
+
+> [book.purescript - Functions and Records](https://book.purescript.org/chapter3.html)
+
+## Simple Types
+
+`Prim` 모듈에 정의되어 있다.
+- [Prim](https://pursuit.purescript.org/builtins/docs/Prim)
+
+자바스크립트에 대응되는 3가지 타입은  
+`Number`, `String`, `Boolean`
+- `Number`는 float이며 `Int` 가 있다.
+
+`function`  
+- [Function](https://pursuit.purescript.org/builtins/docs/Prim#t:Function)
+- `(->)` 는 문법 설탕으로 `Function` 대신 사용되는 게 권장
+
+```
+f :: Number -> Number
+f :: Function Number Number
+f :: (->) Number Number
+```
+
+## Quantified Types
+
+`forall` : parametric polymorphism
+
+적는 중~
