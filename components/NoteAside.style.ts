@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
-import mq from '../styles/util/mq'
-import { css } from '@emotion/react'
+import styled from '@emotion/styled';
+import mq from '../styles/util/mq';
+import { css } from '@emotion/react';
 
 const dynamicVisible = ({ visible }) => {
   if (visible) {
@@ -10,17 +10,18 @@ const dynamicVisible = ({ visible }) => {
       border-right: none;
       padding-left: 10px;
       padding-right: 5px;
-    `
+    `;
   } else {
     return css`
       @media (max-width: 750px) {
         display: none;
         border-left: none;
       }
-    `
+    `;
   }
-}
+};
 export const NoteAsideContainer = styled.div`
+  top: 100px;
   flex-flow: column nowrap;
   display: flex;
   width: 100%;
@@ -33,11 +34,12 @@ export const NoteAsideContainer = styled.div`
     display: none;
   }
   ${mq()({
+    position: ['static', 'sticky'],
     maxWidth: ['100%', '170px'],
-    marginRight: ['0', '20px'],
+    marginRight: ['0', '20px']
   })}
   ${dynamicVisible}
-`
+`;
 
 export const NoteAsideText = styled.a`
   color: var(--tx-sub-dark);
@@ -49,7 +51,7 @@ export const NoteAsideText = styled.a`
   &:hover {
     color: var(--tx-accent-light);
   }
-`
+`;
 
 export const NoteAsideChildText = styled.a`
   color: var(--tx-sub-dark);
@@ -61,7 +63,7 @@ export const NoteAsideChildText = styled.a`
   &:hover {
     color: var(--tx-accent);
   }
-`
+`;
 
 export const NoteAsideMobileIcon = styled.div`
   align-items: center;
@@ -79,6 +81,6 @@ export const NoteAsideMobileIcon = styled.div`
     background: var(--tx-accent);
   }
   ${mq()({
-    display: ['flex', 'none'],
+    display: ['flex', 'none']
   })}
-`
+`;
