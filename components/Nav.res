@@ -10,8 +10,8 @@ module Links = {
             className={{
               router.pathname->Js.String2.includes(link.path)
                 ? `text-sky-500`
-                : `text-slate-900 dark:text-slate-300`
-            } ++ ` no-underline pr-5 hover:var(--tx-accent) text-lg`}
+                : `text-slate-900 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-800`
+            } ++ ` no-underline pr-5 text-2xl pb-5`}
             onClick={_ => handleDropMenuOpen(false)}>
             {link.title->React.string}
           </a>
@@ -43,7 +43,7 @@ let default = () => {
       </svg>
     </div>
     <div
-      className={`w-full h-screen absolute top-20 left-0 bg-[var(--bg-main)] flex-col flex-nowrap ` ++ {
+      className={`w-full h-screen absolute top-20 left-0 bg-white dark:bg-zinc-900 flex-col flex-nowrap p-5 ` ++ {
         isDropMenuOpen ? `flex` : `hidden`
       }}>
       <Links handleDropMenuOpen={value => setIsDropMenuOpen(_ => value)} />

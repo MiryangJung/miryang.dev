@@ -14,8 +14,8 @@ function Nav$Links(Props) {
                     return React.createElement(Link, {
                                 children: React.createElement("a", {
                                       className: (
-                                        router.pathname.includes(link.path) ? "text-sky-500" : "text-slate-900 dark:text-slate-300"
-                                      ) + " no-underline pr-5 hover:var(--tx-accent) text-lg",
+                                        router.pathname.includes(link.path) ? "text-sky-500" : "text-slate-900 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-800"
+                                      ) + " no-underline pr-5 text-2xl pb-5",
                                       onClick: (function (param) {
                                           return Curry._1(handleDropMenuOpen, false);
                                         })
@@ -63,7 +63,7 @@ function Nav$default(Props) {
                         }), React.createElement("path", {
                           d: "M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
                         }))), React.createElement("div", {
-                  className: "w-full h-screen absolute top-20 left-0 bg-[var(--bg-main)] flex-col flex-nowrap " + (
+                  className: "w-full h-screen absolute top-20 left-0 bg-white dark:bg-zinc-900 flex-col flex-nowrap p-5 " + (
                     match[0] ? "flex" : "hidden"
                   )
                 }, React.createElement(Nav$Links, {
