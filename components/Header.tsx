@@ -10,8 +10,8 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full  z-20 h-16 bg-white dark:bg-zinc-900">
-      <div className="max-w-screen-md h-full flex flex-nowrap items-center justify-between m-auto px-5">
+    <header className="fixed top-0 left-0 w-full  z-20 h-24 bg-white dark:bg-zinc-900">
+      <div className="max-w-screen-md h-16 flex flex-nowrap items-center justify-between m-auto px-5">
         <Nav />
         <div className="flex flex-nowrap items-center justify-between">
           <div onClick={themeModeHandle}>
@@ -62,6 +62,15 @@ const Header = () => {
             </a>
           </Link>
         </div>
+      </div>
+      <div className="text-xs font-thin text-center text-gray-500">
+        <span className="text-red-400">rescript</span>로 변경 중이며, 버그가
+        발견된다면 정상입니다.{' '}
+        <Link href="https://github.com/MiryangJung/miryang.dev" passHref>
+          <a target="_blank" className="underline">
+            Repo
+          </a>
+        </Link>
       </div>
     </header>
   );
