@@ -28,4 +28,23 @@ f :: (->) Number Number
 
 `forall` : parametric polymorphism
 
-적는 중~
+`flip` : (a, b) => c 를 받아서 (b, a) => c 를 반환
+
+## Curried Functions
+
+항상 한 개의 인수만 취한다. curried 된다.
+
+## Notes On Indentation
+
+불변성, existing AddressBook directly를 수정하지 않는다.
+
+```
+insertEntry :: Entry -> AddressBook -> AddressBook
+```
+
+## Infix Function Application
+
+```
+mod 8 3
+8 `mod` 3
+```
