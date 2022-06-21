@@ -11,7 +11,7 @@ module Links = {
               router.pathname->Js.String2.includes(link.path)
                 ? `text-sky-500`
                 : `text-slate-900 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-800`
-            } ++ ` no-underline pr-5 text-2xl pb-5`}
+            } ++ ` no-underline pr-5 text-2xl font-thin pb-5 md:text-lg md:pb-0`}
             onClick={_ => handleDropMenuOpen(false)}>
             {link.title->React.string}
           </a>
