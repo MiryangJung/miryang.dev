@@ -1,0 +1,8 @@
+---
+title: 저장소 전체 커밋 이메일 변경하기
+date: 2022-16-27
+---
+
+```shell
+git filter-branch -f --env-filter "GIT_AUTHOR_EMAIL='miryang.dev@gmail.com'; GIT_COMMITTER_EMAIL='miryang.dev@gmail.com';" HEAD
+```
