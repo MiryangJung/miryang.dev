@@ -1,0 +1,27 @@
+---
+title: 퓨어스크립트 북 챕터4 두 번째 읽어보는 메모장
+date: 2022-06-29
+---
+
+> [퓨어스크립트 북 챕터4 - Recursion, Maps And Folds](https://book.purescript.org/chapter4.html)
+
+## 재귀
+- 가변 상태를 줄이는데 도움이 된다.
+- 특정 입력에 대한 문제 해결을 위해 입력을 더 작은 부분으로 분해, 조합
+    - 분할 정복
+
+## 맵
+- 각 요소에 차례로 함수를 적용하여 배열의 요소를 변환
+- 배열의 내용은 변하지만 길이는 유지
+- 각 element에 함수가 제공되면 mapping해서 컬렉션을 제공하는 자료구조에 해당한다.
+  - 그래서 Functor가 될 수 있다.
+  - [Functor in Clojure](https://www.youtube.com/watch?v=ETpUtTBHIC8)
+
+```
+forall a b f. Functor f => (a -> b) -> f a -> f b
+```
+
+## Do Notation
+- `<-` 왼쪽에 이름, 오른쪽에 배열 타입 표현식
+- `pure` == `return`
+- `async-await`
