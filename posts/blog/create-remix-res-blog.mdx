@@ -29,9 +29,9 @@ tags:
 ## 🔥 ReScript를 설치하자
 
 지금 보고 있는 Next.js 블로그를 `ReScript` 로 바꾸면서 설정하는 방법을 익혀서 오래 걸리지 않았다. 브이.  
-`ReScript` 와 필요한 디펜던시를 설치한 후, `remix` 에서 설정을 몇 가지 해줘야했다.
+`ReScript` 와 필요한 디펜던시를 설치한 후, `remix` 에서 설정을 몇 가지 해줘야 했다.
 
-파일을 기반으로 라우팅이 되기 때문에 `res` 파일은 읽지 않도록 ignore에 추가해준다.
+파일을 기반으로 라우팅이 되기 때문에 `res` 파일은 읽지 않도록 ignore에 추가해 준다.
 
 ```js:remix.config.js
   ignoredRouteFiles: ["**/.*", "*.res"],
@@ -55,7 +55,7 @@ _refer : [route-file-conventions](https://remix.run/docs/en/v1/api/conventions#r
 
 - [bindings/Remix.res](https://github.com/MiryangJung/rescript-remix-blog-template/blob/main/bindings/Remix.res)
 
-일단 사용할 것들만 바인딩을 할 예정이여서 tsx로 먼저 파일을 만들어두고, 하나씩 진행했다.
+일단 사용할 것들만 바인딩을 할 예정이어서 tsx로 먼저 파일을 만들어두고, 하나씩 진행했다.
 
 App의 `<Meta />` 부터 바인딩을 했다.
 
@@ -79,7 +79,7 @@ export default function App() {
 export declare function Meta(): JSX.Element;
 ```
 
-아래와 같이 바인딩 코드를 작성해줬다.
+아래와 같이 바인딩 코드를 작성해 줬다.
 
 ```reason:bindings/Remix.res
 module Meta = {
@@ -88,22 +88,22 @@ module Meta = {
 }
 ```
 
-이렇게 계속 하다보면 사용하는 것들을 모두 바인딩할 수 있다. <s>참 쉽죠?</s>
+이렇게 계속하다 보면 사용하는 것들을 모두 바인딩 할 수 있다. <s>참 쉽죠?</s>
 
 ## 🌪 tailwind를 사용하고 싶어
 
-style 유틸리티로 `tailwind` 를 설치한 뒤에 아무리해도 실적용이 안되어서 한참 헤맸다.  
-허무하게도 tailwind를 **build하는 명령어**를 추가해주지 않아서였다.  
-next.js에서는 필요없는 설정이여서 전혀 몰랐다. 🥲
+style 유틸리티로 `tailwind` 를 설치한 뒤에 아무리 해도 적용이 안되어서 한참 헤맸다.
+허무하게도 tailwind를 **build하는 명령어**를 추가해 주지 않아서였다.  
+next.js에서는 필요 없는 설정이어서 전혀 몰랐다. 🥲
 
 ```json:package.json
 "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
 "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
 ```
 
-두 번째 시련은 **css를 import하는 방법**을 모르는 것이였다.
+두 번째 시련은 **css를 import하는 방법**을 모르는 것이었다.
 
-`tsx` 에서는 아래와 같이 사용한다. res에서는 `import` 구문이 없으므로 어떻게 해야할 지 난감했다.
+`tsx` 에서는 아래와 같이 사용한다. res에서는 `import` 구문이 없으므로 어떻게 해야 할지 난감했다.
 
 ```tsx:App.tsx
 import styles from "./styles/app.css"
@@ -135,7 +135,7 @@ import Component, {
 } from "./posts/a.mdx";
 ```
 
-이건 도대체 `res`로 어떻게 변환할 지 감도 안와서 [forum](https://forum.rescript-lang.org/t/how-can-i-handle-mdx-in-rescript-remix/3218)에 물어보고 답을 얻었다.
+이건 도대체 `res`로 어떻게 변환할지 감도 안 와서 [forum](https://forum.rescript-lang.org/t/how-can-i-handle-mdx-in-rescript-remix/3218)에 물어보고 답을 얻었다.
 
 아래와 같이 사용할 수 있다.
 
@@ -156,7 +156,7 @@ let loader = () => {
 정말 불편하고, 비효율적인데 `remix` 공식 문서에는 **DB 사용을 권장**하고 있었다.  
 그리고 난 이 **프로젝트 자체를 CMS로** 사용하고 싶어서 어떻게 해결해야 하나 고민이다.
 
-`MDX 라우팅` 은 remix에서 제공되는 기능이여서 정말 좋았다.
+`MDX 라우팅` 은 remix에서 제공되는 기능이어서 정말 좋았다.
 
 ```plain
 `routes/posts/a.mdx` -> `posts/a` 로 라우팅
@@ -182,11 +182,11 @@ _tmi) nested routing 처음 써봤는데 정말 편하다._
 - SSR을 어떻게 SSG처럼 사용할까?
   - remix는 SSR이다.
   - 블로그는 정적 컨텐츠이다.
-  - **아마 캐시설정으로 어느정도 보완할 수 있을 듯**
+  - **아마 캐시 설정으로 어느 정도 보완할 수 있을 듯**
 
 ## 💪🏻 끝!
 
-아직 SEO, RSS 등의 설정이 남았지만 위의 생각들부터 해결을 해야될 듯해서 남겨두었다.  
+아직 SEO, RSS 등의 설정이 남았지만 위의 생각들부터 해결을 해야 될 듯해서 남겨두었다.  
 좋은 아이디어가 있으신 분은 제 트위터나 메일로 연락 부탁드립니다. ❤️‍🔥
 
 > 아무쪼록 나중에 누군가 ReScript와 Remix를 같이 사용할 날이 온다면 이 글이 도움이 되기를...
