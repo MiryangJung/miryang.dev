@@ -1,0 +1,76 @@
+---
+title: 퓨어스크립트 북 챕터5 두 번째 읽어보는 메모장
+date: 2022-07-06
+---
+
+> [퓨어스크립트 북 챕터5 - Pattern Matching](https://book.purescript.org/chapter5.html)
+
+## Simple Pattern Matching
+
+패턴 매칭을 사용하여 두 정수의 최대 공약수를 계산
+- 유클리드호제법
+
+```purescript
+gcd :: Int -> Int -> Int
+gcd n 0 = n
+gcd 0 m = m
+gcd n m = if n > m
+            then gcd (n - m) m
+            else gcd n (m - n)
+```
+
+res로는 이런 느낌이려나
+
+```reason
+let rec gcd = (n: int, m:int): int => {
+  if (n > m) {
+    gcd(n - m, m)
+  } else {
+    gcd(n, m - n)
+  }
+}
+```
+
+![](/note/purescript/purescript-book-chapter5/Euclidean.jpeg)
+
+
+## Simple Patterns
+
+`_` 는 와일드 카드
+
+```purescript
+fromString :: String -> Boolean
+fromString "true" = true
+fromString _      = false
+
+toString :: Boolean -> String
+toString true  = "true"
+toString false = "false"
+```
+
+```reason
+let fromString = (s: string):bool => {
+    switch s {
+        | "true" => true
+        | _ => false
+    }
+}
+
+let toString = (b: bool):string => {
+    switch b {
+        | true => "true"
+        | false => "false"
+    }
+}
+```
+
+## Record Patterns and Row Polymorphism
+
+- 다형성
+    - 동일한 명령에 다르게 반응하는 현상
+    - 동일한 함수를 다른 타입에 대응
+
+
+## Algebraic Data Types (ADT)
+
+- [대수적 데이터 타입과 리액트 상태 관리](https://green-labs.github.io/algebraic-data-type)
