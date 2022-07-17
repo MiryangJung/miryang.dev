@@ -12,11 +12,12 @@ tags: ['next.js', '블로그 만들기', 'contentlayer']
 **Next.js로 나만의 블로그 만들기** [핸즈온 세션](https://event-us.kr/miryang/event/42689) 참여자 대상으로 작성된 안내서로
 자세한 설명은 [핸즈온](https://event-us.kr/miryang/event/42689)에서 구두로 합니다.
 
-> 핸즈온 후기!  
-> - 혼자 했으면 오래 걸리거나 중간에 그만뒀을텐데 자세히 설명도 해주시고 실시간으로 보여주셔서 잘 만들 수 있었습니다  
-> - 좋은 강의 감사합니다 덕분에 next.js 영업당했어요!ㅋㅋㅋㅋㅋ 다음에도 또 참여하고싶어요!!  
-> - 만족스러운 강의였습니다. 다음 강의도 기다리겠습니다 :)  
-> - 아직 next.js나 ts 지식이 부족해서 따라가기 힘든 점은 있었지만 이런식으로 구성되어 있다는걸 알 수 있는 점이 좋았어요!  
+> 핸즈온 후기!
+>
+> - 혼자 했으면 오래 걸리거나 중간에 그만뒀을텐데 자세히 설명도 해주시고 실시간으로 보여주셔서 잘 만들 수 있었습니다
+> - 좋은 강의 감사합니다 덕분에 next.js 영업당했어요!ㅋㅋㅋㅋㅋ 다음에도 또 참여하고싶어요!!
+> - 만족스러운 강의였습니다. 다음 강의도 기다리겠습니다 :)
+> - 아직 next.js나 ts 지식이 부족해서 따라가기 힘든 점은 있었지만 이런식으로 구성되어 있다는걸 알 수 있는 점이 좋았어요!
 > - next.js 블로그 만들기를 예전에 도전했다가 실패한 경험이 있었어요. 미량님 강의를 들으니까 next.js가 어떻게 동작하는지 (라우팅, seo...) 에대해 감을 잡을 수 있었습니다. 너무 감사해요.
 
 - [Github Repo](https://github.com/MiryangJung/Build-Own-blog-With-Next.js)
@@ -26,20 +27,37 @@ tags: ['next.js', '블로그 만들기', 'contentlayer']
 - Next.js를 간단하게 알아봅니다.
 - mdx를 사용하는 방법을 알아봅니다.
 - seo를 간단하게 알아봅니다.
+- 블로그를 만드는 흐름
+- 프로젝트가 만들어지는 흐름
+
+## 배울 수 없는 것
+
+- Next.js의 자세한 사용법
+- 스타일링을 하는 방법
+- 코드를 어떻게 작성해야하는 지
+
+## 준비물
+
+- Node.js v16.14.2 이상
+- Git
+- vscode
+- yarn
 
 ## 이런 걸 만듭니다.
+
+- [데모 페이지](https://build-own-blog-with-next-js.vercel.app)
 
 ![](/posts/build-blog-with-nextjs/1.gif)
 
 ## Next.js 특징
 
 - SSR (Server-Side-Rendering)
-    - 요청 때마다 HTML를 생성
+  - 요청 때마다 HTML를 생성
 - SSG (Static-Site-Generation)
-    - 빌드할 때 HTML를 생성
+  - 빌드할 때 HTML를 생성
 - File-system Routing
-    - `pages/index.js` -> `/`
-    - `pages/blog/article.js` -> `/blog/article`
+  - `pages/index.js` -> `/`
+  - `pages/blog/article.js` -> `/blog/article`
 
 ## 왜 Next.js를 사용하나요?
 
@@ -71,9 +89,26 @@ tags: ['next.js', '블로그 만들기', 'contentlayer']
 ### 보일러플레이트 설치
 
 ```bash
-npx create-next-app@latest my-blog --typescript
+npx create-next-app@latest my-blog --typescript -y
 # 또는
-yarn create next-app my-blog --typescript
+yarn create next-app my-blog --typescript -y
+```
+
+### 불필요 폴더 및 파일 삭제
+
+- pages/api
+- styles/Home.module.css
+- pages/index.tsx
+
+### tsconfig 설정
+
+유연한 진행을 위해 strict false 사용
+
+```json:tsconfig.json
+{
+  "compilerOptions": {
+    "strict": false,
+    ...
 ```
 
 ### tailwind 설정
@@ -87,7 +122,7 @@ npx tailwindcss init -p
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
- 	"./components/**/*.{js,ts,jsx,tsx}",
+ 	  "./components/**/*.{js,ts,jsx,tsx}",
  ],
  theme: {
     extend: {},
@@ -127,7 +162,7 @@ yarn dev
 
 ```tsx:pages/index.tsx
 const Home = () => {
-  return <div className={`text-green-500`}>Home</div>;
+  return <div className={`text-green-500 text-lg`}>Home</div>;
 };
 
 export default Home;
@@ -137,7 +172,7 @@ export default Home;
 
 ```tsx:pages/blog.tsx
 const Blog = () => {
-  return <div className={`text-red-500`}>Blog</div>;
+  return <div className={`text-red-500 text-lg`}>Blog</div>;
 };
 
 export default Blog;
@@ -148,7 +183,6 @@ export default Blog;
 > GNB : Global Navigation Bar  
 > [next/link](https://nextjs.org/docs/api-reference/next/link)  
 > [next-js-link-vs-router-push-vs-a-tag](https://stackoverflow.com/questions/65086108/next-js-link-vs-router-push-vs-a-tag)
-
 
 nav 링크들을 쉽게 관리하기 위해 `navlinks` 생성
 
@@ -222,18 +256,23 @@ export default Home;
 ```
 
 ```tsx:pages/blog.tsx
-...
-   <Container>
+import Container from "../components/Container";
+
+const Blog = () => {
+  return (
+    <Container>
       <span className={`font-bold`}>BLOG</span>
     </Container>
-...
+  );
+};
+
+export default Blog;
 ```
 
 ## 3️⃣ 3. 스타일링
 
 - [해당 브랜치](https://github.com/MiryangJung/Build-Own-blog-With-Next.js/tree/3/styling)
 - `git clone -b 3/styling https://github.com/MiryangJung/Build-Own-blog-With-Next.js`
-
 
 쉬운 데이터 관리를 위해 `metadata.ts` 생성
 
@@ -248,7 +287,7 @@ export default metadata;
 `public` 폴더에 `logo.jpg` 생성, **Header** 스타일링
 
 ```tsx:components/Container.tsx
-...
+...중략
 const Container = (props) => {
   return (
     <div className={`w-full flex flex-col items-center p-3`}>
@@ -277,7 +316,6 @@ const Container = (props) => {
     </div>
   );
 };
-...
 ```
 
 **/home** 에서 사용할 최근 게시물 목록 컴포넌트 생성
@@ -315,6 +353,7 @@ export default RecentPosts;
 `public` 폴더에 `home.jpg` 생성, **/home** 스타일링
 
 ```tsx:pages/index.tsx
+...중략
 const Home = () => {
   return (
     <Container>
@@ -393,8 +432,8 @@ export default Blog;
 - `git clone -b 4/contentlayer https://github.com/MiryangJung/Build-Own-blog-With-Next.js`
 
 > [contentlayer](https://github.com/contentlayerdev/contentlayer)  
-> "contentlayer": "^0.1.2" 버전 사용  
-> Tip! 아직 알파단계인 라이브러리라서 [Who is using Contentlayer?](https://github.com/contentlayerdev/contentlayer#who-is-using-contentlayer) 초반에 블로그 이름 올릴 수 있음
+> "contentlayer": "^0.2.6" 버전 사용  
+> Tip! 아직 베타단계인 라이브러리라서 [Who is using Contentlayer?](https://github.com/contentlayerdev/contentlayer#who-is-using-contentlayer) 초반에 블로그 이름 올릴 수 있음
 
 `contentlayer` 설치
 
@@ -429,12 +468,12 @@ Next.js 플러그인으로 설정
 ```js:next.config.js
 const { withContentlayer } = require("next-contentlayer");
 
-module.exports = withContentlayer()({
+module.exports = withContentlayer({
   reactStrictMode: true,
 });
 ```
 
-`.md` 파일 생성
+`.mdx` 파일 생성
 
 ```md:posts/first.mdx
 ---
@@ -758,5 +797,3 @@ module.exports = {
 4. 블로그 repo import
 5. project name 설정
 6. deploy
-
-
