@@ -1,0 +1,50 @@
+---
+title: 퓨어스크립트 북 챕터6 두 번째 읽어보는 메모장
+date: 2022-07-20
+---
+
+> [퓨어스크립트 북 챕터6 - Type Classes](https://book.purescript.org/chapter6.html)
+
+## [Show Me!](https://book.purescript.org/chapter6.html#show-me)
+
+- Show 타입클래스
+  - 문자열로 변환
+
+```purescript
+class Show a where
+  show :: a -> String
+```
+
+boolean을 문자열로 변환
+
+```purescript
+instance showBoolean :: Show Boolean where
+  show true = "true"
+  show false = "false"
+```
+
+## [Common Type Classes](https://book.purescript.org/chapter6.html#common-type-classes)
+
+- Eq 타입클래스
+  - 같은지 비교
+  - 유형이 같고, 값이 같아야 한다.
+
+```purescript
+class Eq a where
+  eq :: a -> a -> Boolean
+```
+
+- 모노이드
+  - Again, strings and arrays are simple examples of monoids.
+  - empty 값을 이용해 자기 자신을 만들 수 있다?
+
+```plain
+"abc" append "" = "abc"
+[a,b,c] append [] = [a,b,c]
+```
+
+## [Superclasses](https://book.purescript.org/chapter6.html#superclasses)
+
+- 두 클래스 사이에 명확한 `is-a` 관계
+- 서브 클래스의 모든 멤버는 수퍼클래스의 멤버이다.
+- 123 > number > unknown
