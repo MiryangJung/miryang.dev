@@ -48,3 +48,15 @@ class Eq a where
 - 두 클래스 사이에 명확한 `is-a` 관계
 - 서브 클래스의 모든 멤버는 수퍼클래스의 멤버이다.
 - 123 > number > unknown
+
+a 가 Ord, Show 타입클래스에 속하기만 하면 showCompare를 사용할 수 있다.
+
+```purescript
+showCompare :: forall a. Ord a => Show a => a -> a -> String
+showCompare a1 a2 | a1 < a2 =
+  show a1 <> " is less than " <> show a2
+showCompare a1 a2 | a1 > a2 =
+  show a1 <> " is greater than " <> show a2
+showCompare a1 a2 =
+  show a1 <> " is equal to " <> show a2
+```
