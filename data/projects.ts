@@ -2,6 +2,13 @@ import { Project } from '../lib/types';
 
 const projects: Project[] = [
   {
+    title: 'projectdiscovery/nuclei',
+    description:
+      'ProjectDiscovery의 nuclei 프로젝트의 README를 번역',
+    url: 'https://github.com/projectdiscovery/nuclei/blob/master/README_KR.md',
+    image: '/projects/nuclei.png'
+  },
+  {
     title: '소주콘 Shot 1 : 진로 빨간 뚜껑',
     description:
       '소주콘 1회에서 "좋은 질문은 좋은 대답을 만든다. with relay"라는 주제로 발표',

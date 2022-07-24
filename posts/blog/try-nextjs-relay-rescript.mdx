@@ -1,0 +1,162 @@
+---
+title: Next.js(SSR) + Relay + ReScript 해보기
+date: 2022-07-23
+description: Next.js + Relay + ReScript 세팅부터 개발까지
+thumbnailUrl: /posts/thumbnail/try-nextjs-relay-rescript.jpg
+tags:
+  [
+    'next.js',
+    'rescript',
+    '리스크립트',
+    '바인딩',
+    'relay',
+    '릴레이',
+    'SSR',
+    '넥스트'
+  ]
+---
+
+환경 세팅이 되어있는 프로젝트 위에서 개발을 하다보니 문득 첫 세팅은 어떻게 하는 걸까 궁금해졌습니다.  
+그래서 공부 용으로 `Next.js` + `Relay` + `ReScript` + `SSR` 을 해봅니다.
+
+## 🍔 Next.js + ReScript 세팅
+
+create next app으로 `Next.js` 프로젝트 생성  
+`src` 폴더 내로 필요 파일들 이동
+
+```shell
+yarn create next-app
+```
+
+rescript, @rescript/react 설치
+
+```shell
+yarn add rescript @rescript/react --dev
+```
+
+`bsconfig.json` 생성
+
+```json:bsconfig.json
+{
+    "name": "nrr",
+    "reason": { "react-jsx": 3 },
+    "bs-dependencies": ["@rescript/react"],
+    "ppx-flags": [],
+    "sources": [
+      { "dir": "src/bindings", "subdirs": true },
+      { "dir": "src/pages", "subdirs": true }
+    ],
+    "package-specs": {
+      "module": "es6",
+      "in-source": true
+    },
+    "suffix": ".bs.js"
+  }
+```
+
+pageExtensions에 `bs.js` 추가
+
+```js:next.config.js
+const nextConfig = {
+  reactStrictMode: true,
+  pageExtensions: ['jsx', 'js', 'bs.js'],
+}
+```
+
+rescript 빌드 명령어 추가
+
+```json:package.json
+"scripts": {
+    ...
+    "res:dev": "rescript build -w",
+    "res:build": "rescript build"
+},
+```
+
+Next.js 바인딩
+
+```reason:src/bindings/Next.res
+// https://github.com/MoOx/rescript-next/blob/main/src/Next.res
+module Dynamic = {
+  type options = {
+    ssr: option<bool>,
+    loading: option<unit => React.element>,
+  }
+
+  @module("next/dynamic")
+  external dynamic: (unit => Js.Promise.t<'a>, options) => 'a = "default"
+}
+...중략
+```
+
+index.js를 ReScript로 변경
+
+```reason:src/pages/index.res
+@react.component
+let default = () => {
+  <> {`index`->React.string} </>
+}
+```
+
+ReScript build watcher, Next.js 서버 실행
+
+```shell
+yarn res:dev
+yarn dev
+```
+
+`localhost:3000` 으로 접속!
+
+## 🍟 Next.js + ReScript에 Relay 세팅
+
+- [rescript-relay-documentation#installation](https://rescript-relay-documentation.vercel.app/docs/getting-started#installation)
+
+디펜던시 설치
+
+```shell
+yarn add rescript-relay@1.0.0-beta.21 relay-runtime@13.2.0 react-relay@13.2.0
+```
+
+`bsconfig.json`에 설정
+
+```json:bsconfig.json
+...
+"bs-dependencies": ["@rescript/react", "rescript-relay"],
+"ppx-flags": ["rescript-relay/ppx"],
+```
+
+`relay.config.js` 생성
+
+```js:relay.config.js
+module.exports = {
+  src: "./src",
+  schema: "./schema.graphql",
+  artifactDirectory: "./src/__generated__",
+};
+```
+
+`relay` 컴파일 명령어 추가
+
+```json:package.json
+"scripts": {
+    ...
+    "relay": "rescript-relay-compiler",
+    "relay:watch": "rescript-relay-compiler --watch"
+},
+```
+
+테스트용 로컬 graphql 서버 실행
+
+```shell
+npm install -g graphql-client-example-server && graphql-client-example-server
+```
+
+테스트 용이므로 수동으로 [schema.graphql](https://github.com/zth/graphql-client-example-server/blob/master/schema.graphql) 생성
+
+
+
+> Refer
+> - [rescript-relay](https://github.com/zth/rescript-relay)
+> - [with-relay-modern](https://github.com/vercel/next.js/tree/canary/examples/with-relay-modern)
+> - [Relay with Next.js: setting](https://wiki.lucashan.space/programming/relay/01.relay-with-nextjs-setting/)
+> - [rescript-relay-documentation](https://rescript-relay-documentation.vercel.app)
