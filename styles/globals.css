@@ -140,7 +140,10 @@ body {
 .prose :where(pre):not(:where([class~="not-prose"] *)) {
   @apply bg-white dark:bg-zinc-900;
   @apply border border-solid border-sky-800 dark:border-sky-100;
+}
 
+.prose img {
+  margin-top: 0;
 }
 
 code[class*="language-"],
