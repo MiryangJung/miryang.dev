@@ -1,5 +1,5 @@
 ---
-title: Next.js(SSR) + Relay + ReScript 해보기
+title: Next.js(SSR) + Relay + ReScript 해보기 (아직 하는 중...)
 date: 2022-07-23
 description: Next.js + Relay + ReScript 세팅부터 개발까지
 thumbnailUrl: /posts/thumbnail/try-nextjs-relay-rescript.jpg
@@ -31,7 +31,8 @@ yarn create next-app
 rescript, @rescript/react 설치
 
 ```shell
-yarn add rescript @rescript/react --dev
+yarn add rescript --dev
+yarn add @rescript/react
 ```
 
 `bsconfig.json` 생성
@@ -43,8 +44,7 @@ yarn add rescript @rescript/react --dev
     "bs-dependencies": ["@rescript/react"],
     "ppx-flags": [],
     "sources": [
-      { "dir": "src/bindings", "subdirs": true },
-      { "dir": "src/pages", "subdirs": true }
+      { "dir": "src", "subdirs": true }
     ],
     "package-specs": {
       "module": "es6",
@@ -69,7 +69,8 @@ rescript 빌드 명령어 추가
 "scripts": {
     ...
     "res:dev": "rescript build -w",
-    "res:build": "rescript build"
+    "res:build": "rescript build",
+    "res:clean": "rescript clean -with-deps",
 },
 ```
 
@@ -153,10 +154,146 @@ npm install -g graphql-client-example-server && graphql-client-example-server
 
 테스트 용이므로 수동으로 [schema.graphql](https://github.com/zth/graphql-client-example-server/blob/master/schema.graphql) 생성
 
+`bs-fetch` 설치 및 설정
+
+```shell
+yarn add bs-fetch
+```
+
+```json:bsconfig.json
+...
+"bs-dependencies": ["@rescript/react", "rescript-relay", "bs-fetch"],
+```
+
+`RelayEnv.res` 작성
+
+```reason:src/relay/RelayEnv.res
+// https://github.com/zth/rescript-relay/blob/master/example/src/RelayEnv.res
+...
+  open Fetch
+  fetchWithInit(
+    "http://localhost:4000/graphql",
+```
+
+`_app.js` 삭제 후 `App.res` 작성
+
+```reason:src/pages/App.res
+// https://github.com/ryyppy/rescript-nextjs-template/blob/master/src/App.res
+...
+let default = (props: props): React.element => {
+  let {component, pageProps} = props
+
+  let content = React.createElement(component, pageProps)
+
+  <RescriptRelay.Context.Provider environment=RelayEnv.environment>
+    content
+  </RescriptRelay.Context.Provider>
+}
+```
+
+동시 실행 설정
+
+```shell
+yarn add concurrently
+```
+
+```json:package.json
+"scripts": {
+  "dev": "concurrently \"yarn relay:watch\" \"yarn res:dev\" \"next dev\"",
+ ...
+},
+```
+
+## 🥁 실행해보기
+
+query 실행하기 위한 코드 작성
+
+```reason:Index.res
+module Query = %relay(`
+  query IndexQuery {
+    ...Tickets_query
+  }
+`)
+
+@react.component
+let default = () => {
+  let query = Query.use(~variables=(), ())
+  <React.Suspense fallback={<div> {React.string("Loading...")} </div>}>
+    <Tickets queryRef=query.fragmentRefs />
+  </React.Suspense>
+}
+```
+
+```reason:components/Tickets.res
+module Fragment = %relay(`
+  fragment Tickets_query on Query
+  @refetchable(queryName: "TicketsRefetchQuery")
+  @argumentDefinitions(
+    first: { type: "Int", defaultValue: 2 }
+    after: { type: "String", defaultValue: "" }
+  ) {
+    ticketsConnection(first: $first, after: $after)
+      @connection(key: "Tickets_ticketsConnection") {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`)
+
+@react.component
+let make = (~queryRef) => {
+  let {data} = Fragment.usePagination(queryRef)
+  <>
+    {data.ticketsConnection
+    ->Fragment.getConnectionNodes
+    ->Belt.Array.map(ticket => <> {ticket.id->React.string} </>)
+    ->React.array}
+  </>
+}
+```
+
+### 🥹 에러 1
+
+`yarn dev` 로 실행 후 에러 발생 🥲
+
+```shell
+import * as Curry from "rescript/lib/es6/curry.js";
+[2] ^^^^^^
+[2] SyntaxError: Cannot use import statement outside a module
+```
+
+![](/posts/try-nextjs-relay-rescript/1.jpeg)
+
+rescript-relay 디스코드에 질문해서 해결!  
+`Next.js` 에서 es6 사용 불가능 당연함 서버사이드임.
+
+```json:bsconfig.json
+"package-specs": {
+  "module": "commonjs",
+  "in-source": true
+},
+```
+
+### 😢 에러 2
+
+commonjs로 바꾸고, 빌드하니 알 수 없는 에러가 뜸.  
+`res:clean` 후에 다시 빌드하니 에러 사라짐. 해결!  
+
+### 😭 에러 3
+
+hydrating 에러 Hi~
+
+```plain
+Error: This Suspense boundary received an update before it finished hydrating. This caused the boundary to switch to client rendering. The usual way to fix this is to wrap the original update in startTransition.
+```
+
+여전히 작성 중...
 
 
 > Refer
+>
 > - [rescript-relay](https://github.com/zth/rescript-relay)
-> - [with-relay-modern](https://github.com/vercel/next.js/tree/canary/examples/with-relay-modern)
-> - [Relay with Next.js: setting](https://wiki.lucashan.space/programming/relay/01.relay-with-nextjs-setting/)
 > - [rescript-relay-documentation](https://rescript-relay-documentation.vercel.app)
