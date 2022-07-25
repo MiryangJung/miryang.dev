@@ -16,10 +16,12 @@ tags:
   ]
 ---
 
+**해당 게시글은 에러를 수정하거나 개발이 진행될 때마다 수정됩니다.**
+
 환경 세팅이 되어있는 프로젝트 위에서 개발을 하다보니 문득 첫 세팅은 어떻게 하는 걸까 궁금해졌습니다.  
 그래서 공부 용으로 `Next.js` + `Relay` + `ReScript` + `SSR` 을 해봅니다.
 
-> 코드는 [여기서](https://github.com/MiryangJung/nnr) 확인할 수 있습니다.
+> [코드는 여기서 확인할 수 있습니다.](https://github.com/MiryangJung/nnr)
 
 ## 🍔 Next.js + ReScript 세팅
 
@@ -91,24 +93,6 @@ module Dynamic = {
 }
 ...중략
 ```
-
-index.js를 ReScript로 변경
-
-```reason:src/pages/index.res
-@react.component
-let default = () => {
-  <> {`index`->React.string} </>
-}
-```
-
-ReScript build watcher, Next.js 서버 실행
-
-```shell
-yarn res:dev
-yarn dev
-```
-
-`localhost:3000` 으로 접속!
 
 ## 🍟 Next.js + ReScript에 Relay 세팅
 
@@ -257,7 +241,9 @@ let make = (~queryRef) => {
 }
 ```
 
-### 🥹 에러 1
+`yarn dev`로 실행
+
+### 🥹 에러 1 - 해결
 
 `yarn dev` 로 실행 후 에러 발생 🥲
 
@@ -279,12 +265,12 @@ rescript-relay 디스코드에 질문해서 해결!
 },
 ```
 
-### 😢 에러 2
+### 😢 에러 2 - 해결
 
 commonjs로 바꾸고, 빌드하니 알 수 없는 에러가 뜸.  
 `res:clean` 후에 다시 빌드하니 에러 사라짐. 해결!  
 
-### 😭 에러 3
+### 😭 에러 3 - 해결 중
 
 hydrating 에러 Hi~
 
@@ -294,10 +280,72 @@ This caused the boundary to switch to client rendering.
 The usual way to fix this is to wrap the original update in startTransition.
 ```
 
-여전히 작성 중...
+```reason:Index.res
+let default = () => {
+  let query = Query.use(~variables=(), ())
+  <React.Suspense fallback={<div> {React.string("Loading...")} </div>}>
+    <Tickets queryRef=query.fragmentRefs />
+  </React.Suspense>
+}
+```
 
+![](/posts/try-nextjs-relay-rescript/2.png)
+
+트위터 및 [GraphQL 연구소 디스코드](https://twitter.com/xiniha_1e88df/status/1550025194496217090?s=20&t=gLzJKBQ44_tcncap0JK_0A)의
+도움으로 [relay-data-driven-dependencies](https://github.com/relayjs/relay-examples/tree/main/data-driven-dependencies)를 추천받았음.
+
+### 💧 에러 4 - 해결 중
+
+에러 3과 연관되어있음. `React.Suspense` 를 제거하니 잘 작동함.  
+**근데.. 왜?**
+
+그리고 처음 진입할 때 쿼리 2번 호출됨. 왜...?
+
+```reason:Index.res
+module Query = %relay(`
+  query IndexQuery {
+    ...Tickets_query
+  }
+`)
+
+let default = () => {
+  let query = Query.use(~variables=(), ())
+  <Tickets queryRef=query.fragmentRefs />
+}
+```
+
+## 🌊 에러 5 - 해결 중
+
+`getServerSideProps`에서 query 어떻게 호출하는 걸까?  
+밑은 안되는 코드. 에러도 없고, 작동도 하는데 `undefined` 반환함.
+
+```reason:Index.res
+type props = {preloadedQueries: IndexQuery_graphql.Types.response}
+
+let default = (props: props) => {
+  props.preloadedQueries->Js.log
+  <> </>
+}
+
+let getServerSideProps = _ctx => {
+  let props = {
+    preloadedQueries: Query.use(~variables=(), ()),
+  }
+  Js.Promise.resolve({"props": props})
+}
+```
+
+`rescript-relay` 디스코드에서 발췌.  
+이거 되는 걸까...? 🥹
+
+```plain
+Yeah neither the default model of Next.js (getServerSideProps)
+or Remix (everything centered around a server driven loader) works optimally
+for GraphQL/Relay in particular
+```
+
+> 해당 게시글은 에러를 수정하거나 개발이 진행될 때마다 수정됩니다.
 
 > Refer
->
 > - [rescript-relay](https://github.com/zth/rescript-relay)
 > - [rescript-relay-documentation](https://rescript-relay-documentation.vercel.app)
