@@ -1,0 +1,24 @@
+---
+title: 퓨어스크립트 북 챕터7 가볍게 읽어보는 메모장
+date: 2022-07-27
+---
+
+> [퓨어스크립트 북 챕터7 - Applicative Validation](https://book.purescript.org/chapter7.html)
+
+```purescript
+address :: String -> String -> String -> Address
+
+> :type lift3
+forall a b c d f. Apply f => (a -> b -> c -> d) -> f a -> f b -> f c -> f d
+
+> lift3 address (Just "123 Fake St.") Nothing (Just "CA")
+Nothing
+```
+
+Functor의 lifting은 `map` 이 아닐까?
+
+- lift2 ~ lift5 까지있음
+	- https://pursuit.purescript.org/packages/purescript-prelude/3.1.0/docs/Control.Apply
+
+
+밑에 읽어는 봤는데 정리는 못 하겠다.
