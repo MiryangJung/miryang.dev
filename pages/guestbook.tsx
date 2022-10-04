@@ -21,7 +21,10 @@ export async function getServerSideProps(context) {
     encodeURI(`https://workers.miryang.dev/guestbook?type=all`)
   );
   const data = await res.json();
-  const list = Object.keys(data).sort().reverse();
+
+  const list = Object.keys(data).sort((a, b) => {
+    return new Date(b).getTime() - new Date(a).getTime();
+  });
 
   return {
     props: { list, data }
