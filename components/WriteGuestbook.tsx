@@ -40,7 +40,7 @@ const WriteGuestbook = ({
     const workers = process.env.NEXT_PUBLIC_WORKERS
     const token = process.env.NEXT_PUBLIC_GUESTBOOK
     const date = nowDate()
-    const key = date.slice(0, 7)
+    const key = date.split(".").slice(0, 2).join(".")
     const res = await fetch(`${workers}/guestbook`, {
       method: 'POST',
       headers: {
