@@ -17,7 +17,7 @@ export const ProjectCard = styled.div`
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   &:hover div {
-    opacity: 0.9;
+    opacity: 0;
   }
   .round-image {
     border-radius: 5px;
@@ -26,15 +26,15 @@ export const ProjectCard = styled.div`
 
 export const ProjectCardContent = styled.div`
   position: relative;
-  top: -206px;
+  top: -207px;
   width: 300px;
-  height: 200px;
+  height: 201px;
   padding: 20px;
   background: var(--bg-a7);
   display: flex;
   flex-flow: column nowrap;
   transition: 0.5s;
-  opacity: 0;
+  opacity: 0.9;
 `;
 
 export const ProjectCardTitle = styled.span`
