@@ -2,6 +2,20 @@ import { Project } from '../lib/types';
 
 const projects: Project[] = [
   {
+    title: 'System.out.Girls 오프라인 네트워킹 행사',
+    description:
+      '"실수해도 괜찮아!"라는 주제로 발표',
+    url: 'https://twitter.com/Systemoutgirls/status/1597930747624841216?s=20&t=NdKLP7oU00T9I_f3wfUNcw',
+    image: '/projects/systemoutgirls-net.jpg'
+  },
+  {
+    title: 'FECONF2022 - ReScript 같이 해요',
+    description:
+      'FECONF2022에서 "ReScript 같이 해요"라는 주제로 발표',
+    url: 'https://www.youtube.com/watch?v=208ZBisLuXw',
+    image: '/projects/feconf-rescript.webp'
+  },
+  {
     title: 'projectdiscovery/nuclei',
     description:
       'ProjectDiscovery의 nuclei 프로젝트의 README를 번역',
