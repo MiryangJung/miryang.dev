@@ -4,7 +4,6 @@ import ResumeAbout from '../components/ResumeAbout';
 import ResumeTitle from '../components/ResumeTitle.bs';
 import ResumeCard from '../components/ResumeCard';
 import ResumeOtherExCard from '../components/ResumeOtherExCard';
-import ResumePresentation from '../components/ResumePresentation';
 import { NextSeo } from 'next-seo';
 import { meta } from '../data/Metadata.bs';
 
@@ -21,8 +20,6 @@ function ResumeLayout() {
         <ResumeAbout />
         <ResumeTitle title={'👩🏻‍💻 Experience.'} />
         <ResumeCard />
-        <ResumeTitle title={'💬 Presentation.'} />
-        <ResumePresentation />
         <ResumeTitle title={'💻 Other Experience.'} />
         <ResumeOtherExCard />
       </ResumeContent>

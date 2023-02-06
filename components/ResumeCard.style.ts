@@ -5,9 +5,6 @@ export const ResumeCardContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   margin-bottom: 20px;
-  & a:hover {
-    text-decoration: underline;
-  }
 `;
 
 export const Company = styled.span`
@@ -46,6 +43,9 @@ export const ContentTitleA = styled.a`
   margin-top: 10px;
   margin-bottom: 5px;
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ContentDes = styled.span`
@@ -60,6 +60,16 @@ export const ContentDo = styled.span`
   font-size: 13px;
   margin: 2px 0;
   color: #363436;
+`;
+
+export const ContentDoA = styled.a`
+  font-weight: 400;
+  font-size: 13px;
+  margin: 2px 0;
+  color: #00498c;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ContentTech = styled.span`

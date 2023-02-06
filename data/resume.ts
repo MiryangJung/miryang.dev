@@ -26,7 +26,6 @@ type tResume = {
   about: string[];
   experience: tExperience[];
   otherExperience: tOthertExperience[];
-  presentation: tOthertExperience[];
 };
 
 const resume: tResume = {
@@ -288,6 +287,33 @@ const resume: tResume = {
   ],
   otherExperience: [
     {
+      name: '발표',
+      content: [
+        {
+          title: 'System.out.Girls - 실수해도 괜찮아!',
+          url: null
+        },
+        {
+          title: 'FECONF2022 - ReScript 같이 해요',
+          url: 'https://www.youtube.com/watch?v=208ZBisLuXw'
+        },
+        {
+          title:
+            '소주콘 Shot 1 : 진로 빨간 뚜껑 - 좋은 질문은 좋은 대답을 만든다. with relay',
+          url: 'https://docs.google.com/presentation/d/1OQmPNj3v_w3iMXYCir6gAvZIAvFjm9zI8Z2BTGY7q54/edit?usp=sharing'
+        }
+      ]
+    },
+    {
+      name: '번역',
+      content: [
+        {
+          title: 'ProjectDiscovery nuclei README.md',
+          url: 'https://github.com/projectdiscovery/nuclei/blob/master/README_KR.md'
+        }
+      ]
+    },
+    {
       name: '2021 오픈소스 컨트리뷰션',
       content: [
         {
@@ -334,21 +360,6 @@ const resume: tResume = {
         }
       ]
     },
-    {
-      name: '자격증',
-      content: [
-        {
-          title: 'ISO 27001 Lead Auditor Course',
-          url: null
-        },
-        {
-          title: '리눅스마스터 2급',
-          url: null
-        }
-      ]
-    }
-  ],
-  presentation: [
     {
       name: '자격증',
       content: [
