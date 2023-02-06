@@ -21,8 +21,8 @@ export const Job = styled.span`
 
 export const About = styled.span`
   font-weight: 300;
-  font-size: 12px;
-  color: #a2a2a2;
+  font-size: 13px;
+  color: #363436;
   margin: 10px 0 20px;
   line-height: 20px;
 `
