@@ -19,11 +19,6 @@ type tOthertExperience = {
   content: { title: string; url: string | null }[]
 }
 
-type tSkill = {
-  skill: string
-  content: string[]
-}
-
 type tResume = {
   name: string
   job: string
@@ -31,7 +26,7 @@ type tResume = {
   about: string[]
   experience: tExperience[]
   otherExperience: tOthertExperience[]
-  skill: tSkill[]
+  presentation: tOthertExperience[]
 }
 
 const resume: tResume = {
@@ -40,17 +35,45 @@ const resume: tResume = {
   contact: 'Email: miryang.dev@gmail.com',
   about: [
     '개발자로 스타트업에서 프론트엔드 개발을 하고 있습니다.',
-    '반복되는 프로세스를 자동화하고,  업무 효율을 높이는 일을 좋아합니다.',
     '개발 중 마주친 문제를 해결하기 위해 최대한의 노력을 하며, 시간이 걸리더라도 공부를 합니다.',
     '기술 스택을 늘리고, 레벨을 높이기 위해 공부하는 것을 즐기며, 이 과정에서 알게 된 정보를 공유하는 것을 좋아합니다.',
     '대화하는 것을 좋아해 사용자와 소통을 할 수 있는 프론트엔드의 매력에 빠졌습니다.',
+    '의견 충돌을 피하기보다, 의견을 나누고, 토론하는 것을 좋아하며 이를 통해 좋은 결과물을 만들어내는 환경 그리고 ',
+    '사용자의 입장에서 생각하며, 제품에 애착을 가지고 기여할 수 있는 환경에서 일하고 싶습니다.',
   ],
   experience: [
     {
       company: '그린랩스',
       position: 'Frontend Engineer',
       period: '22.02 ~ ',
-      content: [],
+      content: [
+        {
+          title: '팜모닝',
+          description:
+            '농업에 종사하는 모든 사람들을 위한 커뮤니티 서비스입니다.',
+          do: [
+            '영농 작업 상황 및 장부 입력을 쉽게 도와주는 서비스인 영농 일지 & 영농 장부 개발',
+            '기존 코드를 모듈화하며, 홈개편 작업 시행',
+            '웹뷰 사용 및 외부 SDK 연동을 위한 React Native 개발',
+          ],
+          tech: ['Tailwind', 'Git'],
+          techHighlight: ['ReScript', 'Relay', 'React', 'Next.js', 'React Native'],
+          link: "https://play.google.com/store/apps/details?id=com.greenlabs.smartfarm&hl=ko",
+        },
+        {
+          title: 'Farmmy',
+          description:
+            '팜모닝의 리뉴얼 및 글로벌 서비스입니다.',
+          do: [
+            '앱 기능을 웹뷰에서 사용하기 위한 연동 작업',
+            '자연스러운 UX를 위한 웹뷰 네비게이션 개선 작업',
+            'AppCenter를 사용한 테스터 관리 및 앱 배포',
+          ],
+          tech: ['AppCenter', 'Git'],
+          techHighlight: ['ReScript', 'React Native', 'Next.js'],
+          link: "https://play.google.com/store/apps/details?id=com.farmmy.app&hl=ko&gl=US",
+        },
+      ],
     },
     {
       company: '외주',
@@ -287,56 +310,22 @@ const resume: tResume = {
       ],
     },
   ],
-  skill: [
+  presentation: [
     {
-      skill: 'Next.js',
-      content: ['정적 블로그를 만들 수 있습니다.'],
-    },
-    {
-      skill: 'React',
+      name: '자격증',
       content: [
-        'TypeScript를 이용해 개발 가능합니다.',
-        'useEffect 등의 훅을 사용할 수 있습니다.',
-        'Emotion을 사용해 Styled 컴포넌트를 만들 수 있습니다.',
-        'Redux를 사용할 수 있습니다.',
+        {
+          title: 'ISO 27001 Lead Auditor Course',
+          url: null,
+        },
+        {
+          title: '리눅스마스터 2급',
+          url: null,
+        },
       ],
     },
-    {
-      skill: 'Javascript',
-      content: [
-        'ES6+ 문법에 익숙합니다.',
-        'AJAX 처리에 능숙합니다.',
-        'jQuery 없이 바닐라js 사용에 능숙합니다.',
-      ],
-    },
-    {
-      skill: 'Node.js',
-      content: [
-        'Express.js로 웹 구축을 할 수 있습니다.',
-        'MongoDB와 Mongoose를 가볍게 사용할 수 있습니다.',
-        '웹소켓을 사용할 수 있습니다.',
-      ],
-    },
-    {
-      skill: 'HTML & CSS',
-      content: [
-        '미디어쿼리를 사용할 수 있습니다.',
-        '반응형 및 다양한 브라우저를 지원할 수 있습니다.',
-        'BEM등의 CSS방법론을 공부 중입니다.',
-        'CSS FLEXBOX를 사용할 수 있습니다.',
-      ],
-    },
-    {
-      skill: 'Git',
-      content: [
-        'Github를 사용할 수 있습니다.',
-        '충돌 해결을 할 수 있습니다.',
-        'Branch를 분기해 사용할 수 있습니다.',
-        'PR을 보내거나 승인할 수 있습니다.',
-        '커밋 규칙을 따를 수 있습니다.',
-      ],
-    },
-  ],
+  ]
+  
 }
 
 export default resume
