@@ -53,7 +53,9 @@ const resume: tResume = {
           do: [
             '영농 작업 상황 및 장부 입력을 쉽게 도와주는 서비스인 영농 일지 & 영농 장부 개발',
             '기존 코드를 모듈화하며, 홈개편 작업 시행',
-            '웹뷰 사용 및 외부 SDK 연동을 위한 React Native 개발'
+            '농산물 및 농기계를 판매하는 직거래장터 개발',
+            '웹뷰 사용 및 외부 SDK 연동을 위한 React Native 개발',
+            'Relay를 사용한 무한스크롤 및 Pull to Refresh 기능 추가'
           ],
           tech: ['Tailwind', 'Git'],
           techHighlight: [
