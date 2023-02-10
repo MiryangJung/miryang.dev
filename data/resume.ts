@@ -188,7 +188,6 @@ const resume: tResume = {
           do: [
             '기존 프론트엔드 코드 분석 및 파악',
             '기존 1000줄이 넘는 파일들을 분리하며 개발',
-            '웹접근성을 준수하여 개발'
           ],
           tech: ['JSP', 'CSS', 'AJAX', 'Git'],
           techHighlight: ['Javascript'],
@@ -207,7 +206,6 @@ const resume: tResume = {
             'AIXAC 시스템의 데이터베이스 및 그래프를 보여주고,' +
             '서버의 성능을 모니터링하는 화면을 설계 및 개발했습니다.',
           do: [
-            '라이브러리를 사용하지 않고, 페이징 기능이 있는 테이블 구현',
             '파일 다운로드 시 스트림을 이용하여 프로그레스바 구현',
             '실시간 서버 성능 관제용 화면 설계, 디자인 및 개발',
             '웹접근성을 준수하여 개발'
@@ -314,7 +312,7 @@ const resume: tResume = {
         {
           title:
             '소주콘 Shot 1 : 진로 빨간 뚜껑 - 좋은 질문은 좋은 대답을 만든다. with relay',
-          url: 'https://docs.google.com/presentation/d/1OQmPNj3v_w3iMXYCir6gAvZIAvFjm9zI8Z2BTGY7q54/edit?usp=sharing'
+          url: null
         }
       ]
     },
