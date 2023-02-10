@@ -71,7 +71,7 @@ const resume: tResume = {
           title: 'Farmmy',
           description: '팜모닝의 리뉴얼 및 글로벌 서비스입니다.',
           do: [
-            '앱 기능을 웹뷰에서 사용하기 위한 연동 작업',
+            '앱 기능을 웹뷰에서 사용하기 위한 React Native 개발',
             '자연스러운 UX를 위한 웹뷰 네비게이션 개선 작업',
             'AppCenter를 사용한 테스터 관리 및 앱 배포'
           ],
