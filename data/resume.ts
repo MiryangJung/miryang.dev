@@ -73,11 +73,23 @@ const resume: tResume = {
           do: [
             '앱 기능을 웹뷰에서 사용하기 위한 React Native 개발',
             '자연스러운 UX를 위한 웹뷰 네비게이션 개선 작업',
-            'AppCenter를 사용한 테스터 관리 및 앱 배포'
+            'AppCenter를 사용한 테스터 관리 및 앱 배포',
+            'Github Wiki를 사용해 앱 로컬 실행 환경 구축 가이드라인 작성 및 구조 플로우 차트 작성'
           ],
           tech: ['AppCenter', 'Git'],
           techHighlight: ['ReScript', 'React Native', 'Next.js'],
           link: 'https://play.google.com/store/apps/details?id=com.farmmy.app&hl=ko&gl=US'
+        },
+        {
+          title: 'rescript-bindings',
+          description: 'ReScript를 사용하기 위한 외부 라이브러리 바인딩 모음이며 오픈소스 프로젝트입니다.',
+          do: [
+            '모노레포 구성',
+            'Github Action을 사용한 npm 자동 배포',
+          ],
+          tech: ['ReScript'],
+          techHighlight: ['lerna', 'Github Action'],
+          link: 'https://github.com/green-labs/rescript-bindings'
         }
       ]
     },
