@@ -55,6 +55,7 @@ const resume: tResume = {
             '기존 코드를 모듈화하며, 홈개편 작업 시행',
             '농산물 및 농기계를 판매하는 직거래장터 개발',
             '웹뷰 사용 및 외부 SDK 연동을 위한 React Native 개발',
+            'React Native 앱 빌드 가이드라인 문서 작성',
             'Relay를 사용한 무한스크롤 및 Pull to Refresh 기능 추가',
             'React Native를 사용한 네이티브 앱 개발 및 배포'
           ],
