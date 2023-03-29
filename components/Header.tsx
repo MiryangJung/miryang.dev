@@ -64,11 +64,17 @@ const Header = () => {
         </div>
       </div>
       <div className="text-xs font-thin text-center text-gray-500">
-        <span className="text-red-400">rescript</span>로 변경 중이며, 버그가
-        발견된다면 정상입니다.{' '}
+        <span className="text-gray-400">ReScript</span>로 변경 중
         <Link href="https://github.com/MiryangJung/miryang.dev" passHref>
-          <a target="_blank" className="underline">
+          <a target="_blank" className="underline ml-0.5">
             Repo
+          </a>
+        </Link>
+        <span className="mx-1">/</span>
+        <span className="text-red-500">구직 중. 이직에 열려있습니다.</span>
+        <Link href="https://miryang.dev/resume" passHref>
+          <a target="_blank" className="underline ml-0.5 font-bold">
+            이력서
           </a>
         </Link>
       </div>
