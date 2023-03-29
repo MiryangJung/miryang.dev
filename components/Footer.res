@@ -53,7 +53,7 @@ let default = () => {
       // </a>
     </div>
     <span className={`text-sm text-[var(--tx-sub)] mt-3`}>
-      {`Copyright © 2022 ${Metadata.author}`->React.string}
+      {`Copyright © 2023 ${Metadata.author}`->React.string}
     </span>
     <Next.Link href={Metadata.repo} passHref={true}>
       <a className={`text-xs text-[var(--tx-sub-dark)] no-underline mt-2.5 hover:underline`}>
