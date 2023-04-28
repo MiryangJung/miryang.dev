@@ -71,7 +71,7 @@ const Header = () => {
           </a>
         </Link>
         <span className="mx-1">/</span>
-        <span className="text-red-500">구직 중. 이직에 열려있습니다.</span>
+        <span className="text-red-500">이직에 열려있습니다.</span>
         <Link href="https://miryang.dev/resume" passHref>
           <a target="_blank" className="underline ml-0.5 font-bold">
             이력서
