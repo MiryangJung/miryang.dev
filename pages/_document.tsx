@@ -1,5 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ads } from '../data/Metadata.bs';
+import Script from 'next/script';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -27,7 +28,21 @@ export default class MyDocument extends Document {
             content="82f309b7f779408e17321e7ce8bf752b34d02ed2"
           />
           <link href="/static/favicon.ico" rel="shortcut icon" />
+
+          {/* Global site tag (gtag.js) - Google Analytics */}
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-MXZZX39DZ7"
+          ></Script>
+          <Script id="google-analytics">
+            {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-MXZZX39DZ7');`}
+          </Script>
         </Head>
+
         <body>
           <script dangerouslySetInnerHTML={{ __html: setThemeMode }} />
           <Main />
