@@ -14,7 +14,6 @@ tags: ['리액트네이티브', 'RN', '안드로이드', '프론트엔드', '개
 
 - `resValue` 로 앱 이름을 설정할 경우 `android/app/src/main/res/values/strings.xml` 파일을 삭제한다.
 
-
 ```plain:android/app/build.gradle
 buildTypes {
 	...
@@ -53,7 +52,6 @@ flavorDimensions "version"
 
 ![flavor](/posts/rn-android-dev/flavor.jpeg)
 
-
 ## App Center 연결
 
 [앱센터](https://appcenter.ms/apps) 에서 앱을 추가한다.
@@ -69,14 +67,32 @@ flavorDimensions "version"
 ![flavor](/posts/rn-android-dev/build-variant.png)
 
 예를 들면
-- main : prodRelease
-- dev : devDebug
 
-![flavor](/posts/rn-android-dev/branches.png)
+- main : prodRelease
+- dev : devRelease
+
+![branches](/posts/rn-android-dev/branches.png)
+
+Sign builds에 keystore와 환경변수를 저장한다.
+
+![sign](/posts/rn-android-dev/sign.png)
+
+`app/build.gradle`에서 buildTypes에 release일 시 appcenter의 signingConfig를 사용하도록 코드를 수정해준다.
+
+```
+release {
+	if (!System.getProperty("APPCENTER_KEY_ALIAS")){
+		signingConfig signingConfigs.release
+	}
+	minifyEnabled enableProguardInReleaseBuilds
+	proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+}
+```
 
 Distribute에서 Google Play Console에 연결해준다.
 
 - 참고 [Google Play 스토어에 게시](https://learn.microsoft.com/ko-kr/appcenter/distribution/stores/googleplay)
 
+앱센터에서 빌드된 앱은 구글 플레이 콘솔의 앱 번들로 배포할 수 있다.
 
 - [You are currently using Java 1.8 에러가 뜨는 경우](https://miryang.dev/note/react-native/java-home)
