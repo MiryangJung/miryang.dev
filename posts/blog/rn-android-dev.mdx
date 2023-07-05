@@ -1,0 +1,79 @@
+---
+title: React Native 안드로이드 빌드 환경 개선하기
+date: 2023-07-05
+description: Build Flavor를 구성하고, 앱센터를 연결하자
+thumbnailUrl: /posts/thumbnail/rn-android-dev.jpg
+tags: ['리액트네이티브', 'RN', '안드로이드', '프론트엔드', '개발']
+---
+
+## Build Flavor 설정
+
+프로덕션 빌드와 개발용 빌드를 분리할 수 있다.
+
+`build.gradle` 에 flavor를 작성한다.
+
+- `resValue` 로 앱 이름을 설정할 경우 `android/app/src/main/res/values/strings.xml` 파일을 삭제한다.
+
+
+```plain:android/app/build.gradle
+buildTypes {
+	...
+}
+
+flavorDimensions "version"
+	productFlavors {
+		dev {
+			dimension "version"
+			applicationIdSuffix ".dev"
+			resValue "string", "app_name", "호캉스나우_dev"
+		}
+		prod {
+			dimension "version"
+			resValue "string", "app_name", "호캉스나우"
+		}
+}
+```
+
+`package.json`에 scripts를 수정한다.
+
+`--variant=${flavor}${buildType}` flavor와 buildType의 조합별로 빌드할 수 있다.
+
+```
+"android:devDebug": "react-native run-android --variant=devDebug",
+"android:prodDebug": "react-native run-android --variant=prodDebug",
+...
+"build:android:release": "cd android && ./gradlew bundleProdRelease"
+```
+
+파이어베이스를 사용해서 `google.services.json` 파일이 있는 경우 `package_name`을 추가해서 파일을 수정해준다.
+
+![fb](/posts/rn-android-dev/firebase.png)
+
+이렇게 한 기기에서 flavor별로 앱을 빌드할 수 있다.
+
+![flavor](/posts/rn-android-dev/flavor.jpeg)
+
+
+## App Center 연결
+
+[앱센터](https://appcenter.ms/apps) 에서 앱을 추가한다.
+
+![appcenter-add](/posts/rn-android-dev/appcenter-add.png)
+
+- App Center Analytics와 Crashes를 사용하려면 App center SDK를 설치한다.(나는 설치하지 않았다.)
+
+자동으로 빌드가 돌 수 있게끔 Build에 Repo를 연결한다.
+
+`Build configruation` 에서 브랜치 별로 Build Variant를 설정해준다.
+
+![flavor](/posts/rn-android-dev/build-variant.png)
+
+예를 들면
+- main : prodRelease
+- dev : devDebug
+
+Distribute에서 Google Play Console에 연결해준다.
+
+- 참고 [Google Play 스토어에 게시](https://learn.microsoft.com/ko-kr/appcenter/distribution/stores/googleplay)
+
+
