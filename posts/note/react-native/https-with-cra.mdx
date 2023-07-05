@@ -1,0 +1,19 @@
+---
+title: 앱센터 You are currently using Java 1.8 해결
+date: 2023-07-05
+---
+
+appcenter에서 React Native 안드로이드 빌드 에러
+
+```shell
+> Failed to apply plugin 'com.android.internal.application'.
+   > Android Gradle plugin requires Java 11 to run. You are currently using Java 1.8.
+```
+
+Build Configuration에서 Environment에 아래와 같이 작성해준다.
+
+```
+JAVA_HOME | $(JAVA_HOME_11_X64)
+```
+
+> [refer](https://stackoverflow.com/questions/71876101/visual-studio-code-app-center-android-gradle-plugin-requires-java-11-to-run-yo)
