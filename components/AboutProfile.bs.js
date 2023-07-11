@@ -32,6 +32,5 @@ var $$default = AboutProfile$default;
 export {
   $$default ,
   $$default as default,
-  
 }
 /* react Not a pure module */

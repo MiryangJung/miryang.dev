@@ -14,6 +14,5 @@ export {
   $$Image ,
   Script ,
   Router ,
-  
 }
 /* No side effect */

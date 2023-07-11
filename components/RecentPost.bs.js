@@ -17,7 +17,7 @@ function RecentPost$default(Props) {
                                         }, post.title), React.createElement("span", {
                                           className: "mt-1.5 text-[ var(--tx-sub-dark)]"
                                         }, post.description)),
-                                href: "/blog/" + post.slug,
+                                href: "/blog/" + post.slug + "",
                                 passHref: true,
                                 key: post.slug
                               });
@@ -29,6 +29,5 @@ var $$default = RecentPost$default;
 export {
   $$default ,
   $$default as default,
-  
 }
 /* react Not a pure module */

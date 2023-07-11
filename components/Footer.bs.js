@@ -68,7 +68,7 @@ function Footer$default(Props) {
                           height: 18.0
                         }))), React.createElement("span", {
                   className: "text-sm text-[var(--tx-sub)] mt-3"
-                }, "Copyright © 2023 " + Metadata.author), React.createElement(Link, {
+                }, "Copyright © 2023 " + Metadata.author + ""), React.createElement(Link, {
                   children: React.createElement("a", {
                         className: "text-xs text-[var(--tx-sub-dark)] no-underline mt-2.5 hover:underline"
                       }, "miryang.dev"),
@@ -82,6 +82,5 @@ var $$default = Footer$default;
 export {
   $$default ,
   $$default as default,
-  
 }
 /* react Not a pure module */

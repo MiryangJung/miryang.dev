@@ -36,6 +36,5 @@ var data = [
 
 export {
   data ,
-  
 }
 /* No side effect */

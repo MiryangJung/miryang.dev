@@ -30,6 +30,5 @@ var $$default = Search$default;
 export {
   $$default ,
   $$default as default,
-  
 }
 /* react Not a pure module */

@@ -17,7 +17,7 @@ function Nav$Links(Props) {
                                         router.pathname.includes(link.path) ? "text-sky-500" : "text-slate-900 dark:text-slate-300 hover:text-sky-700 dark:hover:text-sky-800"
                                       ) + " no-underline pr-5 text-2xl font-thin pb-5 md:text-lg md:pb-0",
                                       onClick: (function (param) {
-                                          return Curry._1(handleDropMenuOpen, false);
+                                          Curry._1(handleDropMenuOpen, false);
                                         })
                                     }, link.title),
                                 href: link.link,
@@ -42,18 +42,18 @@ function Nav$default(Props) {
                       className: "hidden md:flex flex-nowrap items-center"
                     }, React.createElement(Nav$Links, {
                           handleDropMenuOpen: (function (value) {
-                              return Curry._1(setIsDropMenuOpen, (function (param) {
-                                            return value;
-                                          }));
+                              Curry._1(setIsDropMenuOpen, (function (param) {
+                                      return value;
+                                    }));
                             })
                         })), React.createElement("svg", {
                       className: "fill-[var(--tx-sub)] cursor-pointer md:hidden",
                       height: "38px",
                       width: "38px",
                       onClick: (function (param) {
-                          return Curry._1(setIsDropMenuOpen, (function (prev) {
-                                        return !prev;
-                                      }));
+                          Curry._1(setIsDropMenuOpen, (function (prev) {
+                                  return !prev;
+                                }));
                         }),
                       viewBox: "0 0 24 24",
                       xmlns: "http://www.w3.org/2000/svg"
@@ -68,9 +68,9 @@ function Nav$default(Props) {
                   )
                 }, React.createElement(Nav$Links, {
                       handleDropMenuOpen: (function (value) {
-                          return Curry._1(setIsDropMenuOpen, (function (param) {
-                                        return value;
-                                      }));
+                          Curry._1(setIsDropMenuOpen, (function (param) {
+                                  return value;
+                                }));
                         })
                     })));
 }
@@ -81,6 +81,5 @@ export {
   Links ,
   $$default ,
   $$default as default,
-  
 }
 /* react Not a pure module */
