@@ -44,6 +44,12 @@ flavorDimensions "version"
 "build:android:release": "cd android && ./gradlew bundleProdRelease"
 ```
 
+- MainActivity not found 에러가 뜬다면 실행 시 `appId`를 넘겨준다.
+
+```
+"android:devDebug": "react-native run-android --variant=devDebug --appId com.hocancenowapp.dev",
+```
+
 파이어베이스를 사용해서 `google.services.json` 파일이 있는 경우 `package_name`을 추가해서 파일을 수정해준다.
 
 ![fb](/posts/rn-android-dev/firebase.png)
