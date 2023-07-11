@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { ads } from '../data/Metadata.bs';
 import Script from 'next/script';
 
 export default class MyDocument extends Document {
@@ -31,7 +30,10 @@ export default class MyDocument extends Document {
               gtag('config', 'G-MXZZX39DZ7');`}
           </Script>
 
-          <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6660943261631856"/>
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6660943261631856"
+          />
 
           <meta
             name="naver-site-verification"
