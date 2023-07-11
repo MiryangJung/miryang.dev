@@ -18,17 +18,6 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-          <script
-            data-ad-client={ads.google}
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          />
-          <meta
-            name="naver-site-verification"
-            content="82f309b7f779408e17321e7ce8bf752b34d02ed2"
-          />
-          <link href="/static/favicon.ico" rel="shortcut icon" />
-
           {/* Global site tag (gtag.js) - Google Analytics */}
           <Script
             async
@@ -36,11 +25,19 @@ export default class MyDocument extends Document {
           ></Script>
           <Script id="google-analytics">
             {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-          gtag('config', 'G-MXZZX39DZ7');`}
+              gtag('config', 'G-MXZZX39DZ7');`}
           </Script>
+
+          <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6660943261631856"/>
+
+          <meta
+            name="naver-site-verification"
+            content="82f309b7f779408e17321e7ce8bf752b34d02ed2"
+          />
+          <link href="/static/favicon.ico" rel="shortcut icon" />
         </Head>
 
         <body>
