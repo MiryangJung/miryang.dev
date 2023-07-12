@@ -14,27 +14,15 @@ export default class MyDocument extends Document {
           document.documentElement.classList.remove('dark')
         }
       `;
+
+    const ga = `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MXZZX39DZ7');`;
     return (
       <Html lang="ko">
         <Head>
-          {/* Global site tag (gtag.js) - Google Analytics */}
-          <Script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-MXZZX39DZ7"
-          ></Script>
-          <Script id="google-analytics">
-            {`window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-MXZZX39DZ7');`}
-          </Script>
-
-          <Script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6660943261631856"
-          />
-
           <meta
             name="naver-site-verification"
             content="82f309b7f779408e17321e7ce8bf752b34d02ed2"
@@ -44,6 +32,15 @@ export default class MyDocument extends Document {
 
         <body>
           <script dangerouslySetInnerHTML={{ __html: setThemeMode }} />
+          <script dangerouslySetInnerHTML={{ __html: ga }} />
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-MXZZX39DZ7"
+          />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6660943261631856"
+          />
           <Main />
           <NextScript />
         </body>
