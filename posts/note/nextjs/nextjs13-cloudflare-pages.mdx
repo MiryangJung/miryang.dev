@@ -1,0 +1,24 @@
+---
+title: Next.js 13 cloudflare pages에 배포하기
+date: 2023-07-25
+---
+
+@cloudflare/next-on-pages 설치
+
+```
+yarn add -D @cloudflare/next-on-pages
+```
+
+호환성 플래그 구성
+
+- Settings > Functions > Compatibility Flags > `nodejs_compat` 설정
+
+빌드 시스템 버전 설정
+
+- Settings > 빌드 및 배포 > 빌드 시스템 버전 > `2` 설정
+
+*The lockfile would have been modified by this install, which is explicitly forbidden* 에러 뜨면
+환경변수에 `YARN_VERSION=1` 추가
+
+## 레퍼런스
+- https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site
