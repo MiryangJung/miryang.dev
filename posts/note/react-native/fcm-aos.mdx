@@ -36,12 +36,15 @@ apply plugin: "com.google.gms.google-services"
 
 앱 실행 시 알림 권한 얻도록 요청하는 코드 작성
 
-```js:index.js
+```js:App.tsx
 import messaging from '@react-native-firebase/messaging';
+import {request, PERMISSIONS} from 'react-native-permissions';
 
-messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('Message handled in the background!', remoteMessage);
-});
+  useEffect(() => {
+    messaging().registerDeviceForRemoteMessages();
+
+    request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
+  }, []);
 ```
 
 firebase > 참여 > messaging에서 푸쉬 보낼 수 있음
