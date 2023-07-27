@@ -1,0 +1,45 @@
+---
+title: React Native 안드로이드 FCM 설정하고, 앱 푸시 받기
+date: 2023-07-27
+---
+
+- firebase에서 프로젝트 생성
+- android 앱 추가
+- android 패키지 이름 등 정보 입력
+- `google-services.json` 다운로드
+  - `android/app/` 아래에 넣기
+- 아래 코드 추가
+
+```plain:android/build.gradle
+dependencies {
+    ...
+    classpath "com.google.gms:google-services:4.3.15"
+}
+```
+
+```plain:android/app/build.gradle
+apply plugin: "com.google.gms.google-services"
+```
+
+```xml:android/app/src/main/AndroidManifest.xml
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+```
+
+```xml:android/app/src/debug/AndroidManifest.xml
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+```
+
+- 패키지 추가
+  - `@react-native-firebase/messaging`
+  - `@react-native-firebase/app`
+  - `react-native-permissions`
+
+앱 실행 시 알림 권한 얻도록 요청하는 코드 작성
+
+```js:index.js
+import messaging from '@react-native-firebase/messaging';
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
+```
