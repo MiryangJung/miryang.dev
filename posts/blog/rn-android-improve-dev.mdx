@@ -58,6 +58,93 @@ flavorDimensions "version"
 
 ![flavor](/posts/rn-android-dev/flavor.jpeg)
 
+---
+
+## RN에서 Build Flavor 설정 가져오기
+
+아래 파일 및 코드 작성
+
+```java:android/app/src/main/java/com/miryang/RNENVConfigModule.java
+package com.miryang; // 패키지 이름 수정
+
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+import java.util.Map;
+import java.util.HashMap;
+
+public class RNENVConfigModule extends ReactContextBaseJavaModule {
+    RNENVConfigModule(ReactApplicationContext context) {
+    super(context);
+  }
+
+  @Override
+  public String getName() {
+    return "RNENVConfig";
+  }
+
+  @Override
+  public Map<String, Object> getConstants() {
+    final Map<String, Object> constants = new HashMap<>();
+    constants.put("env", BuildConfig.FLAVOR);
+    return constants;
+  }
+}
+```
+
+```java:android/app/src/main/java/com/miryang/RNENVConfigPackage.java
+package com.miryang; // 패키지 이름 수정
+
+import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.ViewManager;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class RNENVConfigPackage implements ReactPackage {
+
+  @Override
+  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+    return Collections.emptyList();
+  }
+
+  @Override
+  public List<NativeModule> createNativeModules(
+    ReactApplicationContext reactContext) {
+    List<NativeModule> modules = new ArrayList<>();
+
+    modules.add(new RNENVConfigModule(reactContext));
+
+    return modules;
+  }
+}
+```
+
+```java:android/app/src/main/java/com/miryang/MainApplication.java {5}
+@Override
+protected List<ReactPackage> getPackages() {
+	@SuppressWarnings("UnnecessaryLocalVariable")
+	List<ReactPackage> packages = new PackageList(this).getPackages();
+
+	packages.add(new RNENVConfigPackage());
+	return packages;
+}
+```
+
+React Native에서 아래와 같이 부를 수 있다.
+
+```ts
+import {NativeModules} from 'react-native';
+
+const {RNENVConfig} = NativeModules;
+console.log(RNENVConfig);
+```
+
+---
+
 ## App Center 연결
 
 [앱센터](https://appcenter.ms/apps) 에서 앱을 추가한다.
@@ -102,3 +189,9 @@ Distribute에서 Google Play Console에 연결해준다.
 앱센터에서 빌드된 앱은 구글 플레이 콘솔의 앱 번들로 배포할 수 있다.
 
 - [You are currently using Java 1.8 에러가 뜨는 경우](https://miryang.dev/note/react-native/java-home)
+
+---
+
+refer
+
+- [medium.com/@ujjwalsayami/build-flavor-scheme-for-react-native-c58e764d4ecf](https://medium.com/@ujjwalsayami/build-flavor-scheme-for-react-native-c58e764d4ecf)
