@@ -1,0 +1,214 @@
+---
+title: 초기 스타트업에서 프론트엔드 개발자로서 첫 세팅, 내가 선택한 것들
+date: 2023-08-02
+description: 나 잘하고 있는 거 맞겠지
+thumbnailUrl: /posts/thumbnail/frontend-in-startup-chosen-things.jpg
+tags:
+  ['Next13', 'RN', '안드로이드', '프론트엔드', '개발', '스타트업', '웹뷰', 'FE']
+---
+
+## 🆕 초기 스타트업에서 새로운 시작
+
+저는 최근에 초기 스타트업에 합류했습니다.  
+초기 스타트업에서 일하는 것은 정말 재미있고 도전적인 경험이라고 생각합니다.  
+물론 불안정한 면도 있지만, 그만큼 새로운 기술이나 방법을 시도해 볼 수 있다고 생각해 이직을 하게 되었습니다.
+
+자세한 스토리는 적지 못하지만 저는 요즘 프론트엔드 개발 환경의 도구들을 선택하고 세팅하는 작업을 하고 있습니다.
+
+Github 세팅부터 브랜치 전략 등 협업을 위한 것들을 세팅하는 일이 처음이라 서툴지만 열심히 하고 있습니다.
+
+비슷한 환경의 누군가에겐 도움이 되지 않을까 싶어 간단히 소개하는 글을 작성합니다.
+
+**추가로 혹시 더 좋은 도구나 생각이 있다면 알려주세요. 감사합니다.**
+
+---
+
+## ✍🏻 Things
+
+처음 세팅을 하다보니 욕심이 생겨 도전적인 도구들을 선택하는 것도 고려를 해보았습니다만  
+이전 직장 동료분이 인적자원이 풍족하지 않을 때는
+개발 측면이나 유지보수 측면에서 쉽개 대응할 수 있는 도구를 선택하는 것이 좋다는 조언을 해주셔서
+범용적으로 사용하는 도구들을 최대한 사용하기로 했습니다.
+
+### 🌘 백엔드
+
+왜 백엔드 파트가 나왔는지 궁금하시겠지요. 이후 변경될 수도 있지만 현재는 백엔드 개발자 없이 서비스를 개발하기로 결정했습니다.  
+`supabase`를 사용해 백엔드를 구성하기로 했습니다.
+
+DB 설계만 한다면 api, oauth, 로그인 등의 필요한 기능들은 `supabase`에서 빠르게 구축할 수 있기 때문에 채택했습니다.  
+이후 서버 이전을 할 상황이 오더라도 `Postgres`를 사용하므로 마이그레이션하기도 무리가 없다고 판단했습니다.
+
+- **bing ai에게 물어봤다. supabase란?**
+  - Firebase의 오픈 소스 대안으로, 모든 백엔드 기능을 제공하여 제품 구축을 빠르게 할 수 있습니다
+  - 각 프로젝트에 대해 전체 Postgres 데이터베이스, 실시간 기능, 데이터베이스 백업, 확장 등을 제공합니다
+  - 이메일 및 OAuth 로그인을 프로젝트에 추가하고 관리할 수 있습니다
+
+물론, 여기까지만 읽으시면 걱정될 게 한두 개가 아니겠지만 깊게 얘기하진 못해도 저도 한 때 백엔드를 운영한 경험이 있으며,  
+DB 설계 부분과 같은 중요한 파트는 친한 백엔드 개발자분께 (정당한 보수와 함께) 도움을 받을 계획이라 큰 문제 없이 진행되고 있습니다.
+
+### 📖 언어
+
+> TypeScript
+
+코드리뷰 없이 빠르게 기능을 만들어 내야하는 상황이 많은 초기 스타트업 특성상 **타입 안정성**을 챙기는 건 당연한 일이라고 생각합니다.  
+`ReScript` 도 고민을 했으나 러닝 커브가 낮은 `TypeScript`를 채택했습니다.  
+물론 필요한 부분엔 부분적으로 `ReScript`을 도입하고자 합니다.
+
+여담) 사수는 없지만 트위터의 고수분들 덕분에 **Type Safety**를 실현하고 있습니다.
+
+- 답이 궁금하신 분들은 [link](https://twitter.com/MiryangJung/status/1684860258001502208?s=20)의 답글들을 참고하세요.
+
+![type-safety](/posts/frontend-in-startup-chosen-things/type-safety.png)
+
+### 📚 패키지 매니저
+
+> pnpm
+
+처음에는 `yarn`을 사용했습니다. 그리고 zero-install을 사용하기 위해 `yarn berry` 로 업그레이드를 했습니다.
+
+하지만 Cloudflare Pages에서 pnp 기능을 사용할 수 없었고, Sentry를 설정하는 과정에서 계속 오류가 발생해 골머리를 앓던 중에  
+[Yarn 대신 pnpm으로 넘어간 3가지 이유](https://hiddenest.dev/yarn-pnpm-3)라는 글을 읽기 되었고, 내용에 공감이 되었습니다.
+
+저 또한 `pnpm`을 채택하게 되었습니다. 현재까지는 아주 만족하면서 사용하고 있습니다.
+
+### 🖥 웹 프레임워크
+
+> Nextjs 13, app router
+
+웹 프레임워크는 `Next.js` 을 선택했습니다. 현재 기준 13버전입니다.
+
+Nextjs를 선택한 이유는 독스가 잘 되어 있고, 자료가 풍부해 구글링에 용이해서 그리고 SEO를 하기 위해서 입니다.  
+비교적 정보가 부족한 13 버전 그리고 `app router`를 채택한 건 최대한 최신 버전을 사용해 레거시를 덜 쌓기 위해서 입니다.
+
+### 🍐 웹 배포
+
+> Vercel
+
+당연히 Next.js를 사용하므로 역시 `Vercel` 하셨겠지만 사실 처음엔 `Cloudflare Pages` 를 사용했습니다.
+
+Vercel은 Organizition로 사용할 경우 무조건 Team 요금제를 사용해야 합니다.  
+그래서 일단 무료로 할 수 있는 Cloudflare Pages로 시작했습니다.
+
+처음에는 큰 문제가 없었으나 [yarn berry pnp를 사용할 수 없는 문제](https://github.com/cloudflare/next-on-pages/issues/159)와
+[Sentry 설정](https://developers.cloudflare.com/pages/platform/functions/plugins/sentry/)의 어려움 등을 겪으면서 결국 옮기기로 했습니다.
+
+`Vercel`을 사용하면서 모든 문제가 자연스럽게 해결되었고 아주 기쁩니다.
+
+### 🚨 에러 트래킹
+
+> Sentry
+
+클라이언트 에러 트래킹은 Sentry를 채택하고, 슬랙으로 알람을 연동하여 사용하고 있습니다.
+
+지금은 에러가 발생하면 알림을 보내도록만 해두었는데 센트리를 어떻게 해야 잘 사용하는 건지 궁금해서 좋은 아티클을 찾고 있습니다.
+혹시 알고 계시다면 소개부탁드립니다.
+
+- **bing ai에게 물어봤다. Sentry란?**
+  - Sentry는 어플리케이션에서 오류가 발생하면 알려주는 에러 트래킹 서비스입니다
+  - 클라이언트의 오류 발생시 메일을 보내주고, 슬랙과 연동하면 슬랙 메시지를 통해 오류 발생과 해당 오류에 대한 정보 파악이 가능합니다1.
+
+![sentry-slack](/posts/frontend-in-startup-chosen-things/sentry-slack.png)
+
+### 📱 앱 프레임워크
+
+> React Native, WebView, CodePush
+
+개발자가 부족하므로 앱 개발을 할 리소스가 없고 수정 사항을 실시간으로 바로 반영하기 위해서 웹뷰를 사용하기로 했습니다.  
+그리고 제가 사용해본 React Native를 채택했습니다.
+
+웹과 앱이 통신할 때의 프로토콜은 Type으로 최대한 안전하게 명시해두고 사용하고 있습니다.
+
+```ts:예시.tsx
+interface ShareProps {
+  message?: string;
+  title?: string;
+  url?: string;
+}
+
+type RequestEventName = "SHARE" | "IMAGEVIEWER";
+export type RequestEventType<T extends RequestEventName, P> = {
+  name: T;
+  data: P;
+};
+
+type RequestEvent =
+  | RequestEventType<"SHARE", ShareProps>
+  | RequestEventType<"IMAGEVIEWER", ImageViewerProps>;
+
+export function requestApp({ event, fallback }: RequestProps) {
+  const message = { name: event.name, data: event.data };
+
+  isInApp()
+    ? window?.ReactNativeWebView.postMessage(JSON.stringify(message))
+    : fallback();
+}
+```
+
+앱의 코드 수정도 빈번할 것으로 예상되어 `Code Push`도 설정해 두었습니다.
+
+- **bing ai에게 물어봤다. Code Push란?**
+  - MS에서 만든 오픈소스로 React Native로 개발한 앱을 심사과정 없이 바로 업데이트 할 수 있도록 해주는 서비스입니다
+  - 네이티브 코드와 설정이 아닌 JS단의 코드와 assets의 요소들을 앱 심사없이 바로 업데이트 할 수 있습니다
+
+### ⛵ 앱 배포
+
+> App Center
+
+스토어 배포보다는 QA를 위해 App Center를 채택했습니다.
+
+브랜치 별로 빌드를 돌릴 수 있고, scheme을 분리해 각 scheme별로 빌드를 돌리거나, env 값을 수정해 웹뷰 엔드포인트를 변경하여 빌드를 하는 등 여러 상황에 유연하게 대응할 수 있습니다.
+
+추가로 더 궁금하신 분들은 [React Native 안드로이드 빌드 환경 개선하기](https://miryang.dev/blog/rn-android-improve-dev) 이 글을 참고해 주세요.
+
+![app-scheme](/posts/frontend-in-startup-chosen-things/app-scheme.png)
+
+```ts:env를-사용한-예시.ts
+switch (RNConfig.env) {
+    case 'dev': {
+        return {
+        webViewUrl: env.WEBVIEW_URL
+        originWhitelist: ['*'],};
+    }
+    case 'staging': {
+        return {
+        webViewUrl: webViewUrl.staging,
+        originWhitelist: ['https'],};
+    }
+```
+
+### 🔃 공용 컴포넌트 및 스타일링
+
+> shadcn/ui, Storybook, Tailwind
+
+디자인 시스템에는 못 미치지만 사용할 컴포넌트 표준 디자인을 디자이너님이 피그마에 정의를 해두셔서 이를 참고해  
+[shadcn/ui](https://ui.shadcn.com/) 를 베이스로 해서 ui 공용 컴포넌트를 작성하고 있습니다.
+
+스타일 유틸리티는 프론트 개발자들 모두 익숙한 `Tailwind`를 만장일치로 채택했습니다.
+
+모두가 공용 컴포넌트를 보다 쉽게 사용하게 하기 위해 스토리북으로 variant들을 조합하고, 사용 예시를 볼 수 있도록 했습니다.
+
+![storybook](/posts/frontend-in-startup-chosen-things/storybook.gif)
+
+### 🔖 파일 이름 규칙
+
+파일 이름 규칙이 아마 제일 고민되었던 부분이 아닐까 싶습니다.
+
+전 직장에서는 `ReScript`를 사용했으므로 선택권 없이 무조건 파스칼 케이스를 사용했었습니다.  
+`TypeScript`에서는 어떻게 사용하나 궁금해서 여러 유명한 레포들을 조사했더니 다 다르게 사용하고 있어서 트위터에 투표를 올렸습니다.
+
+![naming-convention](/posts/frontend-in-startup-chosen-things/naming-convention.png)
+
+파스칼 케이스가 가장 많은 표를 받았는데 답글로 아래와 같은 트윗을 공유해 주셔서 마음이 흔들렸고,  
+kent님의 레포를 가보니 현재까지도 케밥케이스를 사용하고 있는 것을 보고 저 또한 케밥케이스를 사용하기로 결정했습니다. 😀
+
+![kebab-case](/posts/frontend-in-startup-chosen-things/kebab-case.png)
+
+---
+
+## 마무리
+
+적지 못한 것들도 있지만 현재까지는 이렇게 채택하여 사용하고 있습니다.
+
+모쪼록 제가 선택한 것들보다 더 좋은 것이 있다면 꼭 소개 부탁드립니다.
+
+읽어주셔서 감사합니다. 👋
