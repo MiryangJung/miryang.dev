@@ -1,0 +1,54 @@
+---
+title: React Native Android CodePush 코드푸시 설정
+date: 2023-08-11
+---
+
+패키지 설치
+
+```
+yarn add react-native-code-push
+```
+
+코드 추가
+
+```plain:android/settings.gradle
+include ':app', ':react-native-code-push'
+project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
+```
+
+```plain:android/app/build.gradle
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+```
+
+```MainApplication.java
+import com.microsoft.codepush.react.CodePush;
+...
+
+@Override
+protected String getJSBundleFile() {
+    return CodePush.getJSBundleFile();
+}
+```
+
+```plain:gradle.properties
+CODEPUSH_DEPLOYMENT_KEY_DEV=
+CODEPUSH_DEPLOYMENT_KEY_STAGING=key작성
+CODEPUSH_DEPLOYMENT_KEY_PRODUCTION=key작성
+```
+
+```plain:android/app/build.gradle
+productFlavors {
+    dev {
+        resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_DEV
+    }
+    staging {
+        resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_STAGING
+    }
+    prod {
+        resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_PRODUCTION
+    }
+}
+```
+---
+
+refer : https://learn.microsoft.com/en-us/appcenter/distribution/codepush/rn-get-started#android-setup

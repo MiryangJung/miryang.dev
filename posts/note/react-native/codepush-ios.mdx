@@ -1,0 +1,48 @@
+---
+title: React Native iOS CodePush 코드푸시 설정
+date: 2023-08-11
+---
+
+패키지 설치
+
+```
+yarn add react-native-code-push
+```
+
+pod install
+
+```
+cd ios && pod install && cd ..
+```
+
+코드 추가 및 수정
+
+```plain:AppDelegate.mm
+#import <CodePush/CodePush.h> // add
+
+...
+
+#if DEBUG
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"];
+#else
+  return [CodePush bundleURL]; // replace
+```
+
+```plain:Info.plist
+	<key>CodePushDeploymentKey</key> // add
+	<string>${CODEPUSH_KEY}</string> // add
+```
+
+xcode로 프로젝트 열기
+
+```
+xed ./ios
+```
+
+Targets -> app name -> Build Settings -> Add User-Defined Setting -> `CODEPUSH_KEY` 추가
+- app center -> Distribute -> Codepush에서 키 확인 및 작성
+
+
+---
+
+refer : https://learn.microsoft.com/en-us/appcenter/distribution/codepush/rn-get-started#ios-setup
