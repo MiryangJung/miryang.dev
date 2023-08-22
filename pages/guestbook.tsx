@@ -25,7 +25,6 @@ export async function getServerSideProps(context) {
   const list = Object.keys(data).sort((a, b) => {
     return new Date(b).getTime() - new Date(a).getTime();
   });
-
   return {
     props: { list, data }
   };

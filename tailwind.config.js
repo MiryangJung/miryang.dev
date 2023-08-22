@@ -1,8 +1,12 @@
 module.exports = {
-  content: ['./pages/**/*.{res}', './components/**/*.res', './components/**/*.tsx'],
+  content: [
+    './pages/**/*.{res,tsx}',
+    './components/**/*.res',
+    './components/**/*.tsx',
+  ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [require('@tailwindcss/typography')],
-}
+  plugins: [require('@tailwindcss/typography')]
+};

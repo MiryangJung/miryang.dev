@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Footer from './Footer.bs';
-import GA from './GA.bs';
 import dynamic from 'next/dynamic';
 
 const Header = dynamic(() => import('../components/Header'), {
