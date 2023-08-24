@@ -1,8 +1,9 @@
 module.exports = {
   content: [
     './pages/**/*.{res,tsx}',
+    './layouts/*.{res,tsx}',
     './components/**/*.res',
-    './components/**/*.tsx',
+    './components/**/*.tsx'
   ],
   darkMode: 'class',
   theme: {
