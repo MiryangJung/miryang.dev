@@ -18,7 +18,7 @@ const ResumeCard = () => {
     <>
       {resume.experience.map((ex) => (
         <ResumeCardContainer key={ex.company}>
-          <Company>{ex.company}</Company>
+          <Company>▪️ {ex.company}</Company>
           <Position>
             {ex.position} | {ex.period}
           </Position>

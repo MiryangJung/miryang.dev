@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
   const res = await fetch(
     encodeURI(`https://workers.miryang.dev/guestbook?type=all`)
   );
-  const data = await res.json();
+  const data: Array<{ name: string }> = await res.json();
 
   const list = Object.keys(data).sort((a, b) => {
     return new Date(b).getTime() - new Date(a).getTime();

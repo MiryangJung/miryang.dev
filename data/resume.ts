@@ -48,22 +48,42 @@ const resume: tResume = {
   ],
   experience: [
     {
+      company: '초기 스타트업',
+      position: 'Frontend Engineer',
+      period: '23.07 ~',
+      content: [
+        {
+          title: '서비스 런칭 전',
+          description: '서비스 런칭 후 작성합니다.',
+          do: ['서비스 런칭 후 작성합니다.'],
+          tech: ['TypeScript', 'React Native(Webview)', 'Tailwind, Git'],
+          techHighlight: [
+            'Supabase',
+            ' Next.js v13',
+            'React Hook Form',
+            'zod',
+            'shadcn/ui'
+          ],
+          link: null
+        }
+      ]
+    },
+    {
       company: '그린랩스',
-      position: 'Frontend Engineer', 
-      period: '22.02 ~ ',
+      position: 'Frontend Engineer',
+      period: '22.02 ~ 23.07',
       content: [
         {
           title: '팜모닝',
           description:
             '농업에 종사하는 모든 사람들을 위한 커뮤니티 서비스입니다.',
           do: [
-            '영농 작업 상황 및 장부 입력을 쉽게 도와주는 서비스인 영농 일지 & 영농 장부 웹 서비스 개발',
+            '영농 작업 상황 및 장부 입력을 쉽게 도와주는 서비스인 영농 일지 & 영농 장부 개발',
             '기존 코드를 모듈화하며, 홈개편 작업 시행',
-            '농산물 및 농기계를 판매하는 직거래장터 웹서비스 개발',
+            '농산물 및 농기계를 판매하는 직거래장터 개발',
             '웹뷰 사용 및 외부 SDK 연동을 위한 React Native 개발',
-            'React Native 앱 빌드 가이드라인 문서 작성',
-            'Relay를 사용한 무한스크롤 및 Pull to Refresh 기능 추가',
-            'React Native를 사용한 네이티브 앱 개발 및 배포'
+            '웹뷰 앱 빌드 및 스토어 배포, 가이드라인 작성',
+            '웹뷰 앱을 ReactNative로 재작성, 네이티브 앱 개발'
           ],
           tech: ['Tailwind', 'Git'],
           techHighlight: [
@@ -90,11 +110,9 @@ const resume: tResume = {
         },
         {
           title: 'rescript-bindings',
-          description: 'ReScript를 사용하기 위한 외부 라이브러리 바인딩 모음이며 오픈소스 프로젝트입니다.',
-          do: [
-            '모노레포 구성',
-            'Github Action을 사용한 npm 자동 배포',
-          ],
+          description:
+            'ReScript를 사용하기 위한 외부 라이브러리 바인딩 모음이며 오픈소스 프로젝트입니다.',
+          do: ['모노레포 구성', 'Github Action을 사용한 npm 자동 배포'],
           tech: ['ReScript'],
           techHighlight: ['lerna', 'Github Action'],
           link: 'https://github.com/green-labs/rescript-bindings'
@@ -195,7 +213,7 @@ const resume: tResume = {
             '기존에 이미 개발된 프론트엔드의 잦은 레이아웃 깨짐 현상 및 버그 수정하기 위해 진행되었습니다.',
           do: [
             '기존 프론트엔드 코드 분석 및 파악',
-            '기존 1000줄이 넘는 파일들을 분리하며 개발',
+            '기존 1000줄이 넘는 파일들을 분리하며 개발'
           ],
           tech: ['JSP', 'CSS', 'AJAX', 'Git'],
           techHighlight: ['Javascript'],

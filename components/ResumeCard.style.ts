@@ -9,7 +9,8 @@ export const ResumeCardContainer = styled.div`
 
 export const Company = styled.span`
   font-weight: 800;
-  font-size: 20px;
+  font-size: 22px;
+  margin-top: 5px;
 `;
 
 export const Position = styled.span`
@@ -31,7 +32,7 @@ export const ContentTitle = styled.span`
   font-size: 18px;
   color: #363436;
   margin-right: 2px;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 5px;
 `;
 
@@ -40,7 +41,7 @@ export const ContentTitleA = styled.a`
   font-size: 18px;
   color: #00498c;
   margin-right: 2px;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 5px;
   cursor: pointer;
   &:hover {
