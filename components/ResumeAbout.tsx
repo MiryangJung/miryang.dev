@@ -13,15 +13,6 @@ const ResumeAbout = () => {
     <ResumeAboutContainer>
       <div className="flex flex-row items-center justify-between">
         <Name>{resume.name}</Name>
-        <a
-          href={
-            'https://drive.google.com/file/d/1LMP7m52TlDOHlkODOts5wPs7-penzZsL/view?usp=sharing'
-          }
-          target={`_blank`}
-          className={`font-medium mt-1 underline`}
-        >
-          {`PDF 이력서 보기`}
-        </a>
       </div>
       <Job>{resume.job}</Job>
       <Contact>{resume.contact}</Contact>
