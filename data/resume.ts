@@ -72,6 +72,7 @@ const resume: tResume = {
           ],
           techHighlight: [
             'Next14',
+            'TypeScript',
             'Supabase',
             'ReactNative Webview',
             'shadcn-ui',
