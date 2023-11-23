@@ -70,18 +70,18 @@ const resume: tResume = {
             'Retool을 사용한 어드민 페이지 개발 (유저, 쿠폰, 상품, 배너, 브랜드 관리 등)',
             '개발 업무 리스트업 및 프로젝트 전반의 개발 업무 관리'
           ],
-          tech: [
+          techHighlight: [
             'Next14',
             'Supabase',
             'ReactNative Webview',
             'shadcn-ui',
-            'Zod'
+            'Zod',
+            'React Hook Form'
           ],
-          techHighlight: [
+          tech: [
             'Zustand',
             'Cloudflare Images',
             'Cloudflare Workers',
-            'RHF',
             'Tailwind',
             'Git',
             'Retool',
