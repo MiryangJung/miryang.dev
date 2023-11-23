@@ -48,23 +48,49 @@ const resume: tResume = {
   ],
   experience: [
     {
-      company: '초기 스타트업',
+      company: '언컷젬스컴퍼니',
       position: 'Frontend Engineer',
       period: '23.07 ~',
       content: [
         {
-          title: '서비스 런칭 전',
-          description: '서비스 런칭 후 작성합니다.',
-          do: ['서비스 런칭 후 작성합니다.'],
-          tech: ['TypeScript', 'React Native(Webview)', 'Tailwind, Git'],
-          techHighlight: [
-            'Supabase',
-            ' Next.js v13',
-            'React Hook Form',
-            'zod',
-            'shadcn/ui'
+          title: '페이브릴',
+          description: '세컨핸즈 명품 주얼리 전문 거래 커머스 플랫폼입니다.',
+          do: [
+            '웹 프론트엔드 프로젝트 초기 세팅 및 기술 스택 선정 및 개발 및 리드',
+            'Next14 사용으로 데이터 revalidate 여부에 따라 렌더링 방식 변경하며 개발',
+            'React Hook Form, Zod를 사용한 멀티페이지 폼 개발',
+            'StoryBook, shadcn-ui를 사용한 공통 컴포넌트 정의 주도',
+            'Route Path 정의 코드가 복잡해짐에 따라 ReScript 도입 시도(복잡도가 동일해 철회)',
+            'ReactNative Webview를 사용한 iOS, Android 앱 개발, 스토어 심사 및 배포',
+            '딥링크, 유니버셜링크, 앱링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동',
+            'Supabase를 사용한 DB 설계 및 백엔드 구축',
+            '백엔드(Supabase) Staging, Production 환경 분리 및 GitHub Action을 사용한 배포 자동화',
+            '본인인증, 토스페이먼츠를 사용한 주문, 쿠폰 등록, Cloudflare Images 업로드 등 Edge Functions를 사용한 API 개발',
+            '거래, 매출, 상품 등록 등의 Slack Bot 알림 자동화',
+            'Retool을 사용한 어드민 페이지 개발 (유저, 쿠폰, 상품, 배너, 브랜드 관리 등)',
+            '개발 업무 리스트업 및 프로젝트 전반의 개발 업무 관리'
           ],
-          link: null
+          tech: [
+            'Next14',
+            'Supabase',
+            'ReactNative Webview',
+            'shadcn-ui',
+            'Zod'
+          ],
+          techHighlight: [
+            'Zustand',
+            'Cloudflare Images',
+            'Cloudflare Workers',
+            'RHF',
+            'Tailwind',
+            'Git',
+            'Retool',
+            'StoryBook',
+            'App Center CodePush',
+            'Vercel',
+            'Google Analytics'
+          ],
+          link: 'https://fabrill.co.kr'
         }
       ]
     },
