@@ -1,0 +1,257 @@
+---
+title: 멀티페이지 폼을 아름답게 만들면서 멋지게 유효성 검사하기
+date: 2023-12-03
+description: ReactHookForm과 Zod 그리고 shadcn/ui를 사용하여 멀티페이지 폼 만들기
+thumbnailUrl: /posts/thumbnail/create-multi-page-form.jpg
+tags: ['프론트엔드', '공부', '개발', 'react', 'nextjs', 'RHF', 'Zod', 'shadcn']
+---
+
+## 멀티페이지 폼을 만들자
+
+지금 회사에서 만드는 서비스에 `멀티페이지 폼(멀티스텝 폼)`이 굉장히 많습니다.
+여기서 제가 말하는 멀티페이지 폼이란 한 Form 안의 여러 Input을 여러 페이지에 거쳐 입력받는 형태를 의미합니다.
+
+이러한 형태의 폼을 만드는 방법은 크게 두 가지가 있는 것으로 리서치했습니다.
+
+1. 페이지를 여러 단계로 나눈다.
+2. 한 페이지 안에서 단계에 따라 컴포넌트를 바꾼다.
+
+저희는 웹뷰를 사용하고 있어서 앱 안에서 백버튼을 눌렀을 때 이전 단계로 이동시키기 위해 1번 방법를 사용해야 했습니다.
+
+토스의 `slash 라이브러리` [useFunnel](https://slash.page/ko/libraries/react/use-funnel/readme.i18n/)가 정확히 원하는 동작을 제공해주고 있었지만
+저희의 스택인 `Next.js 14`를 지원을 하지 않아 아쉽지만 사용할 수 없었습니다.
+
+그렇게 찾게된 것이 `React Hook Form`의 Context를 사용하는 것이였습니다.
+여기에 유효성 검사를 위한 `Zod` 그리고 ui 컴포넌트로 `shadcn/ui`를 합쳐 정말 아름답고 멋진 폼을 만들 수 있게 되었고 소개하고 싶어 글을 작성하고 있습니다.
+
+예시로 회원가입 폼을 만들었고, 페이지가 이동되면서 입력을 받고 마지막 페이지에서 Submit하는 모습을 확인할 수 있습니다.
+
+![multi-page-form](/posts/create-multi-page-form/example.gif)
+
+**코드와 데모 페이지**가 궁금하신 분들은 글의 제일 아래에 **Github Repo** 링크를 남겨두었습니다.
+
+## Zod
+
+[Zod](https://zod.dev/)는 TypeScript에서 사용하는 **런타임 유효성 검사 라이브러리**입니다.  
+사용자로부터 입력 받은 폼 데이터등의 타입이 보장되지 않는 경우에 유용하게 사용할 수 있습니다.  
+에러메시지를 커스터마이징할 수 있어 Form에 사용하기에 아주 적합하기도 합니다.
+
+회원가입 폼을 가정하고 Zod로 Schema를 생성해보았습니다.  
+코드는 아래 조건들을 만족합니다.
+
+- email: email 포맷일 것
+- password: 2자 이상, 숫자와 영문자를 최소한 하나씩 포함할 것
+- passwordCheck: password와 동일할 것
+- job: name이 other일 경우 other에 값이 있을 것
+
+특히, *name이 other일 경우 other에 값이 있을 것*과 같은 복잡한 조건도 **refine**을 사용하여 구현할 수 있어 만족도가 높습니다.
+
+```ts
+const signUpFormSchema = z
+  .object({
+    email: z.string().email({
+      message: 'Email format is not valid.'
+    }),
+    password: z
+      .string()
+      .regex(
+        /^(?=.*[a-zA-Z])(?=.*[0-9]).{2,20}$/,
+        'Please enter at least 2 characters that combine numbers.'
+      ),
+    passwordCheck: z.string(),
+    job: z
+      .object({
+        name: z.string().min(1),
+        other: z.string()
+      })
+      .refine(({ name, other }) => !(name === 'other' && other === ''), {
+        message: 'Please enter your job.',
+        path: ['other']
+      })
+  })
+  .refine((data) => data.password === data.passwordCheck, {
+    path: ['passwordCheck'],
+    message: 'Please check the password'
+  });
+```
+
+## React Hook Form
+
+[React Hook Form](https://www.react-hook-form.com/)은 React에서 사용하는 **Form 라이브러리**입니다.
+폼의 상태 관리와 유효성 검사를 쉽게 할 수 있게 도와줍니다.
+
+위의 Zod로 만든 signUpFormSchema를 사용하지 않고 React Hook Form만을 사용한다면 아래와 같이 코드를 작성해야 합니다.
+
+```tsx
+import { useForm } from 'react-hook-form';
+
+export default function App() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        type="password"
+        {...register('password', {
+          required: 'Password is required.',
+          minLength: {
+            value: 2,
+            message: 'Password must have at least 2 characters.'
+          },
+          pattern: {
+            value: /^(?=.*[a-zA-Z])(?=.*[0-9]).{2,20}$/,
+            message: 'Please enter at least 2 characters that combine numbers.'
+          }
+        })}
+      />
+      {errors.password && <p>{errors.password.message}</p>}
+      ...생략
+    </form>
+  );
+}
+```
+
+`Zod`와 같이 사용하면 위와 같은 코드를 Form과 유효성 검사를 위한 타입을 분리하여 작성할 수 있으므로 더욱 쉽고 가독성 있게 작성할 수 있습니다.
+
+```tsx
+const signUpFormSchema = z
+  .object({
+    password: z
+      .string()
+      .regex(
+        /^(?=.*[a-zA-Z])(?=.*[0-9]).{2,20}$/,
+        'Please enter at least 2 characters that combine numbers.'
+      ), ...생략
+  })
+
+<input
+  {...register('password')}
+  type="password"
+  className="border border-gray-300 rounded-md p-2 outline-none"
+/>;
+
+{
+  errors.password && (
+    <span className="text-sm text-rose-500">{errors.password.message}</span>
+  );
+}
+```
+
+아래부터의 코드는 `Zod`로 만든 signUpFormSchema를 기반으로 `React Hook Form`을 사용한 코드입니다.
+
+`resolver`에 `Zod`로 만든 signUpFormSchema를 zodResolver를 통해 넘겨 이를 기반으로 유효성 검사를 하게 됩니다.  
+또한 `Context(FormProvider)`를 사용하여 Form의 상태를 관리할 수 있으며 이를 사용해 멀티페이지 폼을 만들 수 있습니다.
+
+```tsx
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const form = useForm<SignUpFormValues>({
+  resolver: zodResolver(signUpFormSchema),
+  defaultValues,
+  mode: 'all'
+});
+
+return (
+  <FormProvider {...form}>
+    <form onSubmit={handleSubmit(onSubmit)}>{children}</form>
+  </FormProvider>
+);
+```
+
+## Input 페이지 만들기
+
+useFormContext 훅을 사용하여 폼의 상태를 관리합니다.  
+**register** 함수를 사용하여 폼 필드를 등록하고, **errors** 객체를 통해 유효성 검사 에러를 확인합니다.
+
+- 코드 설명: "email" 필드를 등록하고, 유효성 검사 에러가 있다면 에러 메시지를 출력합니다.
+
+멀티페이지이므로 다음 페이지로 넘어가기 전에 해당 페이지의 Input에 대한 유효성 검사를 해야하고,  
+이는 **trigger** 함수로 해당 필드만을 검사하게 됩니다.
+
+- 코드 설명: "email" 필드의 유효성 검사를 실행하고, 유효하다면 다음 페이지("/signup/password")로 이동합니다.
+
+```tsx
+  const router = useRouter();
+  const {
+    register, formState: { errors }, trigger
+  } = useFormContext<SignUpFormValues>();
+
+  const onClickNext = async () => {
+    const isValid = await trigger("email");
+    if (isValid) {
+      router.push("/signup/password");
+    }
+  };
+
+  return (
+      <input
+        {...register("email")}
+        type="email"
+        inputMode="email"
+        className="border border-gray-300 rounded-md p-2 outline-none"
+      />
+
+      {errors.email && (
+        <span className="text-sm text-rose-500">{errors.email.message}</span>
+      )}
+
+      <Button type="button" onClick={onClickNext} className="mt-5">
+        Next
+      </Button>
+  );
+```
+
+## Shadcn/ui
+
+[shadcn/ui](https://ui.shadcn.com)는 `Radix UI` 와 `Tailwind CSS`를 기반으로 만들어진 **UI 컴포넌트 모음**입니다.
+
+- 공식 문서 설명: This is NOT a component library. It's a collection of re-usable components that you can copy and paste into your apps.
+
+저희 회사는 웹 접근성이 보장되고, 공통된 컴포넌트 시스템을 쉽게 구축할 수 있을 뿐더러 커스터마이징도 쉽기 때문에 `shadcn/ui`를 적극 사용하고 있습니다.  
+그리고 제공하는 Form 컴포넌트가 **React Hook Form을 Wrap**하고 있고 에러 메시지 출력, 에러에 따른 스타일링 등도 설정되어 있어 같이 사용하면 더욱 편리해집니다.
+
+```tsx
+<FormField
+  control={control}
+  name="email"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel className="text-2xl font-bold">Please enter email</FormLabel>
+      <FormControl>
+        <Input
+          placeholder="miryang.dev@gmail.com"
+          inputMode="email"
+          {...field}
+        />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+```
+
+![email-input-shacn](/posts/create-multi-page-form/email-input-shacn.gif)
+
+## 마무리
+
+`React Hook Form`은 Form의 상태 관리와 유효성 검사를 쉽게 할 수 있게 도와주고,  
+`Zod`는 Form의 유효성 검사를 위한 타입을 분리하여 가독성 좋게 작성할 수 있게 해주고,  
+`shadcn/ui`는 더욱 쉽게 폼을 만들 수 있게 해줍니다.
+
+기술 발전 만세! 🎉
+
+- Github Repo
+  - [RHF + Zod + shadcn/ui](https://github.com/MiryangJung/multi-page-form-demo)
+  - [RHF + Zod](https://github.com/MiryangJung/multi-page-form-demo/tree/without-shadcn)
+- [Demo](https://multi-page-form-demo.vercel.app/)
+
+---
+
+- Refer
+  - [React Hook Form (+ Zod & TypeScript & Server Errors) - COMPLETE Tutorial](https://youtu.be/u6PQ5xZAv7Q?si=8z0sRD0a4D0qoZDL)
