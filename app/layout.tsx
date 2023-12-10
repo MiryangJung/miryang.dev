@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./style/globals.css";
-import { suite } from "./style/fonts/suite";
+import { suit } from "./style/fonts/suit";
 import Header from "@/components/header";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={suite.className}>
+    <html lang="ko" className={suit.className}>
       <body className="max-w-screen-md min-w-[320px] mx-auto">
         <main className="flex flex-col">
           <Header />
