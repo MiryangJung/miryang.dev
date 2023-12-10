@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="max-w-screen-md min-w-[320px] mx-auto">
         <main className="flex flex-col px-5">
           <Header />
-          {children}
+          <div className="py-5 flex flex-col">{children}</div>
         </main>
       </body>
     </html>
