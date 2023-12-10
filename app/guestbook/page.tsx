@@ -19,7 +19,7 @@ export default async function GuestbookPage() {
         23년 1월부터 작성된 방명록 <b>{count}개</b>
       </span>
 
-      <div className="flex flex-col gap-2 my-5">
+      <div className="flex flex-col gap-2.5 my-5">
         {data?.map((bubble) => (
           <Bubble key={bubble.id} {...bubble} />
         ))}

@@ -8,7 +8,10 @@ export default function Header() {
     <header className="h-14 px-5 sticky top-0 z-50 w-full border-b bg-white flex justify-between items-center">
       <Nav />
       <MobileNav />
-      <Logo />
+      <div className="flex items-center gap-1">
+        <span className="text-xs font-medium">이직에 열려있습니다</span>
+        <Logo />
+      </div>
     </header>
   );
 }
