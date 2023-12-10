@@ -4,7 +4,7 @@ import MobileNav from "./mobile-nav";
 
 export default function Header() {
   return (
-    <header className="h-11 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur flex justify-between items-center">
+    <header className="h-12 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur flex justify-between items-center">
       <Nav />
       <MobileNav />
       <Logo />

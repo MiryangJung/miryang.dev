@@ -1,3 +1,9 @@
+import HomeBanner from "./components/banner";
+
 export default function HomePage() {
-  return <div>작업중</div>;
+  return (
+    <div className="pt-5">
+      <HomeBanner />
+    </div>
+  );
 }
