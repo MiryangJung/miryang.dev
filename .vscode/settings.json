@@ -1,0 +1,16 @@
+{
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@radix-ui/*",
+    "next/router",
+    "next/dist/*"
+  ],
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+}

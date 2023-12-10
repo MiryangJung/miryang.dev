@@ -1,5 +1,3 @@
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">sfsdfs</main>
-  );
+export default function HomePage() {
+  return <div>작업중</div>;
 }
