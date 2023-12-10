@@ -5,19 +5,40 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "./ui/utils";
 
-export function Nav() {
+export const navs = [
+  {
+    href: "/blog",
+    label: "Blog",
+  },
+  {
+    href: "/projects",
+    label: "Projects",
+  },
+  {
+    href: "/about",
+    label: "About",
+  },
+  {
+    href: "/resume",
+    label: "Resume",
+  },
+  {
+    href: "/guestbook",
+    label: "Guestbook",
+  },
+];
+
+export default function Nav() {
   return (
-    <nav className="md:flex hidden items-center space-x-6 text-sm font-medium gap-2">
-      <NavItem href="/blog" label="Blog" />
-      <NavItem href="/projects" label="Projects" />
-      <NavItem href="/about" label="About" />
-      <NavItem href="/resume" label="Resume" />
-      <NavItem href="/guestbook" label="Guestbook" />
+    <nav className="sm:flex hidden items-center space-x-6 text-sm font-medium gap-2">
+      {navs.map(({ href, label }) => (
+        <NavItem href={href} label={label} key={label} />
+      ))}
     </nav>
   );
 }
 
-function NavItem({ href, label }: { href: string; label: string }) {
+export function NavItem({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
 
   return (

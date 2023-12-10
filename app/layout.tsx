@@ -16,8 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={suite.className}>
-      <body className="max-w-screen-md mx-auto">
-        <main className="flex flex-col">
+      <body className="max-w-screen-md min-w-[320px] mx-auto">
+        <main className="flex flex-col px-5">
           <Header />
           {children}
         </main>
