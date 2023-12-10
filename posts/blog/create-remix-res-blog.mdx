@@ -1,0 +1,202 @@
+---
+title: Remix로 블로그 만들기, 근데 이제 ReScript를 곁들인
+date: 2022-06-28
+description: ReScript와 Remix로 블로그 템플릿을 만들어보자, 근데 이제 바인딩을 곁들인
+thumbnailUrl: /posts/thumbnail/create-remix-res-blog.png
+tags:
+  [
+    'remix',
+    'rescript',
+    '함수형',
+    '블로그',
+    '리믹스',
+    '리스크립트',
+    '프론트엔드'
+  ]
+---
+
+## 🥁 Re: script, mix
+
+`remix` 와 `ReScript`를 사용해 블로그를 만들 준비가 되었다.
+
+- remix는 [tutorials](https://remix.run/docs/en/v1/tutorials/blog)로 공부하였다.
+- rescript 바인딩을 공부한 방법은 [remix-rescript로 rescript 바인딩 알아보기](https://miryang.dev/blog/learn-about-remix-rescript-binding)에 적었다.
+
+> 오늘은 결론 먼저! [rescript-remix-blog-template 저장소](https://github.com/MiryangJung/rescript-remix-blog-template) 성공했다!
+
+코드를 작성하면서 **어떤 작업을 했는지 어떤 시행착오**가 있었는지 적어보려고 한다.
+
+## 🔥 ReScript를 설치하자
+
+지금 보고 있는 Next.js 블로그를 `ReScript` 로 바꾸면서 설정하는 방법을 익혀서 오래 걸리지 않았다. 브이.  
+`ReScript` 와 필요한 디펜던시를 설치한 후, `remix` 에서 설정을 몇 가지 해줘야 했다.
+
+파일을 기반으로 라우팅이 되기 때문에 `res` 파일은 읽지 않도록 ignore에 추가해 준다.
+
+```js:remix.config.js
+  ignoredRouteFiles: ["**/.*", "*.res"],
+```
+
+ReScript build 설정도 해준다.  
+`suffix`를 보편적으로 `.bs.js`를 사용하나 remix에서는 **route file 확장자에 제약이 있어서 `.js`로** 정했다.  
+_refer : [route-file-conventions](https://remix.run/docs/en/v1/api/conventions#route-file-conventions)_
+
+```json:bsconfig.json
+{   ...
+    "sources": [
+      { "dir": "bindings", "subdirs": true },
+      { "dir": "app", "subdirs": true }
+    ],
+    "suffix": ".js"
+  }
+```
+
+## 🥨 바인딩을 해보자
+
+- [bindings/Remix.res](https://github.com/MiryangJung/rescript-remix-blog-template/blob/main/bindings/Remix.res)
+
+일단 사용할 것들만 바인딩을 할 예정이어서 tsx로 먼저 파일을 만들어두고, 하나씩 진행했다.
+
+App의 `<Meta />` 부터 바인딩을 했다.
+
+```tsx:App.tsx
+export default function App() {
+  return (
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+      </head>
+     ...
+    </html>
+  );
+}
+```
+
+`@remix` 에서 Meta 타입 정의를 보고
+
+```ts:@remix-run/react/components.d.ts
+export declare function Meta(): JSX.Element;
+```
+
+아래와 같이 바인딩 코드를 작성해 줬다.
+
+```reason:bindings/Remix.res
+module Meta = {
+  @module("@remix-run/react") @react.component
+  external make: unit => React.element = "Meta"
+}
+```
+
+이렇게 계속하다 보면 사용하는 것들을 모두 바인딩 할 수 있다. <s>참 쉽죠?</s>
+
+## 🌪 tailwind를 사용하고 싶어
+
+style 유틸리티로 `tailwind` 를 설치한 뒤에 아무리 해도 적용이 안되어서 한참 헤맸다.
+허무하게도 tailwind를 **build하는 명령어**를 추가해 주지 않아서였다.  
+next.js에서는 필요 없는 설정이어서 전혀 몰랐다. 🥲
+
+```json:package.json
+"build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
+"dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
+```
+
+두 번째 시련은 **css를 import하는 방법**을 모르는 것이었다.
+
+`tsx` 에서는 아래와 같이 사용한다. res에서는 `import` 구문이 없으므로 어떻게 해야 할지 난감했다.
+
+```tsx:App.tsx
+import styles from "./styles/app.css"
+
+export function links() {
+  return [{ rel: "stylesheet", href: styles }]
+}
+```
+
+`ReScript` docs를 열심히 읽어서 `%raw` 로 사용하면 된다는 것을 찾았고, 깔끔하게 해결했다.
+
+- 이 부분은 더 나은 방법을 알려주셔서 수정할 예정!
+  - [external 바인딩](https://rescript-lang.org/try?code=AIWw9gJgrgNgpgCgEQDoD0BnALgT3htAcxjACMBDGFAYwwyQEoACYAN0qbgA8s4AnAHYdseOBgBcTbHwCWAwkwC8TJBDgAzcrCxIAULtwAHOExhyA1ru69BHMwPOSA5OSUA+UxaUqApDLUCWDK4errAcvZwuvBYUrjwABZwcLHKCAB+CXwaADRMCAzMim66TJ4OCADepWUq2TBIkgDEIvhJKTk1ZUhZGo1MveqdZQC+DPox5eYY3gXuTNVlANqtcO1YGYOKqxh5BQwAurojukA)
+  - [refer](https://twitter.com/KrComet/status/1541806588696363009?s=20&t=NgcZ4IFniwPBy0a1mKfXvg)
+
+```reason:App.res
+let links = () => {
+  let styles = %raw("require('./styles/global.css')")
+  [{"rel": "stylesheet", "href": styles}]
+}
+```
+
+## 🗒 MDX는 어떻게...
+
+사실 처음 이 프로젝트를 시작할 때도 `MDX`가 제일 걱정이었다.  
+그리고 지금도 가장 큰 골칫거리이기도 하다. 이는 아래에서 다시 얘기하겠다.
+
+`remix` 에서 `MDX` 는 아래와 같이 사용할 수 있다.
+
+```
+import Component, {
+  attributes, filename,
+} from "./posts/a.mdx";
+```
+
+이건 도대체 `res`로 어떻게 변환할지 감도 안 와서 [forum](https://forum.rescript-lang.org/t/how-can-i-handle-mdx-in-rescript-remix/3218)에 물어보고 답을 얻었다.
+
+아래와 같이 사용할 수 있다.
+
+```reason:index.res
+module PostA = {
+  @module("./posts/a.mdx") external attr: {..} = "attributes"
+  @module("./posts/a.mdx") external name: string = "filename"
+}
+
+let loader = () => {
+  Remix.json([
+    {"attr": PostA.attr, "slug": makeSlug(PostA.name)},
+  ])
+}
+```
+
+여기서 나의 고민거리가 생기는데 mdx 문서를 하나 만들 때마다 계속 수기로 추가를 해줘야 한다.  
+정말 불편하고, 비효율적인데 `remix` 공식 문서에는 **DB 사용을 권장**하고 있었다.  
+그리고 난 이 **프로젝트 자체를 CMS로** 사용하고 싶어서 어떻게 해결해야 하나 고민이다.
+
+`MDX 라우팅` 은 remix에서 제공되는 기능이어서 정말 좋았다.
+
+```plain
+`routes/posts/a.mdx` -> `posts/a` 로 라우팅
+```
+
+`nested routing`도 지원이 되기 때문에 레이아웃을 씌우거나 mdx자체에 스타일을 입히는 것도 쉬웠다.  
+_tmi) nested routing 처음 써봤는데 정말 편하다._
+
+```reason:posts.res
+<div className={`prose max-w-5xl w-full dark:prose-invert px-10`}>
+    <Remix.Outlet />
+</div>
+```
+
+## 🤔 띵킹
+
+- `MDX`를 어떻게 우아하게 사용할까?
+  - `mdx-bundler` 를 사용한다.
+    - again 바인딩 지옥
+  - `Astro`로 프레임워크를 바꾼다.
+    - `.astro`는 바인딩 불가능
+    - SSG 가능
+- SSR을 어떻게 SSG처럼 사용할까?
+  - remix는 SSR이다.
+  - 블로그는 정적 컨텐츠이다.
+  - **아마 캐시 설정으로 어느 정도 보완할 수 있을 듯**
+
+## 💪🏻 끝!
+
+아직 SEO, RSS 등의 설정이 남았지만 위의 생각들부터 해결을 해야 될 듯해서 남겨두었다.  
+좋은 아이디어가 있으신 분은 제 트위터나 메일로 연락 부탁드립니다. ❤️‍🔥
+
+> 아무쪼록 나중에 누군가 ReScript와 Remix를 같이 사용할 날이 온다면 이 글이 도움이 되기를...
+
+
+### Tip!
+
+- ReScript를 맛보고 싶다면?
+  - [그린랩스: 월간FP AoC 2020, day6⎮ReScript](https://www.youtube.com/watch?v=vQM0i6IPqm0)

@@ -1,0 +1,214 @@
+---
+title: Cloudflare Workers & KV로 Guestbook 개발하기
+date: 2022-01-14
+description: Develop Guestbook with Cloudflare Workers & KV
+thumbnailUrl: /posts/thumbnail/develop-guestbook-with-cloudflareworkers.png
+tags: ['cloudflare workers', 'cloudflare kv', 'cloudflare']
+---
+
+> [게스트북 바로가기](https://miryang.dev/guestbook)
+
+## ❓ Guestbook을 만들까?
+
+[miryang.dev](https://github.com/MiryangJung/miryang.dev) 블로그를 
+개발하면서 [leerob.io/guestbook](https://leerob.io/guestbook) 을 보고 __Guestbook__ 을 만들고 싶었다.
+
+블로그가 `Next.js` 를 사용하고 있어서 `Next.js API` 와 `mongoDB` 를 이용하려고 했다.  
+트위터에 어떤 식으로 API를 만들면 좋을지 고민된다고 올렸더니 모 개발자분이 `Cloudflare Workers` 를 추천해주셨고 기술 힙스터로서 사용해보기로 했다.
+
+### Cloudflare Workers
+
+[workers.cloudflare](https://workers.cloudflare.com/) 를 검색해보니 서버리스를 제공하는 _FaaS_ 플랫폼이라고 설명이 되있었다.  
+당연히 이해가 안되므로 부딪혀보기 위해 일단 [Get started guide](https://developers.cloudflare.com/workers/get-started/guide) 부터 따라해보았다.
+
+서버리스에 대한 지식이 없는 상태로 가이드를 따라 해보니 Cloudflare Workers가 제공하는 플랫폼에 Module Code만 올려서 실행시킨다 정도로 이해를 했다.  
+다행히도 Javascript 언어를 사용할 수 있었고, 어렵지 않게 느껴져서 이용할지 고려를 하는 와중 일일 최대 100,000개 요청이 무료로 제공된다길래 바로 개발에 돌입했다.  
+_내 개인 블로그에 사용하므로 하루 100,000개는 아주 넉넉하다고 생각했다._
+
+### Cloudflare Workers KV
+
+방명록을 만들려면 데이터베이스가 필요했고 Cloudflare Workers에 무엇을 사용할 수 있을지 찾아보다
+[Cloudflare KV](https://www.cloudflare.com/ko-kr/products/workers-kv/) 를 알게 되었다.  
+__KV__ 라는 이름에서 알 수 있듯이 Cloudflare 애플리케이션용 __키(Key)-값(Value)__ 저장소이다.  
+_직접 사용해보니 내가 원하는 방식의 저장소가 아님을 알게되었으나 이 이야기는 밑에서 하도록 하겠다._
+
+
+## ❗️ Guestbook을 만들자
+
+#### API 서버를 만들어야하므로 어떤 API가 필요할 지 생각해보기
+컨셉은 __익명으로 간단한게 적는 한 줄 방명록__ 이므로 간단하게 방명록을 입력하고,  
+방명록을 가져오는 두 개의 API만 만들기로 했다.  
+_간단한 Get, Post API 두 개지만 밑의 그림처럼 적어보면 은근히 생각 정리할 때 도움이 된다._
+
+![](/posts/develop-guestbook-with-cloudflareworkers/초기설계.jpeg)
+
+#### 어떤 데이터가 필요할까 생각해보기
+- 문자함 말풍선 디자인을 구상해두고 있어서 __color__
+- 아무래도 익명이다보니 악플 방지를 위한 __ip__
+- 작성한 시간인 __createAt__
+- 방명록 내용인 __content__
+
+이 과정에서 ip 수집이 적법한 지 찾아보다 [프로그램의 IP주소 수집은 적법한가?](https://www.nepla.net/post/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8%EC%9D%98-ip%EC%A3%BC%EC%86%8C-%EC%88%98%EC%A7%91%EC%9D%80-%EC%A0%81%EB%B2%95%ED%95%9C%EA%B0%80)
+해당 글을 읽어보았는데 아직 명백하게 규정하지 않는 듯하여 고지만 하기로 했다.
+
+#### Get 만들기
+
+본래는 __ip가 key, 내용이 value__ 인 형태로 데이터를 저장하려고 했다.
+
+![](/posts/develop-guestbook-with-cloudflareworkers/초기kv.png)
+
+막상 workers kv를 사용하려니 `key` 로만 값을 가져올 수 있었다.
+
+```javascript:workers/index.js
+const getCache = key => GuestBook.get(key)
+```
+
+kv 네임스페이스의 모든 key-value 쌍 데이터들을 가져올 수 있는 방법이 없어서 __ip가 key, 내용이 value__ 인 형태를 사용할 수 없었다.  
+key 하나에 배열 형태 __Array\<\{내용\}\>__ 로 데이터를 저장하기로 생각했다.
+
+kv의 value는 최대 25MiB까지 저장할 수 있고, 방명록이 달마다 몇백개씩 달릴 리는 없다고 가정해 key는 월 단위로 나누기로 했다.
+
+![](/posts/develop-guestbook-with-cloudflareworkers/바뀐kv.png)
+
+kv의 key 리스트를 가져와서 루프를 돌면서 key들의 값을 가져와 돌려주는 함수를 작성했다.
+
+```javascript:workers/index.js
+const getCache = key => GuestBook.get(key)
+const getList = () => GuestBook.list()
+
+async function getGuestbook(request) {
+  const list = await getList()
+  let obj = {}
+  for (const item of list.keys) {
+    const cache = await getCache(item.name)
+    obj[item.name] = JSON.parse(cache)
+  }
+  data = JSON.stringify(obj)
+  return new Response(data, {
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+```
+
+Next.js에서도 기존 API 콜과 다름없이 `fetch` 로 데이터를 가져와서 사용했다.
+
+```javascript:blog/guestbook.tsx
+export async function getServerSideProps(context) {
+  const workers = process.env.NEXT_PUBLIC_WORKERS
+  const res = await fetch(encodeURI(`${workers}/guestbook`))
+  const data = await res.json()
+  const list = Object.keys(data).sort().reverse()
+  return {
+    props: { list, data },
+  }
+}
+```
+
+#### Post 만들기
+
+악의적인 Post 요청으로 데이터가 훼손될 가능성을 줄이기 위해 Post 요청 때 API_TOKEN을 전달받아 
+환경변수에 저장해둔 __API_TOKEN__ 값과 비교하는 코드를 작성했다.  
+이때 새벽에 몽롱한 상태로 개발을 해서 그런가 왜 이런 터무니없는 생각을 했는지 모르겠다.  
+코드를 배포하고 자고 일어나 생각해 보니 네트워크탭에서도 쉽게 볼 수 있다는 걸 떠올렸다.  
+_너무나 선명히 보이는 token: "i_made_it"_
+
+![](/posts/develop-guestbook-with-cloudflareworkers/네트워크페이로드.png)
+
+```javascript:workers/index.js
+async function updateGuestbook(request) {
+// ...code
+  if (!json.token || json.token !== API_TOKEN) {
+      return new Response('nope!', { status: 401 })
+    }
+}
+```
+
+API를 요청하는 곳은 무조건 내 블로그(miryang.dev)이므로 origin을 비교하는 코드로 변경했다.  
+_더 좋은 생각이 있으신 분은 댓글로 알려주시면 감사하겠습니다._
+
+```javascript:workers/index.js
+const origin = request.headers.get('origin')
+if (origin !== 'https://miryang.dev') {
+  return new Response(null, { status: 403 })
+}
+```
+
+kv의 value는 json 형태로 저장되는 것이 아니라 string으로 저장되어서 이 부분이 참 난감했다.  
+나는 배열 형태로 저장해야 하는데 도대체 어떻게 하는 것인지 감도 잡히지 않았다.  
+[Build a Todo list JAMstack application](https://developers.cloudflare.com/workers/tutorials/build-a-jamstack-app)
+를 참고하니 기존의 값을 가져와 `JSON.parse` 한 뒤, 새 값을 추가하고 다시 저장하는 방법을 사용해야 했다.
+
+```javascript:workers/index.js {7, 10-11} showLineNumbers
+const setCache = (key, data) => GuestBook.put(key, data)
+async function updateGuestbook(request) {
+  const ip = request.headers.get('CF-Connecting-IP')
+  const body = await request.text()
+  try {
+    const json = JSON.parse(body)
+    const originData = await getCache(json.key)
+    let newData
+    if (originData) {
+      const originJson = JSON.parse(originData)
+      newData = [{ ...json.data, ip: ip }, ...originJson]
+    } else {
+      newData = [{ ...json.data, ip: ip }]
+    }
+    await setCache(json.key, JSON.stringify(newData))
+    return new Response('ok', { status: 200, headers: corsHeaders })
+  } catch (err) {
+    return new Response(err, { status: 500, headers: corsHeaders })
+  }
+}
+```
+
+#### 게스트북 배포하기
+
+블로그에 내가 생각한 문자함 말풍선 디자인으로 퍼블리싱을 하고, 배포한 workers에 연결까지 마치고 [배포](https://miryang.dev/guestbook) 를 했다.
+
+![](/posts/develop-guestbook-with-cloudflareworkers/완성.gif)
+
+문자함 느낌과 알록달록한 귀여운 느낌을 살리고 싶었는데 잘 만든 듯하다.  
+배포하고 나서 수정하고 싶은 점은  
+- 색상 선택 시 전송 버튼의 border color도 같이 반영하기
+- 접속 시 랜덤으로 말풍선 색상 정하기 (지금은 무조건 첫 번째 색상인 회색)
+
+*위의 수정하고 싶은 두가지는 이 글을 올리고 바로 개발해서 반영해두었다.* :)
+
+배포하고 여기저기 자랑을 하고 다니며 뿌듯해할 때까진 몰랐다.  
+Cloudflare KV의 경고 메일을 받을 줄은...
+
+![](/posts/develop-guestbook-with-cloudflareworkers/50per.png)
+
+일정을 마무리하고 밤에 KV를 확인하러 들어갔을 때 이미 나열 항목이 900이 넘어있었다.  
+KV는 일일 최대 1,000개 쓰기, 삭제 및 나열 작업 한도가 있다.  
+
+![](/posts/develop-guestbook-with-cloudflareworkers/나열.png)
+
+게스트북을 배포한 첫날에 멈추게 되는 불상사가 일어나는 것을 막기 위해 __나열__ 작업을 하지 않도록 급하게 수습해서 배포를 했다.
+
+```javascript:workers/index.js {7-8} showLineNumbers
+// const list = await getList()
+let obj = {}
+// for (const item of list.keys) {
+//   const cache = await getCache(item.name)
+//   obj[item.name] = JSON.parse(cache)
+// }
+const cache = await getCache('2022. 1')
+obj['2022. 1'] = JSON.parse(cache)
+```
+
+배포도 22년 1월에 했고, 아직 1월이 지나지 않아 __2022. 1__ 데이터만 있으므로 하드코딩을 해서 수습할 수 있었다.  
+첫날이라 요청이 많아서 한도에 다다랐다고 생각은 들지만 아무래도 저장소는 KV를 떠나 다른 곳으로 옮겨야 할 듯하다.
+
+시간이 될 때 [Create a serverless, globally distributed REST API with Fauna](https://developers.cloudflare.com/workers/tutorials/store-data-with-fauna) 를 참고해서 저장소를 옮겨볼 생각이다.
+
+코드 정리가 안되어서 Guestbook Cloudflare Workers 코드는 아직 비공개지만 정리가 되면 레포를 퍼블릭으로 변경해서 공개하고 싶다.
+
+*1월 21일 : 레포를 공개하였습니다. [miryang.dev-guestbook](https://github.com/MiryangJung/miryang.dev-guestbook).*
+
+> [게스트북 바로가기](https://miryang.dev/guestbook)
+
+### Refer
+> [Get started guide](https://developers.cloudflare.com/workers/get-started/guide)  
+> [Build a Todo list JAMstack application](https://developers.cloudflare.com/workers/tutorials/build-a-jamstack-app)  
+> [Limits - KV](https://developers.cloudflare.com/workers/platform/limits#kv)

@@ -1,0 +1,197 @@
+---
+title: React Native 안드로이드 빌드 환경 개선하기
+date: 2023-07-05
+description: Build Flavor를 구성하고, 앱센터를 연결하자
+thumbnailUrl: /posts/thumbnail/rn-android-dev.jpg
+tags: ['리액트네이티브', 'RN', '안드로이드', '프론트엔드', '개발']
+---
+
+## Build Flavor 설정
+
+프로덕션 빌드와 개발용 빌드를 분리할 수 있다.
+
+`build.gradle` 에 flavor를 작성한다.
+
+- `resValue` 로 앱 이름을 설정할 경우 `android/app/src/main/res/values/strings.xml` 파일을 삭제한다.
+
+```plain:android/app/build.gradle
+buildTypes {
+	...
+}
+
+flavorDimensions "version"
+	productFlavors {
+		dev {
+			dimension "version"
+			applicationIdSuffix ".dev"
+			resValue "string", "app_name", "호캉스나우_dev"
+		}
+		prod {
+			dimension "version"
+			resValue "string", "app_name", "호캉스나우"
+		}
+}
+```
+
+`package.json`에 scripts를 수정한다.
+
+`--variant=${flavor}${buildType}` flavor와 buildType의 조합별로 빌드할 수 있다.
+
+```
+"android:devDebug": "react-native run-android --variant=devDebug",
+"android:prodDebug": "react-native run-android --variant=prodDebug",
+...
+"build:android:release": "cd android && ./gradlew bundleProdRelease"
+```
+
+- MainActivity not found 에러가 뜬다면 실행 시 `appId`를 넘겨준다.
+
+```
+"android:devDebug": "react-native run-android --variant=devDebug --appId com.hocancenowapp.dev",
+```
+
+파이어베이스를 사용해서 `google.services.json` 파일이 있는 경우 `package_name`을 추가해서 파일을 수정해준다.
+
+![fb](/posts/rn-android-dev/firebase.png)
+
+이렇게 한 기기에서 flavor별로 앱을 빌드할 수 있다.
+
+![flavor](/posts/rn-android-dev/flavor.jpeg)
+
+---
+
+## RN에서 Build Flavor 설정 가져오기
+
+아래 파일 및 코드 작성
+
+```java:android/app/src/main/java/com/miryang/RNENVConfigModule.java
+package com.miryang; // 패키지 이름 수정
+
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+import java.util.Map;
+import java.util.HashMap;
+
+public class RNENVConfigModule extends ReactContextBaseJavaModule {
+    RNENVConfigModule(ReactApplicationContext context) {
+    super(context);
+  }
+
+  @Override
+  public String getName() {
+    return "RNENVConfig";
+  }
+
+  @Override
+  public Map<String, Object> getConstants() {
+    final Map<String, Object> constants = new HashMap<>();
+    constants.put("env", BuildConfig.FLAVOR);
+    return constants;
+  }
+}
+```
+
+```java:android/app/src/main/java/com/miryang/RNENVConfigPackage.java
+package com.miryang; // 패키지 이름 수정
+
+import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.ViewManager;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class RNENVConfigPackage implements ReactPackage {
+
+  @Override
+  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+    return Collections.emptyList();
+  }
+
+  @Override
+  public List<NativeModule> createNativeModules(
+    ReactApplicationContext reactContext) {
+    List<NativeModule> modules = new ArrayList<>();
+
+    modules.add(new RNENVConfigModule(reactContext));
+
+    return modules;
+  }
+}
+```
+
+```java:android/app/src/main/java/com/miryang/MainApplication.java {5}
+@Override
+protected List<ReactPackage> getPackages() {
+	@SuppressWarnings("UnnecessaryLocalVariable")
+	List<ReactPackage> packages = new PackageList(this).getPackages();
+
+	packages.add(new RNENVConfigPackage());
+	return packages;
+}
+```
+
+React Native에서 아래와 같이 부를 수 있다.
+
+```ts
+import {NativeModules} from 'react-native';
+
+const {RNENVConfig} = NativeModules;
+console.log(RNENVConfig);
+```
+
+---
+
+## App Center 연결
+
+[앱센터](https://appcenter.ms/apps) 에서 앱을 추가한다.
+
+![appcenter-add](/posts/rn-android-dev/appcenter-add.png)
+
+- App Center Analytics와 Crashes를 사용하려면 App center SDK를 설치한다.(나는 설치하지 않았다.)
+
+자동으로 빌드가 돌 수 있게끔 Build에 Repo를 연결한다.
+
+`Build configruation` 에서 브랜치 별로 Build Variant를 설정해준다.
+
+![flavor](/posts/rn-android-dev/build-variant.png)
+
+예를 들면
+
+- main : prodRelease
+- dev : devRelease
+
+![branches](/posts/rn-android-dev/branches.png)
+
+Sign builds에 keystore와 환경변수를 저장한다.
+
+![sign](/posts/rn-android-dev/sign.png)
+
+`app/build.gradle`에서 buildTypes에 release일 시 appcenter의 signingConfig를 사용하도록 코드를 수정해준다.
+
+```
+release {
+	if (!System.getProperty("APPCENTER_KEY_ALIAS")){
+		signingConfig signingConfigs.release
+	}
+	minifyEnabled enableProguardInReleaseBuilds
+	proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+}
+```
+
+Distribute에서 Google Play Console에 연결해준다.
+
+- 참고 [Google Play 스토어에 게시](https://learn.microsoft.com/ko-kr/appcenter/distribution/stores/googleplay)
+
+앱센터에서 빌드된 앱은 구글 플레이 콘솔의 앱 번들로 배포할 수 있다.
+
+- [You are currently using Java 1.8 에러가 뜨는 경우](https://miryang.dev/note/react-native/java-home)
+
+---
+
+refer
+
+- [medium.com/@ujjwalsayami/build-flavor-scheme-for-react-native-c58e764d4ecf](https://medium.com/@ujjwalsayami/build-flavor-scheme-for-react-native-c58e764d4ecf)

@@ -1,0 +1,148 @@
+---
+title: 내가 프론트엔드를 학습한 방법
+date: 2022-05-16
+description: 올해 프론트엔드 개발자가 된 미량님(저)의 학습 방법을 알려드려요.
+thumbnailUrl: /posts/thumbnail/how-studied-frontend.jpg
+tags: ['프론트엔드', 'frontend', '공부', '개발', 'react', 'nextjs']
+---
+
+# 😎 서론
+
+저는 보안 7개월, 백엔드 1년 7개월을 하다가 **올해 프론트엔드로 커리어**로 전환했습니다.  
+3년 차 개발자이지만 **경력 3개월의 프런트엔드 개발자**이기도 합니다. 아 그리고 저는 전공자가 아닙니다!  
+( 보안을 전공해서 반전공자라고 스스로 부릅니다. :D )
+
+프런트엔드를 준비한 기간은 약 4~5개월 정도이고 직장과 병행했습니다. 어떻게 무엇을 했는지 적어보려고 합니다.  
+_사실 거창한 일도 아니고 조금 오글거려서 쓸까 말까 고민을 엄청 했는데 커리어를 시작한 지 얼마 안 된 파릇파릇한 이때아니면 언제 적겠나 싶더군요._  
+나중에 부끄러워져서 글을 내릴 수도 있지만 일단은 적어보겠습니다. 이걸 쓰는 지금도 너무나 나대는(?) 거 같아서 굉장히 부끄럽습니다.
+
+왜 포지션 전환을 결심하게 되었는지는 [주니어 개발자의 포지션 변경과 함께한 2022년 이직기](https://miryang.dev/blog/2022-change-job) 를 참고하세요.
+
+아주 주관적인 글임을 먼저 밝힙니다.
+
+# 🤩 본론
+
+## 🟨 JAVASCRIPT
+
+저는 `Node.js`를 사용하는 백엔드 엔지니어여서 `javascript`는 익숙했습니다.
+그렇지만 다시 한번 훑고 싶어서 [코딩앙마 - 자바스크립트 중급 강좌 : 140분 완성](https://youtu.be/4_WLS9Lj6n4) 를 수강하였습니다.  
+역시 기초는 몇 번이나 다져도 항상 배울 것이 있고, 가치가 있다는 것을 느꼈습니다.
+
+- 추천하는 javascript 강좌 및 책
+  - [코딩앙마 - 자바스크립트 중급 강좌 : 140분 완성](https://youtu.be/4_WLS9Lj6n4)
+  - [모던 JavaScript 튜토리얼](https://ko.javascript.info/)
+  - [justjavascript](https://justjavascript.com/)
+  - [모던 자바스크립트 Deep Dive](http://book.naver.com/bookdb/book_detail.naver?bid=16710547)
+  - [코어 자바스크립트](http://book.naver.com/bookdb/book_detail.naver?bid=15433261)
+
+## 🔵 REACT
+
+si 회사에서 재직할 당시 JSP는 해보아서 MVC 패턴에 익숙한 저에게 리액트는 너무나 신세계였고, 성격이 급하고 집중 시간이 짧은 저에게 긴 강의들은 어렵게만 느껴졌습니다.  
+그러던 중 [코딩앙마 - React js 강좌](https://youtube.com/playlist?list=PLZKTXPmaJk8J_fHAzPLH8CJ_HO_M33e7-)를 만났고, 정말 최고의 강의라고 감히 말하고 싶습니다.  
+_(코딩앙마님 이 글을 보신다면 제가 정말 팬이라는 걸 알아주세요.)_
+
+저는 평소 학습을 할 때 문법 하나를 배워도 **직접 사용해 보지 않으면 절대 익숙해지지 않는다**는 굳은 신념을 가지고 있습니다.  
+그래서 위의 강의를 수강하고, 바로 셀프 프로젝트로 [miryang-blog-react-practice](https://github.com/MiryangJung/miryang-blog-react-practice) 를 무작정 시작했습니다.  
+(부끄러운 코드여서 private로 해두었지만 솔직하게 정보를 전달하고 싶어서 public으로 열었습니다. ㅎ\_ㅎ)
+
+![](https://camo.githubusercontent.com/9497f8670414fb62e159d28913ae80535a59c65dca75c2f3232d44d8737e6e16/68747470733a2f2f692e6962622e636f2f72784277336a702f686f6d652e706e67)
+
+약 3시간의 강의를 1.5배속으로 수강하고 바로 코드를 짜는 것은 당연히 어렵습니다.  
+하지만 **실제로 코드를 작성하면서 에러를 만나고 고치면서 학습하는 것이 훨씬 가치있고 기억에 남기때문에** 저는 항상 새로운 것을 배울 때 이 방법을 사용합니다.
+
+위의 셀프프로젝트를 하면서 생기는 많은 의문들은 구글링도 하고, 스택오버플로우에 질문도 하면서 해결했습니다.  
+구글링을 해도 안 나오는 기초적인 것들은 트위터에서 질문을 하기도 했습니다.  
+(지금 와서 생각해 보면 부끄러운 질문들도 많았는데 친절히 대답해 준 트위터의 개발자분들 정말 감사합니다.)
+
+- 당시 했던 질문 : [How should I make custom react hook if I need to send requests to many endpoints?](https://stackoverflow.com/questions/68317220/how-should-i-make-custom-react-hook-if-i-need-to-send-requests-to-many-endpoints)
+
+셀프 프로젝트를 나름 잘 끝내고, 나는 리액트 체질인가 봐하며 자신감이 차있을 때 [2021 오픈소스 컨트리뷰션-react-analytics-provider](https://www.oss.kr/contribution_academy_project/show/4a38f9ce-abab-4594-aefc-19064a12527d) 에 참여하게 되었습니다.  
+**1주 차부터 팀원분들이 하는 얘기를 단 한 개도 알아듣지 못했으며, 코드를 한 줄도 이해할 수 없었습니다.**  
+각자 할 일을 정할 때 개발과 관련되지 않은 일들만 맡겠다고 스스로 나섰으며 실력 부족 때문에 자괴감이 많이 들었습니다.
+
+문득 이런 기회를 놓칠 수 없다는 생각을 했고, 나도 코드를 한 줄이라도 적고 싶다는 열망이 타올랐습니다.  
+그래서 무식하게 **저장소 내의 모든 코드와 PR로 올라오는 코드를 한 줄 단위로 다 읽어** 나갔습니다.  
+정리하면서 생기는 질문들은 노션에 정리를 해서 팀 내에 공유를 했고, 감사하게도 친절한 팀원분들이 다 대답을 달아주셨습니다.
+
+![](/posts/how-studied-frontend/rap-notion.png)
+
+그러다 type이 제대로 적용되지 않은 부분을 찾았고, 이때 처음으로 코드를 수정해 PR을 날리면서 자신감을 많이 되찾았습니다.  
+**한 줄 단위로 읽으면서 정말 많이 배웠고, 이때 알게 된 것들은 저에겐 지금까지도 가장 중요한 자산**입니다.
+
+- 추천하는 react 강좌 및 책
+  - [udemy - React 완벽 가이드 with Redux, Next.js, TypeScript](https://www.udemy.com/course/best-react/)
+    - 이 강의 1000번째 추천합니다. 할인하면 12,000원에 구입 가능합니다.
+  - [코딩앙마 - React js 강좌](https://youtube.com/playlist?list=PLZKTXPmaJk8J_fHAzPLH8CJ_HO_M33e7-)
+  - [React Docs](https://beta.reactjs.org/)
+
+## 🔷 TYPESCRIPT
+
+요즘은 `typescript`를 사용하지 않는 곳이 드물 정도라고 해서 학습을 시도하였으나 역시나 어려워서 집중이 잘 안되었습니다.  
+그래서 기초만 익히고, [miryang-blog-react-practice 프로젝트](https://github.com/MiryangJung/miryang-blog-react-practice)에 무작정 ts를 적용시키고 **에러나는 부분을 고치면서** 타입스크립트를 익혔습니다.
+
+- 추천하는 typescript 강좌 및 책
+  - [udemy - Typescript :기초부터 실전형 프로젝트까지](https://www.udemy.com/course/best-typescript-21/)
+
+## 🟣 Redux
+
+지금은 글로벌 상태로 많은 라이브러리가 있지만 제가 공부할 당시엔 제일 유명했던 `redux`를 익혔습니다.  
+[frontendmasters - Redux Fundamentals](https://frontendmasters.com/courses/redux-fundamentals/) 을 수강했고,  
+당연히 또 셀프프로젝트를 했습니다!  
+[my-number-with-redux](https://github.com/MiryangJung/my-number-with-redux) 를 만들면서 `redux`와 조금 친해졌습니다.
+
+- 추천하는 redux 강좌 및 책
+  - [frontendmasters - Redux Fundamentals](https://frontendmasters.com/courses/redux-fundamentals/)
+    - Github Student Pack이 있을 경우 6개월 무료로 수강 가능
+    - (frontendmasters를 알려주신 고\*님 감사합니다.)
+
+## 🔳 Next.js
+
+프론트엔드로 이직을 하려고 보니 포트폴리오가 너무 부족했고, 저는 **정적 블로그**를 만드는 것에 굉장히 관심이 많습니다.  
+알아보니 `Next.js`로 SSG를 할 수 있다고 해서 학습을 하게 되었습니다.
+
+갑자기 **블로그 만들기 찬양**을 해보자면
+
+1. 내가 원하는 형식의 블로그 플랫폼을 더 이상 찾아다니지 않아도 된다.
+2. MDX가 어떻게 서빙되는지 알 수 있다.
+3. SEO에 대한 이해를 할 수 있다.
+4. 개발블로그를 운영하는 게 좋다고들 하는데 그 블로그가 직접 만든 것이다...? 최고!
+5. 해보고 싶었던 것들이나 사용해 보고 싶은 기술들을 마음껏 적용시켜볼 수 있다! 나만의 플레이그라운드이다.
+6. 내 블로그에 접속자만 있다면 실제로 운영되는 서비스를 관리하게 된다.
+
+[udemy - React 완벽 가이드](https://www.udemy.com/course/best-react/) 의 Next.js 파트를 수강하고, 당연히 또 개발에 바로 돌입했습니다.  
+Next.js로 개발되어 있는 [leerob.io](https://github.com/leerob/leerob.io) 저장소의 **모든 파일을 열어서 읽어보며** 정적 블로그는 어떻게 만들어지는지 파악했습니다.  
+역시 잘 짜여 있는 코드를 보는 게 제일 도움이 많이 되었습니다.
+
+[miryang.dev](https://github.com/MiryangJung/miryang.dev) 에서 제 블로그 코드를 확인할 수 있습니다.
+
+[Next.js로 나만의 블로그 만들기 핸즈온 세션](https://event-us.kr/miryang/event/42689) 도 했었으나 예정된 진행 일정은 없습니다.
+
+- 추천하는 next.js 강좌 및 책
+  - [udemy - React 완벽 가이드 with Redux, Next.js, TypeScript](https://www.udemy.com/course/best-react/)
+  - [nextjs.org/docs](https://nextjs.org/docs/getting-started)
+
+# 🥳 결론
+
+`HTML` > `CSS` > `JAVASCRIPT` > `REACT` > `TYPESCRIPT` > `REACT` > `REDUX` > `NEXT`
+
+정리하자면 저는 위의 순서로 학습을 했습니다. 그리고 배우고 나서 꼭 **셀프 프로젝트를 진행하면서 손에 익히는 과정**을 진행했습니다.
+
+가끔 어떤 언어나 프레임워크의 강좌를 수강하고 나서 아직 잘 모르겠고 어려운 게 기초가 부족해서라고 느끼고,  
+계속 기초 강의만 돌려보는 분들을 만날 때가 있습니다.  
+저는 코드를 실제로 안 써봐서라고 생각합니다. **원페이지여도 괜찮으니 꼭 실제로 셀프 프로젝트를 하면서 코드를 작성해 보셨으면 좋겠습니다.**
+
+셀프 프로젝트를 하면서 `README.md`는 열심히 적으면 좋습니다.  
+_(리드미 작성법을 전수해주신 ㅎ님께 감사드립니다.)_  
+[google-calendar-weekly-clone](https://github.com/MiryangJung/google-calendar-weekly-clone) 를 참고하세요.
+
+![](/posts/how-studied-frontend/readme.png)
+
+직접 코드를 적으면서 **학습한 내용, 트러블 슈팅**한 것들은 어디에서도 얻을 수 없고 미래의 나에게 정말 큰 도움이 됩니다. (정말로요!)
+
+그럼 행복하세요! 끝.
+
+> 여기까지 읽어주신 분들 감사합니다.  
+> 감상평은 [Guestbook](https://miryang.dev/guestbook) 에서 익명으로 남기실 수 있습니다.  
+> 참고로 지금 제가 잘한다는 소리는 아니고요. 어쩌면 누군가에겐 도움이 될까 싶어서 적은 글이니 맘에 들지 않는 부분이 있어도 노여워하지 말아 주세요.
+
+> 23.04.18 추가, [고량주 프론트엔드 12주 스터디 커리큘럼](https://github.com/GoRyangJu/curriculum)을 공개했습니다. 참고하세요!

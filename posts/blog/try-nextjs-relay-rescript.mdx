@@ -1,0 +1,356 @@
+---
+title: Next.js(SSR) + Relay + ReScript 해보기 (아직 하는 중...)
+date: 2022-07-23
+description: Next.js + Relay + ReScript 세팅부터 개발까지
+thumbnailUrl: /posts/thumbnail/try-nextjs-relay-rescript.jpg
+tags:
+  [
+    'next.js',
+    'rescript',
+    '리스크립트',
+    '바인딩',
+    'relay',
+    '릴레이',
+    'SSR',
+    '넥스트'
+  ]
+---
+
+**해당 게시글은 에러를 수정하거나 개발이 진행될 때마다 수정됩니다.**
+
+환경 세팅이 되어있는 프로젝트 위에서 개발을 하다보니 문득 첫 세팅은 어떻게 하는 걸까 궁금해졌습니다.  
+그래서 공부 용으로 `Next.js` + `Relay` + `ReScript` + `SSR` 을 해봅니다.
+
+> [코드는 여기서 확인할 수 있습니다.](https://github.com/MiryangJung/nrr)
+
+## 🍔 Next.js + ReScript 세팅
+
+create next app으로 `Next.js` 프로젝트 생성  
+`src` 폴더 내로 필요 파일들 이동
+
+```shell
+yarn create next-app
+```
+
+rescript, @rescript/react 설치
+
+```shell
+yarn add rescript --dev
+yarn add @rescript/react
+```
+
+`bsconfig.json` 생성
+
+```json:bsconfig.json
+{
+    "name": "nrr",
+    "reason": { "react-jsx": 3 },
+    "bs-dependencies": ["@rescript/react"],
+    "ppx-flags": [],
+    "sources": [
+      { "dir": "src", "subdirs": true }
+    ],
+    "package-specs": {
+      "module": "es6",
+      "in-source": true
+    },
+    "suffix": ".bs.js"
+  }
+```
+
+pageExtensions에 `bs.js` 추가
+
+```js:next.config.js
+const nextConfig = {
+  reactStrictMode: true,
+  pageExtensions: ['jsx', 'js', 'bs.js'],
+}
+```
+
+rescript 빌드 명령어 추가
+
+```json:package.json
+"scripts": {
+    ...
+    "res:dev": "rescript build -w",
+    "res:build": "rescript build",
+    "res:clean": "rescript clean -with-deps",
+},
+```
+
+Next.js 바인딩
+
+```reason:src/bindings/Next.res
+// https://github.com/MoOx/rescript-next/blob/main/src/Next.res
+module Dynamic = {
+  type options = {
+    ssr: option<bool>,
+    loading: option<unit => React.element>,
+  }
+
+  @module("next/dynamic")
+  external dynamic: (unit => Js.Promise.t<'a>, options) => 'a = "default"
+}
+...중략
+```
+
+## 🍟 Next.js + ReScript에 Relay 세팅
+
+- [rescript-relay-documentation#installation](https://rescript-relay-documentation.vercel.app/docs/getting-started#installation)
+
+디펜던시 설치
+
+```shell
+yarn add rescript-relay@1.0.0-beta.21 relay-runtime@13.2.0 react-relay@13.2.0
+```
+
+`bsconfig.json`에 설정
+
+```json:bsconfig.json
+...
+"bs-dependencies": ["@rescript/react", "rescript-relay"],
+"ppx-flags": ["rescript-relay/ppx"],
+```
+
+`relay.config.js` 생성
+
+```js:relay.config.js
+module.exports = {
+  src: "./src",
+  schema: "./schema.graphql",
+  artifactDirectory: "./src/__generated__",
+};
+```
+
+`relay` 컴파일 명령어 추가
+
+```json:package.json
+"scripts": {
+    ...
+    "relay": "rescript-relay-compiler",
+    "relay:watch": "rescript-relay-compiler --watch"
+},
+```
+
+테스트용 로컬 graphql 서버 실행
+
+```shell
+npm install -g graphql-client-example-server && graphql-client-example-server
+```
+
+테스트 용이므로 수동으로 [schema.graphql](https://github.com/zth/graphql-client-example-server/blob/master/schema.graphql) 생성
+
+`bs-fetch` 설치 및 설정
+
+```shell
+yarn add bs-fetch
+```
+
+```json:bsconfig.json
+...
+"bs-dependencies": ["@rescript/react", "rescript-relay", "bs-fetch"],
+```
+
+`RelayEnv.res` 작성
+
+```reason:src/relay/RelayEnv.res
+// https://github.com/zth/rescript-relay/blob/master/example/src/RelayEnv.res
+...
+  open Fetch
+  fetchWithInit(
+    "http://localhost:4000/graphql",
+```
+
+`_app.js` 삭제 후 `App.res` 작성
+
+```reason:src/pages/App.res
+// https://github.com/ryyppy/rescript-nextjs-template/blob/master/src/App.res
+...
+let default = (props: props): React.element => {
+  let {component, pageProps} = props
+
+  let content = React.createElement(component, pageProps)
+
+  <RescriptRelay.Context.Provider environment=RelayEnv.environment>
+    content
+  </RescriptRelay.Context.Provider>
+}
+```
+
+동시 실행 설정
+
+```shell
+yarn add concurrently
+```
+
+```json:package.json
+"scripts": {
+  "dev": "concurrently \"yarn relay:watch\" \"yarn res:dev\" \"next dev\"",
+ ...
+},
+```
+
+## 🥁 실행해보기
+
+query 실행하기 위한 코드 작성
+
+```reason:Index.res
+module Query = %relay(`
+  query IndexQuery {
+    ...Tickets_query
+  }
+`)
+
+@react.component
+let default = () => {
+  let query = Query.use(~variables=(), ())
+  <React.Suspense fallback={<div> {React.string("Loading...")} </div>}>
+    <Tickets queryRef=query.fragmentRefs />
+  </React.Suspense>
+}
+```
+
+```reason:components/Tickets.res
+module Fragment = %relay(`
+  fragment Tickets_query on Query
+  @refetchable(queryName: "TicketsRefetchQuery")
+  @argumentDefinitions(
+    first: { type: "Int", defaultValue: 2 }
+    after: { type: "String", defaultValue: "" }
+  ) {
+    ticketsConnection(first: $first, after: $after)
+      @connection(key: "Tickets_ticketsConnection") {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`)
+
+@react.component
+let make = (~queryRef) => {
+  let {data} = Fragment.usePagination(queryRef)
+  <>
+    {data.ticketsConnection
+    ->Fragment.getConnectionNodes
+    ->Belt.Array.map(ticket => <> {ticket.id->React.string} </>)
+    ->React.array}
+  </>
+}
+```
+
+`yarn dev`로 실행
+
+### 🥹 에러 1 - 해결
+
+`yarn dev` 로 실행 후 에러 발생 🥲
+
+```shell
+import * as Curry from "rescript/lib/es6/curry.js";
+[2] ^^^^^^
+[2] SyntaxError: Cannot use import statement outside a module
+```
+
+![](/posts/try-nextjs-relay-rescript/1.png)
+
+rescript-relay 디스코드에 질문해서 해결!  
+`Next.js` 에서 es6 사용 불가능 당연함 서버사이드임.
+
+```json:bsconfig.json
+"package-specs": {
+  "module": "commonjs",
+  "in-source": true
+},
+```
+
+### 😢 에러 2 - 해결
+
+commonjs로 바꾸고, 빌드하니 알 수 없는 에러가 뜸.  
+`res:clean` 후에 다시 빌드하니 에러 사라짐. 해결!  
+
+### 😭 에러 3 - 해결 중
+
+hydrating 에러 Hi~
+
+```plain
+Error: This Suspense boundary received an update before it finished hydrating.
+This caused the boundary to switch to client rendering.
+The usual way to fix this is to wrap the original update in startTransition.
+```
+
+```reason:Index.res
+let default = () => {
+  let query = Query.use(~variables=(), ())
+  <React.Suspense fallback={<div> {React.string("Loading...")} </div>}>
+    <Tickets queryRef=query.fragmentRefs />
+  </React.Suspense>
+}
+```
+
+![](/posts/try-nextjs-relay-rescript/2.png)
+
+트위터 및 [GraphQL 연구소 디스코드](https://twitter.com/xiniha_1e88df/status/1550025194496217090?s=20&t=gLzJKBQ44_tcncap0JK_0A)의
+도움으로 [relay-data-driven-dependencies](https://github.com/relayjs/relay-examples/tree/main/data-driven-dependencies)를 추천받았음.
+
+### 💧 에러 4 - 해결 중
+
+에러 3과 연관되어있음. `React.Suspense` 를 제거하니 잘 작동함.  
+**근데.. 왜?**
+
+그리고 처음 진입할 때 쿼리 2번 호출됨. 왜...?
+
+```reason:Index.res
+module Query = %relay(`
+  query IndexQuery {
+    ...Tickets_query
+  }
+`)
+
+let default = () => {
+  let query = Query.use(~variables=(), ())
+  <Tickets queryRef=query.fragmentRefs />
+}
+```
+
+## 🌊 에러 5 - 해결 중
+
+`getServerSideProps`에서 query 어떻게 호출하는 걸까?  
+밑은 안되는 코드. 에러도 없고, 작동도 하는데 `undefined` 반환함.
+
+```reason:Index.res
+type props = {preloadedQueries: IndexQuery_graphql.Types.response}
+
+let default = (props: props) => {
+  props.preloadedQueries->Js.log
+  <> </>
+}
+
+let getServerSideProps = _ctx => {
+  let props = {
+    preloadedQueries: Query.use(~variables=(), ()),
+  }
+  Js.Promise.resolve({"props": props})
+}
+```
+
+`rescript-relay` 디스코드에서 발췌.  
+이거 되는 걸까...? 🥹
+
+```plain
+Yeah neither the default model of Next.js (getServerSideProps)
+or Remix (everything centered around a server driven loader) works optimally
+for GraphQL/Relay in particular
+```
+
+`rescript-relay` 디스코드에서 나눈 대화.  
+이거 내가 할 수 있는 걸까? 🥹
+
+![](/posts/try-nextjs-relay-rescript/3.png)
+
+> 해당 게시글은 에러를 수정하거나 개발이 진행될 때마다 수정됩니다.
+
+> Refer
+> - [rescript-relay](https://github.com/zth/rescript-relay)
+> - [rescript-relay-documentation](https://rescript-relay-documentation.vercel.app)
