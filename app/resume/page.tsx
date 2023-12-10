@@ -2,6 +2,8 @@ import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import resume from "./data/resume";
 import Link from "next/link";
 import { LinkIcon } from "lucide-react";
+import { Metadata } from "next";
+import metadata from "@/util/metadata";
 
 export default function ResumePage() {
   return (
@@ -91,7 +93,11 @@ export default function ResumePage() {
             <p className="text-[13px] text-gray-600 dark:text-gray-300 flex flex-col gap-1">
               {item.content.map(({ url, title }) =>
                 url ? (
-                  <Link href={url} key={title} className="text-sky-800 hover:underline">
+                  <Link
+                    href={url}
+                    key={title}
+                    className="text-sky-800 hover:underline"
+                  >
                     · {title}
                   </Link>
                 ) : (
@@ -104,4 +110,12 @@ export default function ResumePage() {
       </section>
     </div>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadata({
+    title: "정미량 이력서",
+    description: "프론트엔드 개발자 이력서",
+    path: `/resume`,
+  });
 }

@@ -3,12 +3,7 @@ import "./style/globals.css";
 import { suit } from "./style/fonts/suit";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-
-export const metadata: Metadata = {
-  title: "Miryang | Frontend Engineer",
-  description:
-    "miryang.dev, 프론트엔드 개발자의 블로그, Lazy Frontend Engineer who likes to travel",
-};
+import GoogleAnalytics from "@/components/google-analytics";
 
 export default function RootLayout({
   children,
@@ -23,7 +18,14 @@ export default function RootLayout({
           <div className="px-5 py-7 flex flex-col">{children}</div>
         </main>
         <Footer />
+        <GoogleAnalytics />
       </body>
     </html>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Miryang | Frontend Engineer",
+  description:
+    "miryang.dev, 프론트엔드 개발자의 블로그, Lazy Frontend Engineer who likes to travel",
+};

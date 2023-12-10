@@ -1,6 +1,8 @@
 import supabase from "@/util/supabase";
 import Bubble from "./components/bubble";
 import GuestbookForm from "./components/form";
+import { Metadata } from "next";
+import metadata from "@/util/metadata";
 
 export const revalidate = 3600;
 
@@ -25,4 +27,12 @@ export default async function GuestbookPage() {
       <GuestbookForm />
     </>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return metadata({
+    title: "방명록",
+    description: "방명록",
+    path: `/guestbook`,
+  });
 }

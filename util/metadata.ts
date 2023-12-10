@@ -21,7 +21,7 @@ const defaultImage = `/main.png`;
 
 export default function metadata(props: MetadataProps): Metadata {
   const { title, description: desc, path, image, label1, label2 } = props;
-  const description = desc + " | 미량의 개발 블로그";
+  const description = desc + " | 미량의 개발 블로그, miryang.dev";
 
   const images = webUrl + (image ?? defaultImage);
 
