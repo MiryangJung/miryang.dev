@@ -1,9 +1,4 @@
-import {
-  CardHeader,
-  CardContent,
-  Card,
-  CardFooter,
-} from "@/components/ui/card";
+import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import resume from "./data/resume";
 import Link from "next/link";
 import { LinkIcon } from "lucide-react";
@@ -28,29 +23,31 @@ export default function ResumePage() {
         ))}
       </p>
 
-      <section className="my-5 py-10 border-t">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          Experience
+      <section className="my-5 pt-10 border-t">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          👩🏻‍💻 Experience
         </h2>
 
         {resume.experience.map((item) => (
-          <Card className="mb-6 bg-white/50" key={item.company}>
+          <Card className="mb-6 bg-white/70" key={item.company}>
             <CardHeader className="flex flex-col">
-              <h3 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100">
+              <h3 className="text-[22px] font-extrabold text-gray-900 dark:text-gray-100">
                 {item.company}
               </h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">
+              <p className="text-zinc-500 dark:text-gray-400 text-sm font-medium">
                 {item.position} | {item.period}
               </p>
             </CardHeader>
-            <CardContent className="text-gray-700 dark:text-gray-300 flex flex-col gap-3">
+            <CardContent className="text-gray-700 dark:text-gray-300 flex flex-col gap-4">
               {item.content.map((content) => (
                 <div
                   key={content.title}
                   className="break-keep flex flex-col mb-2 gap-1"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-lg">{content.title}</span>
+                    <span className="font-bold text-lg text-slate-900">
+                      {content.title}
+                    </span>
                     {content.link && (
                       <LinkIcon
                         width={12}
@@ -59,23 +56,50 @@ export default function ResumePage() {
                       />
                     )}
                   </div>
-                  <span className="text-slate-500 text-xs mb-2">
+                  <span className="text-slate-500 font-light text-xs mb-2">
                     {content.description}
                   </span>
                   {content.do.map((doItem) => (
-                    <span key={doItem} className="text-[13px] font-medium">
+                    <span key={doItem} className="text-[13px]">
                       · {doItem}
                     </span>
                   ))}
 
-                  <p className="text-xs text-gray-400 font-light mt-0.5">
-                    <span className="font-medium">{content.techHighlight.join(", ")}</span>
+                  <p className="text-xs text-zinc-400 font-extralight mt-0.5">
+                    <span className="font-medium">
+                      {content.techHighlight.join(", ")}
+                    </span>
                     <span>{content.tech.join(", ")}</span>
                   </p>
                 </div>
               ))}
             </CardContent>
           </Card>
+        ))}
+      </section>
+
+      <section className="my-5">
+        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          💻 Other Experience
+        </h2>
+
+        {resume.otherExperience.map((item) => (
+          <div className="flex flex-col gap-1 mb-5" key={item.name}>
+            <h3 className="text font-bold text-gray-900 dark:text-white">
+              {item.name}
+            </h3>
+            <p className="text-[13px] text-gray-600 dark:text-gray-300 flex flex-col gap-1">
+              {item.content.map(({ url, title }) =>
+                url ? (
+                  <Link href={url} key={title} className="text-sky-800 hover:underline">
+                    · {title}
+                  </Link>
+                ) : (
+                  <span key={title}>· {title}</span>
+                )
+              )}
+            </p>
+          </div>
         ))}
       </section>
     </div>
