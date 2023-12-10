@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <>
-      <h1 className="text-xl font-bold">정미량</h1>
+      <h1 className="text-xl font-bold">miryang</h1>
       <span className="text-gray-500 mb-5">안녕하세요. 너무 반갑습니다. 🫶</span>
 
       <div className="flex flex-col items-center justify-center gap-5 sm:flex-row sm:items-start">
