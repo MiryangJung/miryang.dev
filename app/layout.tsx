@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./style/globals.css";
 import { suit } from "./style/fonts/suit";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Miryang | Frontend Engineer",
@@ -21,6 +22,7 @@ export default function RootLayout({
           <Header />
           <div className="px-5 py-7 flex flex-col">{children}</div>
         </main>
+        <Footer />
       </body>
     </html>
   );

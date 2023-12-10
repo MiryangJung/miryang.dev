@@ -100,6 +100,7 @@
 .prose figure :where(code):not(:where([class~="not-prose"] *)),
 .prose figure :where(code):not(:where([class~="not-prose"] *)) {
   color: var(--foreground);
+  font-weight: 400;
 }
 
 .prose figure :where(code):not(:where([class~="not-prose"] *))::before,

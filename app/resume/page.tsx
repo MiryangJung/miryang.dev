@@ -17,7 +17,7 @@ export default function ResumePage() {
         miryang.dev@gmail.com
       </Link>
 
-      <p className="text-sm font-light text-gray-600 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
+      <p className="text-[13px] font-light text-gray-600 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
         {resume.about.map((item, index) => (
           <span key={index}>{item}</span>
         ))}
