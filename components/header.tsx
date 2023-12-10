@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "./nav";
 import MobileNav from "./mobile-nav";
+import Image from "next/image";
 
 export default function Header() {
   return (
@@ -15,7 +16,7 @@ export default function Header() {
 function Logo() {
   return (
     <Link href="/" className="font-extrabold">
-      miryang.dev
+      <Image width={30} height={30} src="/logo.png" alt="로고" />
     </Link>
   );
 }
