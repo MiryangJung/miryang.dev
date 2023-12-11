@@ -7,7 +7,7 @@ interface Props {
 
 const components = {
   a: ({className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
-    <a target="_blank" rel="noopener" {...props} className={cn([className, "text-indigo-700"])} />
+    <a target="_blank" rel="noopener" {...props} className={cn([className, "text-blue-700"])} />
   ),
 };
 
