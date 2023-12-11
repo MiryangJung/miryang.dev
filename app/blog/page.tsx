@@ -1,15 +1,14 @@
+import PageLayout from "@/components/page-layout";
 import { allBlogs } from "contentlayer/generated";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function BlogPage() {
   return (
-    <>
-      <h1 className="text-2xl font-bold">Blog</h1>
-      <span className="text-gray-500 mb-5">
-        공유하고 싶거나 다시 보고 싶은 기술들을 정리합니다.
-      </span>
-
+    <PageLayout
+      title="Blog"
+      description="공유하고 싶거나 다시 보고 싶은 기술들을 정리합니다."
+    >
       {allBlogs
         .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
         .map((blog) => (
@@ -35,6 +34,6 @@ export default function BlogPage() {
             />
           </Link>
         ))}
-    </>
+    </PageLayout>
   );
 }

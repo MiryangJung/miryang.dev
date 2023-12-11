@@ -15,7 +15,7 @@ export default function RootLayout({
       <body className="max-w-screen-md min-w-[320px] mx-auto">
         <main className="flex flex-col">
           <Header />
-          <div className="px-5 pt-7 pb-16 flex flex-col">{children}</div>
+          {children}
         </main>
         <Footer />
         <GoogleAnalytics />

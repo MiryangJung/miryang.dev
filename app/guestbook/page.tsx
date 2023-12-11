@@ -14,7 +14,6 @@ export default async function GuestbookPage() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold">익명 방명록</h1>
       <span className="text-gray-600 mb-5">
         23년 1월부터 작성된 방명록 <b>{count}개</b>
       </span>

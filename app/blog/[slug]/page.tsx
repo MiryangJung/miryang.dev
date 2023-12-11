@@ -20,7 +20,9 @@ export default async function DocPage({ params }: Props) {
 
   return (
     <div className="flex flex-col">
-      <h1 className="text-3xl font-black">{post.title}</h1>
+      <h1 className="text-3xl font-black bg-gradient-to-r from-slate-600 via-blue-300 to-indigo-800 inline-block text-transparent bg-clip-text">
+        {post.title}
+      </h1>
       <time className="text-gray-500 text-sm mt-2 ml-auto">{post.date}</time>
       <Mdx code={post.body.code} />
       <Supplement />
