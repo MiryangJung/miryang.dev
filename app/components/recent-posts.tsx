@@ -12,7 +12,7 @@ export default function RecentPosts() {
           <Link
             href={`/blog/${blog.slug}`}
             key={blog.slug}
-            className="flex flex-col gap-1 flex-1 my-3.5"
+            className="flex flex-col gap-1 flex-1"
           >
             <span className="font-bold text-lg break-keep"> {blog.title}</span>
             <span>{blog.description}</span>
