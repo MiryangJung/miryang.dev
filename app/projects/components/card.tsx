@@ -20,7 +20,7 @@ export default function ProjectCard({
     <Card>
       <CardHeader>
         <div className="flex gap-1 items-start justify-between">
-          <CardTitle className="break-keep">{title}</CardTitle>
+          <CardTitle className="break-all">{title}</CardTitle>
           {url && (
             <Link href={url} target="_blank" className="p-0.5">
               <LinkIcon width={12} height={12} className="text-blue-400" />
