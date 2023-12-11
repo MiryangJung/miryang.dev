@@ -7,7 +7,7 @@ import metadata from "@/util/metadata";
 
 export default function ResumePage() {
   return (
-    <div className="flex flex-col w-full px-8 py-10 bg-gray-50 dark:bg-gray-900">
+    <>
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
         정미량
       </h1>
@@ -108,7 +108,7 @@ export default function ResumePage() {
           </div>
         ))}
       </section>
-    </div>
+    </>
   );
 }
 
