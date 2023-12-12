@@ -15,7 +15,7 @@ export default async function GuestbookPage() {
   return (
     <>
       <span className="text-gray-600 mb-5">
-        23년 1월부터 작성된 방명록 <b>{count}개</b>
+        22년 01월부터 작성된 방명록 <b>{count}개</b>
       </span>
 
       <div className="flex flex-col gap-2.5 my-5">
