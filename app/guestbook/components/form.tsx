@@ -33,10 +33,11 @@ export default function GuestbookForm() {
 
   async function onSubmit() {
     const isValid = await trigger();
-    if (!isValid) return;
+    if (!isValid || isSubmitting) return;
 
     const values = form.getValues();
     await insertGuestbookAction(values);
+    form.setValue("message", "");
   }
 
   return (
