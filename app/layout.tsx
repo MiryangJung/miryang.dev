@@ -4,6 +4,7 @@ import { suit } from "./style/fonts/suit";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import GoogleAnalytics from "@/components/google-analytics";
+import { ThemeProvider } from "./components/theme-provider";
 
 export default function RootLayout({
   children,
@@ -11,12 +12,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={suit.className}>
+    <html lang="ko" className={suit.className} suppressHydrationWarning>
       <body className="max-w-screen-md min-w-[320px] mx-auto">
-        <main className="flex flex-col">
-          <Header />
-          {children}
-        </main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="flex flex-col">
+            <Header />
+            {children}
+          </main>
+        </ThemeProvider>
         <Footer />
         <GoogleAnalytics />
       </body>

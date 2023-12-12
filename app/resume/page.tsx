@@ -31,7 +31,10 @@ export default function ResumePage() {
         </h2>
 
         {resume.experience.map((item) => (
-          <Card className="mb-6 bg-white/70" key={item.company}>
+          <Card
+            className="mb-6 bg-white/70 dark:bg-black/70"
+            key={item.company}
+          >
             <CardHeader className="flex flex-col">
               <h3 className="text-[22px] font-extrabold text-gray-900 dark:text-gray-100">
                 {item.company}
@@ -47,22 +50,20 @@ export default function ResumePage() {
                   className="break-keep flex flex-col mb-2 gap-1"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-lg text-slate-900">
-                      {content.title}
-                    </span>
+                    <span className="font-bold text-lg">{content.title}</span>
                     {content.link && (
                       <LinkIcon
                         width={12}
                         height={12}
-                        className="text-blue-800"
+                        className="text-blue-800 dark:text-sky-300"
                       />
                     )}
                   </div>
-                  <span className="text-slate-500 font-light text-xs mb-2">
+                  <span className="text-slate-400 font-light text-xs mb-2">
                     {content.description}
                   </span>
                   {content.do.map((doItem) => (
-                    <span key={doItem} className="text-[13px]">
+                    <span key={doItem} className="text-[13px] dark:text-gray-300">
                       · {doItem}
                     </span>
                   ))}
@@ -96,7 +97,7 @@ export default function ResumePage() {
                   <Link
                     href={url}
                     key={title}
-                    className="text-sky-800 hover:underline"
+                    className="text-sky-800 dark:text-sky-300 hover:underline"
                   >
                     · {title}
                   </Link>

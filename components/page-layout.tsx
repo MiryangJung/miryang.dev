@@ -15,10 +15,12 @@ export default function PageLayout({
 }: PageLayoutProps) {
   return (
     <div className={cn(["px-5 pt-7 pb-16 flex flex-col gap-5", className])}>
-      <div className="flex flex-col gap-1">
-        {title && <h1 className="text-2xl font-bold">{title}</h1>}
-        {description && <span className="text-gray-500">{description}</span>}
-      </div>
+      {(title || description) && (
+        <div className="flex flex-col gap-1">
+          {title && <h1 className="text-2xl font-bold">{title}</h1>}
+          {description && <span className="text-gray-500">{description}</span>}
+        </div>
+      )}
 
       {children}
     </div>
