@@ -8,6 +8,9 @@ import MessageInput from "./message-input";
 import ColorPicker from "./color-picker";
 import { Button } from "@/components/ui/button";
 import insertGuestbookAction from "../actions/insert-guestbook-action";
+// @ts-expect-error
+// https://github.com/vercel/next.js/issues/49232
+import { useFormStatus } from "react-dom";
 
 export const guestbookFormSchema = z.object({
   message: z.string().min(1).max(3000),
@@ -29,11 +32,11 @@ export default function GuestbookForm() {
   });
 
   const { watch, trigger, formState } = form;
-  const { isValid, isSubmitting } = formState;
+  const { isValid } = formState;
 
   async function onSubmit() {
     const isValid = await trigger();
-    if (!isValid || isSubmitting) return;
+    if (!isValid) return;
 
     const values = form.getValues();
     await insertGuestbookAction(values);
@@ -49,20 +52,28 @@ export default function GuestbookForm() {
         <div className="flex flex-col items-start gap-2 w-5/6 p-3 rounded-2xl placeholder:flex bg-stone-100/95 backdrop-blur supports-[backdrop-filter]:bg-stone-100/60">
           <div className="w-full flex gap-2">
             <MessageInput />
-            <Button
-              type="submit"
-              className="w-10 border"
-              variant="secondary"
-              style={{ borderColor: watch("color") }}
-              disabled={!isValid || isSubmitting}
-            >
-              전송
-            </Button>
+            <Submit disabled={!isValid} color={watch("color") ?? ""} />
           </div>
 
           <ColorPicker />
         </div>
       </form>
     </Form>
+  );
+}
+
+function Submit({ disabled, color }: { disabled: boolean; color: string }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      type="submit"
+      className="w-10 border"
+      variant="secondary"
+      style={{ borderColor: color }}
+      disabled={disabled || pending}
+    >
+      전송
+    </Button>
   );
 }
