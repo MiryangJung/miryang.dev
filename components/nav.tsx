@@ -38,7 +38,15 @@ export default function Nav() {
   );
 }
 
-export function NavItem({ href, label }: { href: string; label: string }) {
+export function NavItem({
+  href,
+  label,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  onClick?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
@@ -48,6 +56,7 @@ export function NavItem({ href, label }: { href: string; label: string }) {
         "transition-colors hover:text-foreground/80 py-3",
         pathname?.startsWith(href) ? "text-foreground" : "text-foreground/60"
       )}
+      onClick={onClick}
     >
       {label}
     </Link>
