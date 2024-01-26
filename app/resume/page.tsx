@@ -52,18 +52,23 @@ export default function ResumePage() {
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-lg">{content.title}</span>
                     {content.link && (
-                      <LinkIcon
-                        width={12}
-                        height={12}
-                        className="text-blue-800 dark:text-sky-300"
-                      />
+                      <Link href={content.link} target="_blank">
+                        <LinkIcon
+                          width={12}
+                          height={12}
+                          className="text-blue-800 dark:text-sky-300"
+                        />
+                      </Link>
                     )}
                   </div>
                   <span className="text-slate-400 font-light text-xs mb-2">
                     {content.description}
                   </span>
                   {content.do.map((doItem) => (
-                    <span key={doItem} className="text-[13px] dark:text-gray-300">
+                    <span
+                      key={doItem}
+                      className="text-[13px] dark:text-gray-300"
+                    >
                       · {doItem}
                     </span>
                   ))}
