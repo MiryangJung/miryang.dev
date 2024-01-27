@@ -1,0 +1,160 @@
+---
+title: JavaScript 클로저(closure)에 대해 알아보기
+date: 2024-01-27
+description: Basic is the Best!
+thumbnailUrl: /posts/thumbnail/js-closure.jpg
+tags: ["frontend", "js", "closure"]
+---
+
+> 공부 기록용으로 오개념이 있을 시 알려주시면 감사하겠습니다.
+
+[leetcode의 30-days-of-javascript](https://leetcode.com/studyplan/30-days-of-javascript)를 시작했습니다.  
+Day2의 **Counter**가 `클로저(closure)`를 사용하는 문제라서 이참에 다시 클로저에 대해 공부해 봅니다.
+
+---
+
+[MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)에서는 아래와 같이 정의하고 있습니다.
+
+> 클로저는 주변 상태(Lexical environment)에 대한 참조와 함께 묶인(포함된) 함수의 조합입니다.
+
+## Lexical scoping
+
+`Lexical scoping`은 함수가 선언된 위치에 따라 상위 스코프를 결정하는 방식입니다.  
+즉, 함수가 어디서 호출되는지가 아니라 어디에 선언되었는지에 따라 상위 스코프가 결정됩니다.
+
+```javascript
+let x = "A";
+
+function first() {
+  let x = "B";
+  second();
+}
+
+function second() {
+  console.log(x);
+}
+
+first(); // A
+second(); // A
+```
+
+위 코드에서 `second()`가 호출된 위치는 의미없으며, **global에 선언**되었으므로 x="A" 값을 가지게 됩니다.
+
+## Lexical environment
+
+따라서 `Lexical environment`는 변수, 함수 및 블록 범위에 대한 정보를 저장하는 데이터 구조입니다.  
+함수가 호출되면 자체 Lexical environment가 생성되며, 해당 실행 컨텍스트 내에서 변수와 함수에 대한 접근을 저장하고 있습니다.
+
+```javascript
+function outer() {
+  let outerValue = "outer";
+  function inner() {
+    console.log(outerValue);
+  }
+  inner(); // "outer"
+}
+outer();
+```
+
+`inner()`는 outer 함수의 outerValue 변수에 접근합니다.  
+inner 함수가 outer 함수의 outerValue 대한 참조를 유지하는 Lexical environment를 상위 환경으로 갖기 때문입니다.
+
+1. inner 함수 내에서 outerValue 변수를 사용하면 Lexical environment는 **먼저 inner 함수의 지역 환경에서 outerValue 변수**를 찾습니다.
+2. outerValue 변수가 inner 함수의 지역 환경에 없으면 Lexical environment는 **다음으로 outer 함수의 Lexical environment에서** 찾습니다.
+
+`Lexical environment`는 함수가 선언된 외부 함수의 변수에 대한 참조도 저장할 수 있습니다. 이 참조를 통해 클로저가 생성됩니다.
+
+## Closure
+
+**함수가 다른 함수 내부에 정의되고 내부 함수가 외부 함수 범위의 변수를 참조하면 클로저가 생성**됩니다.
+
+내부 함수가 외부 함수 범위에 대한 참조를 유지하고, 외부 함수 실행이 완료된 후에도 Lexical environment를 통해 해당 변수를 계속 접근할 수 있게 됩니다.
+
+```javascript
+function createCounter(n: number): () => number {
+  let counter = n;
+
+  return function () {
+    counter++;
+    return counter;
+  };
+}
+
+/**
+ * const counter = createCounter(10)
+ * counter() // 11
+ * counter() // 12
+ * counter() // 13
+ */
+```
+
+위 코드에서 createCounter에서 반환되는 함수는 count변수에 대한 참조를 유지하는 클로저가 됩니다.
+
+매개 변수를 사용할 수도 있습니다.
+
+```javascript
+function add(x) {
+  return function (y) {
+    return x + y;
+  };
+}
+
+const add5 = add(5);
+add5(3); // 8
+```
+
+`add(x)`의 반환되는 내부 익명함수는 매개변수 x에 접근할 수 있는 클로저입니다.
+
+1. `add(5)`가 실행되면 x=5인 Lexical environment이 생성됩니다.
+2. `add5(3)`을 호출하면 y에는 3이 전달됩니다. 이때 내부 함수는 자신이 정의된 렉시컬 환경에서 x를 참조하여 5를 가져오고, y와 더하여 8을 반환합니다.
+
+Closure의 장점인 **상태 유지**, **프라이빗 변수**를 사용해 비동기로 데이터를 처리하는 함수를 만들 수 있습니다.
+
+```javascript
+function fetchData(url) {
+  let data = null;
+
+  async function loadData() {
+    try {
+      const response = await fetch(url);
+      data = await response.json();
+      console.log("Data loaded:", data);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  }
+
+  // 데이터를 로드하고 외부에서 접근할 수 없는 클로저 반환
+  return {
+    load: function () {
+      loadData();
+    },
+    getData: function () {
+      return data;
+    },
+  };
+}
+
+const dataLoader = fetchData("https://miryang.dev");
+
+dataLoader.load();
+
+setTimeout(() => {
+  console.log("Loaded data:", dataLoader.getData());
+}, 2000);
+```
+
+`fetchData` 함수는 클로저를 반환합니다.  
+반환된 클로저 내부에서는 data 변수에 로드된 데이터를 저장하고, 해당 데이터에 접근할 수 있는 메소드를 제공합니다.  
+데이터는 클로저 내부에서 유지되며 외부에서 직접적으로 변경할 수 없습니다.  
+또한 `loadData()` 함수가 종료된 후에도 비동기적으로 호출 되더라도 로드된 데이터를 유지합니다.  
+`getData` 메소드를 통해 계속 접근할 수 있습니다.
+
+이렇게 클로저를 사용하면 데이터와 관련된 동작을 캡슐화하여 코드를 깔끔하게 유지할 수 있으며, 외부에서 데이터에 접근하는 것을 방지해 불변성을 유지할 수 있습니다.
+
+---
+
+- refer
+  - [Day2=O(1)>Understanding Closure in easy way and its practical uses!!](https://leetcode.com/problems/counter/solutions/3491300/day2-o-1-understanding-closure-in-easy-way-and-its-practical-uses)
+  - [poiemaweb.com/js-closure](https://poiemaweb.com/js-closure)
+  - ChatGPT
