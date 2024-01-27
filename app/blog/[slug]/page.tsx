@@ -19,7 +19,7 @@ export default async function DocPage({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-5 gap-1">
       <h1 className="text-3xl font-black bg-gradient-to-r from-slate-600 via-slate-300 to-slate-700 inline-block text-transparent bg-clip-text">
         {post.title}
       </h1>
