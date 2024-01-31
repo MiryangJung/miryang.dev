@@ -2,10 +2,18 @@ export type Project = {
   title: string;
   description: string;
   url?: string;
+  github?: string;
   image: string;
 };
 
 export const projects: Project[] = [
+  {
+    title: "모바일 청첩장",
+    description: "나의 결혼식을 위한 모바일 청첩장",
+    url: "https://wedding.beomyeong.miryang.dev",
+    github: "https://github.com/MiryangJung/wedding-invitation",
+    image: "/projects/wedding.png",
+  },
   {
     title: "2023 펜지니어 컨퍼런스",
     description: "'솔플 프로젝트 두려워 마세요'라는 주제로 발표",
@@ -21,12 +29,14 @@ export const projects: Project[] = [
     title: "FECONF2022",
     description: "'ReScript 같이 해요'라는 주제로 발표",
     url: "https://www.youtube.com/watch?v=208ZBisLuXw",
+    github:
+      "https://github.com/MiryangJung/2022-feconf-slides-rescript-together",
     image: "/projects/feconf-rescript.webp",
   },
   {
     title: "projectdiscovery/nuclei",
     description: "ProjectDiscovery의 nuclei 프로젝트의 README를 번역",
-    url: "https://github.com/projectdiscovery/nuclei/blob/master/README_KR.md",
+    github: "https://github.com/projectdiscovery/nuclei/blob/master/README_KR.md",
     image: "/projects/nuclei.png",
   },
   {
@@ -44,7 +54,7 @@ export const projects: Project[] = [
   {
     title: "miryang.dev",
     description: "My personal website written with Next.js",
-    url: "https://github.com/MiryangJung/miryang.dev",
+    github: "https://github.com/MiryangJung/miryang.dev",
     image: "/projects/miryangdev.gif",
   },
 ];
