@@ -1,3 +1,4 @@
+import { getTzDay } from "@/util/days";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -16,7 +17,7 @@ export default function Footer() {
         </Link>
       </div>
       <span className="text-xs text-slate-500">
-        Copyright © 2023 MiryangJung
+        Copyright © {getTzDay(new Date()).get("year")} MiryangJung
       </span>
     </footer>
   );
