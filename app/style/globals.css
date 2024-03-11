@@ -77,6 +77,11 @@
 
 .prose {
   max-width: none;
+  @apply font-light;
+}
+
+.prose-slate {
+  @apply text-slate-800 dark:text-slate-200;
 }
 
 .rehype-code-title {
