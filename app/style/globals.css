@@ -77,7 +77,6 @@
 
 .prose {
   max-width: none;
-  @apply font-light;
 }
 
 .prose-slate {
