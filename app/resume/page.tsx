@@ -4,6 +4,7 @@ import Link from "next/link";
 import { LinkIcon } from "lucide-react";
 import { Metadata } from "next";
 import metadata from "@/util/metadata";
+import { Fragment } from "react";
 
 export default function ResumePage() {
   return (
@@ -19,7 +20,7 @@ export default function ResumePage() {
         miryang.dev@gmail.com
       </Link>
 
-      <p className="text-[13px] font-light text-gray-600 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
+      <p className="text-[13px] font-light text-gray-700 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
         {resume.about.map((item, index) => (
           <span key={index}>{item}</span>
         ))}
@@ -36,14 +37,17 @@ export default function ResumePage() {
             key={item.company}
           >
             <CardHeader className="flex flex-col">
-              <h3 className="text-[22px] font-extrabold text-gray-900 dark:text-gray-100">
+              <h3
+                className="text-[22px] font-extrabold text-gray-900 dark:text-gray-100"
+                style={{ color: item.companyColor }}
+              >
                 {item.company}
               </h3>
               <p className="text-zinc-500 dark:text-gray-400 text-sm font-medium">
                 {item.position} | {item.period}
               </p>
             </CardHeader>
-            <CardContent className="text-gray-700 dark:text-gray-300 flex flex-col gap-4">
+            <CardContent className="text-gray-900 dark:text-gray-300 flex flex-col gap-4">
               {item.content.map((content) => (
                 <div
                   key={content.title}
@@ -61,22 +65,39 @@ export default function ResumePage() {
                       </Link>
                     )}
                   </div>
-                  <span className="text-slate-400 font-light text-xs mb-2">
+                  <span className="text-slate-500 font-light text-xs mb-2">
                     {content.description}
                   </span>
-                  {content.do.map((doItem) => (
-                    <span
-                      key={doItem}
-                      className="text-[13px] dark:text-gray-300"
+
+                  {content.do.map((doItem, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-1 text-[13px] mb-1"
                     >
-                      · {doItem}
-                    </span>
+                      <span>·</span>
+                      {doItem instanceof Object ? (
+                        <span key={doItem.title} className="dark:text-gray-300">
+                          <b>{doItem.title}:</b>
+                          <span className="break-keep ml-1">
+                            {doItem.content}
+                          </span>
+                        </span>
+                      ) : (
+                        <span
+                          key={doItem}
+                          className=" dark:text-gray-300 break-keep"
+                        >
+                          {doItem}
+                        </span>
+                      )}
+                    </div>
                   ))}
 
-                  <p className="text-xs text-zinc-400 font-extralight mt-0.5">
+                  <p className="text-xs text-zinc-400 font-extralight mt-1">
                     <span className="font-medium">
                       {content.techHighlight.join(", ")}
                     </span>
+                    {`, `}
                     <span>{content.tech.join(", ")}</span>
                   </p>
                 </div>

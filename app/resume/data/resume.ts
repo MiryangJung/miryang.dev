@@ -1,47 +1,20 @@
-type Content = {
-  title: string;
-  description: string;
-  do: string[];
-  tech: string[];
-  techHighlight: string[];
-  link: string | null;
-};
-
-type Experience = {
-  company: string;
-  position: string;
-  period: string;
-  content: Content[];
-};
-
-type OtherExperience = {
-  name: string;
-  content: { title: string; url?: string }[];
-};
-
-type Resume = {
-  name: string;
-  job: string;
-  contact: string;
-  about: string[];
-  experience: Experience[];
-  otherExperience: OtherExperience[];
-};
+import { Resume } from "./resume.type";
 
 const resume: Resume = {
   name: "정미량",
   job: "Frontend Engineer",
   contact: "Email: miryang.dev@gmail.com",
   about: [
-    "개발자로 스타트업에서 프론트엔드 개발을 하고 있습니다.\n저는 어디서나 뛰어난 사람이 아니라 어디서든 잘 녹아드는 사람입니다.",
-    "개발 중 마주친 문제를 해결하기 위해 최대한의 노력을 하며, 시간이 걸리더라도 공부를 합니다.\n기술 스택을 늘리고, 레벨을 높이기 위해 공부하는 것을 즐기며, 이 과정에서 알게 된 정보를 공유하는 것을 좋아합니다.",
-    "사용자에게 편리하고 즐거운 경험을 제공하는 프로덕트를 만드는 프론트엔드 개발자가 되고 싶습니다.",
-    "의견 충돌을 피하기보다, 의견을 나누고, 토론하는 것을 좋아하며 이를 통해 좋은 결과물을 만들어내는 환경 그리고 사용자의 입장에서 생각하며, 제품에 애착을 가지고 기여할 수 있는 환경에서 일하고 싶습니다.",
-    "대전에 거주 중이며 주 3일 이상 재택근무가 가능한 회사를 찾고 있습니다.\n커피챗은 언제든지 환영합니다. 메일로 연락 부탁드립니다.",
+    "개발자로 스타트업에서 프론트엔드 개발을 하고 있습니다.\n저는 어디서나 뛰어난 사람보다는 어디서든 잘 녹아드는 사람이라고 생각합니다.",
+    "프로젝트 기획 단계부터 적극적으로 참여하여 아이디어 발굴 및 치열한 논의를 거쳐 도출해낸 최적의 결과물을 코드로 구현하는 몰입감과 성취감을 좋아합니다.",
+    "이러한 열정을 바탕으로 사용자에게 편리하고 즐거운 경험을 제공하고, 서비스 사용 과정에서 긍정적인 영향을 주는 다양한 기능을 만드는 프론트엔드 개발자가 되고 싶습니다.",
+    "의견 충돌을 피하기보다, 의견을 나누고 토론하는 것을 통해 좋은 결과물을 만들어내는 환경을 선호하며, 사용자의 입장에서 생각하며 제품에 애착을 가지고 기여할 수 있는 환경에서 일하고 싶습니다.",
+    "천안에 거주 중이며 주 3일 이상 재택근무가 가능한 회사를 찾고 있습니다.\n커피챗은 언제든지 환영합니다. 메일로 연락 부탁드립니다.",
   ],
   experience: [
     {
       company: "언컷젬스컴퍼니",
+      companyColor: "#D35A46",
       position: "Frontend Engineer",
       period: "23.07 ~",
       content: [
@@ -49,19 +22,61 @@ const resume: Resume = {
           title: "페이브릴",
           description: "세컨핸즈 명품 주얼리 전문 거래 커머스 플랫폼입니다.",
           do: [
-            "웹 프론트엔드 프로젝트 초기 세팅 및 기술 스택 선정 및 개발 및 리드",
-            "Next14 사용으로 데이터 revalidate 여부에 따라 렌더링 방식 변경하며 개발",
-            "React Hook Form, Zod를 사용한 멀티페이지 폼 개발",
-            "StoryBook, shadcn-ui를 사용한 공통 컴포넌트 정의 주도",
-            "Route Path 정의 코드가 복잡해짐에 따라 ReScript 도입 시도(복잡도가 동일해 철회)",
-            "ReactNative Webview를 사용한 iOS, Android 앱 개발, 스토어 심사 및 배포",
-            "딥링크, 유니버셜링크, 앱링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동",
-            "Supabase를 사용한 DB 설계 및 백엔드 구축",
-            "백엔드(Supabase) Staging, Production 환경 분리 및 GitHub Action을 사용한 배포 자동화",
-            "본인인증, 토스페이먼츠를 사용한 주문, 쿠폰 등록, Cloudflare Images 업로드 등 Edge Functions를 사용한 API 개발",
-            "거래, 매출, 상품 등록 등의 Slack Bot 알림 자동화",
-            "Retool을 사용한 어드민 페이지 개발 (유저, 쿠폰, 상품, 배너, 브랜드 관리 등)",
-            "개발 업무 리스트업 및 프로젝트 전반의 개발 업무 관리",
+            {
+              title: "초기 멤버로 서비스 출시 및 운영",
+              content: "스택 선정부터 전반적인 서비스 개발 및 배포",
+            },
+            {
+              title: "전반적인 개발 리드",
+              content:
+                "이미 잘 운영되거나 잘 만들어져있는 것을 잘 사용하는 것을 지향하는 개발팀",
+            },
+            {
+              title: "리소스 및 비용을 고려한 스택 선정",
+              content: "개발 및 운영 효율성 극대화",
+            },
+            {
+              title: "AI 추천 시스템 구축",
+              content:
+                "OpenAI text-embedding-3-small 활용 상품 추천 개발로 서비스 임팩트 증가",
+            },
+            {
+              title: "페이지 진입 속도 개선",
+              content: "Streaming SSR 도입으로 페이지 로딩 1.5초 단축",
+            },
+            {
+              title: "상품 등록 UX 개선",
+              content:
+                "확보한 데이터를 활용한 자동 입력 기능 제안 및 개발로 상품 등록 및 입력 시간 단축",
+            },
+            {
+              title: "AB 테스트 도입 및 운영",
+              content:
+                "Growthbook 활용 AB 테스트 도입으로 데이터 기반 의사결정 강화",
+            },
+            {
+              title: "멀티페이지 폼 개발",
+              content: "React Hook Form, Zod 활용하여 개발 및 검증 효율성 향상",
+            },
+            {
+              title: "디자인 시스템 구축(진행 중)",
+              content:
+                "Storybook, shadcn-ui 활용 공통 컴포넌트 정의 및 개발, 런타임을 확인하지 않고도 쉽게 작성하고 표현할 수 있게 한다는 목표로 진행 중",
+            },
+            {
+              title: "WebView 앱 개발 및 운영",
+              content:
+                "스토어 심사 및 배포, 딥링크, 유니버셜링크, 앱링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동",
+            },
+            {
+              title: "토스페이먼츠 연동 결제 시스템 개발",
+              content: "단일 결제 및 분할 결제 개발",
+            },
+            {
+              title: "Slack Bot 알림 자동화",
+              content:
+                "거래, 매출, 상품 등록 등의 Slack Bot 알림 자동화로 운영 효율성 향상",
+            },
           ],
           techHighlight: [
             "Next14",
@@ -83,6 +98,7 @@ const resume: Resume = {
             "App Center CodePush",
             "Vercel",
             "Google Analytics",
+            "Linear",
           ],
           link: "https://fabrill.co.kr",
         },
@@ -90,6 +106,7 @@ const resume: Resume = {
     },
     {
       company: "그린랩스",
+      companyColor: "#0BB25F",
       position: "Frontend Engineer",
       period: "22.02 ~ 23.07",
       content: [
@@ -242,6 +259,7 @@ const resume: Resume = {
     },
     {
       company: "AiRISS",
+      companyColor: "#365ec3",
       position: "FullStack Engineer",
       period: "20.04 ~ 21.05",
       content: [
