@@ -4,14 +4,22 @@ import Link from "next/link";
 import { LinkIcon } from "lucide-react";
 import { Metadata } from "next";
 import metadata from "@/util/metadata";
-import { Fragment } from "react";
 
 export default function ResumePage() {
   return (
     <>
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-        정미량
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          정미량
+        </h1>
+        <Link
+          href="https://read.cv/miryang"
+          target="_blank"
+          className="text-sm"
+        >
+          Resume (English Version)
+        </Link>
+      </div>
       <p className="text-lg text-gray-700 dark:text-gray-300">
         Frontend Engineer
       </p>
