@@ -77,29 +77,46 @@ export default function ResumePage() {
                     {content.description}
                   </span>
 
-                  {content.do.map((doItem, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-1 text-[13px] mb-1"
-                    >
-                      <span>·</span>
-                      {doItem instanceof Object ? (
-                        <span key={doItem.title} className="dark:text-gray-300">
-                          <b>{doItem.title}:</b>
-                          <span className="break-keep ml-1">
-                            {doItem.content}
-                          </span>
-                        </span>
-                      ) : (
-                        <span
-                          key={doItem}
-                          className=" dark:text-gray-300 break-keep"
+                  {content.do.map((doItem, index) => {
+                    if (doItem instanceof Object) {
+                      const regex = new RegExp(
+                        `(${doItem.boldWords.join("|")})`,
+                        "gi"
+                      );
+
+                      // 입력된 텍스트를 정규 표현식에 따라 분할한다
+                      const parts = doItem.content.split(regex);
+
+                      return (
+                        <div
+                          key={index}
+                          className="flex items-center gap-1 text-[13px] mb-1"
                         >
+                          <span>·</span>
+                          <span className=" dark:text-gray-300 break-keep">
+                            {parts.map((part, index) =>
+                              doItem.boldWords.includes(part) ? (
+                                <b key={index}>{part}</b>
+                              ) : (
+                                part
+                              )
+                            )}
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center gap-1 text-[13px] mb-1"
+                      >
+                        <span>·</span>
+                        <span className=" dark:text-gray-300 break-keep">
                           {doItem}
                         </span>
-                      )}
-                    </div>
-                  ))}
+                      </div>
+                    );
+                  })}
 
                   <p className="text-xs text-zinc-400 font-extralight mt-1">
                     <span className="font-medium">

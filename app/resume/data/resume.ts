@@ -23,58 +23,61 @@ const resume: Resume = {
           description: "세컨핸즈 명품 주얼리 전문 거래 커머스 플랫폼입니다.",
           do: [
             {
-              title: "초기 멤버로 서비스 출시 및 운영",
-              content: "스택 선정부터 전반적인 서비스 풀스택 개발 및 배포",
-            },
-            {
-              title: "전반적인 개발 리드",
+              boldWords: ["초기 멤버", "서비스 출시 및 운영"],
               content:
-                "이미 잘 운영되거나 잘 만들어져있는 것을 잘 사용하는 것을 지향하도록 노력",
+                "초기 멤버로 스택 선정부터 전반적인 서비스 풀스택 개발 및 배포, 서비스 출시 및 운영",
             },
             {
-              title: "리소스 및 비용을 고려한 스택 선정",
-              content: "개발 및 운영 효율성 극대화",
-            },
-            {
-              title: "AI 추천 시스템 구축",
+              boldWords: ["전반적인 개발 리드"],
               content:
-                "OpenAI text-embedding-3-small 활용 상품 추천 개발로 서비스 임팩트 증가",
+                "이미 잘 운영되거나 잘 만들어져있는 것을 잘 사용하는 것을 지향하는 것을 지향하며 전반적인 개발 리드",
             },
             {
-              title: "페이지 진입 속도 개선",
-              content: "Streaming SSR 도입으로 페이지 로딩 1.5초 단축",
-            },
-            {
-              title: "상품 등록 UX 개선",
+              boldWords: ["리소스 및 비용을 고려한"],
               content:
-                "확보한 데이터를 활용한 자동 입력 기능 제안 및 개발, 상품 등록 및 입력 시간 단축",
+                "리소스 및 비용을 고려한 스택 선정으로 개발 및 운영 효율성 극대화",
             },
             {
-              title: "AB 테스트 도입 및 운영",
+              boldWords: ["AI 상품 추천 시스템"],
+              content:
+                "OpenAI text-embedding-3-small을 활용한 AI 상품 추천 시스템 구축으로 서비스 임팩트 증가",
+            },
+            {
+              boldWords: ["1.5초 단축"],
+              content: "Streaming SSR 도입으로 페이지 진입 속도 1.5초 단축",
+            },
+            {
+              boldWords: ["UX 개선"],
+              content:
+                "상품 등록 UX 개선을 위해 확보한 데이터를 활용한 자동 입력 기능 제안 및 개발로 상품 등록 및 입력 시간 단축",
+            },
+            {
+              boldWords: ["AB 테스트"],
               content:
                 "Growthbook 활용 AB 테스트 도입으로 데이터 기반 의사결정 강화",
             },
             {
-              title: "멀티페이지 폼 개발",
-              content: "React Hook Form와 Zod를 활용하여 개발 및 검증 효율성 향상",
-            },
-            {
-              title: "디자인 시스템 구축(진행 중)",
+              boldWords: ["멀티페이지 폼 개발"],
               content:
-                "Storybook, shadcn-ui 활용 공통 컴포넌트 정의 및 개발, 런타임을 확인하지 않고도 쉽게 작성하고 표현할 수 있게 한다는 목표로 진행 중",
+                "React Hook Form와 Zod를 활용한 멀티페이지 폼 개발로 개발 및 검증 효율성 향상",
             },
             {
-              title: "WebView 앱 개발 및 운영",
+              boldWords: ["디자인 시스템 구축"],
               content:
-                "스토어 심사 및 배포, 딥링크, 유니버셜링크, 앱링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동",
+                "Storybook, shadcn-ui 활용 디자인 시스템 구축, 런타임을 확인하지 않고도 쉽게 작성하고 표현할 수 있게 한다는 목표로 진행 중",
             },
             {
-              title: "주문 결제 시스템 개발",
+              boldWords: ["WebView 앱 개발 및 운영"],
               content:
-                "토스페이먼츠 사용, 쿠폰 적용 및 단일 결제 및 분할 결제 개발",
+                "WebView 앱 개발 및 운영, 스토어 심사 및 배포, 유니버셜링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동",
             },
             {
-              title: "Slack Bot 알림 자동화",
+              boldWords: ["주문 결제 시스템 개발"],
+              content:
+                "토스페이먼츠를 사용한 주문 결제 시스템 개발, 쿠폰 적용 및 단일 결제 및 분할 결제 개발",
+            },
+            {
+              boldWords: ["Slack Bot 알림 자동화"],
               content:
                 "거래, 매출, 상품 등록 등의 Slack Bot 알림 자동화로 운영 효율성 향상",
             },

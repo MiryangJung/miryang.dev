@@ -1,7 +1,7 @@
 type Content = {
   title: string;
   description: string;
-  do: string[] | { title: string; content: string }[];
+  do: string[] | { boldWords: string[]; content: string }[];
   tech: string[];
   techHighlight: string[];
   link: string | null;
