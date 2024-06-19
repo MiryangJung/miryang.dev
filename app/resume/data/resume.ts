@@ -238,22 +238,10 @@ const resume: Resume = {
           link: null,
         },
         {
-          title: "QIS",
-          description:
-            "역학조사에 기반한 자동화된 방역 시스템입니다. 총 4개의 서버리스 리액트를 개발했습니다.",
-          do: ["CSS 작성 시 BEM 방식을 차용하여 사용", "i18n 으로 국제화 작업"],
-          tech: ["Typescript", "TSX", "Git", "Github", "CSS"],
-          techHighlight: ["React"],
-          link: "https://qisys.io",
-        },
-        {
           title: "Qart.art",
-          description:
-            "QR코드와 블록체인을 이용하여 운영되는 작품 거래 사이트로 프론트엔드를 리팩토링했습니다." +
-            "기존에 이미 개발된 프론트엔드의 잦은 레이아웃 깨짐 현상 및 버그 수정하기 위해 진행되었습니다.",
+          description: "QR코드와 블록체인을 이용하여 운영되는 작품 거래 사이트입니다.",
           do: [
-            "기존 프론트엔드 코드 분석 및 파악",
-            "기존 1000줄이 넘는 파일들을 분리하며 개발",
+            "기존에 이미 개발된 프론트엔드의 잦은 레이아웃 깨짐 현상 및 버그 수정하기 위해 리팩토링",
           ],
           tech: ["JSP", "CSS", "AJAX", "Git"],
           techHighlight: ["Javascript"],
@@ -384,58 +372,35 @@ const resume: Resume = {
       ],
     },
     {
-      name: "번역",
+      name: "오픈소스",
       content: [
         {
-          title: "ProjectDiscovery nuclei README.md",
-          url: "https://github.com/projectdiscovery/nuclei/blob/master/README_KR.md",
+          title: "supabase/supabase",
+          url: "https://github.com/supabase/supabase/pulls?q=is%3Apr+author%3AMiryangJung+is%3Aclosed",
+        },
+        {
+          title: "supabase/auth",
+          url: "https://github.com/supabase/auth/pulls?q=is%3Apr+author%3AMiryangJung+is%3Aclosed",
+        },
+        {
+          title: "projectdiscovery/nuclei",
+          url: "https://github.com/projectdiscovery/nuclei/pulls?q=is%3Apr+is%3Aclosed+author%3AMiryangJung",
+        },
+        {
+          title: "EveryAnalytics/react-analytics-provider",
+          url: "https://github.com/EveryAnalytics/react-analytics-provider/pulls?q=is%3Apr+author%3AMiryangJung+is%3Aclosed",
+        },
+        {
+          title: "EveryAnalytics/web-analytics-handbook",
+          url: "https://github.com/EveryAnalytics/web-analytics-handbook/pulls?q=is%3Apr+author%3AMiryangJung+is%3Aclosed",
         },
       ],
     },
     {
-      name: "2021 오픈소스 컨트리뷰션",
+      name: "커뮤니티",
       content: [
         {
-          title: "React Analytics Provider",
-          url: "https://github.com/EveryAnalytics",
-        },
-        {
-          title: "https://github.com/react-ga/react-ga 의 util 분석",
-          url: "https://miryang.notion.site/react-ga-util-0399d64a0c1747f1b4c2b292d8a0d994",
-        },
-        {
-          title: "why-ga 블로그 글 문서 작성",
-          url: "https://github.com/EveryAnalytics/web-analytics-handbook/pull/64",
-        },
-        {
-          title:
-            "기존에 package.json 에 명시된 jest config 를 jest.config.js 로 분리",
-          url: "https://github.com/EveryAnalytics/react-analytics-provider/pull/92",
-        },
-        {
-          title: "production 일 때 console.log 등이 안 보이도록 조치",
-          url: "https://github.com/EveryAnalytics/react-analytics-provider/pull/93",
-        },
-        {
-          title: "중복된 타입 적용",
-          url: "https://github.com/EveryAnalytics/react-analytics-provider/pull/152",
-        },
-        {
-          title: "set test 추가",
-          url: "https://github.com/EveryAnalytics/react-analytics-provider/pull/173",
-        },
-      ],
-    },
-    {
-      name: "XXIT 커뮤니티",
-      content: [
-        {
-          title: "techtalk 행사 공식 페이지 개발",
-          url: "https://github.com/XXIT-Official/2019-xxit-tech-talk",
-        },
-        {
-          title: "TomeFromme 기획 및 개발",
-          url: "https://github.com/XXIT-Official/TomeFromme",
+          title: "Women Who Code - Local Organizer of Seoul Chapter",
         },
       ],
     },

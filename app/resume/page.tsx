@@ -1,7 +1,7 @@
 import { CardHeader, CardContent, Card } from "@/components/ui/card";
 import resume from "./data/resume";
 import Link from "next/link";
-import { LinkIcon } from "lucide-react";
+import { ArrowUpRightIcon } from "lucide-react";
 import { Metadata } from "next";
 import metadata from "@/util/metadata";
 
@@ -9,7 +9,7 @@ export default function ResumePage() {
   return (
     <>
       <div className="flex justify-between">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
           정미량
         </h1>
         <Link
@@ -35,41 +35,37 @@ export default function ResumePage() {
       </p>
 
       <section className="my-5 pt-10 border-t">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          👩🏻‍💻 Experience
+        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Work Experience
         </h2>
 
         {resume.experience.map((item) => (
           <Card
-            className="mb-6 bg-white/70 dark:bg-black/70"
+            className="mb-6 bg-white dark:bg-gray-900 border-none shadow-none"
             key={item.company}
           >
-            <CardHeader className="flex flex-col">
+            <CardHeader className="flex flex-col px-0">
               <h3
-                className="text-[22px] font-extrabold text-gray-900 dark:text-gray-100"
+                className="text-base font-bold text-gray-900 dark:text-gray-100"
                 style={{ color: item.companyColor }}
               >
                 {item.company}
               </h3>
-              <p className="text-zinc-500 dark:text-gray-400 text-sm font-medium">
+              <p className="text-zinc-500 dark:text-gray-400 text-xs">
                 {item.position} | {item.period}
               </p>
             </CardHeader>
-            <CardContent className="text-gray-900 dark:text-gray-300 flex flex-col gap-4">
+            <CardContent className="text-[#555555] dark:text-gray-300 flex flex-col gap-4">
               {item.content.map((content) => (
                 <div
                   key={content.title}
                   className="break-keep flex flex-col mb-2 gap-1"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-lg">{content.title}</span>
+                  <div className="flex items-center gap-1">
+                    <span className="font-bold text-sm">{content.title}</span>
                     {content.link && (
                       <Link href={content.link} target="_blank">
-                        <LinkIcon
-                          width={12}
-                          height={12}
-                          className="text-blue-800 dark:text-sky-300"
-                        />
+                        <ArrowUpRightIcon width={12} height={12} />
                       </Link>
                     )}
                   </div>
@@ -93,7 +89,7 @@ export default function ResumePage() {
                           className="flex items-center gap-1 text-[13px] mb-1"
                         >
                           <span>·</span>
-                          <span className=" dark:text-gray-300 break-keep">
+                          <span className=" dark:text-gray-300 break-keep text-[#555555]">
                             {parts.map((part, index) =>
                               doItem.boldWords.includes(part) ? (
                                 <b key={index}>{part}</b>
@@ -118,7 +114,7 @@ export default function ResumePage() {
                     );
                   })}
 
-                  <p className="text-xs text-zinc-400 font-extralight mt-1">
+                  <p className="text-xs text-zinc-400 font-extralight">
                     <span className="font-medium">
                       {content.techHighlight.join(", ")}
                     </span>
@@ -133,8 +129,8 @@ export default function ResumePage() {
       </section>
 
       <section className="my-5">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          💻 Other Experience
+        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Other Experience
         </h2>
 
         {resume.otherExperience.map((item) => (
@@ -149,6 +145,7 @@ export default function ResumePage() {
                     href={url}
                     key={title}
                     className="text-sky-800 dark:text-sky-300 hover:underline"
+                    target="_blank"
                   >
                     · {title}
                   </Link>
