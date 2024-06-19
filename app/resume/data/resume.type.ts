@@ -1,6 +1,6 @@
 type Content = {
   title: string;
-  description: string;
+  description?: string;
   do: string[] | { boldWords: string[]; content: string }[];
   tech: string[];
   techHighlight: string[];

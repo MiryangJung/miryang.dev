@@ -147,7 +147,7 @@ const resume: Resume = {
           ],
           tech: ["AppCenter", "Git"],
           techHighlight: ["ReScript", "React Native", "Next.js"],
-          link: "https://play.google.com/store/apps/details?id=com.farmmy.app&hl=ko&gl=US",
+          link: null,
         },
         {
           title: "rescript-bindings",
@@ -188,26 +188,6 @@ const resume: Resume = {
           techHighlight: ["React", "Emotion", "Redux"],
           link: null,
         },
-        {
-          title: "플러스알파고",
-          description: "코인 자동매매 프로그램 홍보 페이지입니다.",
-          do: [
-            "모바일, 테블릿까지 대응한 반응형",
-            "Styled Component를 사용헤 컴포넌트 재사용",
-          ],
-          tech: [
-            "Typescript",
-            "TSX",
-            "Git",
-            "Github",
-            "CSS",
-            "Redux",
-            "ESLint",
-            "Prettier",
-          ],
-          techHighlight: ["React", "Emotion"],
-          link: null,
-        },
       ],
     },
     {
@@ -239,13 +219,14 @@ const resume: Resume = {
         },
         {
           title: "Qart.art",
-          description: "QR코드와 블록체인을 이용하여 운영되는 작품 거래 사이트입니다.",
+          description:
+            "QR코드와 블록체인을 이용하여 운영되는 작품 거래 사이트입니다.",
           do: [
             "기존에 이미 개발된 프론트엔드의 잦은 레이아웃 깨짐 현상 및 버그 수정하기 위해 리팩토링",
           ],
           tech: ["JSP", "CSS", "AJAX", "Git"],
           techHighlight: ["Javascript"],
-          link: null,
+          link: "https://qart.art",
         },
       ],
     },
@@ -317,10 +298,19 @@ const resume: Resume = {
       ],
     },
     {
-      company: "IGLOO SECURITY",
-      position: "Consulting Intern",
+      company: "IGLOO Corporation",
+      position: "Security Consulting Intern",
       period: "19.08 ~ 20.02",
       content: [
+        {
+          title: "웹 취약점 이행 점검",
+          do: [
+            "주요정보통신기반시설 취약점 점검 가이드 기반 웹 취약점 이행 점검",
+          ],
+          tech: ["Wireshark"],
+          techHighlight: ["Burp Suite"],
+          link: null,
+        },
         {
           title: "나라장터 메일링",
           description:
@@ -332,20 +322,12 @@ const resume: Resume = {
         },
         {
           title: "엑셀 보고서 자동화",
-          description:
-            "점검도구를 실행 결과로 생성되는 txt 파일을 취약점 보안점검 결과보고서 (MS Excel)에 자동으로 채워주는 매크로를 작성했습니다.",
-          do: ["VBA를 사용한 매크로 작성"],
+          do: [
+            "취약점 보안점검 실행 결과로 생성되는 txt 파일을 Excel에 자동으로 채워주는 매크로를 VBA를 사용해 작성",
+            "수작업으로 작성하던 보고서 작성 시간을 단축",
+          ],
           tech: ["Excel"],
           techHighlight: ["VBA"],
-          link: null,
-        },
-        {
-          title: "웹 취약점 이행 점검",
-          description:
-            "주요정보통신기반시설 취약점 점검 가이드를 참고해 웹 취약점 이행 점검을 도왔습니다.",
-          do: ["점검 대상 웹의 .js 파일을 읽어 흐름 파악"],
-          tech: ["HTML"],
-          techHighlight: ["Burp Suite"],
           link: null,
         },
       ],

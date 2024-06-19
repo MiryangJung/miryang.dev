@@ -69,9 +69,11 @@ export default function ResumePage() {
                       </Link>
                     )}
                   </div>
-                  <span className="text-slate-500 font-light text-xs mb-2">
-                    {content.description}
-                  </span>
+                  {content.description && (
+                    <span className="text-slate-500 font-light text-xs mb-2">
+                      {content.description}
+                    </span>
+                  )}
 
                   {content.do.map((doItem, index) => {
                     if (doItem instanceof Object) {
