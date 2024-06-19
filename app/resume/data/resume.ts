@@ -313,9 +313,9 @@ const resume: Resume = {
         },
         {
           title: "나라장터 메일링",
-          description:
-            "나라장터 API를 이용해 특정 키워드의 공고를 목록화 후 1시간마다 메일로 전송하는 서비스를 개발했습니다.",
-          do: ["나라장터 API 사용"],
+          do: [
+            "나라장터 API를 이용해 특정 키워드의 공고를 목록화 후 1시간마다 메일로 전송",
+          ],
           tech: ["Javascript"],
           techHighlight: ["Node.js"],
           link: null,
