@@ -28,7 +28,7 @@ export default function ResumePage() {
         miryang.dev@gmail.com
       </Link>
 
-      <p className="text-[13px] font-light text-gray-700 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
+      <p className="text-sm font-light text-gray-700 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
         {resume.about.map((item, index) => (
           <span key={index}>{item}</span>
         ))}
@@ -88,7 +88,7 @@ export default function ResumePage() {
                       return (
                         <div
                           key={index}
-                          className="flex items-center gap-1 text-[13px] mb-1"
+                          className="flex items-center gap-1 text-sm mb-1"
                         >
                           <span>·</span>
                           <span className=" dark:text-gray-300 break-keep text-[#555555]">
@@ -106,7 +106,7 @@ export default function ResumePage() {
                     return (
                       <div
                         key={index}
-                        className="flex items-center gap-1 text-[13px] mb-1"
+                        className="flex items-center gap-1 text-sm mb-1"
                       >
                         <span>·</span>
                         <span className=" dark:text-gray-300 break-keep">
@@ -140,7 +140,7 @@ export default function ResumePage() {
             <h3 className="text font-bold text-gray-900 dark:text-white">
               {item.name}
             </h3>
-            <p className="text-[13px] text-gray-600 dark:text-gray-300 flex flex-col gap-1">
+            <p className="text-sm text-gray-600 dark:text-gray-300 flex flex-col gap-1">
               {item.content.map(({ url, title }) =>
                 url ? (
                   <Link
