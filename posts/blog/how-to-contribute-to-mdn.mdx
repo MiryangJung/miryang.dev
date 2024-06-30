@@ -1,0 +1,177 @@
+---
+title: 오픈소스 MDN Web Docs에 기여하는 방법
+date: 2024-07-01
+description: 오픈소스 기여는 처음인 분들을 위한 글
+thumbnailUrl: /posts/thumbnail/how-to-contribute-to-mdn.png
+tags: ["frontend", "opensource", "mdn"]
+---
+
+프로그래머스 부트캠프에서 멘토를 하고 있어요.  
+매주 멘토 주도 활동 시간이 있는데 저번 주부터 이번 주까지 [MDN Web Docs](https://developer.mozilla.org/ko/)에 기여해 보도록 하고 있어요.
+
+몇 분 진행했는데 실제로 MDN 문서에 적용이 되다 보니 모두들 신기해하고 재미있어하시고,  
+**강의로만 배웠던** `Git`, `GitHub`를 **실전에서 사용하면서 배우는 것**이 있어 좋아해 주셨어요.
+
+- 여쭤보았을 때 아래와 같은 점들을 배울 수 있다고 언급해 주셨어요.
+  - Fork를 뜨고 브랜치를 만들고 커밋하고 PR을 만들고 머지까지 되는 흐름
+  - 오픈소스 가이드를 읽고, 기여하는 과정
+  - 리뷰 코멘트가 달렸을 때 대응하는 방법
+
+멘티분들이 어려워하거나 헷갈려 했던 점들을 함께 기록해서 다른 팀의 멘티분들도 해보실 수 있도록 가이드로 이 글을 작성해 두어요.
+
+> 참고: 기여가 처음이고 Git이 익숙하지 않은 멘티분들과 1on1으로 진행했을 때 짧은 문서 한 개 기준으로 40분 정도가 소요되었어요.
+
+## 🟨 환경 세팅하기
+
+> [공식: MDN Web Docs 기여 가이드](https://github.com/mdn/translated-content/blob/main/CONTRIBUTING.md)
+
+MDN 한글 문서에 기여를 위해서는 두 가지 저장소가 필요해요.
+
+- 원본 문서 저장소 [content](https://github.com/mdn/content)
+- 번역 문서 저장소 [translated-content](https://github.com/mdn/translated-content)
+
+### content 저장소를 로컬에 clone 해요.
+
+```shell
+git clone https://github.com/mdn/content
+```
+
+### translated-content 저장소는 fork 후에 로컬에 clone 해요.
+
+```shell
+git clone https://github.com/{your_account}/translated-content
+```
+
+fork는 GitHub에서 직접 버튼을 클릭하는 것이 쉽고 빨라요.
+
+![](/posts/how-to-contribute-to-mdn/fork.png)
+
+> **왜 fork를 해야 하나요?**  
+> 오픈 소스 프로젝트에 기여할 때는 대부분 저장소에 대한 권한이 없어요.  
+> 그래서 fork를 통해 원본 저장소의 사본을 자신의 GitHub에 생성해요.  
+> 독립적인 작업 공간이므로 원본 저장소에 직접 영향을 주지 않으면서 작업이 진행 가능해요.
+
+### translated content와 content를 연결해요.
+
+content 폴더를 `VSCode`로 열어요.
+
+```shell
+cd content
+code .
+```
+
+content 폴더 root 경로에 `.env` 파일을 생성하고, 아래 내용을 기입해요.
+
+```shell
+# 로컬의 translated-content의 files 경로 기입
+CONTENT_TRANSLATED_ROOT=translated-content/files
+EDITOR=code
+```
+
+### 디펜던시를 설치하고, 서버를 시작해요.
+
+`http://localhost:5042/ko/`로 잘 접속된다면 환경 설정은 끝났어요!
+
+```shell
+yarn install
+yarn start
+```
+
+## 🟩 번역하기
+
+MDN 번역 기여의 방향은 크게 두 가지가 있어요.
+
+1. 번역되지 않은 문서를 **신규로** 번역하기
+2. 이미 번역되어 있지만 최신 문서와 동기화되지 않았다면 **최신화하고** 번역하기
+
+### [MDN Web Docs](https://developer.mozilla.org/ko/)에서 기여할 문서를 찾아요.
+
+신규라면 한글 문서 파일을 생성하고, 이미 존재한다면 해당 한글 문서 파일을 찾아서 열어요.  
+그리고 원본(영어) 문서 파일도 열어서 번역 작업을 진행해요.
+
+- 원본 문서는 `content` 폴더 아래에 있어요.
+- 번역 문서는 `translated-content` 폴더 아래에 있어요.
+
+![](/posts/how-to-contribute-to-mdn/file.png)
+
+### 한글 번역 안내서를 숙지해요.
+
+MDN 한국 번역 팀에서는 [일반 안내서](https://github.com/mdn/translated-content/blob/main/docs/ko/README.md)를 제공하고 있어요.
+
+기여 안내서를 통해 **번역의 일관성을 유지**하고, **리뷰가 효율적으로** 이루어질 수 있어요.  
+또한, 번역 프로젝트에서는 용어와 스타일의 통일성이 특히 중요해요.  
+기여 안내서는 이러한 통일성을 확보하는 데 필수적이므로 꼭 따라야 해요.
+
+번역 중에는 특히 아래 안내서들을 필수로 숙지해야 해요.
+
+- [번역 안내서](https://github.com/mdn/translated-content/blob/main/docs/ko/guides/translation-guide.md)
+  - 문서 연결, 코드 블록, 안내 문구, 기호 표기 등에 대한 안내
+- [용어 안내서](https://github.com/mdn/translated-content/blob/main/docs/ko/guides/glossary-guide.md)
+  - 자주 사용되는 용어 정의
+- [macro 안내서](https://github.com/mdn/translated-content/blob/main/docs/ko/guides/macro-guide.md)
+
+### 번역하기, 최신화하기
+
+기존 문서였다면 원본 문서와 비교하면서 번역 및 최신화 작업을 진행하고, 없는 문서였다면 신규 번역 작업을 진행해요.
+
+작업하다가 헷갈리는 부분이 있다면 [MDN Discord #korean 채널](https://discord.com/channels/1009925603572600863/1070064829466939503)에서 커뮤니티의 도움을 받을 수 있어요.
+
+## 🟧 PR 제출하기
+
+번역 작업을 완료했다면, 이제 Pull Request를 제출해야 해요.
+
+### Meta Data 작성
+
+먼저, [Meta Data 안내서](https://github.com/mdn/translated-content/blob/main/docs/ko/guides/meta-data-guide.md)를 참고해서 Meta Data를 작성해요.
+
+문서 갱신 표시 용도로 sourceCommit에 작성해야 할 hash를 찾는 다양한 방법 중 가장 쉬운 방법을 알려드릴게요.
+번역할 때 사용한 원본 파일을 GitHub의 `content` 저장소에서 열어요.
+
+![](/posts/how-to-contribute-to-mdn/github-content.png)
+
+위 사진에서 빨간색 네모 박스를 쳐 둔 곳을 클릭해보면 해당 문서가 가장 마지막으로 수정되었을 때의 커밋으로 이동되어요.  
+URL에서 해당 커밋의 해시값을 찾을 수 있어요.
+
+![](/posts/how-to-contribute-to-mdn/hash.png)
+
+### Commit, Push
+
+두 가지 저장소를 로컬에 clone했지만 우리가 작업한 저장소는 `translate-content`에요.  
+그러므로 `translate-content`에서 작업에 대한 branch를 생성하고, commit을 해야 해요.
+
+```shell
+cd translate-content
+git switch -c {새로운 브랜치}
+git add {변경한 파일}
+git commit -m {아무개 문서 번역}
+git push origin {새로운 브랜치}
+```
+
+> **왜 branch를 나누나요?**  
+> 기능마다 별도의 브랜치에서 작업해요. 이는 수정 사항을 추적하고 관리하는 데 용이해요.  
+> 여러 개발자가 동시에 작업할 때, 각자의 브랜치에서 작업을 진행함으로써 충돌을 최소화할 수 있어요.  
+> 각자 작업한 브랜치를 PR(Pull Request)을 통해 병합 요청하게 되어요.
+
+### PR 만들기
+
+원격 저장소에 변경 사항을 push 했다면 `translate-content` GitHub 저장소에서 **Compare & pull request** 가 뜨는 걸 볼 수 있어요.  
+해당 버튼을 눌러서 PR을 만들 수 있어요.
+
+![](/posts/how-to-contribute-to-mdn/compare.png)
+
+PR 작성 시 제목 및 내용도 저장소의 규칙을 따라야 해요.  
+잘 모르겠다면 **기존에 머지 된 PR들을 참고해서** 작성해 볼 수 있어요.
+
+![](/posts/how-to-contribute-to-mdn/pr.png)
+
+❗️ 중요한 점은 PR을 제출한 후에도 **해당 브랜치에 추가적인 커밋을 하면 PR에도 자동으로 반영**되어요.  
+따라서 리뷰어의 **수정 요청을 반영**하기 위해선 브랜치에 커밋을 추가하면 변경 내용이 PR에 실시간으로 반영되어 리뷰어가 최신 코드를 확인할 수 있어요.  
+그리고 수정 후에는 수정 요청 코멘트에 다시 리뷰를 받을 수 있게 **반영했음을 코멘트로** 남겨주는 것이 좋아요.
+
+PR이 머지되면 스케쥴러에 따라 MDN에 배포된 후에 내가 기여한 문서가 MDN Web Docs에서 서빙되는 것을 볼 수 있어요.
+
+## 마무리
+
+멘티분들이 PR 만드는 것을 많이 도와드리고 있지만 막상 저는 MDN Web Docs에 기여한 것이 없더라구요. 😅
+
+저도 꼭 기여하도록 하고, 이 글을 보고 있는 분들도 화이팅입니다! ❤️‍🔥

@@ -111,3 +111,8 @@
 .prose figure :where(code):not(:where([class~="not-prose"] *))::after {
   content: "";
 }
+
+.prose ul {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
