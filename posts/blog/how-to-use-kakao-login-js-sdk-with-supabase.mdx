@@ -1,0 +1,199 @@
+---
+title: Supabase에서 Kakao Login JS SDK를 사용하는 방법
+date: 2024-07-07
+description: Supabase에서 Kakao OIDC를 사용해서 카카오 로그인하기
+thumbnailUrl: /posts/thumbnail/how-to-use-kakao-login-js-sdk-with-supabase.png
+tags: ["frontend", "js", "supabase"]
+---
+
+몇 달 전에 `Supabase`에 [Kakao OIDC 지원](https://github.com/supabase/gotrue/pull/1381)을 추가했습니다.
+
+- 기여에 대한 자세한 내용은 이 글 [오픈소스 Supabase에 이것저것 기여하기](https://miryang.dev/blog/contribute-opensource-supabase)에서 확인할 수 있습니다.
+
+Supabase 오픈 카카오톡 방에서도 어떻게 사용해야 하는지에 대해서 물어보시는 걸 종종 보면서 도움을 드리고 있었습니다.  
+이번 주에 아래와 같은 문의 메일을 받았고, 카카오 로그인을 연결하는 개발자분들을 위해 글을 작성하고 있습니다.
+
+![문의 메일](/posts/how-to-use-kakao-login-js-sdk-with-supabase/inquiry-mail.png)
+
+- ❗️ 해당 글은 **웹 & 웹뷰** 환경을 기준으로 작성하며, 기술 스택은 아래와 같이 사용하고 있습니다.
+  - `Next.js` v14.2
+  - `react-native` v0.72
+  - `react-native-webview` v13.3
+  - `@supabase/ssr` v0.4
+  - `supabase` v1.100
+
+[supabase 공식 Docs에 내용을 추가하는 PR](https://github.com/supabase/supabase/pull/21906)도 제출된 상태이니 참고하세요.
+
+## 🔲 알아보기
+
+소셜로그인을 위해서는 Supabase의 `signInWithOAuth`를 사용합니다.
+
+```tsx
+async function kakaoLogin() {
+  await supabase.auth.signInWithOAuth({
+    provider: "kakao",
+    options: {
+      scopes: "name gender birthday birthyear phone_number",
+      redirectTo: WEB_URL + "/auth/callback",
+    },
+  });
+}
+
+<button onClick={kakaoLogin}>Kakao Login</button>;
+```
+
+해당 방식은 Supabase 내부 코드를 보면 [카카오 로그인 REST API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api)를 사용합니다.  
+인가 코드를 받아서 토큰을 받고 로그인까지 전 과정이 따로 코드를 작성할 필요없이 처리가 됩니다.
+
+![](/posts/how-to-use-kakao-login-js-sdk-with-supabase/kakao-rest.png)
+
+이렇게 기본 OAuth flow를 따르면 가입/로그인 작업이 암묵적으로 다 처리가 되어서 편하긴 합니다만  
+Kakao에서 제공하는 JS SDK를 사용할 수 없으므로 아래 예시와 같이 웹 로그인창으로 유저에게 제공됩니다.
+
+![](/posts/how-to-use-kakao-login-js-sdk-with-supabase/web-login.gif)
+
+[Kakao JavaScript SDK](https://developers.kakao.com/docs/latest/ko/javascript/getting-started) 간편로그인을 사용하면  
+모바일 웹이면서 **카카오톡이 설치되어 있는 경우 카카오톡을 실행해** 처리하는 저희가 원하는 동작을 하게 됩니다.
+
+SDK를 사용하면 아래와 같은 플로우를 따르게 됩니다.
+
+![](/posts/how-to-use-kakao-login-js-sdk-with-supabase/kakao-sdk.png)
+
+JavaScript SDK를 사용하면 인가 코드를 받고, 토큰을 받는 과정을 Supabase에서 처리할 수 없으므로 직접 구현을 해야합니다만 토큰을 받아도 Supabase로 전달할 방법이 없습니다.
+
+그래서 Supabase에는 `signInWithIdToken`가 있습니다. OIDC를 사용해 Id Token으로 로그인을 하는 방식입니다.
+
+기존에는 Supabase에서는 OIDC를 Google, Apple, LinkedIn만 지원 중이였으나  
+위의 이유로 제가 Kakao도 지원하도록 개발하여 PR을 넣은 것입니다.
+
+## 🔳 구현하기
+
+> 모든 내용은 [카카오 로그인 공식 문서](https://developers.kakao.com/docs/latest/ko/kakaologin/js)에서 더 자세히 확인할 수 있습니다.
+
+먼저, 카카오 개발자 센터 대시보드에서 OpenID Connect를 활성화합니다.
+
+![](/posts/how-to-use-kakao-login-js-sdk-with-supabase/activate-oidc.png)
+
+[Kakao SDK for JavaScript](https://developers.kakao.com/docs/latest/ko/javascript/getting-started)를 참고하여 SDK를 웹 페이지에 포함하고 초기화합니다.
+
+JAVASCRIPT_KEY는 대시보드에서 **앱 설정 > 앱 키 > JavaScript키** 입니다.
+
+```tsx
+<Script
+  src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
+  integrity="..."
+  crossOrigin="anonymous"
+  onLoad={() => {
+    if (!window?.Kakao.isInitialized()) {
+      window.Kakao.cleanup();
+    }
+
+    window.Kakao.init(process.env.NEXT_PUBLIC_JAVASCRIPT_KEY);
+  }}
+/>
+```
+
+그리고 로그인버튼이 간편 로그인을 호출할 수 있도록 합니다.
+
+```tsx
+function login() {
+  if (window?.Kakao?.Auth) {
+    window?.Kakao.Auth.authorize({
+      redirectUri: { URL },
+      // eg. https://miryang.dev/auth/kakao/callback
+    });
+  }
+}
+
+<button onClick={login}>Kakao Login</button>;
+```
+
+위 코드에서 `redirectUri`에 해당하는 api 엔드포인트를 만들고 로직을 작성해야 합니다.
+
+저는 `Next.js`를 사용하고 있어 api route를 사용하나 코드를 조금 변경해서 `supabase edge function`을 사용하셔도 될 듯합니다.
+
+```ts:/auth/kakao/callback/route.ts
+export const dynamic = 'force-dynamic';
+
+const RESTAPI_KEY = process.env.RESTAPI_KEY!;
+const CLIENT_SECRET = process.env.CLIENT_SECRET!;
+
+export async function GET(request: Request) {
+  const requestUrl = new URL(request.url);
+
+  /* 인가 코드 받기 */
+  const code = requestUrl.searchParams.get('code');
+
+  if (!code) return NextResponse.redirect(LOGIN);
+
+  /* 토큰 요청 */
+  const res = await fetch('https://kauth.kakao.com/oauth/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+    },
+    body: new URLSearchParams({
+      grant_type: 'authorization_code',
+      client_id: RESTAPI_KEY,
+      redirect_uri: { URL },
+      code,
+      client_secret: CLIENT_SECRET,
+    }),
+  });
+
+  const { id_token } = await res.json();
+
+  /* ID Token으로 로그인 요청 */
+  const {
+    data: { session },
+  } = await supabase().auth.signInWithIdToken({
+    provider: 'kakao',
+    token: id_token,
+  });
+
+  if (!session) return NextResponse.redirect(LOGIN);
+
+  return NextResponse.redirect(HOME);
+}
+```
+
+그리고 api 엔드포인트를 카카오 개발자센터 대시보드 **카카오 로그인 > Redirect URI**에 추가해 줍니다.
+
+위와 같이 진행하면 모바일 웹에서 로그인 시 앱으로 연결되는 것을 확인할 수 있습니다.
+
+![](/posts/how-to-use-kakao-login-js-sdk-with-supabase/web-sdk-login.gif)
+
+❕ TIP. 첫 로그인(제공 동의) 이후 다시 제공 동의 창을 보고 싶다면 **카카오톡 > 설정 > 카카오 계정 > 연결된 서비스 관리에서 연결 끊기**를 하면 됩니다.
+
+**앱**의 경우 저는 React Native Webview를 사용하고 있고 추가 설정들이 필요합니다.  
+(환경과 버전에 따라 다를 수 있습니다.)
+
+> [하이브리드 앱 공식 가이드](https://developers.kakao.com/docs/latest/ko/javascript/hybrid)를 참고하세요.
+
+originWhitelist에 `intent`를 추가합니다.
+
+```tsx
+<WebView
+  originWhitelist={['intent']}
+```
+
+AndroidManifest.xml에 카카오톡의 패키지명을 명시해 카카오톡을 호출할 수 있도록 합니다.
+
+```xml:AndroidManifest.xml
+<queries>
+    <package android:name="com.kakao.talk" />
+</queries>
+```
+
+> iOS의 경우 테스트 기기가 없어 확인이 필요합니다. 추후 추가 예정입니다.
+
+모든 설정이 끝나면 앱에서도 카카오 앱을 통한 로그인이 가능해 지고, 유저에게 더 좋은 경험을 선사할 수 있습니다.
+
+## 끝!
+
+모든 내용은 [Kakao Developers Portal](https://developers.kakao.com)에서 자세히 확인할 수 있습니다.
+
+저도 프론트엔드 개발이 주업무라 인증 서버 코드는 확신할 수 없는 점 양해 부탁드립니다.  
+만약 다르거나 잘못된 내용이 있다면 정정 메일 부탁드립니다.
+
+감사합니다! 화이팅! 💝

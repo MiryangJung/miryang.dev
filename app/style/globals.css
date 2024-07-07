@@ -116,3 +116,8 @@
   margin-top: 2px;
   margin-bottom: 2px;
 }
+
+.prose img {
+  max-height: 500px;
+  margin: 12px auto 30px auto;
+}
