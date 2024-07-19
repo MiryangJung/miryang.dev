@@ -17,7 +17,7 @@ export const navs = [
     label: "Blog",
   },
   {
-    href: "https://note.miryang.dev/note/intro",
+    href: "https://notes.miryang.dev",
     label: "Note",
     external: true,
   },
