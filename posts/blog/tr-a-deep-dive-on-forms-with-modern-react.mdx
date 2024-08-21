@@ -1,0 +1,429 @@
+---
+title: "[번역] 모던 React를 사용한 폼 탐구하기"
+date: 2024-08-22
+description: A deep dive on forms with modern React
+thumbnailUrl: /posts/thumbnail/tr-a-deep-dive-on-forms-with-modern-react.png
+---
+
+> 이 글은 [Epic React](https://www.epicreact.dev/)의 동의를 받아 [A deep dive on forms with modern React](https://www.epicreact.dev/react-forms)를 번역한 글입니다.
+
+---
+
+이 글에서 모던 React API를 사용하여 폼을 만드는 방법에 대해 자세히 알아볼 것입니다.
+서드파티 라이브러리나 프레임워크를 사용하지 않을 것입니다.
+이러한 저 수준 기본 요소들을 이해하면 라이브러리와 프레임워크를 사용할 때 더 잘 활용할 수 있습니다.
+
+최근 누군가가 웹 애플리케이션은 데이터베이스 위에 얹은 스킨에 불과하다고 말하는 것을 들었습니다. 사실 꽤 정확한 표현입니다.
+웹의 시작부터 모던 웹 애플리케이션은 두 가지 측면을 가지고 있습니다.
+
+1. 사용자가 데이터를 조회한다
+2. 사용자가 데이터를 변경한다
+
+웹 애플리케이션에 데이터를 불러오는 것은 비교적 간단한 작업입니다.
+하지만 데이터를 수정하고 동기화해야 할 필요성이 생기면서 상황이 더욱 복잡해집니다.
+
+HTML은 처음부터 이러한 두 가지 사용 사례에 대한 메커니즘을 지원했습니다.
+
+## 데이터 보기
+
+사용자는 다른 페이지로 이동하여 더 많은 데이터를 볼 수 있습니다.
+
+```html
+<a href="/remix-utah/events/301213597">Remix Meetup June 🏖</a>
+```
+
+이렇게 하면 사용자는 더 많은 데이터를 보기 위해 다른 페이지로 이동도 할 수 있으며,
+생성된 URL에 사용자 입력을 포함시켜 반환되는 데이터를 제어할 수 있게 해줍니다.
+
+```html
+<form action="/remix-utah/events/search">
+  <label for="event-search">Query</label>
+  <input id="event-search" type="search" name="query" />
+  <button type="submit">Search</button>
+</form>
+```
+
+사용자가 입력란에 August를 입력하고 엔터 키를 누른다고 가정해 보겠습니다.
+action 덕분에 사용자는 `/remix-utah/events/search?query=August`로 이동됩니다.
+따라서 기본적으로 `<form>`은 사용자 입력을 제공할 수 있는 특별한 기능을 가진 `<a>`와 같습니다.
+
+## 데이터 변경
+
+`<form>`과 `<a>` 모두 네비게이션은 `GET` 요청을 통해 수행되는데, 이는 데이터를 `가져오려(GET)` 하기 때문에 이해가 됩니다.
+하지만 사용자가 데이터를 *수정*하려고 하면 어떻게 될까요?
+
+예를 들어, `/remix-utah/events/301213597/join`에서 이벤트에 등록하게 하고 싶다고 가정해 봅시다.
+만약 이 엔드포인트를 `GET`으로 만든다면, 다음과 같이 할 수 있을 것입니다.
+
+```html
+<a href="/remix-utah/events/301213597/join">Join Remix Meetup June 🏖</a>
+```
+
+이 방식은 분명 작동할 것입니다 (원한다면 제출 버튼이 있는 `<form>`을 사용할 수도 있습니다).
+하지만 이 방식은 사용자가 **실수로 또는 악의적으로 데이터를 수정**할 수 있는 잠재적인 문제가 발생할 수 있습니다.
+`GET` 요청은 멱등성(여러 번 호출해도 결과가 동일)을 갖도록 설계되어 있어, 상태를 변경하는 작업에 사용하면 의도하지 않은 결과를 일으킬 수 있습니다.
+
+또한, 만약 `GET` 요청을 사용해 로그인 폼을 만들었다면 사용자가 비밀번호를 제출했을 때 URL이 `/login?username=kody&password=kodylovesyou` 이렇게 보일 것입니다!
+사용자가 제출한 내용이 누구나 볼 수 있는 평문으로 노출됩니다!
+
+이것이 `POST` 요청을 하는 이유 중 하나이며 `<a>`는 `GET` 대신 `POST`를 사용할 수 없지만 `<form>`으로는 가능합니다.
+
+`POST` 요청은 처리할 데이터를 특정 리소스에 제출하도록 설계되었습니다.
+HTML에는 사용자 상호작용 없이 `POST` 요청을 작동시키는 기능이 없으므로 서버 상태를 변경하는 데 안전하게 사용할 수 있으며, 이벤트 참여 시나리오에 적합합니다.
+폼을 사용하여 데이터를 `POST`하는 방법은 다음과 같습니다.
+
+```html
+<form action="/remix-utah/events/301213597/join" method="POST">
+  <button type="submit">Join Remix Meetup June 🏖</button>
+</form>
+```
+
+`method="POST"`를 사용하면, 이 폼이 서버의 데이터를 수정하기 위한 것임을 나타냅니다.
+서버는 이 요청을 처리하고 그에 따라 상태를 업데이트하여, 사용자의 이벤트 참여를 기록하게 됩니다.
+
+## JavaScript로 데이터 변경 처리
+
+전통적인 폼 제출은 전체 페이지가 새로고침되지만,
+모던 웹 애플리케이션은 JavaScript를 사용하여 이러한 작업을 비동기적으로 처리해 더 원활한 사용자 경험을 제공합니다.
+
+다음은 JavaScript로 폼 제출을 처리하는 방법에 대한 예시입니다.
+
+```html
+<form id="join-event-form">
+  <button type="submit">Join Remix Meetup June 🏖</button>
+</form>
+
+<script type="module">
+  const form = document.getElementById("join-event-form");
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const response = await fetch("/remix-utah/events/301213597/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        /* any necessary data can go here */
+      }),
+    });
+
+    if (response.ok) {
+      alert("Successfully joined the event!");
+    } else {
+      alert("Failed to join the event.");
+    }
+  });
+</script>
+```
+
+이 스크립트는 폼 제출을 가로채서 기본 브라우저 동작을 방지하고, 대신 비동기 `POST` 요청을 서버에 전송합니다.
+이렇게 하면 페이지를 새로 고칠 필요가 없고, 사용자는 자신의 행동에 대한 즉각적인 피드백을 받을 수 있습니다.
+
+이 예시에서 `method="POST"`가 없는 것을 눈치채셨을 수 있는데, 이는 브라우저의 기본 동작은 방지되고 있어 필요하지 않습니다.
+
+전체 페이지의 새로고침을 방지하는 것은 좋지만, 기본 동작을 방지함으로써 브라우저가 자동으로 처리해주는 많은 기능을 잃게 되며, 이는 우리가 애플리케이션에서 항상 발견하는 버그들로 이어집니다.
+
+예를 들어, 경쟁 조건이나 데이터 재검증 같은 문제가 있습니다.
+그래서 이러한 문제들을 해결하는 데 도움을 주는 프레임워크([React Router]/[Remix] 등)를 사용하려는 노력은 향상된 사용자 경험을 위해 가치가 있습니다.
+
+[React Router]: https://reactrouter.com
+[Remix]: https://remix.run
+
+## React Form Actions
+
+변경 작업은 동적 웹 애플리케이션의 중요하고 일반적인 부분입니다. 애플리케이션의 다른 부분으로 연결하는 것도 마찬가지입니다.
+그러나 데이터 변경은 복잡하며 사용자가 데이터를 변경한 직후에는 UI의 일부가 오래된 정보를 표시할 수 있기 때문입니다.
+
+정확히 말하자면, 전체 페이지가 새로 고쳐지면 사용자는 항상 서버가 제공하는 최신 정보를 볼 수 있다는 의미이므로 일반적인 브라우저에서의 변경 작업은 문제가 없습니다.
+하지만 최상의 사용자 경험을 제공하는 데 초점을 맞춘다면, 전체 페이지 새로고침은 받아들일 수 없습니다.
+그렇다면 데이터 변경 후 페이지의 데이터를 업데이트해야 합니다.
+
+클라이언트 사이드(client-side) 애플리케이션에서 링크와 폼을 복잡하게 만드는 또 다른 요소는 보류(pending) 상태 관리입니다.
+기본적으로 브라우저는 스피너(주로 파비콘 자리에)를 표시하지만, 기본 동작을 방지할 때는 트랜지션 중에 사용자에게 피드백을 제공하는 방법을 고려해야 합니다.
+
+React는 [트랜지션(transition)]에 대한 훌륭한 해결책을 제공하지만, 이는 폼 처리의 절반에 불과합니다.
+이러한 추가적인 복잡성 때문에 React 19에는 폼을 처리하기 위한 내장 메커니즘인 "actions"가 도입되었습니다.
+
+[트랜지션(transition)]: https://react.dev/reference/react/useTransition
+
+HTML 폼의 action 속성처럼, React 컴포넌트에서도 action prop을 사용할 수 있습니다.
+그러나 URL 대신에 폼 제출 시 호출될 함수를 제공할 수 있습니다.
+
+```jsx
+function JoinEventForm() {
+	function joinEvent(formData) {
+		const response = await fetch('/remix-utah/events/301213597/join', {
+			method: 'POST',
+			body: formData,
+		})
+
+		if (response.ok) {
+			alert('Successfully joined the event!')
+		} else {
+			alert('Failed to join the event.')
+		}
+	}
+
+	return (
+		<form action={joinEvent}>
+			<button type="submit">Join Remix Meetup June 🏖</button>
+		</form>
+	)
+}
+```
+
+React 폼에서 `onSubmit` prop을 사용하는 것에 익숙하다면, 몇 가지 중요한 차이점을 주목해야 합니다.
+
+1. React가 대신 처리해 주기 때문에 `event.preventDefault`를 추가할 필요가 없습니다.
+2. `action`은 자동으로 트랜지션(transition)으로 처리되므로 action 중에 발생하여 컴포넌트를 일시 중단하게 만드는 모든 작업이 트랜지션의 일부가 됩니다. 이에 대해서는 잠시 후에 더 자세히 설명하겠습니다.
+3. `useFormStatus`를 사용하여 action의 보류 상태(pending state)를 감지할 수 있습니다.
+4. React는 오류와 경쟁 조건을 관리하여 폼의 상태가 항상 올바르게 유지되도록 합니다 (무한 스피너 발생하지 않음).
+
+## 보류 상태(Pending States)
+
+> pending은 보류라고 번역하며, [React 공식 문서](https://ko.react.dev/reference/react-dom/hooks/useFormStatus)의 번역을 따랐습니다.
+
+이 상호작용에서 보류 상태를 관리하는 몇 가지 방법이 있습니다.
+
+### useFormStatus
+
+React 앱에서 context가 작동하는 방식에 익숙하다면, `<form>` 컴포넌트를 제공자(provider)로, `useFormStatus` hook을 해당 제공자의 데이터에 접근하는 함수로 생각할 수 있습니다.
+기본적으로 React의 `<form>`은 폼의 상태를 관리하며, 이 상태는 `<form>`의 모든 자식 컴포넌트에서 접근할 수 있습니다.
+따라서 폼의 보류 상태(제출이 진행 중일 때)에 접근하려면 자식 컴포넌트를 생성해야 합니다.
+
+```jsx
+function JoinButton({ children }: { children: React.ReactNode }) {
+  const { pending } = useFormStatus();
+
+  return <button type="submit">{pending ? "Joining..." : children}</button>;
+}
+
+function JoinEventForm() {
+  async function joinEvent(formData) {
+    const response = await fetch("/remix-utah/events/301213597/join", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      alert("Successfully joined the event!");
+    } else {
+      alert("Failed to join the event.");
+    }
+  }
+
+  return (
+    <form action={joinEvent}>
+      <JoinButton>Join Remix Meetup June 🏖</JoinButton>
+    </form>
+  );
+}
+```
+
+[`useFormStatus hook`]의 멋진 점은 폼에 대한 다른 정보들(제출된 데이터 포함)에도 접근할 수 있다는 것입니다.
+로그인 폼을 만들고 있다면, 보류 상태에서 다음과 같이 표시할 수 있습니다 `{data.get('username')}로 로그인 중`.
+
+[`useFormStatus hook`]: https://react.dev/reference/react-dom/hooks/useFormStatus
+
+한 가지 좋아하지 않는 것은 폼의 상태를 사용하기 위해 완전히 새로운 컴포넌트를 만들어야 하는 점압니다. 그래서 대안 접근 방식을 살펴보겠습니다.
+
+### useActionState
+
+[`useActionState`]는 예시로 설명하는 것이 가장 쉽습니다.
+
+[`useActionState`]: https://react.dev/reference/react/useActionState
+
+```jsx
+const JOIN_URL = "/remix-utah/events/301213597/join";
+
+async function joinEvent(
+  previousState: { joined: boolean },
+  formData: FormData
+) {
+  const response = await fetch(JOIN_URL, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (response.ok) {
+    return { joined: true };
+  } else {
+    return { joined: false };
+  }
+}
+
+function JoinEventForm() {
+  const [state, formAction, isPending] = useActionState(
+    joinEvent,
+    { joined: false },
+    JOIN_URL
+  );
+
+  return (
+    <div>
+      {state.joined ? (
+        <p>See you there!</p>
+      ) : (
+        <form action={formAction}>
+          <button type="submit">
+            {isPending ? "Joining..." : "Join Remix Meetup June 🏖"}
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+```
+
+자, useActionState는 함수(`joinEvent`), 초기 상태(`{ joined: false }`), 그리고 선택적으로 permalink URL(`JOIN_URL`)을 받습니다.
+그 다음 현재 상태(`state`), action을 트리거할 수 있는 함수(`formAction`), 그리고 폼이 제출 중인지 여부(`isPending`)를 포함하는 배열을 반환합니다.
+
+`joinEvent` 함수는 이전 상태를 인자로 받습니다.
+`useReducer`의 리듀서와 유사하게 생각할 수 있습니다.
+폼이 제출되면, 해당 폼의 `action`이 `formData`와 함께 호출됩니다.
+이 `action`이 바로 `formAction`입니다.
+`formAction` 함수는 현재 상태를 인자로 `joinEvent`를 호출하고, 추가로 전달할 인자들도 함께 넘겨줍니다.
+이것이 조금 혼란스러울 수 있다는 것을 이해하기에 지나칠 정도로 상세하게 설명해 보겠습니다.
+
+```jsx
+function JoinEventForm() {
+  const [state, formAction, isPending] = useActionState(
+    (prevState, ...args) => joinEvent(prevState, ...args),
+    { joined: false },
+    JOIN_URL
+  );
+
+  return (
+    <div>
+      {state.joined ? (
+        <p>See you there!</p>
+      ) : (
+        <form
+          action={(formData) => {
+            const args = [formData];
+            formAction(...args);
+          }}
+        >
+          <button type="submit">
+            {isPending ? "Joining..." : "Join Remix Meetup June 🏖"}
+          </button>
+        </form>
+      )}
+    </div>
+  );
+}
+```
+
+`action` prop은 `formData`와 함께 호출되므로, `formData`만을 원소로 가진 `args`라는 배열을 만들고, 이를 `formAction` 호출에 전개(spread)하여 전달합니다.
+`formAction`은 인라인 함수로 `prevState`와 나머지 인자(이 경우에는 단지 `formData`뿐이지만, `useActionState`는 어떤 인자도 전달할 수 있음)를 호출합니다.
+
+그 다음으로, `joinEvent` 함수는 필요한 비동기 작업을 수행하고, 값이 반환되며 트랜지션이 종료됩니다.
+이 반환된 값에 따라 폼이 다시 렌더링되며, 상태를 반환된 값으로 업데이트합니다.
+
+물론, 트랜지션 중에는 `isPending`이 `true`가 되어 보류 상태(pending state)를 표시할 수 있습니다.
+하지만 `action` 외부에서는 `formData`에 접근할 수 없으므로, `useFormStatus`에서처럼 폼 제출 데이터를 보류(pending) UI의 일부로 사용할 수는 없습니다.
+그러나 할 수 있는 것이 더 있습니다!
+
+먼저, `useActionState`의 세 번째 인자인 `permalink`에 대해 간단히 설명하자면 이 인자는 서버 렌더링과 점진적 향상을 위한 것입니다.
+React는 서버 렌더링 중에 제공된 URL로 액션을 설정합니다.
+이렇게 하면 React가 페이지에 로드되기 전에 폼이 제출될 경우, 일반적인 브라우저 동작이 작동하여 익숙한 전체 페이지 새로고침 기능으로 폼이 제출됩니다(서버가 폼 제출을 올바르게 처리할 수 있어야 함).
+점진적 향상 만세!
+
+### useOptimistic
+
+사용자에게 보류(pending) 중인 작업에 대한 피드백을 보여주는 것은 중요하고 유용합니다.
+보류 상태(pending status)가 실제로 완료된 상태처럼 보여주는 것이 좋습니다(실제로 완료되지 않았다는 것을 미묘하게 나타내는 표시와 함께).
+좋은 예로는 Slack이나 Discord에서 메시지를 보내는 경우입니다.
+메시지가 메시지 목록에 나타나지만, 약간 투명하게 표시되어 작업이 완료되지 않았다는 느낌을 줍니다.
+
+[`useOptimistic`]으로 이 작업을 할 수 있습니다.
+
+[`useOptimistic`]: https://react.dev/reference/react/useOptimistic
+
+```jsx
+// ...
+
+function JoinEventForm() {
+  const [state, formAction] = useActionState(
+    joinEvent,
+    { joined: false },
+    JOIN_URL
+  );
+  const [optimisticJoined, setOptimisticJoined] = useOptimistic(state.joined);
+
+  return (
+    <div>
+      {optimisticJoined ? (
+        // show faded a bit if we've not yet finished joining...
+        <p style={{ opacity: state.joined ? 1 : 0.8 }}>See you there!</p>
+      ) : (
+        <form
+          action={(formData) => {
+            setOptimisticJoined(true); // Optimistically set the state to joined
+            return formAction(formData);
+          }}
+        >
+          <button type="submit">Join Remix Meetup June 🏖</button>
+        </form>
+      )}
+    </div>
+  );
+}
+```
+
+`useOptimistic` hook을 사용하면 네트워크 요청이 완료되기 전에 사용자의 행동을 반영하여 UI를 즉시 업데이트할 수 있습니다.
+실제 요청이 실패하면 상태는 이전 상태로 되돌아갑니다.
+이렇게 하면 체감 대기 시간을 줄여 더 매끄러운 사용자 경험을 제공합니다.
+
+버튼에서 pending UI를 제거할 수도 있지만, 성공 메시지에 약간의 투명도를 추가하여 작업이 완전히 완료되지 않았다는 인상을 줄 수 있습니다.
+시각 장애가 있는 사용자에 대한 경험도 고려하는 것이 좋습니다.
+React는 이러한 종류의 경험을 구축하는 데 필요한 모든 것을 제공합니다!
+
+`useOptimistic`을 사용하면 여러 단계를 수행하면서 사용자에게 진행 상황을 계속 알려줄 수 있습니다. 정말 멋져요.
+
+```jsx
+// ...
+
+function JoinEventForm() {
+  const [state, formAction] = useActionState(
+    joinEvent,
+    { joined: false },
+    JOIN_URL
+  );
+  const [optimisticMessage, setOptimisticMessage] = useOptimistic("");
+
+  return (
+    <div>
+      {state.joined ? (
+        <p>See you there!</p>
+      ) : (
+        <form
+          action={async (formData) => {
+            setOptimisticMessage("Joining meetup...");
+            await formAction(formData);
+            setOptimisticMessage("Sending notifications...");
+            await sendNotification();
+          }}
+        >
+          <p>{optimisticMessage}</p>
+          <button type="submit">Join Remix Meetup June 🏖</button>
+        </form>
+      )}
+    </div>
+  );
+}
+```
+
+이 예시에서는 `useOptimistic` hook을 사용하여 폼 제출 과정의 여러 단계에서 사용자에게 피드백을 제공합니다.
+처음에는 낙관적 메시지를 "Joining meetup..."으로 설정한 다음, `formAction`의 완료를 기다립니다.
+완료되면, 메시지를 "Sending notification..."으로 변경하고 `sendNotification` 함수의 완료를 기다립니다.
+
+## 결론
+
+이 모든 기능을 위해 React 외의 다른 라이브러리를 사용할 필요가 없었다는 점이 정말 대단하다고 생각합니다.
+정말 멋진 점은 눈에 보이지는 않지만 오류 및 보류 중인 트랜지션에 대한 선언적 관리, 경쟁 조건을 적절하게 처리하는 기능 등을 얻을 수 있다는 것입니다.
+그리고 훌륭한 낙관적 UI(Optimistic UI) 처리 방식도 멋집니다.
+[`"use server"`] 지시어를 통해 서버와 어떻게 통합되는지에 대해 자세히 다루지는 못했지만, 이 역시 앞으로 살펴봐야 할 큰 이점입니다.
+
+[`"use server"`]: https://react.dev/reference/rsc/use-server
+
+이 글이 React 19의 폼 기본 요소들로 가능한 것들에 대해 더 명확하게 파악하는 데 도움이 되었기를 바랍니다.
