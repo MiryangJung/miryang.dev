@@ -338,6 +338,10 @@ const resume: Resume = {
       name: "발표",
       content: [
         {
+          title: "FECONF2024 - 프론트엔드 주도로 커머스 서비스 개발하기: 효율적 도구 활용",
+          url: "https://2024.feconf.kr/",
+        },
+        {
           title: "2023펜지니어콘 - 솔플 프로젝트 두려워 마세요",
         },
         {
