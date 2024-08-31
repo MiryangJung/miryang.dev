@@ -1,0 +1,122 @@
+---
+title: ReactNative에서 Supabase Kakao Login하는 방법
+date: 2024-09-01
+description: 지금까지 15번의 문의를 받아 글을 작성합니다.
+thumbnailUrl: /posts/thumbnail/how-to-implement-supabase-kakao-login-in-rn.png
+---
+
+[Supabase에서 Kakao Login JS SDK를 사용하는 방법]을 올렸습니다.  
+그리고 지금까지 `ReactNative`에서는 어떻게 하는 건지 질문하는 연락을 많이 받았습니다.
+
+이미 작성한 글과 공식 문서를 참고하면 어렵지 않다고 생각했지만 계속되는 질문에 대답으로 저는 글을 작성합니다.
+
+- 해당 글의 사용 스택은 아래와 같습니다
+  - `react-native` 0.75.2
+  - `@react-native-seoul/kakao-login` ^5.4.1
+  - `OpenJDK` zulu@17
+  - `Android` 14 (UpsideDownCake)
+  - `Android SDK Platform` 34
+  - `@supabase/supabase-js` ^2.45.3
+
+> iOS는 기기가 없어서 안드로이드 기준으로 작성합니다.
+
+## 카카오 개발자 콘솔
+
+[카카오 개발자 콘솔]에서 앱을 생성하고, 플랫폼을 등록합니다.  
+키 해시는 [카카오 개발자 문서: 키 해시]를 참고하세요.
+
+![](/posts/how-to-implement-supabase-kakao-login-in-rn/kakao-platform.png)
+
+카카오 로그인을 활성화하고, **OpenID Connect**도 활성화합니다.
+
+![](/posts/how-to-implement-supabase-kakao-login-in-rn/kakao-login-on.png)
+
+## 디펜던시 설치
+
+kakao login을 사용하기 위해 `@react-native-seoul/kakao-login` 를 설치합니다.
+
+```sh
+npm install @react-native-seoul/kakao-login
+```
+
+이후 설정은 [@react-native-seoul/kakao-login]의 문서를 참고하세요.
+
+## 카카오 로그인
+
+간단한 코드를 작성해 로그인을 해보면 잘 작동하는 것을 확인할 수 있습니다.
+
+```tsx
+import { login } from "@react-native-seoul/kakao-login";
+...
+<Pressable
+  onPress={async () => {
+    const res = await login();
+    setToken(res);
+  }}
+>
+  <Text>Kakao Login</Text>
+</Pressable>
+```
+
+![](/posts/how-to-implement-supabase-kakao-login-in-rn/login.gif)
+
+## Supabase Auth
+
+Supabase 대시보드 > Authentication > Providers에서 **Kakao**를 활성화합니다.  
+그리고 [Login with Kakao] 문서를 참고해 설정합니다.
+
+❗️ `REST API Key`에는 `Native App Key`를 입력합니다.
+
+> 이번에 살펴보면서 해당 부분이 잘못 작성되어 있음을 발견해 [Issue](https://github.com/supabase/auth/issues/1755)를 등록하였습니다.
+
+![](/posts/how-to-implement-supabase-kakao-login-in-rn/provider.png)
+
+**Supabase Auth** 사용을 위해 [Use Supabase Auth with React Native] 문서를 참고해 설정 및 코드를 작성합니다.
+
+카카오 로그인 후 `idToken`을 받아와 **Supabase Auth**에 전달해 인증을 하는 간단한 코드 예시입니다.
+
+```tsx
+<Pressable
+  onPress={async () => {
+    /* Kakao Login */
+    const { idToken } = await login();
+    if (!idToken) {
+      Alert.alert("Login Error", "Failed to login with Kakao.");
+      return;
+    }
+
+    /* Supabase Auth */
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: "kakao",
+      token: idToken,
+    });
+
+    if (data) {
+      setUser(data.user);
+    }
+    if (error) {
+      Alert.alert("Login Error", JSON.stringify(error, null, 2));
+    }
+  }}
+>
+  <Text>Kakao Login</Text>
+</Pressable>
+```
+
+로그인 후 **Supabase Auth**에 사용자 정보가 등록되어 `user_id`가 보여지는 것을 확인할 수 있습니다.
+
+![](/posts/how-to-implement-supabase-kakao-login-in-rn/supabase.gif)
+
+## 마치며
+
+도움이 되었길 바라며, [예제 코드]를 공개해 두었습니다.
+
+---
+
+[Supabase에서 Kakao Login JS SDK를 사용하는 방법]: https://miryang.dev/blog/how-to-use-kakao-login-js-sdk-with-supabase
+[카카오 개발자 콘솔]: https://developers.kakao.com/
+[카카오 개발자 문서: 키 해시]: https://developers.kakao.com/docs/latest/ko/android/getting-started#before-you-begin-add-key-hash
+[@react-native-seoul/kakao-login]: https://github.com/crossplatformkorea/react-native-kakao-login
+[Use Supabase Auth with React Native]: https://supabase.com/docs/guides/auth/quickstarts/react-native
+[Login with Kakao]: https://supabase.com/docs/guides/auth/social-login/auth-kakao
+[예제 코드]: https://github.com/MiryangJung/RNSupabaseKakaoLoginExample
