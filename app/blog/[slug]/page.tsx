@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { allBlogs } from "contentlayer/generated";
+import { blogPosts } from "#site/content";
 import type { Metadata } from "next";
 import { Mdx } from "./components/mdx";
 import metadata from "@/util/metadata";
@@ -11,8 +11,8 @@ interface Props {
   };
 }
 
-export default async function DocPage({ params }: Props) {
-  const post = await getDocFromParams({ params });
+export default function DocPage({ params }: Props) {
+  const post = getPageBySlug(params.slug);
 
   if (!post) {
     notFound();
@@ -24,26 +24,24 @@ export default async function DocPage({ params }: Props) {
         {post.title}
       </h1>
       <time className="text-gray-500 text-sm mt-2 ml-auto">{post.date}</time>
-      <Mdx code={post.body.code} />
+      <Mdx code={post.body} />
       <Supplement />
     </div>
   );
 }
 
-async function getDocFromParams({ params }: Props) {
-  const doc = allBlogs.find((doc) => doc.slug === params.slug);
-
-  return doc ?? null;
+function getPageBySlug(slug: string) {
+  return blogPosts.find((page) => page.slug === slug);
 }
 
 export async function generateStaticParams() {
-  return allBlogs.map((doc) => ({
+  return blogPosts.map((doc) => ({
     slug: doc.slug,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const doc = await getDocFromParams({ params });
+  const doc = getPageBySlug(params.slug);
 
   if (!doc) {
     return {};
@@ -52,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return metadata({
     title: doc.title,
     description: doc.description,
-    path: `/blog/${doc.slug}`,
-    image: `/${doc.thumbnailUrl}`,
+    path: doc.permalink,
+    image: `${doc.thumbnailUrl}`,
   });
 }

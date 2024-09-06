@@ -1,16 +1,16 @@
-import { allBlogs } from "@/.contentlayer/generated";
+import { blogPosts } from "#site/content";
 import Link from "next/link";
 
 export default function RecentPosts() {
   return (
     <>
       <h2 className="mt-5 text-2xl font-bold">최근 게시물</h2>
-      {allBlogs
+      {blogPosts
         .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
         .slice(0, 5)
         .map((blog) => (
           <Link
-            href={`/blog/${blog.slug}`}
+            href={`${blog.permalink}`}
             key={blog.slug}
             className="flex flex-col gap-1 flex-1"
           >

@@ -1,5 +1,5 @@
 import PageLayout from "@/components/page-layout";
-import { allBlogs } from "contentlayer/generated";
+import { blogPosts } from '#site/content'
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,11 +9,11 @@ export default function BlogPage() {
       title="Blog"
       description="공유하고 싶거나 다시 보고 싶은 기술들을 정리합니다."
     >
-      {allBlogs
+      {blogPosts
         .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
         .map((blog) => (
           <Link
-            href={`/blog/${blog.slug}`}
+            href={`${blog.permalink}`}
             key={blog.slug}
             className="flex py-5 items-start justify-between gap-2"
           >
