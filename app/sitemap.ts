@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPostsUrl =
     blogPosts?.map((post) => ({
-      url: `${webUrl}/${post.slug}`,
+      url: `${webUrl}/${post.permalink}`,
       lastModified: new Date(post.date).toISOString().split("T")[0],
     })) ?? [];
 

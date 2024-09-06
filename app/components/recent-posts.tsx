@@ -10,7 +10,7 @@ export default function RecentPosts() {
         .slice(0, 5)
         .map((blog) => (
           <Link
-            href={`${blog.slug}`}
+            href={`${blog.permalink}`}
             key={blog.slug}
             className="flex flex-col gap-1 flex-1"
           >
