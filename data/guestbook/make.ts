@@ -1,47 +1,47 @@
-import { Guestbook } from "./types";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "@/types/database-generated.types";
+import type { Database } from "@/types/database-generated.types";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Guestbook } from "./types";
 
 interface Range {
-  from: number;
-  to: number;
+	from: number;
+	to: number;
 }
 
 interface Option {
-  count?: "exact" | "planned" | "estimated";
-  head?: boolean;
+	count?: "exact" | "planned" | "estimated";
+	head?: boolean;
 }
 
 export const baseQuery = (
-  client: () => SupabaseClient<Database>,
-  options?: Option
+	client: () => SupabaseClient<Database>,
+	options?: Option,
 ) =>
-  client()
-    .from("guestbook")
-    .select("*", options)
-    .order("created_at", { ascending: false });
+	client()
+		.from("guestbook")
+		.select("*", options)
+		.order("created_at", { ascending: false });
 
 export const makeGetGuestbooks =
-  (supabaseClient: () => SupabaseClient<Database>) =>
-  async (props?: { range?: Range }): Promise<Guestbook[]> => {
-    let query = baseQuery(supabaseClient);
+	(supabaseClient: () => SupabaseClient<Database>) =>
+	async (props?: { range?: Range }): Promise<Guestbook[]> => {
+		let query = baseQuery(supabaseClient);
 
-    if (props?.range) {
-      const { range } = props;
-      query = query.range(range.from, range.to);
-    }
+		if (props?.range) {
+			const { range } = props;
+			query = query.range(range.from, range.to);
+		}
 
-    const { data } = await query;
+		const { data } = await query;
 
-    return data ?? [];
-  };
+		return data ?? [];
+	};
 
 export const makeGetGuestbooksCount =
-  (supabaseClient: () => SupabaseClient<Database>) =>
-  async (): Promise<number> => {
-    let query = baseQuery(supabaseClient, { count: "exact", head: true });
+	(supabaseClient: () => SupabaseClient<Database>) =>
+	async (): Promise<number> => {
+		const query = baseQuery(supabaseClient, { count: "exact", head: true });
 
-    const { count } = await query;
+		const { count } = await query;
 
-    return count ?? 0;
-  };
+		return count ?? 0;
+	};
