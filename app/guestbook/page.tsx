@@ -1,29 +1,27 @@
-import supabase from "@/util/supabase";
-import Bubble from "./components/bubble";
 import GuestbookForm from "./components/form";
 import { Metadata } from "next";
 import metadata from "@/util/metadata";
+import GuestbookList from "./components/list";
+import { getGuestbooks, getGuestbooksCount } from "@/data/guestbook/get";
+import { GuestbookProvider } from "./components/guestbook-context";
 
-export const revalidate = 3600;
+export const revalidate = false;
 
 export default async function GuestbookPage() {
-  const { data, count } = await supabase
-    .from("guestbook")
-    .select("*", { count: "exact", head: false })
-    .order("created_at", { ascending: false });
+  const initialData = await getGuestbooks({ range: { from: 0, to: 49 } });
+  const count = await getGuestbooksCount();
 
   return (
     <>
-      <span className="text-gray-600 mb-5">
+      <h2 className="text-gray-600 mb-5">
         22년 01월부터 작성된 방명록 <b>{count}개</b>
-      </span>
-
-      <div className="flex flex-col gap-2.5 my-5">
-        {data?.map((bubble) => (
-          <Bubble key={bubble.id} {...bubble} />
-        ))}
-      </div>
-      <GuestbookForm />
+      </h2>
+      <GuestbookProvider initialItems={initialData}>
+        <div className="flex flex-col gap-2.5 my-5 min-h-screen">
+          <GuestbookList />
+        </div>
+        <GuestbookForm />
+      </GuestbookProvider>
     </>
   );
 }

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useFormContext } from "react-hook-form";
 
-const colors = [
+export const colors = [
   "#a5c1ca",
   "#7c889f",
   "#6C92BE",

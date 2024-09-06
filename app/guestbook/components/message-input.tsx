@@ -1,24 +1,11 @@
-import { FormField, FormItem, FormControl } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/components/ui/utils";
 import { useFormContext } from "react-hook-form";
+import { GuestbookFormValues } from "./form";
 
 export default function MessageInput() {
-  const { control, watch } = useFormContext();
+  const { register, watch } = useFormContext<GuestbookFormValues>();
 
-  const color = watch("color");
+  const { color } = watch();
 
-  return (
-    <FormField
-      control={control}
-      name="message"
-      render={({ field }) => (
-        <FormItem className="flex-1">
-          <FormControl>
-            <Input {...field} style={{ backgroundColor: color }} />
-          </FormControl>
-        </FormItem>
-      )}
-    />
-  );
+  return <Input {...register("message")} style={{ backgroundColor: color }} />;
 }
