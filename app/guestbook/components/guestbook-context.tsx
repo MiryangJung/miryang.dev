@@ -1,72 +1,72 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  ReactNode,
-} from "react";
 import { getGuestbooks } from "@/data/guestbook/get";
-import { Guestbook } from "@/data/guestbook/types";
+import type { Guestbook } from "@/data/guestbook/types";
+import {
+	type ReactNode,
+	createContext,
+	useCallback,
+	useContext,
+	useState,
+} from "react";
 
 const PER_PAGE = 50;
 
 interface GuestbookContextType {
-  loading: boolean;
-  items: Guestbook[];
-  hasNextPage: boolean;
-  loadMore: () => Promise<void>;
-  addItem: (newItem: Guestbook) => void;
+	loading: boolean;
+	items: Guestbook[];
+	hasNextPage: boolean;
+	loadMore: () => Promise<void>;
+	addItem: (newItem: Guestbook) => void;
 }
 
 const GuestbookContext = createContext<GuestbookContextType | undefined>(
-  undefined
+	undefined,
 );
 
 export function GuestbookProvider({
-  children,
-  initialItems,
+	children,
+	initialItems,
 }: {
-  children: ReactNode;
-  initialItems: Guestbook[];
+	children: ReactNode;
+	initialItems: Guestbook[];
 }) {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [items, setItems] = useState<Guestbook[]>(initialItems);
-  const [hasNextPage, setHasNextPage] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [items, setItems] = useState<Guestbook[]>(initialItems);
+	const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
-  const loadMore = useCallback(async () => {
-    if (!hasNextPage || loading) return;
+	const loadMore = useCallback(async () => {
+		if (!hasNextPage || loading) return;
 
-    setLoading(true);
+		setLoading(true);
 
-    const from = items.length;
-    const to = from + PER_PAGE - 1;
-    const data = await getGuestbooks({ range: { from, to } });
+		const from = items.length;
+		const to = from + PER_PAGE - 1;
+		const data = await getGuestbooks({ range: { from, to } });
 
-    setItems((prevItems) => [...prevItems, ...data]);
-    setHasNextPage(data.length === PER_PAGE);
+		setItems((prevItems) => [...prevItems, ...data]);
+		setHasNextPage(data.length === PER_PAGE);
 
-    setLoading(false);
-  }, [items.length, hasNextPage, loading]);
+		setLoading(false);
+	}, [items.length, hasNextPage, loading]);
 
-  const addItem = useCallback((newItem: Guestbook) => {
-    setItems((prevItems) => [newItem, ...prevItems]);
-  }, []);
+	const addItem = useCallback((newItem: Guestbook) => {
+		setItems((prevItems) => [newItem, ...prevItems]);
+	}, []);
 
-  return (
-    <GuestbookContext.Provider
-      value={{ loading, items, hasNextPage, loadMore, addItem }}
-    >
-      {children}
-    </GuestbookContext.Provider>
-  );
+	return (
+		<GuestbookContext.Provider
+			value={{ loading, items, hasNextPage, loadMore, addItem }}
+		>
+			{children}
+		</GuestbookContext.Provider>
+	);
 }
 
 export function useGuestbook() {
-  const context = useContext(GuestbookContext);
-  if (context === undefined) {
-    throw new Error("useGuestbook must be used within a GuestbookProvider");
-  }
-  return context;
+	const context = useContext(GuestbookContext);
+	if (context === undefined) {
+		throw new Error("useGuestbook must be used within a GuestbookProvider");
+	}
+	return context;
 }
