@@ -8,8 +8,6 @@ import MessageInput from "./message-input";
 import ColorPicker from "./color-picker";
 import { Button } from "@/components/ui/button";
 import insertGuestbookAction from "../actions/insert-guestbook-action";
-// @ts-expect-error
-// https://github.com/vercel/next.js/issues/49232
 import { useFormStatus } from "react-dom";
 
 export const guestbookFormSchema = z.object({
