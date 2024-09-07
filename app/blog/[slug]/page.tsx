@@ -20,8 +20,12 @@ export default function DocPage({ params }: Props) {
 
 	return (
 		<div className="flex flex-col mt-5 gap-2">
-			<h1 className="text-5xl font-black text-primary break-keep">{post.title}</h1>
-			<time className="text-primary font-medium text-sm mt-2 mb-10 ml-auto">{post.date}</time>
+			<h1 className="text-5xl font-black text-primary whitespace-pre-wrap">
+				{post.title}
+			</h1>
+			<time className="text-primary font-medium text-sm mt-2 mb-10 ml-auto">
+				{post.date}
+			</time>
 			<Mdx code={post.body} />
 			<Supplement />
 		</div>
