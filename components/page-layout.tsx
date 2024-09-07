@@ -18,7 +18,7 @@ export default function PageLayout({
 			{(title || description) && (
 				<div className="flex flex-col gap-2">
 					{title && (
-						<h1 className="text-6xl font-extrabold text-primary first-letter:font-medium">
+						<h1 className="text-6xl font-extrabold text-primary first-letter:font-medium break-all tracking-tighter">
 							{title.toUpperCase()}
 						</h1>
 					)}

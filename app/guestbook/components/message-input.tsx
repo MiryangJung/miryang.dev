@@ -12,7 +12,6 @@ export default function MessageInput() {
 			{...register("message")}
 			style={{ borderColor: color }}
 			className="rounded-none border-t-0 border-l-0 border-r-0 border-b-4"
-			autoFocus
 			maxLength={1000}
 		/>
 	);
