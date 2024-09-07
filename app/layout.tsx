@@ -3,8 +3,13 @@ import "./style/globals.css";
 import Footer from "@/components/footer";
 import GoogleAnalytics from "@/components/google-analytics";
 import Header from "@/components/header";
+import localFont from "next/font/local";
 import { ThemeProvider } from "./components/theme-provider";
-import { suit } from "./style/fonts/suit";
+
+const pretendard = localFont({
+	src: "./style/fonts/PretendardVariable.woff2",
+	display: "swap",
+});
 
 export default function RootLayout({
 	children,
@@ -12,7 +17,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="ko" className={suit.className} suppressHydrationWarning>
+		<html lang="ko" className={pretendard.className} suppressHydrationWarning>
 			<body className="max-w-screen-md min-w-[320px] mx-auto">
 				<ThemeProvider
 					attribute="class"

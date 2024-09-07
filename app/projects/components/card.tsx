@@ -21,9 +21,7 @@ export default function ProjectCard({
 		<Card className="rounded-full border-white dark:border-black border-2">
 			<CardHeader>
 				<div className="flex gap-1 items-start justify-between">
-					<CardTitle className="break-all flex-1 font-extrabold">
-						{title}
-					</CardTitle>
+					<CardTitle className="break-all flex-1 font-bold">{title}</CardTitle>
 					<div className="bg-primary flex items-center gap-1 text-white p-1 rounded-full">
 						{github && (
 							<Link href={github} target="_blank" className="p-0.5">

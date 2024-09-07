@@ -19,7 +19,7 @@ export default function BlogPage() {
 							className="flex py-5 items-center justify-between gap-2 border-b last:border-none"
 						>
 							<div className="flex flex-col gap-1 flex-1">
-								<span className="font-bold text-lg break-all line-clamp-2 text-primary">
+								<span className="font-semibold text-lg break-all line-clamp-2 text-primary">
 									{blog.title}
 								</span>
 								<span className="break-all">{blog.description}</span>

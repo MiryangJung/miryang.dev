@@ -5,7 +5,7 @@ export default function RecentPosts() {
 	return (
 		<>
 			<h2 className="mt-5 text-5xl font-medium text-primary">
-				최근 <span className="font-black">글</span>
+				Recent <span className="font-black">Posts</span>
 			</h2>
 			<div className="flex flex-col">
 				{blogPosts
