@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: rgb(245, 245, 245);
+    --foreground: rgb(20, 20, 30);
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -28,16 +28,23 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
+    --border: rgb(20, 20, 30);
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --neon-yellow: rgb(255, 230, 20);
+    --neon-green: rgb(175, 244, 198);
+    --neon-violet: rgb(138, 161, 255);
+    --neon-pink: rgb(255, 138, 205);
+    --neon-sky: rgb(143, 255, 249);
+    --neon-orange: rgb(255, 180, 100);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: rgb(20, 20, 30);
+    --foreground: rgb(245, 245, 245);
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -60,7 +67,7 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
+    --border: rgb(245, 245, 245);
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }

@@ -20,7 +20,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<main className="flex flex-col">
+					<main className="flex flex-col border-b-2">
 						<Header />
 						{children}
 					</main>

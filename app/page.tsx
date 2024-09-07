@@ -6,6 +6,7 @@ export default async function HomePage() {
 	return (
 		<PageLayout>
 			<HomeBanner />
+
 			<RecentPosts />
 		</PageLayout>
 	);

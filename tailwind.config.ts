@@ -15,11 +15,11 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				border: "hsl(var(--border))",
+				border: "var(--border)",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",
-				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
+				background: "var(--background)",
+				foreground: "var(--foreground)",
 				primary: {
 					DEFAULT: "hsl(var(--primary))",
 					foreground: "hsl(var(--primary-foreground))",
@@ -48,6 +48,14 @@ module.exports = {
 					DEFAULT: "hsl(var(--card))",
 					foreground: "hsl(var(--card-foreground))",
 				},
+				neon: {
+					yellow: "var(--neon-yellow)",
+					green: "var(--neon-green)",
+					violet: "var(--neon-violet)",
+					pink: "var(--neon-pink)",
+					sky: "var(--neon-sky)",
+					orange: "var(--neon-orange)",
+				},
 			},
 			borderRadius: {
 				lg: "var(--radius)",
@@ -67,6 +75,10 @@ module.exports = {
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+			},
+			boxShadow: {
+				bold: "2px 2px 0 0 var(--border)",
+				bold2: "4px 4px 0 0 var(--border)",
 			},
 		},
 	},

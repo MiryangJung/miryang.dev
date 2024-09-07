@@ -4,22 +4,17 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import MobileNav from "./mobile-nav";
 import Nav from "./nav";
 import { Button } from "./ui/button";
 
 export default function Header() {
 	return (
-		<header className="h-14 px-5 sticky top-0 z-50 w-full border-b flex justify-between items-center bg-background">
-			<div className="flex items-center">
-				<MobileNav />
+		<header className="h-14 px-5 sticky top-0 z-50 w-full flex justify-between items-center gap-2 border-b-2 bg-background">
+			<div className="flex items-center flex-1">
 				<Nav />
 			</div>
 
 			<div className="flex items-center gap-1">
-				<Link href="/resume" className="text-xs font-medium">
-					이직에 열려있습니다
-				</Link>
 				<ThemeChanger />
 				<Logo />
 			</div>
