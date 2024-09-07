@@ -14,13 +14,13 @@
   }
 
   .dark {
-    --background: 0 0% 39%;
+    --background: 0 0% 20%;
     --foreground: 210 40% 98%;
 
-    --card: 0 0% 39%;
+    --card: 0 0% 20%;
     --card-foreground: 180 60% 60%;
 
-    --primary: 230 85% 78%;
+    --primary: 180 60% 60%;
   }
 }
 
