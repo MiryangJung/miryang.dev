@@ -3,7 +3,10 @@
     ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
     ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.defaultFormatter": "biomejs.biome",
+  "editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit"
+	},
   "editor.formatOnSave": true,
   "typescript.preferences.autoImportFileExcludePatterns": [
     "@radix-ui/*",
@@ -13,8 +16,4 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "github.copilot.enable": {
-    "*": true,
-    "markdown": true
-  }
 }
