@@ -11,7 +11,7 @@ const components = {
 			target="_blank"
 			rel="noopener"
 			{...props}
-			className={cn([className, "text-[#ff8b9e] dark:text-[#feb3a6]"])}
+			className={cn([className, "text-primary"])}
 		/>
 	),
 };

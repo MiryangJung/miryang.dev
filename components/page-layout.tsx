@@ -16,9 +16,15 @@ export default function PageLayout({
 	return (
 		<div className={cn(["px-5 pt-7 pb-16 flex flex-col gap-5", className])}>
 			{(title || description) && (
-				<div className="flex flex-col gap-1">
-					{title && <h1 className="text-2xl font-bold">{title}</h1>}
-					{description && <span className="text-gray-500">{description}</span>}
+				<div className="flex flex-col gap-2">
+					{title && (
+						<h1 className="text-6xl font-medium text-primary first-letter:font-black">
+							{title.toUpperCase()}
+						</h1>
+					)}
+					{description && (
+						<span className="text-primary font-medium">{description}</span>
+					)}
 				</div>
 			)}
 

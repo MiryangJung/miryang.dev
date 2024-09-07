@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "./ui/utils";
@@ -16,11 +17,6 @@ export const navs = [
 		label: "Blog",
 	},
 	{
-		href: "https://notes.miryang.dev",
-		label: "Note",
-		external: true,
-	},
-	{
 		href: "/projects",
 		label: "Projects",
 	},
@@ -31,6 +27,11 @@ export const navs = [
 	{
 		href: "/guestbook",
 		label: "Guestbook",
+	},
+	{
+		href: "https://notes.miryang.dev",
+		label: "Notes",
+		external: true,
 	},
 ];
 
@@ -56,13 +57,14 @@ export function NavItem({
 		<Link
 			href={href}
 			className={cn(
-				"transition-colors hover:text-foreground/80 py-3",
-				pathname?.startsWith(href) ? "text-foreground" : "text-foreground/60",
+				"transition-colors hover:font-black py-3 text-primary font-bold flex items-center",
+				pathname?.startsWith(href) && "underline underline-offset-4 font-black",
 			)}
 			target={external ? "_blank" : undefined}
 			onClick={onClick}
 		>
-			{label}
+			{label.toUpperCase()}
+			{external && <ArrowUpRight className="h-4 w-4" />}
 		</Link>
 	);
 }

@@ -8,12 +8,12 @@ export default function Bubble({
 }: Tables<"guestbook">) {
 	return (
 		<div className="flex flex-row justify-end items-end gap-1">
-			<span className="text-[10px] opacity-50" style={{ color: color }}>
+			<span className="text-[10px] text-primary">
 				{getTzDay(created_at).format("YY.MM")}
 			</span>
 			<div
-				className="min-h-[40px] py-2 px-2.5 break-all leading-6 rounded-[10px] rounded-br-none text-sm max-w-[90%]"
-				style={{ backgroundColor: color }}
+				className="p-0 break-all leading-6 text-sm max-w-[90%] font-medium px-1 underline decoration-4 underline-offset-0"
+				style={{ textDecorationColor: color }}
 			>
 				{message}
 			</div>

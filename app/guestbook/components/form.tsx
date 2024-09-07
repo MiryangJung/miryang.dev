@@ -11,7 +11,7 @@ import { useGuestbook } from "./guestbook-context";
 import MessageInput from "./message-input";
 
 export const guestbookFormSchema = z.object({
-	message: z.string().min(1).max(3000),
+	message: z.string().min(1).max(1000),
 	color: z.string().regex(/^#[0-9A-F]{6}$/i),
 });
 
@@ -55,7 +55,7 @@ export default function GuestbookForm() {
 				action={onSubmit}
 				className="fixed max-w-screen-md bottom-10 w-full ml-[-20px] flex items-center justify-center"
 			>
-				<div className="flex flex-col items-start gap-2 w-5/6 p-3 rounded-2xl placeholder:flex bg-stone-100/95 backdrop-blur supports-[backdrop-filter]:bg-stone-100/60">
+				<div className="flex flex-col items-start gap-2 w-5/6 p-3 bg-background border">
 					<div className="w-full flex gap-2">
 						<MessageInput />
 						<Submit />
@@ -78,10 +78,9 @@ function Submit() {
 	return (
 		<Button
 			type="submit"
-			className="w-10 border"
-			variant="secondary"
-			style={{ borderColor: color }}
+			className="w-10 border text-primary"
 			disabled={!isValid || pending}
+			variant="outline"
 		>
 			전송
 		</Button>

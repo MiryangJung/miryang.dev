@@ -19,11 +19,9 @@ export default function DocPage({ params }: Props) {
 	}
 
 	return (
-		<div className="flex flex-col mt-5 gap-1">
-			<h1 className="break-all text-3xl font-black bg-gradient-to-r from-slate-600 via-slate-300 to-slate-700 inline-block text-transparent bg-clip-text">
-				{post.title}
-			</h1>
-			<time className="text-gray-500 text-sm mt-2 ml-auto">{post.date}</time>
+		<div className="flex flex-col mt-5 gap-2">
+			<h1 className="text-5xl font-black text-primary break-keep">{post.title}</h1>
+			<time className="text-primary font-medium text-sm mt-2 mb-10 ml-auto">{post.date}</time>
 			<Mdx code={post.body} />
 			<Supplement />
 		</div>

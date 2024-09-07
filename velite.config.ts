@@ -31,6 +31,6 @@ export default defineConfig({
 		clean: true,
 	},
 	mdx: {
-		rehypePlugins: [[rehypePrettyCode, { theme: "github-dark" }]],
+		rehypePlugins: [[rehypePrettyCode, { theme: "nord" }]],
 	},
 });

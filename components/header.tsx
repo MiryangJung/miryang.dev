@@ -1,8 +1,7 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Home, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import Link from "next/link";
 import MobileNav from "./mobile-nav";
 import Nav from "./nav";
@@ -17,7 +16,7 @@ export default function Header() {
 			</div>
 
 			<div className="flex items-center gap-1">
-				<Link href="/resume" className="text-xs font-medium">
+				<Link href="/resume" className="text-xs text-primary">
 					이직에 열려있습니다
 				</Link>
 				<ThemeChanger />
@@ -30,7 +29,14 @@ export default function Header() {
 function Logo() {
 	return (
 		<Link href="/" className="font-extrabold">
-			<Image width={30} height={30} src="/logo.png" alt="로고" />
+			<Button
+				type="button"
+				variant="outline"
+				size="icon"
+				className="rounded-full"
+			>
+				<Home className="h-5 w-5 transition-all text-primary stroke-1" />
+			</Button>
 		</Link>
 	);
 }
@@ -43,9 +49,15 @@ function ThemeChanger() {
 	};
 
 	return (
-		<Button type="button" variant="outline" size="icon" onClick={toggleTheme}>
-			<Sun className="h-5 w-5 transition-all dark:hidden" />
-			<Moon className="h-5 w-5 hidden transition-all dark:block" />
+		<Button
+			type="button"
+			variant="outline"
+			size="icon"
+			onClick={toggleTheme}
+			className="rounded-full"
+		>
+			<Sun className="h-5 w-5 transition-all dark:hidden text-primary stroke-1" />
+			<Moon className="h-5 w-5 hidden transition-all dark:block text-primary stroke-1" />
 			<span className="sr-only">Toggle theme</span>
 		</Button>
 	);

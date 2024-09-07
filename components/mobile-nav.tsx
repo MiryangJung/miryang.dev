@@ -13,7 +13,7 @@ export default function MobileNav() {
 		<Sheet open={open} onOpenChange={setOpen}>
 			<SheetTrigger asChild>
 				<Button variant="outline" size="icon" className="sm:hidden">
-					<ChevronRightIcon className="h-4 w-4" />
+					<ChevronRightIcon className="h-4 w-4 text-primary" />
 				</Button>
 			</SheetTrigger>
 			<SheetContent side="left">

@@ -18,20 +18,24 @@ export default function ProjectCard({
 	github,
 }: Project) {
 	return (
-		<Card>
+		<Card className="rounded-full border-white dark:border-black border-2">
 			<CardHeader>
 				<div className="flex gap-1 items-start justify-between">
-					<CardTitle className="break-all flex-1">{title}</CardTitle>
-					{github && (
-						<Link href={github} target="_blank" className="p-0.5">
-							<GithubIcon width={12} height={12} className="text-stone-600" />
-						</Link>
-					)}
-					{url && (
-						<Link href={url} target="_blank" className="p-0.5">
-							<LinkIcon width={12} height={12} className="text-blue-500" />
-						</Link>
-					)}
+					<CardTitle className="break-all flex-1 font-extrabold">
+						{title}
+					</CardTitle>
+					<div className="bg-primary flex items-center gap-1 text-white p-1 rounded-full">
+						{github && (
+							<Link href={github} target="_blank" className="p-0.5">
+								<GithubIcon width={12} height={12} />
+							</Link>
+						)}
+						{url && (
+							<Link href={url} target="_blank" className="p-0.5">
+								<LinkIcon width={12} height={12} />
+							</Link>
+						)}
+					</div>
 				</div>
 				<CardDescription>{description}</CardDescription>
 			</CardHeader>
@@ -41,7 +45,7 @@ export default function ProjectCard({
 					height={100}
 					src={image}
 					alt={title}
-					className="rounded object-cover"
+					className="object-cover rounded-full aspect-video"
 				/>
 			</CardContent>
 		</Card>

@@ -13,11 +13,11 @@ export default async function GuestbookPage() {
 
 	return (
 		<>
-			<h2 className="text-gray-600 mb-5">
+			<h2 className="text-primary mb-5 font-medium">
 				22년 01월부터 작성된 방명록 <b>{count}개</b>
 			</h2>
 			<GuestbookProvider initialItems={initialData}>
-				<div className="flex flex-col gap-2.5 my-5 min-h-screen">
+				<div className="flex flex-col gap-5 my-5 min-h-screen">
 					<GuestbookList />
 				</div>
 				<GuestbookForm />
