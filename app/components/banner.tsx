@@ -1,6 +1,6 @@
 export default function HomeBanner() {
 	return (
-		<div className="block w-full h-[300px] rounded-lg p-6 bg-no-repeat bg-center bg-[url('/home/dark.gif')]">
+		<div className="block w-full h-[300px] p-6 bg-no-repeat bg-center bg-[url('/home/dark.gif')]">
 			<h1 className="text-5xl font-semibold text-primary break-all">
 				MIRYANG JUNG
 			</h1>
