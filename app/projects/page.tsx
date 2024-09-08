@@ -11,20 +11,20 @@ export default function ProjectsPage() {
 					key={p.section}
 					className="flex flex-col gap-3 py-5 even:items-end"
 				>
-					<h2 className="text-3xl font-extrabold text-primary tracking-wider">
+					<h2 className="text-3xl font-black text-primary tracking-wider">
 						{p.section}
 					</h2>
 					{p.data.map((project) => (
 						<Link
 							key={project.title}
 							href={project.link}
-							className="break-keep underline underline-offset-4 max-w-[90%] font-semibold tracking-wider"
+							className="break-keep underline underline-offset-8 max-w-[90%] font-bold tracking-wider text-primary text-base"
 							target="_blank"
 							rel="noopener"
 						>
 							{project.title}
-							<span className="font-normal">
-								{project.description && `: ${project.description}`}
+							<span className="text-sm">
+								{project.description && ` ${project.description}`}
 							</span>
 						</Link>
 					))}

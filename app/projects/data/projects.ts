@@ -65,15 +65,18 @@ export const projects: Array<{
 		section: "사이드 프로젝트",
 		data: [
 			{
-				title: "개발 블로그 miryang.dev",
+				title: "개발 블로그",
+				description: "miryang.dev",
 				link: "https://github.com/MiryangJung/miryang.dev",
 			},
 			{
-				title: "내 생일의 특별한 의미는? 탄생 조각 모으기",
+				title: "탄생 조각 모으기",
+				description: "내 생일의 특별한 의미는?",
 				link: "https://birth.bitbits.app/",
 			},
 			{
-				title: "나의 결혼식을 위한 모바일 청첩장",
+				title: "모바일 청첩장",
+				description: "나의 결혼식을 위한",
 				link: "https://github.com/MiryangJung/wedding-invitation",
 			},
 		],
