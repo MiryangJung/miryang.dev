@@ -62,6 +62,10 @@
   margin-bottom: 2px;
 }
 
+.prose li::marker{
+  @apply text-primary;
+}
+
 .prose img {
   max-height: 500px;
   margin: 12px auto 30px auto;
@@ -76,7 +80,7 @@
 }
 
 .prose a {
-  @apply text-primary underline underline-offset-4 font-light;
+  @apply text-primary underline underline-offset-4 font-normal;
 }
 
 .prose h2,
