@@ -10,8 +10,6 @@ export const colors = [
 	"#8FFFF9",
 	"#FFBE98",
 	"#8DB596",
-	"#c4a583",
-	"#BB8395",
 	"#E2C9C9",
 	"#ffd9b8",
 ];
