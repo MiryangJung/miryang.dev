@@ -18,7 +18,7 @@ export default function ProjectsPage() {
 						<Link
 							key={project.title}
 							href={project.link}
-							className="break-keep underline underline-offset-8 max-w-[90%] font-bold tracking-wider text-primary text-base"
+							className="break-keep underline underline-offset-8 max-w-[90%] font-semibold tracking-wider text-base"
 							target="_blank"
 							rel="noopener"
 						>
