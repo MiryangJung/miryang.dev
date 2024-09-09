@@ -83,11 +83,7 @@
   @apply text-primary underline underline-offset-4 font-normal;
 }
 
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
+.prose h2 {
   @apply mt-28 font-extrabold;
 }
 
