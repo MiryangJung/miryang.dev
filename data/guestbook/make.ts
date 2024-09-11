@@ -19,6 +19,7 @@ export const baseQuery = (
 	client()
 		.from("guestbook")
 		.select("*", options)
+		.order("pinned", { ascending: true })
 		.order("created_at", { ascending: false });
 
 export const makeGetGuestbooks =

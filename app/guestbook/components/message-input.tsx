@@ -11,7 +11,7 @@ export default function MessageInput() {
 		<Input
 			{...register("message")}
 			style={{ borderColor: color }}
-			className="rounded-none border-t-0 border-l-0 border-r-0 border-b-4"
+			className="rounded-none border-2"
 			maxLength={1000}
 		/>
 	);
