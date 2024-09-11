@@ -3,6 +3,7 @@ import metadata from "@/util/metadata";
 import { ArrowUpRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 import resume from "./data/resume";
 
 export default function ResumePage() {
@@ -28,9 +29,14 @@ export default function ResumePage() {
 				miryang.dev@gmail.com
 			</Link>
 
-			<p className="text-sm font-light text-gray-700 dark:text-gray-300 flex flex-col gap-2 break-keep whitespace-pre-wrap">
+			<p className="text-sm font-light text-gray-700 dark:text-gray-300 gap-0.5 break-keep whitespace-pre-wrap flex flex-col">
 				{resume.about.map((item, index) => (
-					<span key={index}>{item}</span>
+					<Fragment key={index}>
+						<span className="font-semibold text-gray-900 dark:text-gray-100">
+							{item.title}
+						</span>
+						<span className="mb-2">{item.description}</span>
+					</Fragment>
 				))}
 			</p>
 
@@ -76,33 +82,6 @@ export default function ResumePage() {
 									)}
 
 									{content.do.map((doItem, index) => {
-										if (doItem instanceof Object) {
-											const regex = new RegExp(
-												`(${doItem.boldWords.join("|")})`,
-												"gi",
-											);
-
-											// 입력된 텍스트를 정규 표현식에 따라 분할한다
-											const parts = doItem.content.split(regex);
-
-											return (
-												<div
-													key={index}
-													className="flex items-center gap-1 text-sm mb-1"
-												>
-													<span>·</span>
-													<span className=" dark:text-gray-300 break-keep text-[#555555]">
-														{parts.map((part, index) =>
-															doItem.boldWords.includes(part) ? (
-																<b key={index}>{part}</b>
-															) : (
-																part
-															),
-														)}
-													</span>
-												</div>
-											);
-										}
 										return (
 											<div
 												key={index}

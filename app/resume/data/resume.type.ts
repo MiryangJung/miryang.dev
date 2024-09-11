@@ -1,7 +1,7 @@
 type Content = {
 	title: string;
 	description?: string;
-	do: string[] | { boldWords: string[]; content: string }[];
+	do: string[];
 	tech: string[];
 	techHighlight: string[];
 	link: string | null;
@@ -24,7 +24,7 @@ export type Resume = {
 	name: string;
 	job: string;
 	contact: string;
-	about: string[];
+	about: { title: string; description: string }[];
 	experience: Experience[];
 	otherExperience: OtherExperience[];
 };
