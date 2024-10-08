@@ -16,9 +16,6 @@ export default function Header() {
 			</div>
 
 			<div className="flex items-center gap-1">
-				<Link href="/resume" className="text-xs text-primary">
-					이직에 열려있습니다
-				</Link>
 				<ThemeChanger />
 				<Logo />
 			</div>

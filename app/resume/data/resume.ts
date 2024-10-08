@@ -27,7 +27,7 @@ const resume: Resume = {
 			company: "언컷젬스컴퍼니",
 			companyColor: "#D35A46",
 			position: "Frontend Engineer",
-			period: "23.07 ~",
+			period: "23.07 ~ 24.10",
 			content: [
 				{
 					title: "페이브릴",
@@ -38,7 +38,7 @@ const resume: Resume = {
 						"리소스 및 비용을 고려한 스택 선정으로 개발 및 운영 효율성 극대화",
 						"OpenAI text-embedding-3-small을 활용한 AI 상품 추천 시스템 구축으로 서비스 임팩트 증가",
 						"Streaming SSR 도입으로 페이지 진입 속도 1.5초 단축",
-						"상품 등록 UX 개선을 위해 확보한 데이터를 활용한 자동 입력 기능 제안 및 개발로 상품 등록 및 입력 시간 단축",
+						"상품 등록 폼 UX 개선을 위해 확보한 데이터를 활용한 자동 입력 기능 제안 및 개발로 상품 등록 및 입력 시간 단축",
 						"Growthbook 활용 AB 테스트 도입으로 데이터 기반 의사결정 강화",
 						"React Hook Form와 Zod를 활용한 멀티페이지 폼 개발로 개발 및 검증 효율성 향상",
 						"Storybook, shadcn-ui 활용 디자인 시스템 구축, 런타임을 확인하지 않고도 쉽게 작성하고 표현할 수 있게 한다는 목표로 진행 중",
