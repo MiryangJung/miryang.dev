@@ -24,6 +24,18 @@ const resume: Resume = {
 
 	experience: [
 		{
+			company: "그란데클립",
+			companyColor: "#000000",
+			position: "Frontend Engineer",
+			period: "24.10 ~",
+			content: [
+				{
+					title: "비공개",
+					description: "비공개 프로젝트"
+				},
+			],
+		},
+		{
 			company: "언컷젬스컴퍼니",
 			companyColor: "#D35A46",
 			position: "Frontend Engineer",
@@ -121,36 +133,6 @@ const resume: Resume = {
 					tech: ["ReScript"],
 					techHighlight: ["lerna", "Github Action"],
 					link: "https://github.com/green-labs/rescript-bindings",
-				},
-			],
-		},
-		{
-			company: "외주",
-			position: "Project Manager & Frontend Engineer",
-			period: "21.09 ~ 21.12",
-			content: [
-				{
-					title: "인강 코어",
-					description:
-						"16가지의 학생 유형과 8가지의 강사 유형을 분석 및 매칭해주는 플랫폼으로 커뮤니티와 인강관리 서비스가 포함되어있습니다.",
-					do: [
-						"매주 회의에 참가하며, 전체적인 프로젝트 매니징",
-						"Styled Component를 사용해 컴포넌트 재사용",
-						"모바일, 테블릿까지 대응한 반응형",
-						"모바일 앱 웹뷰와 통신",
-					],
-					tech: [
-						"Typescript",
-						"TSX",
-						"Git",
-						"Github",
-						"CSS",
-						"AWS",
-						"ESLint",
-						"Prettier",
-					],
-					techHighlight: ["React", "Emotion", "Redux"],
-					link: null,
 				},
 			],
 		},

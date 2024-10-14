@@ -81,7 +81,7 @@ export default function ResumePage() {
 										</span>
 									)}
 
-									{content.do.map((doItem, index) => {
+									{content.do?.map((doItem, index) => {
 										return (
 											<div
 												key={index}
@@ -97,10 +97,11 @@ export default function ResumePage() {
 
 									<p className="text-xs text-zinc-400 font-extralight">
 										<span className="font-medium">
-											{content.techHighlight.join(", ")}
+											{content.techHighlight?.join(", ")}
 										</span>
-										{", "}
-										<span>{content.tech.join(", ")}</span>
+										{content.tech && ", "}
+
+										<span>{content.tech?.join(", ")}</span>
 									</p>
 								</div>
 							))}

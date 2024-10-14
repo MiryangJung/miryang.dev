@@ -1,10 +1,10 @@
 type Content = {
 	title: string;
 	description?: string;
-	do: string[];
-	tech: string[];
-	techHighlight: string[];
-	link: string | null;
+	do?: string[];
+	tech?: string[];
+	techHighlight?: string[];
+	link?: string | null;
 };
 
 type Experience = {
