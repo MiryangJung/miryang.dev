@@ -31,14 +31,14 @@ const resume: Resume = {
 			content: [
 				{
 					title: "비공개",
-					description: "비공개 프로젝트"
+					description: "비공개 프로젝트",
 				},
 			],
 		},
 		{
 			company: "언컷젬스컴퍼니",
 			companyColor: "#D35A46",
-			position: "Frontend Engineer",
+			position: "Frontend Engineer Lead",
 			period: "23.07 ~ 24.10",
 			content: [
 				{
@@ -55,8 +55,9 @@ const resume: Resume = {
 						"React Hook Form와 Zod를 활용한 멀티페이지 폼 개발로 개발 및 검증 효율성 향상",
 						"Storybook, shadcn-ui 활용 디자인 시스템 구축, 런타임을 확인하지 않고도 쉽게 작성하고 표현할 수 있게 한다는 목표로 진행 중",
 						"WebView 앱 개발 및 운영, 스토어 심사 및 배포, 유니버셜링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동",
-						"토스페이먼츠를 사용한 주문 결제 시스템 개발, 쿠폰 적용 및 단일 결제 및 분할 결제 개발",
+						"주문 결제 시스템 개발, 쿠폰 적용 및 단일 결제 및 분할 결제 개발",
 						"거래, 매출, 상품 등록 등의 Slack Bot 알림 자동화로 운영 효율성 향상",
+						"컴포넌트 테스트 코드 작성 및 안정성 확보",
 					],
 					techHighlight: [
 						"Next14",
@@ -66,6 +67,7 @@ const resume: Resume = {
 						"shadcn-ui",
 						"Zod",
 						"React Hook Form",
+						"Vitest",
 					],
 					tech: [
 						"Zustand",
