@@ -57,6 +57,7 @@ const resume: Resume = {
 						"Storybook과 shadcn-ui를 활용하여 디자인 시스템을 구축, 손쉽게 컴포넌트를 작성하고 표현할 수 있는 환경 조성",
 						"WebView 앱 개발 및 운영, 스토어 심사 및 배포, 유니버셜링크 구현 및 CodePush 연동, 웹과 앱 기능(이미지뷰어, 권한 등) 연동",
 						"거래, 매출, 상품 등록 등의 Slack Bot 알림 자동화로 운영 효율성 및 대응 속도 향상",
+						"마케팅 부서와 협력하여 data attribute를 활용한 GTM 설정을 용이하게 지원, 이를 위한 작업 및 가이드를 제공하여 마케팅 팀의 데이터 트래킹 구현 도움",
 					],
 					techHighlight: [
 						"Next14",
@@ -67,6 +68,7 @@ const resume: Resume = {
 						"Zod",
 						"React Hook Form",
 						"Vitest",
+						"GTM",
 					],
 					tech: [
 						"Zustand",
