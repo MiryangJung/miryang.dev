@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@formatjs/intl-localematcher':
+        specifier: ^0.5.7
+        version: 0.5.7
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.3.2(react-hook-form@7.49.0(react@19.0.0-rc-fb9a90fa48-20240614))
@@ -29,6 +32,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.39.0
         version: 2.39.0
+      '@types/negotiator':
+        specifier: ^0.6.3
+        version: 0.6.3
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -41,6 +47,9 @@ importers:
       lucide-react:
         specifier: ^0.294.0
         version: 0.294.0(react@19.0.0-rc-fb9a90fa48-20240614)
+      negotiator:
+        specifier: ^1.0.0
+        version: 1.0.0
       next:
         specifier: ^15.0.0-canary.120
         version: 15.0.0-rc.0(@opentelemetry/api@1.7.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -311,6 +320,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@formatjs/intl-localematcher@0.5.7':
+    resolution: {integrity: sha512-GGFtfHGQVFe/niOZp24Kal5b2i36eE2bNL0xi9Sg/yd0TR8aLjcteApZdHmismP5QQax1cMnZM9yWySUUjJteA==}
 
   '@hookform/resolvers@3.3.2':
     resolution: {integrity: sha512-Tw+GGPnBp+5DOsSg4ek3LCPgkBOuOgS5DsDV7qsWNH9LZc433kgsWICjlsh2J9p04H2K66hsXPPb9qn9ILdUtA==}
@@ -829,6 +841,9 @@ packages:
 
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
+
+  '@types/negotiator@0.6.3':
+    resolution: {integrity: sha512-JkXTOdKs5MF086b/pt8C3+yVp3iDUwG635L7oCH6HvJvvr6lSUU5oe/gLXnPEfYRROHjJIPgCV6cuAg8gGkntQ==}
 
   '@types/node@22.2.0':
     resolution: {integrity: sha512-bm6EG6/pCpkxDf/0gDNDdtDILMOHgaQBVOJGdwsqClnxA3xL6jtMv76rLBc006RVMWbmaf0xbmom4Z/5o2nRkQ==}
@@ -1378,6 +1393,10 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  negotiator@1.0.0:
+    resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
+    engines: {node: '>= 0.6'}
 
   next-themes@0.2.1:
     resolution: {integrity: sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A==}
@@ -1965,6 +1984,10 @@ snapshots:
   '@esbuild/win32-x64@0.23.1':
     optional: true
 
+  '@formatjs/intl-localematcher@0.5.7':
+    dependencies:
+      tslib: 2.6.2
+
   '@hookform/resolvers@3.3.2(react-hook-form@7.49.0(react@19.0.0-rc-fb9a90fa48-20240614))':
     dependencies:
       react-hook-form: 7.49.0(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -2466,6 +2489,8 @@ snapshots:
   '@types/mdx@2.0.10': {}
 
   '@types/ms@0.7.34': {}
+
+  '@types/negotiator@0.6.3': {}
 
   '@types/node@22.2.0':
     dependencies:
@@ -3249,6 +3274,8 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.7: {}
+
+  negotiator@1.0.0: {}
 
   next-themes@0.2.1(next@15.0.0-rc.0(@opentelemetry/api@1.7.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614):
     dependencies:
