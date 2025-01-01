@@ -47,7 +47,7 @@ export default function ResumePage() {
 
 				{resume.experience.map((item) => (
 					<Card
-						className="mb-6 bg-white dark:bg-gray-900 border-none shadow-none"
+						className="mb-6 bg-white dark:bg-stone-900 border-none shadow-none"
 						key={item.company}
 					>
 						<CardHeader className="flex flex-col px-0">

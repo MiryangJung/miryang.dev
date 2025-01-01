@@ -25,13 +25,30 @@ const resume: Resume = {
 	experience: [
 		{
 			company: "그란데클립",
-			companyColor: "#000000",
 			position: "Frontend Engineer",
 			period: "24.10 ~",
 			content: [
 				{
-					title: "비공개",
-					description: "비공개 프로젝트",
+					title: "CHAAK",
+					description: "스티커로 노는 SNS 입니다.",
+					link: "https://chaak.me",
+					do: [
+						"10일 동안 핀치줌과 드래그로 스티커를 붙이는 기능을 포함한 신규 유저 유입 이벤트 개발 및 런칭 후 주간 가입자 수 평균 대비 1300% 증가",
+					],
+					techHighlight: [
+						"Next.js(App Router)",
+						"TypeScript",
+						"Flutter",
+						"Dart",
+					],
+					tech: [
+						"Tailwind",
+						"Git",
+						"StoryBook",
+						"Vercel",
+						"Amplitude",
+						"Notion",
+					],
 				},
 			],
 		},
