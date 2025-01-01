@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import GoogleAnalytics from "@/components/google-analytics";
 import Header from "@/components/header";
 import localFont from "next/font/local";
-import { ThemeProvider } from "./components/theme-provider";
+import { ThemeProvider } from "../components/theme-provider";
 
 const pretendard = localFont({
 	src: "./style/fonts/PretendardVariable.woff2",
@@ -13,8 +13,10 @@ const pretendard = localFont({
 
 export default function RootLayout({
 	children,
+	params: { lang },
 }: {
 	children: React.ReactNode;
+	params: { lang: Locale };
 }) {
 	return (
 		<html lang="ko" className={pretendard.className} suppressHydrationWarning>
