@@ -29,9 +29,18 @@ const resume: Resume = {
 			period: "24.10 ~",
 			content: [
 				{
+					title: "비공개",
+					description: "신규 사업 기회 발굴 팀",
+					link: null,
+					do: [
+						"신규 비즈니스 모델 개발을 위해 시장 조사 및 데이터 분석 수행",
+						"경쟁사 및 트렌드 분석을 통해 전략적 인사이트를 도출하여 사업 전략 수립 지원",
+					],
+				},
+				{
 					title: "CHAAK",
-					description: "스티커로 노는 SNS 입니다.",
-					link: "https://chaak.me",
+					description: "[서비스 종료] 스티커로 노는 SNS 입니다.",
+					link: null,
 					do: [
 						"웹사이트 국제화, 메타데이터 수정 및 검색 엔진 등록을 통해 SEO 최적화 수행",
 						"10일 동안 핀치줌과 드래그로 스티커를 붙이는 기능을 포함한 신규 유저 유입 이벤트 개발 및 런칭 후 주간 가입자 수 평균 대비 1300% 증가",
@@ -136,7 +145,7 @@ const resume: Resume = {
 				},
 				{
 					title: "Farmmy",
-					description: "팜모닝의 리뉴얼 및 글로벌 서비스입니다.",
+					description: "[서비스 종료] 팜모닝의 리뉴얼 및 글로벌 서비스입니다.",
 					do: [
 						"앱 기능을 웹뷰에서 사용하기 위한 React Native 개발",
 						"자연스러운 UX를 위한 웹뷰 네비게이션 개선 작업",
