@@ -29,6 +29,12 @@ export const projects: Array<{
 		section: "발표",
 		data: [
 			{
+				title: "FOSSASIA Summit 2025",
+				description:
+					"Enhancing Form Usability through UI Changes: Reducing Complexity",
+				link: "https://eventyay.com/e/4c0e0c27/session/9465",
+			},
+			{
 				title: "FECONF2024",
 				description:
 					"프론트엔드 주도로 커머스 서비스 개발하기: 효율적 도구 활용",

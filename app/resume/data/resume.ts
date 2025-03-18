@@ -316,6 +316,11 @@ const resume: Resume = {
 			content: [
 				{
 					title:
+						"FOSSASIA Summit 2025 - Enhancing Form Usability through UI Changes: Reducing Complexity",
+					url: "https://eventyay.com/e/4c0e0c27/session/9465",
+				},
+				{
+					title:
 						"FECONF2024 - 프론트엔드 주도로 커머스 서비스 개발하기: 효율적 도구 활용",
 					url: "https://2024.feconf.kr/",
 				},
@@ -363,6 +368,9 @@ const resume: Resume = {
 		{
 			name: "커뮤니티",
 			content: [
+				{
+					title: "DEFY DEFAULT - Co-Founder",
+				},
 				{
 					title: "Women Who Code - Local Organizer of Seoul Chapter",
 				},
