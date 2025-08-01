@@ -29,6 +29,14 @@ const resume: Resume = {
 			period: "24.10 ~",
 			content: [
 				{
+					title: "POUCH-it",
+					description: "Organize My Beauty",
+					link: "https://apple.co/4k8Wpwq",
+					do: ["앱 개발 및 운영", "작성 중"],
+					techHighlight: ["Next.js(App Router)", "Expo (React Native)"],
+					tech: ["TypeScript"],
+				},
+				{
 					title: "비공개",
 					description: "신규 사업 기회 발굴 팀",
 					link: null,
@@ -314,6 +322,11 @@ const resume: Resume = {
 		{
 			name: "발표",
 			content: [
+				{
+					title:
+						"Supabase Launch Week 15 Seoul - Supercharging Kakao Login on Supabase",
+					url: "https://www.meetup.com/dev-korea/events/308860015/",
+				},
 				{
 					title:
 						"FOSSASIA Summit 2025 - Enhancing Form Usability through UI Changes: Reducing Complexity",

@@ -29,6 +29,11 @@ export const projects: Array<{
 		section: "발표",
 		data: [
 			{
+				title: "Supabase Launch Week 15 Seoul",
+				description: "Supercharging Kakao Login on Supabase",
+				link: "https://www.meetup.com/dev-korea/events/308860015",
+			},
+			{
 				title: "FOSSASIA Summit 2025",
 				description:
 					"Enhancing Form Usability through UI Changes: Reducing Complexity",
