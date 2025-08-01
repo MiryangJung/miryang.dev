@@ -25,7 +25,7 @@ const resume: Resume = {
 	experience: [
 		{
 			company: "그란데클립",
-			position: "Frontend Engineer",
+			position: "Senior Frontend Engineer",
 			period: "24.10 ~",
 			content: [
 				{
