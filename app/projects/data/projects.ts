@@ -34,6 +34,11 @@ export const projects: Array<{
 				link: "https://www.meetup.com/dev-korea/events/308860015",
 			},
 			{
+				title: "Udemy 한입 런치박스",
+				description: "멋있어 보여서 시작했습니다",
+				link: "https://www.udemy.com/course/learnch_box/",
+			},
+			{
 				title: "FOSSASIA Summit 2025",
 				description:
 					"Enhancing Form Usability through UI Changes: Reducing Complexity",
