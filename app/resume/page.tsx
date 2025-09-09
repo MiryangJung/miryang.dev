@@ -13,13 +13,13 @@ export default function ResumePage() {
 				<h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
 					정미량
 				</h1>
-				<Link
+				{/* <Link
 					href="https://read.cv/miryang"
 					target="_blank"
 					className="text-sm"
 				>
 					Resume (English Version)
-				</Link>
+				</Link> */}
 			</div>
 			<p className="text-lg text-gray-700 dark:text-gray-300">
 				Frontend Engineer
