@@ -30,15 +30,19 @@ const resume: Resume = {
 			content: [
 				{
 					title: "POUCH-it",
-					description: "Organize My Beauty",
+					description: "이미지를 통해 화장품을 검색하고, 오거나이징할 수 있는 앱입니다.",
 					link: "https://apple.co/4k8Wpwq",
-					do: ["앱 개발 및 운영", "작성 중"],
-					techHighlight: ["Next.js(App Router)", "Expo (React Native)"],
+					do: [
+						"RN(EXPO)를 사용한 iOS 앱 개발 및 운영, 스토어 심사 및 배포 관리",
+						"LLM 친화적인 기술 스택과 프롬프트 엔지니어링을 활용, AI 채팅만으로 코딩이 가능한 백오피스를 구축하여 팀 생산성 증대",
+						"DB 및 Amplitude와 연동되는 Slack 기반의 AI 어시스턴트를 개발하여 데이터 기반 의사결정 프로세스 구축에 기여",
+						"사용자 데이터 분석을 기반으로 기획 및 개발한 '개인 맞춤형 스킨 리포트' 기능이 베타 배포 후 전체 유저의 20% 사용률을 기록, 정식 기능으로 채택 및 고도화"
+					],
+					techHighlight: ["Expo (React Native)","Next.js(App Router)"],
 					tech: ["TypeScript"],
 				},
 				{
-					title: "비공개",
-					description: "신규 사업 기회 발굴 팀",
+					title: "신규 사업 기회 발굴 팀",
 					link: null,
 					do: [
 						"신규 비즈니스 모델 개발을 위해 시장 조사 및 데이터 분석 수행",
