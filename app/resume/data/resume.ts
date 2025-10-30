@@ -6,6 +6,11 @@ const resume: Resume = {
 	contact: "Email: miryang.dev@gmail.com",
 	about: [
 		{
+			title: "저는 프론트엔드 개발자입니다.",
+			description:
+				"서비스 규모와 기술 변화에 유연하게 대응하며, 문제를 구조적으로 분석하고 개선 프로세스를 설계합니다. 주요 성과 중 하나로 시간과 비용을 고려하며 커머스 플랫폼을 제작했고, 억 단위의 거래액이 만든 경험이 있습니다.",
+		},
+		{
 			title: "저는 열정적으로 일합니다.",
 			description:
 				"프로젝트 기획 단계부터 적극적으로 참여하여 아이디어 발굴 및 치열한 논의를 거쳐 도출해낸 최적의 결과물을 코드로 구현하는 몰입감과 성취감을 좋아합니다.",
@@ -30,15 +35,18 @@ const resume: Resume = {
 			content: [
 				{
 					title: "POUCH-it",
-					description: "이미지를 통해 화장품을 검색하고, 오거나이징할 수 있는 앱입니다.",
+					description:
+						"이미지를 통해 화장품을 검색하고, 오거나이징할 수 있는 앱입니다.",
 					link: "https://apple.co/4k8Wpwq",
 					do: [
-						"RN(EXPO)를 사용한 iOS 앱 개발 및 운영, 스토어 심사 및 배포 관리",
+						"React Native(Expo)를 사용한 iOS 앱 개발 및 운영, 스토어 심사 및 배포 관리",
 						"LLM 친화적인 기술 스택과 프롬프트 엔지니어링을 활용, AI 채팅만으로 코딩이 가능한 백오피스를 구축하여 팀 생산성 증대",
-						"DB 및 Amplitude와 연동되는 Slack 기반의 AI 어시스턴트를 개발하여 데이터 기반 의사결정 프로세스 구축에 기여",
-						"사용자 데이터 분석을 기반으로 기획 및 개발한 '개인 맞춤형 스킨 리포트' 기능이 베타 배포 후 전체 유저의 20% 사용률을 기록, 정식 기능으로 채택 및 고도화"
+						"DB 및 Amplitude와 연동되는 Slack 기반의 AI 어시스턴트 봇을 개발하여 데이터 기반 의사결정 프로세스 구축에 기여",
+						"사용자 데이터 분석을 기반으로 기획 및 개발한 '개인 맞춤형 스킨 리포트' 기능이 베타 배포 후 전체 유저의 20% 사용률을 기록, 정식 기능으로 채택 및 고도화",
+						"Expo 및 종속성 버전 최신화를 주도하여, 빌드 오류와 의존성 충돌을 해결",
+						"대용량 이미지 업로드 시 유저 경험적 문제를 진단 후, Expo Modules API를 직접 작성하여 백그라운드 업로드 안정성 확보",
 					],
-					techHighlight: ["Expo (React Native)","Next.js(App Router)"],
+					techHighlight: ["Expo (React Native)", "Next.js(App Router)"],
 					tech: ["TypeScript"],
 				},
 				{
