@@ -95,14 +95,14 @@ export default function ResumePage() {
 										);
 									})}
 
-									<p className="text-xs text-zinc-400 font-extralight">
+									{/* <p className="text-xs text-zinc-400 font-extralight">
 										<span className="font-medium">
 											{content.techHighlight?.join(", ")}
 										</span>
 										{content.tech && ", "}
 
 										<span>{content.tech?.join(", ")}</span>
-									</p>
+									</p> */}
 								</div>
 							))}
 						</CardContent>
