@@ -31,7 +31,7 @@ export const projects: Array<{
 			{
 				title: "FOSSASIA Summit 2026",
 				description: "Taming Large Image Lists in React Native",
-				link: "https://eventyay.com/e/88882f3e/session/10349",
+				link: "https://eventyay.com/ev/88882f3e/talk/GZNFD0RK8SDA",
 			},
 			{
 				title: "Supabase Launch Week 15 Seoul",
@@ -47,7 +47,7 @@ export const projects: Array<{
 				title: "FOSSASIA Summit 2025",
 				description:
 					"Enhancing Form Usability through UI Changes: Reducing Complexity",
-				link: "https://eventyay.com/e/4c0e0c27/session/9465",
+				link: "https://eventyay.com/ev/4c0e0c27/talk/WXPS2KVG2W7N",
 			},
 			{
 				title: "FECONF2024",

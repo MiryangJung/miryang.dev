@@ -272,7 +272,7 @@ const resume: Resume = {
 				{
 					title:
 						"FOSSASIA Summit 2026 - Taming Large Image Lists in React Native",
-					url: "https://eventyay.com/e/88882f3e/session/10349",
+					url: "https://eventyay.com/ev/88882f3e/talk/GZNFD0RK8SDA",
 				},
 				{
 					title:
@@ -282,7 +282,7 @@ const resume: Resume = {
 				{
 					title:
 						"FOSSASIA Summit 2025 - Enhancing Form Usability through UI Changes: Reducing Complexity",
-					url: "https://eventyay.com/e/4c0e0c27/session/9465",
+					url: "https://eventyay.com/ev/4c0e0c27/talk/WXPS2KVG2W7N",
 				},
 				{
 					title:
