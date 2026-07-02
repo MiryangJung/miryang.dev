@@ -50,7 +50,7 @@ const resume: Resume = {
 				},
 				{
 					title: "AX 프로그램 설계·운영",
-					link: "https://luma.com/calendar/manage/cal-a7cWEDWYmLzHwvy?period=past",
+					link: "https://luma.com/grandeclip?period=past",
 					do: [
 						"AX Meetup — 사례 공유를 위한 외부 오픈 AI 밋업 기획·개최(1회 신청 310명 / 2회 약 400명, 참여 만족도 대부분 5점)",
 						"AI 버디 프로그램 — 멘토–사내 멘티 매칭형 AI 실력 향상 프로그램 기획·운영하여 사내 AI 능력 향상",
