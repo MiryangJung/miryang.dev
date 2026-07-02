@@ -3,6 +3,7 @@ import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
 import type { Resume } from "../data/resume.type";
+import PrintButton from "./PrintButton";
 
 type LangSwitch = {
 	href: string;
@@ -12,9 +13,11 @@ type LangSwitch = {
 export default function ResumeView({
 	resume,
 	langSwitch,
+	printLabel,
 }: {
 	resume: Resume;
 	langSwitch: LangSwitch;
+	printLabel: string;
 }) {
 	return (
 		<>
@@ -22,9 +25,12 @@ export default function ResumeView({
 				<h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
 					{resume.name}
 				</h1>
-				<Link href={langSwitch.href} className="text-sm">
-					{langSwitch.label}
-				</Link>
+				<div className="flex items-center gap-3 print:hidden">
+					<PrintButton label={printLabel} />
+					<Link href={langSwitch.href} className="text-sm hover:underline">
+						{langSwitch.label}
+					</Link>
+				</div>
 			</div>
 			<p className="text-lg text-gray-700 dark:text-gray-300">{resume.job}</p>
 
@@ -44,7 +50,7 @@ export default function ResumeView({
 			</p>
 
 			<section className="my-5 pt-10 border-t">
-				<h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+				<h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 print:break-after-avoid">
 					Work Experience
 				</h2>
 
@@ -53,7 +59,7 @@ export default function ResumeView({
 						className="mb-6 bg-white dark:bg-stone-900 border-none shadow-none"
 						key={item.company}
 					>
-						<CardHeader className="flex flex-col px-0">
+						<CardHeader className="flex flex-col px-0 print:break-inside-avoid print:break-after-avoid">
 							<h3
 								className="text-base font-bold text-gray-900 dark:text-gray-100"
 								style={{ color: item.companyColor }}
@@ -68,7 +74,7 @@ export default function ResumeView({
 							{item.content.map((content) => (
 								<div
 									key={content.title}
-									className="break-keep flex flex-col mb-2 gap-1"
+									className="break-keep flex flex-col mb-2 gap-1 print:break-inside-avoid"
 								>
 									<div className="flex items-center gap-1">
 										<span className="font-bold text-sm">{content.title}</span>

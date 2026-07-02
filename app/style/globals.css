@@ -90,3 +90,6 @@
 .prose figure[data-rehype-pretty-code-figure] > pre {
   @apply rounded-none;
 }
+@page {
+  margin: 14mm 12mm;
+}

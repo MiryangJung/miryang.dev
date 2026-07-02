@@ -8,6 +8,7 @@ export default function ResumePage() {
 		<ResumeView
 			resume={resume}
 			langSwitch={{ href: "/resume/en", label: "English Version" }}
+			printLabel="PDF 저장"
 		/>
 	);
 }

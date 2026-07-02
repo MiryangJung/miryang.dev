@@ -9,7 +9,7 @@ import { Button } from "./ui/button";
 
 export default function Header() {
 	return (
-		<header className="h-14 px-5 sticky top-0 z-50 w-full border-b flex justify-between items-center bg-background">
+		<header className="h-14 px-5 sticky top-0 z-50 w-full border-b flex justify-between items-center bg-background print:hidden">
 			<div className="flex items-center">
 				<MobileNav />
 				<Nav />
