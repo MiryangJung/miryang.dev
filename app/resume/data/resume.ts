@@ -6,19 +6,19 @@ const resume: Resume = {
 	contact: "miryang.dev@gmail.com",
 	about: [
 		{
-			title: "비즈니스 성과로 연결합니다.",
+			title: "커머스를 세 번 만들었습니다.",
 			description:
-				"단순 구현을 넘어 제품의 지표 변화에 집중합니다. 유저 데이터를 분석해 '개인 맞춤형 스킨 리포트'를 직접 기획·개발하여 전체 유저 20% 사용률을 기록, 정식 기능으로 채택시켰으며, 서비스 피보팅 과정에서 핵심 기능을 적기 출시해 누적 다운로드 134% 성장을 이끌었습니다.",
+				"React·Next.js·React Native 기반으로 6년간 프로덕트를 만들어 온 프론트엔드 엔지니어입니다. 팜모닝에서 농산물 직거래 마켓플레이스를 개발했고, 세컨핸즈 주얼리 커머스 '페이브릴'은 초기 멤버이자 FE 리드로 스택 선정부터 운영까지 주도해 MAU 2.5만을 달성했으며, 매거진C 자사몰은 결제 연동부터 백오피스까지 혼자 약 두 달 만에 구축해 정식 오픈했습니다. 상품 등록 UX 개선으로 등록 수 50% 증가, AI 추천으로 CTR 7배 향상 등 커머스 지표를 직접 움직여 왔습니다.",
 		},
 		{
 			title: "역할 확장에 주저하지 않습니다.",
 			description:
-				"배포한 서비스에 유입이 없자 직접 마케팅 캠페인을 설계하고, 조직에 AI가 필요하자 전사 AX 프로그램을 기획·운영하는 등 문제 해결에 필요하다면 역할의 경계를 넘습니다.",
+				"배포한 서비스에 유입이 없자 직접 마케팅 캠페인을 설계하고, 조직에 AI가 필요하자 전사 AX 프로그램을 기획·운영하는 등 문제 해결에 필요하다면 역할의 경계를 넘습니다. AX Partner로 역할이 전환되던 혼란기에 가장 능동적으로 일감을 찾아 실행하고, 협업 기회가 적던 동료들과도 먼저 소통한 구성원으로 동료 평가에서 꼽히기도 했습니다.",
 		},
 		{
 			title: "고객 경험의 완결성을 추구합니다.",
 			description:
-				"'동작하는 코드'를 넘어 '고객에게 닿는 가치'를 책임집니다. 기획 단계에서 기술적 제약과 엣지케이스를 선제적으로 공유해 재작업을 최소화하고, 배포 후에도 실사용 환경의 오류와 UX 이슈를 직접 모니터링하여 고객 딜리버리의 완결성을 높여가고 있습니다. 또한, 기술 부채 해결 및 성능 최적화를 주도하여 서비스의 장기적인 안정성과 쾌적한 사용자 경험을 동시에 확보합니다.",
+				"'동작하는 코드'가 아니라 고객에게 닿는 가치를 기준으로 일합니다. 기획 단계에서 기술적 제약과 엣지케이스를 선제적으로 공유해 재작업을 줄이고, 배포 후에는 실사용 환경의 오류와 UX 이슈를 직접 모니터링합니다. 대량 이미지 렌더링의 메모리 점유를 90% 줄여 앱 크래시를 해결하는 등 성능과 안정성 개선도 주도합니다.",
 		},
 	],
 
@@ -26,7 +26,7 @@ const resume: Resume = {
 		{
 			company: "그란데클립",
 			position: "Senior Frontend Engineer · AX Partner",
-			period: "24.10 ~",
+			period: "2024.10 ~",
 			content: [
 				{
 					title: "Magazine C",
@@ -34,30 +34,14 @@ const resume: Resume = {
 						"체어 다큐멘터리 매거진 C의 브랜드 사이트 및 자사몰입니다.",
 					link: "https://chairmagazine-c.com/ko",
 					do: [
-						"브랜드 사이트 및 자사몰(커머스), 백오피스를 단독 풀스택 개발 및 구축",
-						"PG사 및 카드사 심사, 면세 처리 등 커머스 오픈에 필요한 실무를 직접 처리",
-						"개발을 넘어 제품 오너십을 가지고 매거진 C팀과 직접 커뮤니케이션하며 사이트 구축부터 운영 및 마케팅까지 전 과정 주도",
+						"커머스(브랜드 사이트+자사몰+백오피스+결제)를 단독 풀스택 개발하여 약 두 달 만에 정식 오픈",
+						"PortOne·KCP 전자결제 및 간편결제 연동, 도서 면세 처리 구현과 PG사·카드사 심사 대응까지 결제 전 과정 직접 수행",
+						"기획자·디자이너 부재 상황에서 QA 항목을 직접 수집·정리하고, 배너·레이아웃 등 결정 사안은 안을 만들어 매거진 C팀에 제안·합의하며 오픈까지 완수",
 						"오픈 직후 유입 부재를 해결하기 위해 UTM/쿠폰 추적을 갖춘 인플루언서 캠페인을 직접 기획 및 실행",
 						"검색 노출 확대를 위해 SEO 최적화 및 구글 쇼핑 피드 연동을 수행하여 오가닉 유입 채널 구축",
 					],
-				},
-				{
-					title: "AI 도구 설계·개발",
-					do: [
-						"회사 스타일 장표 생성 플러그인 '그란데피피티'를 제작해 사내에 v2.0 배포",
-						"Magazine C 영문판 출간을 위해 사람+AI 하이브리드 번역 워크플로우를 설계 — 스타일가이드·용어집 일관성·검수 프로세스를 정의하고 번역가와 협업하여 진행",
-						"멀티 에이전트 오케스트레이션 도구(Paperclip) 도입 PoC — 역할 기반(CEO/CTO/CDO) 에이전트로 자연어 지시부터 기능 구현까지 검증",
-					],
-				},
-				{
-					title: "AX 프로그램 설계·운영",
-					link: "https://luma.com/grandeclip?period=past",
-					do: [
-						"AX Meetup — 사례 공유를 위한 외부 오픈 AI 밋업 기획·개최(1회 신청 310명 / 2회 약 400명, 참여 만족도 대부분 5점)",
-						"AI 버디 프로그램 — 멘토–사내 멘티 매칭형 AI 실력 향상 프로그램 기획·운영하여 사내 AI 능력 향상",
-						"AI 자랑대회 — AI로 만든 것·해본 것을 공유하는 사내 발표 대회 기획·개최하여 활용 사례 공유 및 AI 사용 독려",
-						"AI 핸즈온 — 실습 중심의 비개발 직군 대상 AI 학습 세션 기획·운영",
-					],
+					techHighlight: ["Claude Code", "Next.js"],
+					tech: ["TypeScript", "Google Analytics"],
 				},
 				{
 					title: "POUCH-it",
@@ -73,20 +57,35 @@ const resume: Resume = {
 						"Cursor, Claude Code 등 AI 코딩 도구의 Rule·Skill·Hook 등 팀 맞춤 환경을 설계하여 AI 기반 개발 워크플로우를 구축하고 팀 내 개발 생산성 향상을 주도",
 					],
 					techHighlight: ["Claude Code", "Cursor", "Expo (React Native)"],
-					tech: [
-						"Next.js(App Router)",
-						"TypeScript",
-						"Amplitude",
-						"gemini",
-						"Linear",
+					tech: ["Next.js", "TypeScript", "Amplitude", "Gemini"],
+				},
+				{
+					title: "글로우비스트",
+					description:
+						"운동하는 사람들을 위한 액티브 뷰티 브랜드 글로우비스트의 브랜드 사이트입니다.",
+					link: "https://glowbeast.co/",
+					do: [
+						"SEO 메타태그 최적화 및 Google Search Console 등록으로 검색 유입 기반 구축",
+						"웰컴 이메일 발송을 위한 SMTP 자체 구현",
+					],
+					techHighlight: ["Next.js", "TypeScript"],
+				},
+				{
+					title: "AI 도구 설계·개발",
+					do: [
+						"회사 스타일 장표 생성 플러그인 '그란데피피티'를 제작해 사내에 v2.0 배포",
+						"Magazine C 영문판 출간을 위해 사람+AI 하이브리드 번역 워크플로우를 설계 — 스타일가이드·용어집 일관성·검수 프로세스를 정의하고 번역가와 협업하여 진행",
+						"멀티 에이전트 오케스트레이션 도구(Paperclip) 도입 PoC — 역할 기반(CEO/CTO/CDO) 에이전트로 자연어 지시부터 기능 구현까지 검증",
 					],
 				},
 				{
-					title: "신규 사업 기회 발굴 팀",
-					link: null,
+					title: "AX 프로그램 설계·운영",
+					link: "https://luma.com/grandeclip?period=past",
 					do: [
-						"신규 비즈니스 모델 개발을 위해 시장 조사 및 데이터 분석 수행",
-						"경쟁사 및 트렌드 분석을 통해 전략적 인사이트를 도출하여 사업 전략 수립 지원",
+						"AX Meetup — 사례 공유를 위한 외부 오픈 AI 밋업 기획·개최(1회 신청 310명 / 2회 370명+, 참여 만족도 대부분 5점)",
+						"AI 버디 프로그램 — 멘토–사내 멘티 매칭형 AI 실력 향상 프로그램 기획·운영하여 사내 AI 능력 향상",
+						"AI 자랑대회 — AI로 만든 것·해본 것을 공유하는 사내 발표 대회 기획·개최하여 활용 사례 공유 및 AI 사용 독려",
+						"AI 핸즈온 — 실습 중심의 비개발 직군 대상 AI 학습 세션 기획·운영",
 					],
 				},
 				{
@@ -97,15 +96,8 @@ const resume: Resume = {
 						"웹사이트 국제화, 메타데이터 수정 및 검색 엔진 등록을 통해 SEO 최적화 수행",
 						"핀치줌과 드래그로 스티커를 붙이는 기능을 포함한 신규 유저 유입 이벤트 개발 및 런칭 후 주간 가입자 수 평균 대비 1300% 증가",
 					],
-					techHighlight: ["Next.js(App Router)", "TypeScript"],
-					tech: [
-						"Tailwind",
-						"Git",
-						"StoryBook",
-						"Vercel",
-						"Amplitude",
-						"Notion",
-					],
+					techHighlight: ["Next.js", "TypeScript"],
+					tech: ["Tailwind", "Storybook", "Vercel", "Amplitude"],
 				},
 			],
 		},
@@ -113,7 +105,7 @@ const resume: Resume = {
 			company: "언컷젬스컴퍼니",
 			companyColor: "#D35A46",
 			position: "Frontend Engineer Lead",
-			period: "23.07 ~ 24.10",
+			period: "2023.07 ~ 2024.10",
 			content: [
 				{
 					title: "페이브릴",
@@ -122,17 +114,18 @@ const resume: Resume = {
 						"초기 멤버이자 리드로서 스택 선정부터 풀스택 개발, 배포 및 운영 전 과정을 주도하여 MAU 2.5만 달성 및 월 운영 비용 $150 이하 유지",
 						"카카오톡 로그인 지원을 위해 Supabase 오픈소스에 직접 기여하여 기술적 제약을 해결했으며, 이를 통해 신규 가입 유저 수 80% 증가 견인",
 						"OpenAI 임베딩 모델을 활용한 AI 기반 상품 추천 시스템 구축으로 클릭률(CTR)을 5%에서 36.8%로 7배 이상 향상",
-						"Streaming SSR 도입으로 진입 속도를 1.5초 단축하고, 분할 결제 기능 등 구매 편의성을 개선하여 주문 건수 30% 증가 달성",
-						"데이터 기반의 상품 등록 UX 개선(자동 입력)을 주도하여 등록 수 50% 증가 및 관련 문의 100% 감소 성과 창출 (FECONF2024, FOSSASIA 2025 발표)",
+						"데이터 기반의 상품 등록 UX 개선(자동 입력)을 주도하여 등록 수 50% 증가 및 관련 문의 0건 달성 (FECONF2024, FOSSASIA 2025 발표)",
+						"Streaming SSR 도입으로 페이지 진입 속도 1.5초 단축",
+						"분할 결제 기능 등 구매 편의성 개선으로 주문 건수 30% 증가 달성",
 						"Growthbook을 통한 A/B 테스트 환경 및 Storybook·shadcn-ui 기반 디자인 시스템 구축으로 데이터 기반 의사결정과 개발 생산성 향상에 기여",
 						"WebView 앱의 안정적 운영(CodePush, 유니버셜 링크 등)과 Slack Bot 알림 자동화를 통해 서비스 운영 효율 최적화",
 						"마케팅 부서와 협업하여 data attribute 기반 GTM 가이드 및 트래킹 체계를 구축함으로써 마케팅 팀의 자체적인 데이터 분석 역량 지원",
 					],
 					techHighlight: [
-						"Next14",
+						"Next.js 14",
 						"TypeScript",
 						"Supabase",
-						"ReactNative Webview",
+						"React Native WebView",
 						"shadcn-ui",
 						"Zod",
 						"React Hook Form",
@@ -144,13 +137,11 @@ const resume: Resume = {
 						"Cloudflare Images",
 						"Cloudflare Workers",
 						"Tailwind",
-						"Git",
 						"Retool",
-						"StoryBook",
+						"Storybook",
 						"App Center CodePush",
 						"Vercel",
 						"Google Analytics",
-						"Linear",
 					],
 					link: "https://fabrill.co.kr",
 				},
@@ -160,7 +151,7 @@ const resume: Resume = {
 			company: "그린랩스",
 			companyColor: "#0BB25F",
 			position: "Frontend Engineer",
-			period: "22.02 ~ 23.07",
+			period: "2022.02 ~ 2023.07",
 			content: [
 				{
 					title: "팜모닝",
@@ -174,7 +165,7 @@ const resume: Resume = {
 						"웹뷰 연동 가이드라인을 작성하여 팀 내 협업 효율 향상",
 						"앱 빌드 및 스토어 심사·배포를 관리하여 안정적인 서비스 딜리버리 수행",
 					],
-					tech: ["Tailwind", "Git"],
+					tech: ["Tailwind"],
 					techHighlight: [
 						"ReScript",
 						"Relay",
@@ -191,9 +182,9 @@ const resume: Resume = {
 						"앱 기능을 웹뷰에서 사용하기 위한 React Native 개발",
 						"자연스러운 UX를 위한 웹뷰 네비게이션 개선 작업",
 						"AppCenter를 사용한 테스터 관리 및 앱 배포",
-						"Github Wiki를 사용해 앱 로컬 실행 환경 구축 가이드라인 작성 및 구조 플로우 차트 작성",
+						"GitHub Wiki를 사용해 앱 로컬 실행 환경 구축 가이드라인 작성 및 구조 플로우 차트 작성",
 					],
-					tech: ["AppCenter", "Git"],
+					tech: ["AppCenter"],
 					techHighlight: ["ReScript", "React Native", "Next.js"],
 					link: null,
 				},
@@ -201,9 +192,9 @@ const resume: Resume = {
 					title: "rescript-bindings",
 					description:
 						"ReScript를 사용하기 위한 외부 라이브러리 바인딩 모음이며 오픈소스 프로젝트",
-					do: ["모노레포 구성", "Github Action을 사용한 npm 자동 배포"],
+					do: ["모노레포 구성", "GitHub Actions를 사용한 npm 자동 배포"],
 					tech: ["ReScript"],
-					techHighlight: ["lerna", "Github Action"],
+					techHighlight: ["Lerna", "GitHub Actions"],
 					link: "https://github.com/green-labs/rescript-bindings",
 				},
 			],
@@ -211,7 +202,7 @@ const resume: Resume = {
 		{
 			company: "라온스토리",
 			position: "FullStack Engineer",
-			period: "21.06 ~ 21.11",
+			period: "2021.06 ~ 2021.11",
 			content: [
 				{
 					title: "블록체인 기반 서비스 개발",
@@ -220,7 +211,7 @@ const resume: Resume = {
 						"React 기반 공식 홈페이지 개발 및 기존 프론트엔드 레이아웃 리팩토링",
 					],
 					techHighlight: ["React", "Aries Framework", "Node.js"],
-					tech: ["Typescript", "Express.js", "Swagger", "Javascript", "Git"],
+					tech: ["TypeScript", "Express.js", "Swagger", "JavaScript"],
 				},
 			],
 		},
@@ -228,7 +219,7 @@ const resume: Resume = {
 			company: "AiRISS",
 			companyColor: "#365ec3",
 			position: "FullStack Engineer",
-			period: "20.04 ~ 21.05",
+			period: "2020.04 ~ 2021.05",
 			content: [
 				{
 					title: "관세청 AIXAC 시스템",
@@ -240,8 +231,8 @@ const resume: Resume = {
 						"기존 C# 시스템의 잦은 장애를 해결하기 위해 Python 기반 재설계를 제안하고 초기 개발 방향 수립",
 						"폐쇄망 환경의 개발용 시뮬레이터를 구축(MSSQL, TCP 통신, 파일 생성 흐름 구현)",
 					],
-					techHighlight: ["Go", "Python", "Javascript"],
-					tech: ["Flask", "Node.js", "Express.js", "MSSQL", "jQuery", "Git"],
+					techHighlight: ["Go", "Python", "JavaScript"],
+					tech: ["Flask", "Node.js", "Express.js", "MSSQL", "jQuery"],
 					link: "https://blog.naver.com/k_customs/221835330899",
 				},
 			],
@@ -249,7 +240,7 @@ const resume: Resume = {
 		{
 			company: "IGLOO Corporation",
 			position: "Security Consulting Intern",
-			period: "19.08 ~ 20.02",
+			period: "2019.08 ~ 2020.02",
 			content: [
 				{
 					title: "보안 컨설팅 및 업무 자동화",
