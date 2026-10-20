@@ -6,13 +6,14 @@ import { Mdx } from "./components/mdx";
 import Supplement from "./components/supplement";
 
 interface Props {
-	params: {
+	params: Promise<{
 		slug: string;
-	};
+	}>;
 }
 
-export default function DocPage({ params }: Props) {
-	const post = getPageBySlug(params.slug);
+export default async function DocPage({ params }: Props) {
+	const { slug } = await params;
+	const post = getPageBySlug(slug);
 
 	if (!post) {
 		notFound();
@@ -43,7 +44,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const doc = getPageBySlug(params.slug);
+	const { slug } = await params;
+	const doc = getPageBySlug(slug);
 
 	if (!doc) {
 		return {};

@@ -7,9 +7,14 @@ pnpm i
 pnpm dev
 ```
 
+Node.js 22.22.2+, 24.15.0+ 또는 26+를 사용합니다. `.env.local`에 `NEXT_PUBLIC_SUPABASE_URL`과
+`NEXT_PUBLIC_SUPABASE_ANON_KEY`를 설정해 주세요.
+
+검증: `pnpm lint`, `pnpm test`, `pnpm typecheck`, `pnpm build`.
+
 ## Tech
 
-- [Next.js 15](https://nextjs.org/)
+- [Next.js 16](https://nextjs.org/)
 - [TypeScript](https://www.typescriptlang.org/ko/)
 - [velite](https://velite.js.org/)
 - [shadcn/ui](https://ui.shadcn.com/)

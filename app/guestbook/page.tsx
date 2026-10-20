@@ -5,24 +5,23 @@ import GuestbookForm from "./components/form";
 import { GuestbookProvider } from "./components/guestbook-context";
 import GuestbookList from "./components/list";
 
-export const revalidate = false;
+export const dynamic = "force-dynamic";
 
 export default async function GuestbookPage() {
-	const initialData = await getGuestbooks({ range: { from: 0, to: 49 } });
-	const count = await getGuestbooksCount();
+	const [pinned, messages, count] = await Promise.all([
+		getGuestbooks({ pinned: true }),
+		getGuestbooks(),
+		getGuestbooksCount(),
+	]);
 
 	return (
-		<>
-			<h2 className="text-primary mb-5 font-medium">
-				22년 01월부터 작성된 방명록 <b>{count}개</b>
-			</h2>
-			<GuestbookProvider initialItems={initialData}>
-				<div className="flex flex-col gap-5 my-5 min-h-screen">
-					<GuestbookList />
-				</div>
-				<GuestbookForm />
-			</GuestbookProvider>
-		</>
+		<GuestbookProvider
+			initialItems={[...pinned, ...messages]}
+			initialCount={count}
+		>
+			<GuestbookList />
+			<GuestbookForm />
+		</GuestbookProvider>
 	);
 }
 

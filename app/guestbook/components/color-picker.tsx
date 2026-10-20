@@ -14,11 +14,12 @@ export const colors = [
 	"#ffd9b8",
 ];
 
-export default function ColorPicker() {
-	const { setValue } = useFormContext();
+export default function ColorPicker({ disabled }: { disabled: boolean }) {
+	const { setValue, watch } = useFormContext();
+	const selected = watch("color");
 
 	const onClick = (color: string) => () => {
-		setValue("color", color);
+		setValue("color", color, { shouldValidate: true });
 	};
 
 	return (
@@ -29,6 +30,9 @@ export default function ColorPicker() {
 					key={color}
 					className="rounded-full w-5 h-5 p-0"
 					style={{ backgroundColor: color }}
+					aria-label={`메시지 색상 ${color}`}
+					aria-pressed={selected === color}
+					disabled={disabled}
 					onClick={onClick(color)}
 				/>
 			))}

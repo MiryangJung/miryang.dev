@@ -7,13 +7,19 @@ export default function Bubble({
 	color,
 	created_at,
 	pinned,
-}: Guestbook) {
+	pending = false,
+}: Guestbook & { pending?: boolean }) {
 	return (
 		<div className="flex flex-row justify-end items-end gap-1">
 			<div className="flex flex-col items-end gap-1">
-				{pinned && <PinIcon className="h-3 w-3 text-primary stroke-[1.5px]"/>}
+				{pinned && (
+					<PinIcon
+						aria-label="고정 메시지"
+						className="h-3 w-3 text-primary stroke-[1.5px]"
+					/>
+				)}
 				<span className="text-[10px] text-primary">
-					{getTzDay(created_at).format("YY.MM")}
+					{pending ? "전송 중" : getTzDay(created_at).format("YY.MM")}
 				</span>
 			</div>
 			<div

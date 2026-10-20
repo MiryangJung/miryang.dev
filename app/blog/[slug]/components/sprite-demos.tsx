@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 /**
  * GoldTrophySprite
@@ -179,6 +179,7 @@ export function StepsTimingDemo() {
 
               {/* 경로 */}
               <svg
+                aria-hidden="true"
                 className="absolute inset-0 h-full w-full"
                 viewBox="0 0 200 200"
                 preserveAspectRatio="none"
@@ -333,6 +334,7 @@ export function LikeButtonDemo() {
           aria-label={liked ? "좋아요 취소" : "좋아요"}
         >
           <svg
+            aria-hidden="true"
             viewBox="0 0 24 24"
             width={48}
             height={48}
