@@ -8,7 +8,7 @@ const resumeEn: Resume = {
 		{
 			title: "I've built commerce three times.",
 			description:
-				"Frontend engineer with six years of experience building with React, Next.js, and React Native. Built commerce products at Farmmorning, Fabrill, and Magazine C, covering architecture, payments, back-office tooling, and operations. Increased product listings by 50% through UX improvements and raised recommendation CTR from 5% to 36.8%.",
+				"Frontend engineer building web and mobile applications with React, Next.js, and React Native. Built commerce products at Farmmorning, Fabrill, and Magazine C, covering architecture, payments, back-office tooling, and operations. Increased product listings by 50% through UX improvements and raised recommendation CTR from 5% to 36.8%.",
 		},
 		{
 			title: "I own products from launch through operations.",
