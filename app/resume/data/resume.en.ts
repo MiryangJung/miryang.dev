@@ -13,7 +13,7 @@ const resumeEn: Resume = {
 		{
 			title: "I don't hesitate to expand my role.",
 			description:
-				"I take ownership of operations and marketing after launch, and have initiated and run company-wide AI training and mentoring programs. I extend product engineering into workplace improvements by building slide-generation and contract-review tools for non-engineering teams. Selected for Grandeclip's outstanding employee recognition for the first half of 2026.",
+				"I take ownership of operations and marketing after launch, and have initiated and run company-wide AI training and mentoring programs. I extend product engineering into workplace improvements by building slide-generation tools for non-engineering teams. Selected for Grandeclip's outstanding employee recognition for the first half of 2026.",
 		},
 		{
 			title: "I pursue completeness in the customer experience.",
@@ -76,7 +76,6 @@ const resumeEn: Resume = {
 					title: "AI Tooling Design & Development",
 					do: [
 						"Redesigned GrandePPT 2.0, a company-branded slide-generation plugin, for non-engineering users and released it on the internal marketplace (May 2026)",
-						"Built GrandeLegal, a plugin for clause-level contract review, risk classification, redlines, and negotiation guidance; compared its output with a lawyer's review of a real contract before distributing it to Legal and GVC teams",
 						"Designed a human–AI translation workflow using the Claude API for Magazine C's English edition, defining the style guide, glossary, review process, and collaboration standards with an external translator",
 						"Defined evaluation criteria for a Paperclip multi-agent orchestration proof of concept—real-time behavior, usability for non-specialists, and deployment reliability—and owned CDO-role tests and demo scenarios to support an adoption decision",
 					],
@@ -86,7 +85,7 @@ const resumeEn: Resume = {
 					link: "https://luma.com/grandeclip?period=past",
 					do: [
 						"Initiated company-wide AI meetups, mentoring, demo contests, and hands-on sessions; built an operating process from proposals and internal approval through delivery and retrospectives",
-						"Led two public AX meetups with 310 and 367 registrations respectively; handled speaker recruitment, sponsorships, and event delivery, and published presentation materials on GitHub",
+						"Led two public AX meetups with 310 and 367 registrations respectively; handled speaker recruitment, sponsorships, and event delivery",
 						"Designed mentor–mentee matching, team support, and retrospectives for the first AI Buddy cohort; personally mentored a team that won the audience vote at the third AI demo contest",
 						"Planned, ran, and hosted the second and third AI demo contests to share practical use cases from non-engineering teams; taught hands-on AI sessions rated 5/5 for satisfaction and 4.5/5 for practical usefulness",
 					],
