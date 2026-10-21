@@ -35,7 +35,7 @@ const resumeEn: Resume = {
 					link: "https://chairmagazine-c.com/en",
 					do: [
 						"Designed and built the brand site, store, content admin, and database as the sole developer; launched in about two months to establish a direct sales channel for magazines and merchandise (Jun 2026)",
-						"Integrated PortOne/KCP, three local payment wallets, VAT-exempt book sales, and member/guest coupons; established workflows from payment approval through fulfillment and refunds",
+						"Integrated PortOne/KCP, two local payment wallets, VAT-exempt book sales, and member/guest coupons; established workflows from payment approval through fulfillment and refunds",
 						"Defined requirements and page layouts directly with the business team and coordinated QA and launch without a dedicated product manager or designer",
 						"Built order- and product-level settlement reports with payment/delivery date filters, discounts, refunds, and CSV exports; shared query logic to keep on-screen and exported totals consistent",
 						"Added unsaved-change indicators and save/translation conflict guards to reduce draft loss and overwrites in the content editor, and improved mobile previews",
