@@ -37,8 +37,7 @@ const resumeEn: Resume = {
 						"Designed and built the brand site, store, content admin, and database as the sole developer; launched in about two months to establish a direct sales channel for magazines and merchandise (Jun 2026)",
 						"Integrated PortOne/KCP, two local payment wallets, VAT-exempt book sales, and member/guest coupons; established workflows from payment approval through fulfillment and refunds",
 						"Defined requirements and page layouts directly with the business team and coordinated QA and launch without a dedicated product manager or designer",
-						"Built order- and product-level settlement reports with payment/delivery date filters, discounts, refunds, and CSV exports; shared query logic to keep on-screen and exported totals consistent",
-						"Added unsaved-change indicators and save/translation conflict guards to reduce draft loss and overwrites in the content editor, and improved mobile previews",
+						"Designed and built an AI translation and review workspace for the English edition, connecting style-guide and glossary-based translation with review by an external translator",
 						"Automated daily visitor and order reports in Slack and established search acquisition foundations through SEO and shopping-feed integration",
 						"Proposed and ran an influencer campaign with seven creators, recording 212K content views, 1,350 saves, and 533 shares (Jul–Sep 2026 posts, measured in October)",
 					],
@@ -62,17 +61,6 @@ const resumeEn: Resume = {
 					tech: ["Next.js", "Amplitude", "Gemini"],
 				},
 				{
-					title: "Magazine C Translation & Review Tool",
-					description:
-						"An AI translation workspace for editors and translators.",
-					do: [
-						"Built a workflow from manuscript preparation to translation review, combining style-guide and glossary-aware AI drafts, paragraph-level revision comparisons, selective acceptance, change history, and Word export",
-						"Designed save logic to detect conflicts between AI responses and manual edits and reject stale responses, preserving editorial changes",
-						"Implemented translator-specific access and guide version history, and defined review and collaboration standards with an external translator",
-					],
-					techHighlight: ["Next.js", "TypeScript", "Supabase"],
-				},
-				{
 					title: "Pulse — Internal Knowledge Search & Q&A",
 					description:
 						"An internal pilot for finding work context and sources across meeting notes and Slack.",
@@ -92,18 +80,6 @@ const resumeEn: Resume = {
 						"Designed matching, team support, and retrospectives for the first AI Buddy cohort; mentored a team that won the audience vote at the third AI demo contest",
 						"Ran the second and third AI demo contests and taught hands-on sessions rated 5/5 for satisfaction and 4.5/5 for practical usefulness",
 					],
-				},
-				{
-					title: "Glowbeast",
-					description:
-						"Brand site for Glowbeast, an active beauty brand for people who work out.",
-					link: "https://glowbeast.co/",
-					do: [
-						"Built responsive home, brand story, and product lineup pages and handed over site operations",
-						"Laid the groundwork for organic search traffic with SEO meta tag optimization and Google Search Console registration",
-						"Implemented SMTP-based welcome email delivery",
-					],
-					techHighlight: ["Next.js(App Router)", "TypeScript"],
 				},
 				{
 					title: "CHAAK",
