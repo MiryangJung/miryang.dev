@@ -8,17 +8,17 @@ const resumeEn: Resume = {
 		{
 			title: "I've built commerce three times.",
 			description:
-				"I'm a frontend engineer who has spent six years building products with React, Next.js, and React Native. I developed a direct-trade produce marketplace at Farmmorning; led 'Fabrill', a secondhand luxury jewelry commerce platform, as a founding member and FE lead from stack selection to operations, reaching 25K MAU; and single-handedly built the Magazine C store — from payment integration to back office — launching it in about two months. I've moved commerce metrics directly: a listing UX improvement grew product listings by 50%, and AI-powered recommendations lifted CTR 7x.",
+				"Frontend engineer with six years of experience building with React, Next.js, and React Native. Built commerce products at Farmmorning, Fabrill, and Magazine C, covering architecture, payments, back-office tooling, and operations. Increased product listings by 50% through UX improvements and raised recommendation CTR from 5% to 36.8%.",
 		},
 		{
-			title: "I don't hesitate to expand my role.",
+			title: "I own products from launch through operations.",
 			description:
-				"I take ownership of operations and marketing after launch, and have initiated and run company-wide AI training and mentoring programs. I extend product engineering into workplace improvements by building slide-generation tools for non-engineering teams. Selected for Grandeclip's outstanding employee recognition for the first half of 2026.",
+				"Built and launched Magazine C's store as the sole developer in about two months, then developed settlement, content editing, and translation tools. Worked directly with the business team on requirements, operations, and customer acquisition. Received Grandeclip's outstanding employee recognition for H1 2026.",
 		},
 		{
-			title: "I pursue completeness in the customer experience.",
+			title: "I solve user problems through engineering.",
 			description:
-				"I work to the standard of value that reaches customers, not just code that works. I proactively surface technical constraints and edge cases at the planning stage to reduce rework, and after release I monitor real-world errors and UX issues myself. I also lead performance and stability improvements, such as cutting the memory footprint of large image lists by 90% to eliminate app crashes.",
+				"Reduced memory usage for large image lists from 2GB to 200MB to resolve app crashes. Built internal knowledge search with traceable sources and AI translation review tools, and supported their practical use through training and mentoring.",
 		},
 	],
 
@@ -34,15 +34,16 @@ const resumeEn: Resume = {
 						"Brand site and direct-to-consumer store for Magazine C, a documentary magazine about chairs.",
 					link: "https://chairmagazine-c.com/en",
 					do: [
-						"Used Claude Code to build the Supabase database, brand site, e-commerce store, and content admin as the sole full-stack developer; launched in about two months, establishing a direct sales channel for magazines and merchandise (Jun 2026)",
-						"Integrated PortOne/KCP payments, Naver Pay, Kakao Pay, Toss Pay, and VAT-exempt book sales; handled gateway and card issuer reviews through order fulfillment and refunds",
-						"Aligned requirements and page layouts directly with the Magazine C team and led QA to launch without a dedicated product manager or designer",
-						"Built welcome and product-specific coupons, plus Cici, a daily Slack briefing bot that automates visitor and order reporting",
-						"Proposed and designed an influencer campaign, then collaborated with seven creators in H2 to generate 212K cumulative content views, 1,350 saves, and 533 shares (Jul–Sep 2026 posts, measured in October)",
-						"Built organic acquisition channels through SEO optimization and Google Shopping feed integration to expand search visibility",
+						"Designed and built the brand site, store, content admin, and database as the sole developer; launched in about two months to establish a direct sales channel for magazines and merchandise (Jun 2026)",
+						"Integrated PortOne/KCP, three local payment wallets, VAT-exempt book sales, and member/guest coupons; established workflows from payment approval through fulfillment and refunds",
+						"Defined requirements and page layouts directly with the business team and coordinated QA and launch without a dedicated product manager or designer",
+						"Built order- and product-level settlement reports with payment/delivery date filters, discounts, refunds, and CSV exports; shared query logic to keep on-screen and exported totals consistent",
+						"Added unsaved-change indicators and save/translation conflict guards to reduce draft loss and overwrites in the content editor, and improved mobile previews",
+						"Automated daily visitor and order reports in Slack and established search acquisition foundations through SEO and shopping-feed integration",
+						"Proposed and ran an influencer campaign with seven creators, recording 212K content views, 1,350 saves, and 533 shares (Jul–Sep 2026 posts, measured in October)",
 					],
-					techHighlight: ["Claude Code", "Next.js(App Router)"],
-					tech: ["TypeScript", "Supabase", "PortOne", "Google Analytics"],
+					techHighlight: ["Next.js", "TypeScript", "Supabase"],
+					tech: ["PortOne", "Google Analytics"],
 				},
 				{
 					title: "POUCH-it",
@@ -50,15 +51,47 @@ const resumeEn: Resume = {
 						"[Discontinued] An app for image-based beauty product management and search.",
 					link: null,
 					do: [
-						"Led the completion of a service pivot by shipping its key features (auto upload, timeline view) on time, handling 1.5x the average workload during the pivot and contributing to a 134% increase in cumulative downloads and an all-time-high WAU",
-						"Planned and built a 'Personalized Skin Report' based on user data analysis; it reached 20% adoption across all users after the beta release and was adopted and expanded as an official feature",
-						"Diagnosed memory issues when rendering large image lists and cut memory usage by 90% (2GB → 200MB) through incremental improvements, eliminating app crashes (presented at FOSSASIA Summit 2026)",
-						"Designed and built an LLM-based admin and a Slack AI bot (PIM), significantly improving data accessibility for non-engineering roles and speeding up decision-making",
-						"Participated directly in influencer interviews and ad creative production for US market entry, producing the best-performing ad at $5.98 CPI",
-						"Designed team-tailored setups (Rules, Skills, Hooks) for AI coding tools such as Cursor and Claude Code, building an AI-powered development workflow and driving team productivity",
+						"Improved large-image-list rendering to reduce memory usage by 90% (2GB → 200MB) and resolve app crashes; presented the work at FOSSASIA Summit 2026",
+						"Designed and built a Personalized Skin Report based on user data; reached 20% user adoption in beta and expanded it into an official feature",
+						"Shipped auto-upload and timeline features on schedule for a service pivot, contributing to 134% growth in cumulative downloads and an all-time-high WAU",
+						"Designed and built an LLM-based admin and Slack AI bot (PIM) to let non-engineering teams query business data",
+						"Contributed to influencer interviews and ad production for US market validation; produced creative that recorded $5.98 CPI",
+						"Standardized team development workflows with project rules, reusable skills, and automated hooks for AI coding tools",
 					],
-					techHighlight: ["Claude Code", "Cursor", "Expo (React Native)"],
-					tech: ["Next.js(App Router)", "TypeScript", "Amplitude", "Gemini"],
+					techHighlight: ["Expo (React Native)", "TypeScript"],
+					tech: ["Next.js", "Amplitude", "Gemini"],
+				},
+				{
+					title: "Magazine C Translation & Review Tool",
+					description:
+						"An AI translation workspace for editors and translators.",
+					do: [
+						"Built a workflow from manuscript preparation to translation review, combining style-guide and glossary-aware AI drafts, paragraph-level revision comparisons, selective acceptance, change history, and Word export",
+						"Designed save logic to detect conflicts between AI responses and manual edits and reject stale responses, preserving editorial changes",
+						"Implemented translator-specific access and guide version history, and defined review and collaboration standards with an external translator",
+					],
+					techHighlight: ["Next.js", "TypeScript", "Supabase"],
+				},
+				{
+					title: "Pulse — Internal Knowledge Search & Q&A",
+					description:
+						"An internal pilot for finding work context and sources across meeting notes and Slack.",
+					do: [
+						"Developed and deployed a Q&A pilot connecting Drive meeting notes and Slack ingestion to retrieval, answer generation, and source display",
+						"Combined keyword, semantic, and temporal search with direct Slack search; added candidate reranking and source validation to make answer evidence traceable",
+						"Implemented authentication, pilot access controls, job deadlines, and webhook signature verification; documented deployment, incident response, and access management",
+					],
+					techHighlight: ["Python", "Supabase", "Paperclip"],
+				},
+				{
+					title: "AX Program Design & Operation",
+					link: "https://luma.com/grandeclip?period=past",
+					do: [
+						"Built and released GrandePPT 2.0, a branded slide-generation plugin for non-engineering teams, and initiated AI training, mentoring, and demo programs to support adoption",
+						"Led planning, speaker recruitment, sponsorships, and delivery for two public AX meetups with 310 and 367 registrations",
+						"Designed matching, team support, and retrospectives for the first AI Buddy cohort; mentored a team that won the audience vote at the third AI demo contest",
+						"Ran the second and third AI demo contests and taught hands-on sessions rated 5/5 for satisfaction and 4.5/5 for practical usefulness",
+					],
 				},
 				{
 					title: "Glowbeast",
@@ -66,29 +99,11 @@ const resumeEn: Resume = {
 						"Brand site for Glowbeast, an active beauty brand for people who work out.",
 					link: "https://glowbeast.co/",
 					do: [
-						"Built and handed over the Home, About, and Lineup pages with responsive layouts supporting screens down to 320px",
+						"Built responsive home, brand story, and product lineup pages and handed over site operations",
 						"Laid the groundwork for organic search traffic with SEO meta tag optimization and Google Search Console registration",
-						"Implemented SMTP in-house for welcome emails",
+						"Implemented SMTP-based welcome email delivery",
 					],
 					techHighlight: ["Next.js(App Router)", "TypeScript"],
-				},
-				{
-					title: "AI Tooling Design & Development",
-					do: [
-						"Redesigned GrandePPT 2.0, a company-branded slide-generation plugin, for non-engineering users and released it on the internal marketplace (May 2026)",
-						"Designed a human–AI translation workflow using the Claude API for Magazine C's English edition, defining the style guide, glossary, review process, and collaboration standards with an external translator",
-						"Defined evaluation criteria for a Paperclip multi-agent orchestration proof of concept—real-time behavior, usability for non-specialists, and deployment reliability—and owned CDO-role tests and demo scenarios to support an adoption decision",
-					],
-				},
-				{
-					title: "AX Program Design & Operation",
-					link: "https://luma.com/grandeclip?period=past",
-					do: [
-						"Initiated company-wide AI meetups, mentoring, demo contests, and hands-on sessions; built an operating process from proposals and internal approval through delivery and retrospectives",
-						"Led two public AX meetups with 310 and 367 registrations respectively; handled speaker recruitment, sponsorships, and event delivery",
-						"Designed mentor–mentee matching, team support, and retrospectives for the first AI Buddy cohort; personally mentored a team that won the audience vote at the third AI demo contest",
-						"Planned, ran, and hosted the second and third AI demo contests to share practical use cases from non-engineering teams; taught hands-on AI sessions rated 5/5 for satisfaction and 4.5/5 for practical usefulness",
-					],
 				},
 				{
 					title: "CHAAK",
