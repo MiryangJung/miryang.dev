@@ -13,7 +13,7 @@ const resumeEn: Resume = {
 		{
 			title: "I don't hesitate to expand my role.",
 			description:
-				"When a newly launched service had no traffic, I designed the marketing campaign myself; when the organization needed AI, I planned and ran a company-wide AI transformation (AX) program. I cross role boundaries whenever the problem calls for it. During the uncertain transition into the AX Partner role, a peer review singled me out as the member who most proactively found and executed new work, reaching out first to colleagues I had rarely collaborated with.",
+				"I take ownership of operations and marketing after launch, and have initiated and run company-wide AI training and mentoring programs. I extend product engineering into workplace improvements by building slide-generation and contract-review tools for non-engineering teams. Selected for Grandeclip's outstanding employee recognition for the first half of 2026.",
 		},
 		{
 			title: "I pursue completeness in the customer experience.",
@@ -34,14 +34,15 @@ const resumeEn: Resume = {
 						"Brand site and direct-to-consumer store for Magazine C, a documentary magazine about chairs.",
 					link: "https://chairmagazine-c.com/en",
 					do: [
-						"Single-handedly built the brand site, e-commerce store, and back office as a full-stack developer, launching in about two months",
-						"Handled the practical work required to launch commerce, including payment gateway and card issuer reviews and duty-free processing",
-						"Owned the product beyond development, communicating directly with the Magazine C team and leading the entire journey from site build to operations and marketing",
-						"Planned and ran an influencer campaign with UTM and coupon tracking to solve the lack of traffic right after launch",
+						"Used Claude Code to build the Supabase database, brand site, e-commerce store, and content admin as the sole full-stack developer; launched in about two months, establishing a direct sales channel for magazines and merchandise (Jun 2026)",
+						"Integrated PortOne/KCP payments, Naver Pay, Kakao Pay, Toss Pay, and VAT-exempt book sales; handled gateway and card issuer reviews through order fulfillment and refunds",
+						"Aligned requirements and page layouts directly with the Magazine C team and led QA to launch without a dedicated product manager or designer",
+						"Built welcome and product-specific coupons, plus Cici, a daily Slack briefing bot that automates visitor and order reporting",
+						"Proposed and designed an influencer campaign, then collaborated with seven creators in H2 to generate 212K cumulative content views, 1,350 saves, and 533 shares (Jul–Sep 2026 posts, measured in October)",
 						"Built organic acquisition channels through SEO optimization and Google Shopping feed integration to expand search visibility",
 					],
 					techHighlight: ["Claude Code", "Next.js(App Router)"],
-					tech: ["TypeScript", "Google Analytics"],
+					tech: ["TypeScript", "Supabase", "PortOne", "Google Analytics"],
 				},
 				{
 					title: "POUCH-it",
@@ -65,7 +66,7 @@ const resumeEn: Resume = {
 						"Brand site for Glowbeast, an active beauty brand for people who work out.",
 					link: "https://glowbeast.co/",
 					do: [
-						"Built a responsive brand site on a tight schedule and launched on deadline",
+						"Built and handed over the Home, About, and Lineup pages with responsive layouts supporting screens down to 320px",
 						"Laid the groundwork for organic search traffic with SEO meta tag optimization and Google Search Console registration",
 						"Implemented SMTP in-house for welcome emails",
 					],
@@ -74,19 +75,20 @@ const resumeEn: Resume = {
 				{
 					title: "AI Tooling Design & Development",
 					do: [
-						"Built 'GrandePPT', a plugin that generates slide decks in the company style, and shipped v2.0 internally",
-						"Designed a human+AI hybrid translation workflow for the English edition of Magazine C — defined the style guide, glossary consistency, and review process while collaborating with a translator",
-						"Ran a proof of concept for a multi-agent orchestration tool (Paperclip) — validated role-based (CEO/CTO/CDO) agents from natural-language instructions to feature implementation",
+						"Redesigned GrandePPT 2.0, a company-branded slide-generation plugin, for non-engineering users and released it on the internal marketplace (May 2026)",
+						"Built GrandeLegal, a plugin for clause-level contract review, risk classification, redlines, and negotiation guidance; compared its output with a lawyer's review of a real contract before distributing it to Legal and GVC teams",
+						"Designed a human–AI translation workflow using the Claude API for Magazine C's English edition, defining the style guide, glossary, review process, and collaboration standards with an external translator",
+						"Defined evaluation criteria for a Paperclip multi-agent orchestration proof of concept—real-time behavior, usability for non-specialists, and deployment reliability—and owned CDO-role tests and demo scenarios to support an adoption decision",
 					],
 				},
 				{
 					title: "AX Program Design & Operation",
 					link: "https://luma.com/grandeclip?period=past",
 					do: [
-						"AX Meetup — planned and hosted an open external AI meetup for case sharing (310 sign-ups for the 1st edition, ~400 for the 2nd, with most satisfaction ratings at 5/5)",
-						"AI Buddy Program — designed and ran a mentor–mentee matching program to level up AI skills across the company",
-						"AI Show & Tell — planned and hosted an internal demo contest for sharing things built with AI, spreading use cases and encouraging adoption",
-						"AI Hands-on — planned and ran practice-oriented AI learning sessions for non-engineering roles",
+						"Initiated company-wide AI meetups, mentoring, demo contests, and hands-on sessions; built an operating process from proposals and internal approval through delivery and retrospectives",
+						"Led two public AX meetups with 310 and 367 registrations respectively; handled speaker recruitment, sponsorships, and event delivery, and published presentation materials on GitHub",
+						"Designed mentor–mentee matching, team support, and retrospectives for the first AI Buddy cohort; personally mentored a team that won the audience vote at the third AI demo contest",
+						"Planned, ran, and hosted the second and third AI demo contests to share practical use cases from non-engineering teams; taught hands-on AI sessions rated 5/5 for satisfaction and 4.5/5 for practical usefulness",
 					],
 				},
 				{
@@ -265,6 +267,14 @@ const resumeEn: Resume = {
 		},
 	],
 	otherExperience: [
+		{
+			name: "Awards",
+			content: [
+				{
+					title: "Grandeclip Outstanding Employee Recognition — H1 2026",
+				},
+			],
+		},
 		{
 			name: "Talks",
 			content: [
